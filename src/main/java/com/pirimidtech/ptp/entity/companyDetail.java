@@ -34,9 +34,6 @@ public class companyDetail {
     @OneToMany(mappedBy = "companyDetail", cascade = CascadeType.ALL)
     private List<stockDetail> stockDetailList;
 
-    @OneToMany(mappedBy = "companyDetail")
-    private List<stockBrands> stockBrandsList;
-
     public companyDetail(UUID companyID, String name, String logoURL, String assetClass, String about, String managingDirector, String organization) {
         this.companyID = companyID;
         this.name = name;
@@ -111,11 +108,5 @@ public class companyDetail {
         this.stockDetailList = stockDetailList;
     }
 
-    public List<stockBrands> getStockBrandsList() {
-        return stockBrandsList;
-    }
 
-    public void setStockBrandsList(List<stockBrands> stockBrandsList) {
-        this.stockBrandsList = stockBrandsList;
-    }
 }

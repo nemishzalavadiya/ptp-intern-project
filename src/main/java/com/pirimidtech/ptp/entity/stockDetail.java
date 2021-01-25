@@ -2,6 +2,7 @@ package com.pirimidtech.ptp.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -13,8 +14,8 @@ public class stockDetail {
     private UUID stockID;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "companyID")
-    private companyDetail companydetail;
+    @JoinColumn(name = "stockID")
+    private stockDetail stockDetail;
 
     @Column(name = "yearFounded")
     private Date yearFounded;
@@ -25,13 +26,16 @@ public class stockDetail {
     @OneToOne(mappedBy = "stockDetail")
     private stockStatistic stockStatistic;
 
+    @OneToMany(mappedBy = "stockDetail")
+    private List<stockBrands> stockBrandsList;
+
     public stockDetail(){
 
     }
 
-    public stockDetail(UUID stockID, companyDetail companydetail, Date yearFounded, String managingDirector) {
+    public stockDetail(UUID stockID, stockDetail stockDetail, Date yearFounded, String managingDirector) {
         this.stockID = stockID;
-        this.companydetail = companydetail;
+        this.stockDetail = stockDetail;
         this.yearFounded = yearFounded;
         this.managingDirector = managingDirector;
     }
@@ -44,12 +48,12 @@ public class stockDetail {
         this.stockID = stockID;
     }
 
-    public companyDetail getCompanydetail() {
-        return companydetail;
+    public stockDetail getStockDetail() {
+        return stockDetail;
     }
 
-    public void setCompanydetail(companyDetail companydetail) {
-        this.companydetail = companydetail;
+    public void setStockDetail(stockDetail stockdetail) {
+        this.stockDetail = stockdetail;
     }
 
     public Date getYearFounded() {
@@ -66,5 +70,13 @@ public class stockDetail {
 
     public void setManagingDirector(String managingDirector) {
         this.managingDirector = managingDirector;
+    }
+
+    public List<stockBrands> getStockBrandsList() {
+        return stockBrandsList;
+    }
+
+    public void setStockBrandsList(List<stockBrands> stockBrandsList) {
+        this.stockBrandsList = stockBrandsList;
     }
 }

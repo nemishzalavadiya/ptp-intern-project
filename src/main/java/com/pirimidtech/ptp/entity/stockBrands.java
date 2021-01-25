@@ -16,8 +16,8 @@ public class stockBrands {
     private String brandLogoURL;
 
     @ManyToOne
-    @JoinColumn(name = "companyID")
-    private companyDetail companyDetail;
+    @JoinColumn(name = "stockID")
+    private stockDetail stockDetail;
 
     public stockBrands(UUID brandID, String brandName, String brandLogoURL) {
         this.brandID = brandID;
@@ -52,11 +52,11 @@ public class stockBrands {
         this.brandLogoURL = brandLogoURL;
     }
 
-    public com.pirimidtech.ptp.entity.companyDetail getCompanyDetail() {
-        return companyDetail;
+    public stockDetail getCompanyDetail() {
+        return stockDetail;
     }
 
-    public void setCompanyDetail(com.pirimidtech.ptp.entity.companyDetail companyDetail) {
-        this.companyDetail = companyDetail;
+    public void setStockDetail(stockDetail stockdetail) {
+        this.stockDetail = stockdetail;
     }
 }

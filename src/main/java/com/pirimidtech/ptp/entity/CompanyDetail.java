@@ -30,8 +30,10 @@ public class CompanyDetail {
 
     private String organization;
 
-    @OneToMany()
+    @OneToMany
     private List<StockDetail> stockDetailList;
+    @OneToMany
+    private List<MutualFundDetail> mutualFundDetails;
 
 
 }

@@ -26,10 +26,10 @@ public class StockDetail {
 
     private String managingDirector;
 
-    @OneToOne()
+    @OneToOne
     private StockStatistic stockStatistic;
 
-    @OneToMany()
+    @OneToMany
     private List<StockBrands> stockBrandsList;
 
 

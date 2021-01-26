@@ -15,12 +15,10 @@ import java.util.UUID;
 @Table(name = "mutualFundDetail")
 public class MutualFundDetail {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public UUID mutualFundID;
 
     private Date launchDate;
 
-//    @OneToOne(mappedBy = "mutualFundDetail")
     @OneToOne(mappedBy = "mutualFundDetail")
     private MutualFundStatistic mutualFundStatistic;
 
@@ -28,7 +26,7 @@ public class MutualFundDetail {
     @JoinColumn(name = "companyID")
     private CompanyDetail companyDetail;
 
-    @ManyToMany(mappedBy = "mutualFundID")
+    @ManyToMany(mappedBy = "mutualFundDetail")
     private List<MutualFundCategory> mutualFundCategory;
 
 }

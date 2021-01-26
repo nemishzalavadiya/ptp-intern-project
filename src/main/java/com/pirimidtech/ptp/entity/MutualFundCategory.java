@@ -14,13 +14,9 @@ import java.util.UUID;
 @Table(name = "mutualFundCategory")
 public class MutualFundCategory {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public UUID mutualFundCategoryID;
 
     private String name;
-
-//    @ManyToMany(targetEntity = MutualFundDetail.class, cascade = CascadeType.ALL, mappedBy = "mutualFundCategory")
-//    @JoinColumn(name = "mutualFundID")
 
     @ManyToMany
     @JoinTable(name = "MutualFundCategoryFromDetail",

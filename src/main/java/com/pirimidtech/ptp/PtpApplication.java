@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @EntityScan
-@EnableAutoConfiguration
 @SpringBootApplication
 public class PtpApplication {
 

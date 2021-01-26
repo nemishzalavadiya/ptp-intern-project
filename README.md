@@ -1,3 +1,3 @@
 # ptp
 
-Trading Platform ...
+Trading Platform

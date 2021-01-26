@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "stockDetail")
-public class stockDetail {
+public class StockDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stockID")
@@ -15,7 +15,7 @@ public class stockDetail {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "stockID")
-    private stockDetail stockDetail;
+    private StockDetail stockDetail;
 
     @Column(name = "yearFounded")
     private Date yearFounded;
@@ -24,16 +24,16 @@ public class stockDetail {
     private String managingDirector;
 
     @OneToOne(mappedBy = "stockDetail")
-    private stockStatistic stockStatistic;
+    private StockStatistic stockStatistic;
 
     @OneToMany(mappedBy = "stockDetail")
-    private List<stockBrands> stockBrandsList;
+    private List<StockBrands> stockBrandsList;
 
-    public stockDetail(){
+    public StockDetail(){
 
     }
 
-    public stockDetail(UUID stockID, stockDetail stockDetail, Date yearFounded, String managingDirector) {
+    public StockDetail(UUID stockID, StockDetail stockDetail, Date yearFounded, String managingDirector) {
         this.stockID = stockID;
         this.stockDetail = stockDetail;
         this.yearFounded = yearFounded;
@@ -48,11 +48,11 @@ public class stockDetail {
         this.stockID = stockID;
     }
 
-    public stockDetail getStockDetail() {
+    public StockDetail getStockDetail() {
         return stockDetail;
     }
 
-    public void setStockDetail(stockDetail stockdetail) {
+    public void setStockDetail(StockDetail stockdetail) {
         this.stockDetail = stockdetail;
     }
 
@@ -72,11 +72,11 @@ public class stockDetail {
         this.managingDirector = managingDirector;
     }
 
-    public List<stockBrands> getStockBrandsList() {
+    public List<StockBrands> getStockBrandsList() {
         return stockBrandsList;
     }
 
-    public void setStockBrandsList(List<stockBrands> stockBrandsList) {
+    public void setStockBrandsList(List<StockBrands> stockBrandsList) {
         this.stockBrandsList = stockBrandsList;
     }
 }

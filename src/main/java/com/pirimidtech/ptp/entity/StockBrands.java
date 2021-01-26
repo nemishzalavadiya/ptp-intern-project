@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-public class stockBrands {
+public class StockBrands {
     @Id
     @Column(name = "brandID")
     private UUID brandID;
@@ -17,14 +17,14 @@ public class stockBrands {
 
     @ManyToOne
     @JoinColumn(name = "stockID")
-    private stockDetail stockDetail;
+    private StockDetail stockDetail;
 
-    public stockBrands(UUID brandID, String brandName, String brandLogoURL) {
+    public StockBrands(UUID brandID, String brandName, String brandLogoURL) {
         this.brandID = brandID;
         this.brandName = brandName;
         this.brandLogoURL = brandLogoURL;
     }
-    public stockBrands(){
+    public StockBrands(){
 
     }
 
@@ -52,11 +52,11 @@ public class stockBrands {
         this.brandLogoURL = brandLogoURL;
     }
 
-    public stockDetail getCompanyDetail() {
+    public StockDetail getCompanyDetail() {
         return stockDetail;
     }
 
-    public void setStockDetail(stockDetail stockdetail) {
+    public void setStockDetail(StockDetail stockdetail) {
         this.stockDetail = stockdetail;
     }
 }

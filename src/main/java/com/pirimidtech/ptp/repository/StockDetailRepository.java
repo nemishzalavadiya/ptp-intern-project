@@ -1,10 +1,10 @@
 package com.pirimidtech.ptp.repository;
 
-import com.pirimidtech.ptp.entity.stockBrands;
+import com.pirimidtech.ptp.entity.StockDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface stockBrandsRepository extends JpaRepository<stockBrands, UUID> {
 
+public interface StockDetailRepository extends JpaRepository<StockDetail, UUID> {
 }

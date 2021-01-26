@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-public class stockStatistic {
+public class StockStatistic {
     @Id
     @Column(name = "stockID")
     private UUID stockID;
@@ -38,9 +38,9 @@ public class stockStatistic {
 
     @OneToOne
     @PrimaryKeyJoinColumn(name = "stockID")
-    private stockDetail stockDetail;
+    private StockDetail stockDetail;
 
-    public stockStatistic(UUID stockID, Integer numberOfStackHolders, float pbRatio, float peRatio, float industryPE, float divYield, float bookValue, float marketCap, float returnOnEquity, float earningPerShareTTM) {
+    public StockStatistic(UUID stockID, Integer numberOfStackHolders, float pbRatio, float peRatio, float industryPE, float divYield, float bookValue, float marketCap, float returnOnEquity, float earningPerShareTTM) {
         this.stockID = stockID;
         this.numberOfStackHolders = numberOfStackHolders;
         this.pbRatio = pbRatio;
@@ -53,7 +53,7 @@ public class stockStatistic {
         this.earningPerShareTTM = earningPerShareTTM;
     }
 
-    public stockStatistic() {
+    public StockStatistic() {
     }
 
     public UUID getStockID() {
@@ -136,11 +136,11 @@ public class stockStatistic {
         this.earningPerShareTTM = earningPerShareTTM;
     }
 
-    public com.pirimidtech.ptp.entity.stockDetail getStockDetail() {
+    public StockDetail getStockDetail() {
         return stockDetail;
     }
 
-    public void setStockDetail(com.pirimidtech.ptp.entity.stockDetail stockDetail) {
+    public void setStockDetail(StockDetail stockDetail) {
         this.stockDetail = stockDetail;
     }
 }

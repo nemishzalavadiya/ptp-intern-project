@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "companyDetail")
-public class companyDetail {
+public class CompanyDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +32,12 @@ public class companyDetail {
     private String organization;
 
     @OneToMany(mappedBy = "companyDetail", cascade = CascadeType.ALL)
-    private List<stockDetail> stockDetailList;
+    private List<StockDetail> stockDetailList;
 
-    public companyDetail(UUID companyID, String name, String logoURL, String assetClass, String about, String managingDirector, String organization) {
+    public CompanyDetail() {
+    }
+
+    public CompanyDetail(UUID companyID, String name, String logoURL, String assetClass, String about, String managingDirector, String organization) {
         this.companyID = companyID;
         this.name = name;
         this.logoURL = logoURL;
@@ -100,11 +103,11 @@ public class companyDetail {
         this.organization = organization;
     }
 
-    public List<stockDetail> getStockDetailList() {
+    public List<StockDetail> getStockDetailList() {
         return stockDetailList;
     }
 
-    public void setStockDetailList(List<stockDetail> stockDetailList) {
+    public void setStockDetailList(List<StockDetail> stockDetailList) {
         this.stockDetailList = stockDetailList;
     }
 

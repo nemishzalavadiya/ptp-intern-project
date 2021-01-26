@@ -1,14 +1,11 @@
 package com.pirimidtech.ptp.entity;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,20 +14,26 @@ import java.util.UUID;
 public class StockDetail {
     @Id
     public UUID stockID;
-
-    @ManyToOne()
-    @JoinColumn(name = "companyID", referencedColumnName = "companyID")
+    private Date yearFounded;
+    private String managingDirector;
+    @ManyToOne(targetEntity = CompanyDetail.class)
+    @JoinColumn(name = "companyID")
     private CompanyDetail companyDetail;
 
-    private Date yearFounded;
-
-    private String managingDirector;
-
-    @OneToOne()
+    @OneToOne(mappedBy ="stockDetail")
     private StockStatistic stockStatistic;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
     private List<StockBrands> stockBrandsList;
+
+    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
+    private List<StockPrice> stockPriceList;
+
+    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
+    private List<StockOrder> stockOrderList;
+
+    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
+    private List<StockTradeHistory> stockTradeHistoryList;
 
 
 }

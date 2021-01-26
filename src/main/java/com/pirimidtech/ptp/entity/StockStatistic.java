@@ -34,7 +34,11 @@ public class StockStatistic {
 
     private float earningPerShareTTM;
 
-    @OneToOne()
+//    @OneToOne(targetEntity = StockDetail.class)
+//    @JoinColumn(name = "stockID")
+    @OneToOne(targetEntity = StockDetail.class)
+    @JoinColumn(name="stockID")
+    @MapsId
     private StockDetail stockDetail;
 
 

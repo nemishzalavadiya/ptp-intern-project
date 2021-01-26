@@ -21,14 +21,14 @@ public class MutualFundDetail {
     private Date launchDate;
 
 //    @OneToOne(mappedBy = "mutualFundDetail")
-    @OneToOne
+    @OneToOne(mappedBy = "mutualFundDetail")
     private MutualFundStatistic mutualFundStatistic;
 
-    @ManyToOne
-    @JoinColumn(name = "companyID", referencedColumnName = "companyID")
+    @ManyToOne(targetEntity = CompanyDetail.class)
+    @JoinColumn(name = "companyID")
     private CompanyDetail companyDetail;
 
-    @ManyToMany(mappedBy = "mutualFundDetail")
+    @ManyToMany(mappedBy = "mutualFundID")
     private List<MutualFundCategory> mutualFundCategory;
 
 }

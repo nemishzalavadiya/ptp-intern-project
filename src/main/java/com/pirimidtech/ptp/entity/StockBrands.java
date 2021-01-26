@@ -20,7 +20,8 @@ public class StockBrands {
 
     private String brandLogoURL;
 
-    @ManyToOne()
+    @ManyToOne(targetEntity = StockDetail.class)
+    @JoinColumn(name = "stockID")
     private StockDetail stockDetail;
 
 

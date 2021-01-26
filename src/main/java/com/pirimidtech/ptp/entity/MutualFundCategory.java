@@ -19,7 +19,13 @@ public class MutualFundCategory {
 
     private String name;
 
+//    @ManyToMany(targetEntity = MutualFundDetail.class, cascade = CascadeType.ALL, mappedBy = "mutualFundCategory")
+//    @JoinColumn(name = "mutualFundID")
+
     @ManyToMany
+    @JoinTable(name = "MutualFundCategoryFromDetail",
+            joinColumns = @JoinColumn(name = "mutualFundCategoryID"),
+            inverseJoinColumns = @JoinColumn(name = "mutualFundID"))
     private List<MutualFundDetail> mutualFundDetail;
 }
 

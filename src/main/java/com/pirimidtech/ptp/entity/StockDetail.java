@@ -18,18 +18,20 @@ public class StockDetail {
     @Id
     public UUID stockID;
 
-    @ManyToOne()
-    @JoinColumn(name = "companyID", referencedColumnName = "companyID")
+    @ManyToOne(targetEntity = CompanyDetail.class)
+    @JoinColumn(name = "companyID")
     private CompanyDetail companyDetail;
 
     private Date yearFounded;
 
     private String managingDirector;
 
-    @OneToOne
+    //@OneToOne(mappedBy = "StockDetail", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy ="stockDetail")
+    @PrimaryKeyJoinColumn
     private StockStatistic stockStatistic;
 
-    @OneToMany
+    @OneToMany(mappedBy = "stockDetail")
     private List<StockBrands> stockBrandsList;
 
 

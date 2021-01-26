@@ -26,7 +26,8 @@ public class MutualFundStatistic {
     private Date fundStarted;
     private float fundSize;
 
-    @OneToOne
+    @OneToOne(targetEntity = MutualFundDetail.class)
+    @JoinColumn(name = "mutualFundID")
     private MutualFundDetail mutualFundDetail;
 
 

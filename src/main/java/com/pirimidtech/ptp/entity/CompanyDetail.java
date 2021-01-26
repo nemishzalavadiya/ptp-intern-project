@@ -30,9 +30,11 @@ public class CompanyDetail {
 
     private String organization;
 
-    @OneToMany
+    @OneToMany(mappedBy = "companyDetail")
     private List<StockDetail> stockDetailList;
-    @OneToMany
+
+
+    @OneToMany(mappedBy = "companyDetail")
     private List<MutualFundDetail> mutualFundDetails;
 
 

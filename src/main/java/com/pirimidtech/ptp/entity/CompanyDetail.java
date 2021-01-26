@@ -26,4 +26,8 @@ public class CompanyDetail {
     @OneToMany(mappedBy = "companyDetail")
     private List<Position> positionList;
 
+    @OneToMany(mappedBy = "companyDetail")
+    private List<MutualFundDetail> mutualFundDetails;
+
+
 }

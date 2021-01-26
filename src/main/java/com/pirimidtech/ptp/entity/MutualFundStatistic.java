@@ -10,27 +10,27 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @Entity
-    @Table(name = "mutualFundStatistic")
-    public class MutualFundStatistic {
-        @Id
-        public UUID MutualFundID;
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
+@Table(name = "mutualFundStatistic")
+public class MutualFundStatistic {
+    @Id
+    public UUID MutualFundID;
 
 
-        private String risk;
-        private float minSIP;
-        private boolean SIPallowed;
-        private float expenseRatio;
-        private float NAV;
-        private Date fundStarted;
-        private float fundSize;
+    private String risk;
+    private float minSIP;
+    private boolean SIPallowed;
+    private float expenseRatio;
+    private float NAV;
+    private Date fundStarted;
+    private float fundSize;
 
-        @OneToOne(targetEntity = MutualFundDetail.class)
-        @JoinColumn(name = "mutualFundID")
-        private MutualFundDetail mutualFundDetail;
+    @OneToOne(targetEntity = MutualFundDetail.class)
+    @JoinColumn(name = "mutualFundID")
+    private MutualFundDetail mutualFundDetail;
 
 
-    }
+}

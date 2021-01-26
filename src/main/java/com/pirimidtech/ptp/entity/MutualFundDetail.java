@@ -19,7 +19,6 @@ public class MutualFundDetail {
 
     private Date launchDate;
 
-//    @OneToOne(mappedBy = "mutualFundDetail")
     @OneToOne(mappedBy = "mutualFundDetail")
     private MutualFundStatistic mutualFundStatistic;
 

@@ -20,10 +20,12 @@ public class StockDetail {
     @JoinColumn(name = "companyID")
     private CompanyDetail companyDetail;
 
+    //@OneToOne(mappedBy = "StockDetail", cascade = CascadeType.ALL)
     @OneToOne(mappedBy ="stockDetail")
+    @PrimaryKeyJoinColumn
     private StockStatistic stockStatistic;
 
-    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stockDetail")
     private List<StockBrands> stockBrandsList;
 
     @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)

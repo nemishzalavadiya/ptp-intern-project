@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 
@@ -25,7 +24,7 @@ public class StockPrice {
 
     private Integer  price;
 
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
     private char stockExchange;// BSE or NSE
 

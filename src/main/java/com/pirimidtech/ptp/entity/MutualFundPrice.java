@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -22,7 +22,7 @@ public class MutualFundPrice {
 
     private Integer price;
 
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
     @ManyToOne(targetEntity = MutualFundDetail.class)
     @JoinColumn(name = "mutualFundId")

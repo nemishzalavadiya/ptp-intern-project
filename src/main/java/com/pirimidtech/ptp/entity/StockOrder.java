@@ -5,10 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.apachecommons.CommonsLog;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -23,7 +22,7 @@ public class StockOrder {
     @Id
     private UUID orderID;
 
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
     private Integer tradeVolume;
 

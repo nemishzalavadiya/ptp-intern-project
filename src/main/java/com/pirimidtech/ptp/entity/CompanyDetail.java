@@ -11,23 +11,29 @@ import java.util.UUID;
 @Entity
 @Table(name = "companyDetail")
 public class CompanyDetail {
+
     @Id
-    private UUID companyID;
+    public UUID companyID;
+
     private String name;
+
     private String logoURL;
+
     private String assetClass;
+
     private String about;
+
     private String managingDirector;
+
     private String organization;
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "companyDetail")
     private List<StockDetail> stockDetailList;
-
-
-    @OneToMany(mappedBy = "companyDetail")
-    private List<Position> positionList;
 
     @OneToMany(mappedBy = "companyDetail")
     private List<MutualFundDetail> mutualFundDetails;
 
+    @OneToMany(mappedBy = "companyDetail")
+    private List<Position> positionList;
 
 }

@@ -5,12 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.auditing.DateTimeProvider;
 
 import javax.persistence.*;
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -36,7 +33,7 @@ public class StockTradeHistory {
 
     private Integer tradeVolume;
 
-    private char isBSE;
+    private char stockExchange; //BSE or NSE
 
     private float price;
 

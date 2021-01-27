@@ -21,16 +21,12 @@ import java.util.UUID;
 public class StockPrice {
 
     @Id
-    @Column
     private UUID stockPirceId;
 
-    @Column
     private Integer  price;
 
-    @Column
     private Date timestamp;
 
-    @Column
     private char stockExchange;// BSE or NSE
 
     @ManyToOne(targetEntity = StockDetail.class)

@@ -22,11 +22,9 @@ public class Position {
     @Id
     private Integer positionId;
 
-
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "usedId")
     private User user;
-
 
     @ManyToOne(targetEntity = CompanyDetail.class)
     @JoinColumn(name = "companyId")
@@ -34,8 +32,6 @@ public class Position {
 
     private Integer Volume;
 
-
-    private float price;
-
-
+    private          float price;
+    
 }

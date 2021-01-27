@@ -1,5 +1,4 @@
 package com.pirimidtech.ptp.entity;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,12 +9,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "stockDetail")
 public class StockDetail {
     @Id
-    private UUID stockID;
+    public UUID stockID;
     private Date yearFounded;
     private String managingDirector;
     @ManyToOne(targetEntity = CompanyDetail.class)

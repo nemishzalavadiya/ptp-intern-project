@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class MutualFundDetail {
     @Id
-    private UUID mutualFundID;
+    private UUID mutualFundId;
 
     private Date launchDate;
 
@@ -25,15 +25,15 @@ public class MutualFundDetail {
     private MutualFundStatistic mutualFundStatistic;
 
     @ManyToOne(targetEntity = CompanyDetail.class)
-    @JoinColumn(name = "companyID")
+    @JoinColumn(name = "companyId")
     private CompanyDetail companyDetail;
 
     @ManyToMany(mappedBy = "mutualFundDetail")
-    private List<MutualFundCategory> mutualFundCategory;
+    private List<MutualFundCategory> mutualFundCategories;
 
     @OneToMany(mappedBy = "mutualFundDetail")
-    private List<MutualFundPrice> mutualFundPriceList;
+    private List<MutualFundPrice> mutualFundPrices;
 
     @OneToMany(mappedBy = "mutualFundDetail")
-    private List<MutualFundOrder> mutualFundOrderList;
+    private List<MutualFundOrder> mutualFundOrders;
 }

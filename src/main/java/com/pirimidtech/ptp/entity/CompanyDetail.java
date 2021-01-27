@@ -16,11 +16,11 @@ import java.util.UUID;
 public class CompanyDetail {
 
     @Id
-    public UUID companyID;
+    public UUID companyId;
 
     private String name;
 
-    private String logoURL;
+    private String logoUrl;
 
     private String assetClass;
 
@@ -31,13 +31,13 @@ public class CompanyDetail {
     private String organization;
 
     @OneToMany(mappedBy = "companyDetail")
-    private List<StockDetail> stockDetailList;
+    private List<StockDetail> stockDetails;
 
 
     @OneToMany(mappedBy = "companyDetail")
     private List<MutualFundDetail> mutualFundDetails;
 
     @OneToMany(mappedBy = "companyDetail")
-    private List<Position> positionList;
+    private List<Position> positions;
 }
 

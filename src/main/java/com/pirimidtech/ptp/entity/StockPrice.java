@@ -22,7 +22,7 @@ public class StockPrice {
     @Id
     private UUID stockPirceId;
 
-    private Integer  price;
+    private float  price;
 
     private LocalDateTime timestamp;
 

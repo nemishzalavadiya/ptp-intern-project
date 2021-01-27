@@ -15,19 +15,19 @@ import java.util.UUID;
 @Table(name = "mutualFundStatistic")
 public class MutualFundStatistic {
     @Id
-    private UUID mutualFundID;
+    private UUID mutualFundId;
 
 
     private String risk;
-    private float minSIP;
-    private boolean SIPallowed;
+    private float minSip;
+    private boolean sipAllowed;
     private float expenseRatio;
-    private float NAV;
+    private float nav;
     private Date fundStarted;
     private float fundSize;
 
     @OneToOne(targetEntity = MutualFundDetail.class)
-    @JoinColumn(name = "mutualFundID")
+    @JoinColumn(name = "mutualFundId")
     private MutualFundDetail mutualFundDetail;
 
 

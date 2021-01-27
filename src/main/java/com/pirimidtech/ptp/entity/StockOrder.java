@@ -20,7 +20,7 @@ import java.util.UUID;
 public class StockOrder {
 
     @Id
-    private UUID orderID;
+    private UUID orderId;
 
     private LocalDateTime timestamp;
 

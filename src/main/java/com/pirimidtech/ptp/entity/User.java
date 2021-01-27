@@ -25,14 +25,14 @@ public class User {
     private String userName;
 
     @OneToMany(mappedBy = "user")
-    private List<StockOrder> stockOrder;
+    private List<StockOrder> stockOrders;
 
     @OneToMany(mappedBy = "user")
-    private List<MutualFundOrder> MutualFundOrderList;
+    private List<MutualFundOrder> mutualFundOrders;
 
     @OneToMany(mappedBy = "user")
-    private  List<StockTradeHistory> stockTradeHistoryList;
+    private  List<StockTradeHistory> stockTradeHistories;
 
     @OneToMany(mappedBy = "user")
-    private  List<Position> positionList;
+    private  List<Position> positions;
 }

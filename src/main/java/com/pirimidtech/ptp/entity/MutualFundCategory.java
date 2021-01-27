@@ -14,15 +14,15 @@ import java.util.UUID;
 @Table(name = "mutualFundCategory")
 public class MutualFundCategory {
     @Id
-    private UUID mutualFundCategoryID;
+    private UUID mutualFundCategoryId;
 
     private String name;
 
     @ManyToMany
     @JoinTable(name = "MutualFundCategoryFromDetail",
-            joinColumns = @JoinColumn(name = "mutualFundCategoryID"),
-            inverseJoinColumns = @JoinColumn(name = "mutualFundID"))
-    private List<MutualFundDetail> mutualFundDetail;
+            joinColumns = @JoinColumn(name = "mutualFundCategoryId"),
+            inverseJoinColumns = @JoinColumn(name = "mutualFundId"))
+    private List<MutualFundDetail> mutualFundDetails;
 
 
     private String fundManager;

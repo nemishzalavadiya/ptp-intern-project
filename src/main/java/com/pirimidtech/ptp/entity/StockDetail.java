@@ -13,11 +13,11 @@ import java.util.UUID;
 @Table(name = "stockDetail")
 public class StockDetail {
     @Id
-    public UUID stockID;
+    public UUID stockId;
     private Date yearFounded;
     private String managingDirector;
     @ManyToOne(targetEntity = CompanyDetail.class)
-    @JoinColumn(name = "companyID")
+    @JoinColumn(name = "companyId")
     private CompanyDetail companyDetail;
 
     //@OneToOne(mappedBy = "StockDetail", cascade = CascadeType.ALL)
@@ -26,16 +26,16 @@ public class StockDetail {
     private StockStatistic stockStatistic;
 
     @OneToMany(mappedBy = "stockDetail")
-    private List<StockBrands> stockBrandsList;
+    private List<StockBrands> stockBrands;
 
     @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
-    private List<StockPrice> stockPriceList;
+    private List<StockPrice> stockPrices;
 
     @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
-    private List<StockOrder> stockOrderList;
+    private List<StockOrder> stockOrders;
 
     @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
-    private List<StockTradeHistory> stockTradeHistoryList;
+    private List<StockTradeHistory> stockTradeHistories;
 
 
 }

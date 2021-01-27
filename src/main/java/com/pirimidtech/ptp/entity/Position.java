@@ -20,7 +20,7 @@ import java.util.UUID;
 public class Position {
 
     @Id
-    private Integer positionId;
+    private UUID positionId;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "usedId")
@@ -32,6 +32,6 @@ public class Position {
 
     private Integer Volume;
 
-    private          float price;
+    private float price;
     
 }

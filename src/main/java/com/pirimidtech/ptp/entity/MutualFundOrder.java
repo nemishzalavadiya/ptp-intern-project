@@ -22,14 +22,14 @@ public class MutualFundOrder {
     private UUID transactionId;
 
     @ManyToOne(targetEntity = MutualFundDetail.class)
-    @JoinColumn(name = "MutualFundId")
+    @JoinColumn(name = "mutualFundId")
     private MutualFundDetail mutualFundDetail;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userId")
     private User user;
 
-    private Date SIPDate;
+    private Date sipDate;
 
     private float price;
 

@@ -8,13 +8,13 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "stockBrands")
+@Table(name = "stockBrand")
 public class StockBrands {
     @Id
-    public UUID brandID;
+    public UUID brandId;
     private String brandName;
-    private String brandLogoURL;
+    private String brandLogoUrl;
     @ManyToOne(targetEntity = StockDetail.class)
-    @JoinColumn(name="stockID")
+    @JoinColumn(name="stockId")
     private StockDetail stockDetail;
 }

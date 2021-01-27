@@ -1,6 +1,5 @@
 package com.pirimidtech.ptp.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,14 +14,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "mutualFundOrder")
+@Table(name ="mutualFundOrder")
 public class MutualFundOrder {
 
     @Id
     private UUID transactionId;
 
     @ManyToOne(targetEntity = MutualFundDetail.class)
-    @JoinColumn(name = "MutualFundId")
+    @JoinColumn(name  = "MutualFundId")
     private MutualFundDetail mutualFundDetail;
 
     @ManyToOne(targetEntity = User.class)
@@ -34,4 +33,5 @@ public class MutualFundOrder {
     private float price;
 
     private char isOneTime;
+
 }

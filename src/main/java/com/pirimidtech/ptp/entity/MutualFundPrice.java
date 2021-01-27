@@ -1,12 +1,10 @@
 package com.pirimidtech.ptp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -14,19 +12,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "MutualFundPrice")
+@Table(name = "mutualFundPrice")
 public class MutualFundPrice {
 
     @Id
     private UUID mutualFundPirceId;
 
-    private Integer price;
+    private Integer  price;
 
-    private LocalDateTime timestamp;
+    private Date timestamp;
 
     @ManyToOne(targetEntity = MutualFundDetail.class)
-    @JoinColumn(name = "mutualFundId")
+    @JoinColumn( name = "mutualFundId")
     private MutualFundDetail mutualFundDetail;
-
-
 }

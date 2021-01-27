@@ -18,14 +18,13 @@ public class MutualFundCategory {
 
     private String name;
 
+    private String fundManager;
+
     @ManyToMany
-    @JoinTable(name = "MutualFundCategoryFromDetail",
+    @JoinTable(name = "mutualFundCategoryFromDetail",
             joinColumns = @JoinColumn(name = "mutualFundCategoryID"),
             inverseJoinColumns = @JoinColumn(name = "mutualFundID"))
     private List<MutualFundDetail> mutualFundDetail;
-
-
-    private String fundManager;
 
 }
 

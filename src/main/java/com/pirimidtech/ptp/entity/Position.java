@@ -1,6 +1,5 @@
 package com.pirimidtech.ptp.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "position")
-
 public class Position {
-
     @Id
     private Integer positionId;
 
@@ -32,6 +29,6 @@ public class Position {
 
     private Integer Volume;
 
-    private          float price;
-    
+    private float price;
+
 }

@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,19 +12,25 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "mutualFundStatistic")
 public class MutualFundStatistic {
     @Id
-    private UUID mutualFundID;
-
+    private UUID MutualFundID;
 
     private String risk;
+
     private float minSIP;
+
     private boolean SIPallowed;
+
     private float expenseRatio;
+
     private float NAV;
+
     private Date fundStarted;
+
     private float fundSize;
 
     @OneToOne(targetEntity = MutualFundDetail.class)

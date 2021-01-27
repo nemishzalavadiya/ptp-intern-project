@@ -1,6 +1,6 @@
 package com.pirimidtech.ptp.entity;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,10 +15,10 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="userDetail")
 public class User {
-
     @Id
     private UUID userId;
 
@@ -35,4 +35,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private  List<Position> positionList;
+
 }
+

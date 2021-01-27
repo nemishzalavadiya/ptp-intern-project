@@ -3,7 +3,6 @@ package com.pirimidtech.ptp.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -14,9 +13,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "companyDetail")
 public class CompanyDetail {
-
     @Id
-    public UUID companyID;
+    private UUID companyID;
 
     private String name;
 
@@ -30,14 +28,18 @@ public class CompanyDetail {
 
     private String organization;
 
-    @OneToMany(mappedBy = "companyDetail")
+    private String sector;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "companyDetail")
     private List<StockDetail> stockDetailList;
 
+    @OneToMany(mappedBy = "companyDetail")
+    private List<Position> positionList;
 
     @OneToMany(mappedBy = "companyDetail")
     private List<MutualFundDetail> mutualFundDetails;
 
-    @OneToMany(mappedBy = "companyDetail")
-    private List<Position> positionList;
-}
+    @ManyToOne(targetEntity = WatchList.class)
+    private WatchList watchList;
 
+}

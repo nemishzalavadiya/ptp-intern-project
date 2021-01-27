@@ -15,14 +15,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name ="mutualFundOrder")
+@Table(name = "mutualFundOrder")
 public class MutualFundOrder {
 
     @Id
     private UUID transactionId;
 
     @ManyToOne(targetEntity = MutualFundDetail.class)
-    @JoinColumn(name  = "MutualFundId")
+    @JoinColumn(name = "MutualFundId")
     private MutualFundDetail mutualFundDetail;
 
     @ManyToOne(targetEntity = User.class)

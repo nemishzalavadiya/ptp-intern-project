@@ -1,10 +1,12 @@
 package com.pirimidtech.ptp.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -16,18 +18,14 @@ import java.util.UUID;
 public class MutualFundPrice {
 
     @Id
-    @Column
     private UUID mutualFundPirceId;
 
-    @Column
-    private Integer  price;
+    private Integer price;
 
-    @Column
     private Date timestamp;
 
-
     @ManyToOne(targetEntity = MutualFundDetail.class)
-    @JoinColumn( name = "mutualFundId")
+    @JoinColumn(name = "mutualFundId")
     private MutualFundDetail mutualFundDetail;
 
 

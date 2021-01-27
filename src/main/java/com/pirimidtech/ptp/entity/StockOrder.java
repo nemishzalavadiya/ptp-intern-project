@@ -21,7 +21,6 @@ import java.util.UUID;
 public class StockOrder {
 
     @Id
-    @Column
     private UUID orderID;
 
     @ManyToOne(targetEntity = User.class)
@@ -32,22 +31,20 @@ public class StockOrder {
     @JoinColumn(name = "stockId")
     private StockDetail stockDetail;
 
-
-    @Column
     private Date timestamp;
-    @Column
+
     private Integer   tradeVolume;
-    @Column
-    private char isSellOrBuy;
-    @Column
+
+    private char sellOrBuy;
+
     private char   stockExchange;
-    @Column
+
     private char priceType ;//    market/Limit
-    @Column
+
     private char orderType ;//delivery/intraDay
-    @Column
+
     private float   price;
-    @Column
+
     private String status;
 
 }

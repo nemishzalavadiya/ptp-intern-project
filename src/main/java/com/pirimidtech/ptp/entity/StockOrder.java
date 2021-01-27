@@ -23,14 +23,6 @@ public class StockOrder {
     @Id
     private UUID orderID;
 
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
-    private User user;
-
-    @ManyToOne(targetEntity = StockDetail.class)
-    @JoinColumn(name = "stockId")
-    private StockDetail stockDetail;
-
     private Date timestamp;
 
     private Integer tradeVolume;
@@ -46,5 +38,13 @@ public class StockOrder {
     private float price;
 
     private String status;
+
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userId")
+    private User user;
+
+    @ManyToOne(targetEntity = StockDetail.class)
+    @JoinColumn(name = "stockId")
+    private StockDetail stockDetail;
 
 }

@@ -2,15 +2,12 @@ package com.pirimidtech.ptp.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.UUID;
-
-
-
-import javax.persistence.*;
-import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "MutualFundPrice")
 public class MutualFundPrice {

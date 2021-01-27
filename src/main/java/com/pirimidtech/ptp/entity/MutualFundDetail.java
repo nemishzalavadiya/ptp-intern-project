@@ -11,11 +11,13 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+
 @Entity
 @Table(name = "mutualFundDetail")
+
 public class MutualFundDetail {
     @Id
-    public UUID mutualFundID;
+    private UUID mutualFundID;
 
     private Date launchDate;
 

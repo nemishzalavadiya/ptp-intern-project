@@ -12,7 +12,7 @@ import java.util.UUID;
 @Table(name = "companyDetail")
 public class CompanyDetail {
     @Id
-    public UUID companyID;
+    private UUID companyID;
     private String name;
     private String logoURL;
     private String assetClass;

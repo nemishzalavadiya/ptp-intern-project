@@ -1,18 +1,28 @@
 package com.pirimidtech.ptp.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "stockPrice")
 public class StockPrice {
 
     @Id
     @Column
-    public UUID stockPirceId;
+    private UUID stockPirceId;
 
     @Column
     private Integer  price;

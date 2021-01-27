@@ -11,7 +11,7 @@ import java.util.UUID;
 @Table(name = "stockStatistic")
 public class StockStatistic {
     @Id
-    public UUID stockID;
+    private UUID stockID;
     private Integer numberOfStackHolders;
     private float pbRatio;
     private float peRatio;

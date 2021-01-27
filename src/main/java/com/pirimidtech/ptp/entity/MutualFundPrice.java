@@ -10,13 +10,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "MutualFundPrice")
 public class MutualFundPrice {
 
     @Id
     @Column
-    public UUID MutualFundPirceId;
+    private UUID mutualFundPirceId;
 
     @Column
     private Integer  price;
@@ -29,10 +30,5 @@ public class MutualFundPrice {
     @JoinColumn( name = "mutualFundId")
     private MutualFundDetail mutualFundDetail;
 
-    public MutualFundPrice(UUID mutualFundPirceId, Integer price, Date timestamp, MutualFundDetail mutualFundDetail) {
-        MutualFundPirceId = mutualFundPirceId;
-        this.price = price;
-        this.timestamp = timestamp;
-        this.mutualFundDetail = mutualFundDetail;
-    }
+
 }

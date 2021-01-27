@@ -14,7 +14,7 @@ import java.util.UUID;
 @Table(name = "mutualFundCategory")
 public class MutualFundCategory {
     @Id
-    public UUID mutualFundCategoryID;
+    private UUID mutualFundCategoryID;
 
     private String name;
 

@@ -1,7 +1,5 @@
 package com.pirimidtech.ptp.entity;
 
-
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +15,7 @@ import java.util.UUID;
 @Table(name = "mutualFundStatistic")
 public class MutualFundStatistic {
     @Id
-    public UUID MutualFundID;
+    private UUID MutualFundID;
 
 
     private String risk;

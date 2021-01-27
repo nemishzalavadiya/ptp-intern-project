@@ -1,6 +1,7 @@
 package com.pirimidtech.ptp.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,12 +13,13 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name ="mutualFundOrder")
 public class MutualFundOrder {
 
     @Id
-    public UUID transactionId;
+    private UUID transactionId;
 
     @ManyToOne(targetEntity = MutualFundDetail.class)
     @JoinColumn(name  = "MutualFundId")
@@ -32,13 +34,4 @@ public class MutualFundOrder {
     private float price;
 
     private char isOneTime;
-
-    public MutualFundOrder(UUID transactionId, MutualFundDetail mutualFundDetail, User user, Date SIPDate, float price, char isOneTime) {
-        this.transactionId = transactionId;
-        this.mutualFundDetail = mutualFundDetail;
-        this.user = user;
-        this.SIPDate = SIPDate;
-        this.price = price;
-        this.isOneTime = isOneTime;
-    }
 }

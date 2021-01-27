@@ -1,6 +1,7 @@
 package com.pirimidtech.ptp.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,13 +14,15 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "stockOrder")
+
 public class StockOrder {
 
     @Id
     @Column
-    public UUID orderID;
+    private UUID orderID;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userId")

@@ -24,7 +24,6 @@ public class MutualFundCategory {
             inverseJoinColumns = @JoinColumn(name = "mutualFundId"))
     private List<MutualFundDetail> mutualFundDetails;
 
-
     private String fundManager;
 
 }

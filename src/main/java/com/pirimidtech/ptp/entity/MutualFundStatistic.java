@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -21,21 +21,19 @@ public class MutualFundStatistic {
 
     private String risk;
 
-    private float minSIP;
+    private Float minSIP;
 
-    private boolean SIPallowed;
+    private Boolean SIPAllowed;
 
-    private float expenseRatio;
+    private Float expenseRatio;
 
-    private float NAV;
+    private Float NAV;
 
-    private Date fundStarted;
+    private LocalDateTime fundStarted;
 
-    private float fundSize;
+    private Float fundSize;
 
     @OneToOne(targetEntity = MutualFundDetail.class)
     @JoinColumn(name = "mutualFundID")
     private MutualFundDetail mutualFundDetail;
-
-
 }

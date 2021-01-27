@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -17,17 +16,21 @@ import java.util.UUID;
 @Setter
 @Table(name = "stockPrice")
 public class StockPrice {
+    public enum StockExchangeType{
+        BSE,
+        NSE
+    }
     @Id
-    private UUID stockPirceId;
+    private UUID stockPriceId;
 
     private Integer  price;
 
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
-    private char stockExchange;// BSE or NSE
+    @Enumerated(EnumType.STRING)
+    private StockExchangeType stockExchange;
 
     @ManyToOne(targetEntity = StockDetail.class)
     @JoinColumn( name = "stockId")
     private StockDetail stockDetail;
-
 }

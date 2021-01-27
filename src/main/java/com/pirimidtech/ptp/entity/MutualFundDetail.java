@@ -1,31 +1,43 @@
 package com.pirimidtech.ptp.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
-
+@AllArgsConstructor
 @Entity
 @Table(name = "mutualFundDetail")
-
 public class MutualFundDetail {
+    public enum Subcategory{
+        EQUITY,
+        BONDS,
+        SECTORAL,
+        THEMATIC,
+        IT,
+        etc
+    }
     @Id
     private UUID mutualFundID;
 
-    private Date launchDate;
+    private LocalDateTime launchDate;
+
+    private String fundManager;
+
+    private Subcategory subcategory;
 
     @OneToOne(mappedBy = "mutualFundDetail")
     private MutualFundStatistic mutualFundStatistic;
 
-    @ManyToOne(targetEntity = CompanyDetail.class)
-    @JoinColumn(name = "companyID")
+    @OneToOne(mappedBy = "mutualFundDetail")
     private CompanyDetail companyDetail;
 
     @ManyToMany(mappedBy = "mutualFundDetail")
@@ -36,4 +48,8 @@ public class MutualFundDetail {
 
     @OneToMany(mappedBy = "mutualFundDetail")
     private List<MutualFundOrder> mutualFundOrderList;
+
+    @ManyToOne(targetEntity = MutualFundWatchList.class)
+    @JoinColumn(name = "companyID")
+    private MutualFundWatchList mutualFundWatchList;
 }

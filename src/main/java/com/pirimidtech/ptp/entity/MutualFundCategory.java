@@ -18,8 +18,6 @@ public class MutualFundCategory {
 
     private String name;
 
-    private String fundManager;
-
     @ManyToMany
     @JoinTable(name = "mutualFundCategoryFromDetail",
             joinColumns = @JoinColumn(name = "mutualFundCategoryID"),

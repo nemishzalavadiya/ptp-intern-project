@@ -19,25 +19,24 @@ public class StockStatistic {
 
     private Integer numberOfStackHolders;
 
-    private float pbRatio;
+    private Float pbRatio;
 
-    private float peRatio;
+    private Float peRatio;
 
-    private float industryPE;
+    private Float industryPE;
 
-    private float divYield;
+    private Float divYield;
 
-    private float bookValue;
+    private Float bookValue;
 
-    private float marketCap;
+    private Float marketCap;
 
-    private float returnOnEquity;
+    private Float returnOnEquity;
 
-    private float earningPerShareTTM;
+    private Float earningPerShareTTM;
 
     @OneToOne(targetEntity = StockDetail.class)
     @JoinColumn(name="stockID")
     @MapsId
     private StockDetail stockDetail;
-
 }

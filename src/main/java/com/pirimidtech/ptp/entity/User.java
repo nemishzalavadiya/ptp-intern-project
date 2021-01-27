@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,13 +16,32 @@ import java.util.UUID;
 @Entity
 @Table(name="userDetail")
 public class User {
+    public enum Gender{
+        MALE,
+        FEMALE
+    }
     @Id
     private UUID userId;
 
     private String userName;
 
+    private String email;
+
+    private String panCard;
+
+    private String mobileNo;
+
+    private String signatureURL;
+
+    private String dateOfBirth;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    private String dpURL;
+
     @OneToMany(mappedBy = "user")
-    private List<StockOrder> stockOrder;
+    private List<StockOrder> stockOrderList;
 
     @OneToMany(mappedBy = "user")
     private List<MutualFundOrder> MutualFundOrderList;
@@ -35,6 +51,5 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private  List<Position> positionList;
-
 }
 

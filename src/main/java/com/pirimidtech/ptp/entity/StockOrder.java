@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.apachecommons.CommonsLog;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -17,8 +16,47 @@ import java.util.UUID;
 @Entity
 @Table(name = "stockOrder")
 public class StockOrder {
+//    TODO
+//should we create separate enum package which contain all the enums.
+//because we may need single enum multiple times like StockExchange.
+    public enum StockExchangeType{
+        BSE,
+        NSE
+    }
+    public enum PriceType{
+        MARKET,
+        LIMIT
+    }
+    public enum OrderType{
+        DELIVERY,
+        INTRA_DAY
+    }
+    public enum Action{
+        BUY,
+        SELL
+    }
     @Id
     private UUID orderID;
+
+    private LocalDateTime timestamp;
+
+    private Integer tradeVolume;
+
+    @Enumerated(EnumType.STRING)
+    private Action action;
+
+    @Enumerated(EnumType.STRING)
+    private StockExchangeType stockExchange;
+
+    @Enumerated(EnumType.STRING)
+    private PriceType priceType ;
+
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType ;
+
+    private Float price;
+
+    private String status;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userId")
@@ -27,21 +65,4 @@ public class StockOrder {
     @ManyToOne(targetEntity = StockDetail.class)
     @JoinColumn(name = "stockId")
     private StockDetail stockDetail;
-
-    private Date timestamp;
-
-    private Integer tradeVolume;
-
-    private char sellOrBuy;
-
-    private char stockExchange;
-
-    private char priceType ;//market/limit
-
-    private char orderType ;//delivery/intraDay
-
-    private float price;
-
-    private String status;
-
 }

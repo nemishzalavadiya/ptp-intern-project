@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -16,9 +16,19 @@ import java.util.UUID;
 @Entity
 @Table(name ="mutualFundOrder")
 public class MutualFundOrder {
-
+    public enum InvestmentType{
+        MONTHLY_SIP,
+        ONE_TIME
+    }
     @Id
-    private UUID transactionId;
+    private UUID mutualFundOrderId;
+
+    private LocalDateTime SIPDate;
+
+    private Float price;
+
+    @Enumerated(EnumType.STRING)
+    private InvestmentType investmentType;
 
     @ManyToOne(targetEntity = MutualFundDetail.class)
     @JoinColumn(name  = "MutualFundId")
@@ -27,11 +37,4 @@ public class MutualFundOrder {
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userId")
     private User user;
-
-    private Date SIPDate;
-
-    private float price;
-
-    private char isOneTime;
-
 }

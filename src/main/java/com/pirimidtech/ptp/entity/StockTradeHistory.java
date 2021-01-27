@@ -1,6 +1,5 @@
 package com.pirimidtech.ptp.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +16,21 @@ import java.util.UUID;
 @Entity
 @Table(name = "stockTradeHistory")
 public class StockTradeHistory {
-
+    public enum StockExchangeType{
+        BSE,
+        NSE
+    }
     @Id
     private UUID tradeId;
+
+    private LocalDateTime timestamp;
+
+    private Integer tradeVolume;
+
+    @Enumerated(EnumType.STRING)
+    private StockExchangeType stockExchangeType;
+
+    private Float price;
 
     @ManyToOne(targetEntity =  User.class)
     @JoinColumn(name = "userId")
@@ -28,13 +39,4 @@ public class StockTradeHistory {
     @ManyToOne(targetEntity =  StockDetail.class)
     @JoinColumn(name = "stockId")
     private StockDetail stockDetail;
-
-    private LocalDateTime timestamp;
-
-    private Integer tradeVolume;
-
-    private char stockExchange; //BSE or NSE
-
-    private float price;
-
 }

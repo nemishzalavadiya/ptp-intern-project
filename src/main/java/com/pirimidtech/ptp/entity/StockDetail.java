@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,12 +19,11 @@ public class StockDetail {
     @Id
     private UUID stockID;
 
-    private Date yearFounded;
+    private LocalDateTime yearFounded;
 
     private String managingDirector;
 
-    @ManyToOne(targetEntity = CompanyDetail.class)
-    @JoinColumn(name = "companyID")
+    @OneToOne(mappedBy = "stockDetail")
     private CompanyDetail companyDetail;
 
     @OneToOne(mappedBy ="stockDetail")
@@ -43,7 +42,7 @@ public class StockDetail {
     @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
     private List<StockTradeHistory> stockTradeHistoryList;
 
-    @ManyToOne(targetEntity = StockWatchlist.class)
-
+    @ManyToOne(targetEntity = StockWatchList.class)
+    private StockWatchList stockWatchList;
 
 }

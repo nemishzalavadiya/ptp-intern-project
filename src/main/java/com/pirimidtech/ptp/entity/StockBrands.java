@@ -24,5 +24,4 @@ public class StockBrands {
     @ManyToOne(targetEntity = StockDetail.class)
     @JoinColumn(name="stockID")
     private StockDetail stockDetail;
-
 }

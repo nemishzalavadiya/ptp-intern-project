@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -17,7 +16,11 @@ import java.util.UUID;
 @Table(name = "position")
 public class Position {
     @Id
-    private Integer positionId;
+    private UUID positionId;
+
+    private Integer Volume;
+
+    private Float price;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "usedId")
@@ -26,9 +29,4 @@ public class Position {
     @ManyToOne(targetEntity = CompanyDetail.class)
     @JoinColumn(name = "companyId")
     private CompanyDetail companyDetail;
-
-    private Integer Volume;
-
-    private float price;
-
 }

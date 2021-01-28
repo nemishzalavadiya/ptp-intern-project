@@ -16,10 +16,6 @@ import java.util.UUID;
 @Entity
 @Table(name="userDetail")
 public class User {
-    public enum Gender{
-        MALE,
-        FEMALE
-    }
     @Id
     private UUID userId;
 

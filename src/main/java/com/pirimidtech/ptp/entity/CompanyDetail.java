@@ -15,19 +15,12 @@ import java.util.UUID;
 @Entity
 @Table(name = "companyDetail")
 public class CompanyDetail {
-    public enum Sector{
-        BANKING,
-        FINANCIAL,
-        AGRICULTURAL,
-        AUTOMOBILE,
-        etc
-    }
     @Id
     private UUID companyID;
 
     private String name;
 
-    private String logoURL;
+    private String logoUrl;
 
     private String assetClass;
 

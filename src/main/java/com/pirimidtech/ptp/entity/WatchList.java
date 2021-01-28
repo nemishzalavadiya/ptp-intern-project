@@ -16,10 +16,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "watchList")
 public class WatchList {
-    public enum AssetClass{
-        STOCK,
-        MUTUAL_FUND
-    }
     @Id
     private UUID watchListID;
 

@@ -5,12 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.JoinColumn;
-
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -21,27 +16,9 @@ import java.util.UUID;
 @Entity
 @Table(name = "stockOrder")
 public class StockOrder {
-//    TODO
-//should we create separate enum package which contain all the enums.
-//because we may need single enum multiple times like StockExchange.
-    public enum StockExchangeType{
-        BSE,
-        NSE
-    }
-    public enum PriceType{
-        MARKET,
-        LIMIT
-    }
-    public enum OrderType{
-        DELIVERY,
-        INTRA_DAY
-    }
-    public enum Action{
-        BUY,
-        SELL
-    }
+
     @Id
-    private UUID orderId;
+    private UUID stockOrderID;
 
     private LocalDateTime timestamp;
 

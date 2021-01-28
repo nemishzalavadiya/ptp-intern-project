@@ -41,8 +41,4 @@ public class StockDetail {
 
     @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
     private List<StockTradeHistory> stockTradeHistoryList;
-
-    @ManyToOne(targetEntity = StockWatchList.class)
-    private StockWatchList stockWatchList;
-
 }

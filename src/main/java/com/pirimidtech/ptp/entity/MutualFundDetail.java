@@ -17,14 +17,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "mutualFundDetail")
 public class MutualFundDetail {
-    public enum Subcategory{
-        EQUITY,
-        BONDS,
-        SECTORAL,
-        THEMATIC,
-        IT,
-        etc
-    }
+
     @Id
     private UUID mutualFundID;
 
@@ -48,8 +41,4 @@ public class MutualFundDetail {
 
     @OneToMany(mappedBy = "mutualFundDetail")
     private List<MutualFundOrder> mutualFundOrderList;
-
-    @ManyToOne(targetEntity = MutualFundWatchList.class)
-    @JoinColumn(name = "companyID")
-    private MutualFundWatchList mutualFundWatchList;
 }

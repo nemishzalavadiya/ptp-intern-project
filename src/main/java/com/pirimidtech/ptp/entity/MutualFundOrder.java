@@ -16,10 +16,6 @@ import java.util.UUID;
 @Entity
 @Table(name ="mutualFundOrder")
 public class MutualFundOrder {
-    public enum InvestmentType{
-        MONTHLY_SIP,
-        ONE_TIME
-    }
     @Id
     private UUID mutualFundOrderId;
 

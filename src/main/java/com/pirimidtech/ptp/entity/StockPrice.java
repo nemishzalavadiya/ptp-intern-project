@@ -1,9 +1,10 @@
 package com.pirimidtech.ptp.entity;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,23 +12,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "stockBrands")
-public class StockBrands {
+@Table(name = "stockPrice")
+public class StockPrice {
+
     @Id
-    public UUID brandId;
+    private UUID stockPirceId;
 
-    private String brandName;
+    private float  price;
 
-    private String brandLogoUrl;
+    private LocalDateTime timestamp;
+
+    private char stockExchange;// BSE or NSE
 
     @ManyToOne(targetEntity = StockDetail.class)
-    @JoinColumn(name = "stockId")
+    @JoinColumn( name = "stockId")
     private StockDetail stockDetail;
 
 

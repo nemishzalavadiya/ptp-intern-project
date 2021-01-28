@@ -4,7 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+
+
 import java.util.List;
 import java.util.UUID;
 @Getter
@@ -14,14 +21,17 @@ import java.util.UUID;
 @Table(name = "mutualFundCategory")
 public class MutualFundCategory {
     @Id
-    public UUID mutualFundCategoryID;
+    private UUID mutualFundCategoryId;
 
     private String name;
 
     @ManyToMany
     @JoinTable(name = "MutualFundCategoryFromDetail",
-            joinColumns = @JoinColumn(name = "mutualFundCategoryID"),
-            inverseJoinColumns = @JoinColumn(name = "mutualFundID"))
-    private List<MutualFundDetail> mutualFundDetail;
+            joinColumns = @JoinColumn(name = "mutualFundCategoryId"),
+            inverseJoinColumns = @JoinColumn(name = "mutualFundId"))
+    private List<MutualFundDetail> mutualFundDetails;
+
+    private String fundManager;
+
 }
 

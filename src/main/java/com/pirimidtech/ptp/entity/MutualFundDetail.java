@@ -24,10 +24,7 @@ public class MutualFundDetail {
 
     private String fundManager;
 
-    @OneToOne(mappedBy = "mutualFundDetail")
-    private MutualFundStatistic mutualFundStatistic;
-
-    @OneToOne(mappedBy = "mutualFundDetail")
+    @OneToOne
     private CompanyDetail companyDetail;
 
     @OneToMany(mappedBy = "mutualFundDetail")

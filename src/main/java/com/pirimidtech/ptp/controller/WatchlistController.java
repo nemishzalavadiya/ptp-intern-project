@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class WatchlistController {
-
     @Autowired
     private WatchlistService watchlistService;
 
     @RequestMapping(method= RequestMethod.GET,value = "/watchlist/stocks/{userId}")
     public List<Watchlist> displayStockWatchlist(@PathVariable String userId){
-        return watchlistService.getAllStockDetailByUserId(UUID.fromString(userId));
+
+        List<Watchlist> stockData = watchlistService.getAllStockDetailByUserId(UUID.fromString(userId));
+        return stockData;
     }
     @RequestMapping(method= RequestMethod.GET,value = "/watchlist/mutualfunds/{userId}")
     public List<Watchlist> displayMutualFundWatchlist(@PathVariable String userId){

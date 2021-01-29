@@ -25,6 +25,6 @@ public class Watchlist {
     @OneToOne
     private User user;
 
-    @OneToMany(mappedBy = "watchList")
-    private List<CompanyDetail> companyDetailList;
+    @OneToOne
+    private CompanyDetail companyDetail;
 }

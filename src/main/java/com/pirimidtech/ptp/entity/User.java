@@ -19,7 +19,7 @@ public class User {
     @Id
     private UUID id;
 
-    private String userName;
+    private String name;
 
     private String email;
 
@@ -27,7 +27,7 @@ public class User {
 
     private String mobileNo;
 
-    private String signatureURL;
+    private String signatureUrl;
 
     private String dateOfBirth;
 

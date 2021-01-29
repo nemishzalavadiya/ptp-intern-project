@@ -24,10 +24,10 @@ public class StockTradeHistory {
 
     private Integer tradeVolume;
 
+    private Float price;
+
     @Enumerated(EnumType.STRING)
     private StockExchangeType stockExchangeType;
-
-    private Float price;
 
     @ManyToOne(targetEntity =  User.class)
     private User user;

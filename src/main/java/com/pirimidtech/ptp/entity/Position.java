@@ -16,17 +16,15 @@ import java.util.UUID;
 @Table(name = "position")
 public class Position {
     @Id
-    private UUID positionId;
+    private UUID id;
 
-    private Integer Volume;
+    private Integer volume;
 
     private Float price;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "usedId")
     private User user;
 
     @ManyToOne(targetEntity = CompanyDetail.class)
-    @JoinColumn(name = "companyId")
     private CompanyDetail companyDetail;
 }

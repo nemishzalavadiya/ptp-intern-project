@@ -17,24 +17,18 @@ import java.util.UUID;
 @Entity
 @Table(name = "mutualFundDetail")
 public class MutualFundDetail {
-
     @Id
-    private UUID mutualFundID;
+    private UUID id;
 
     private LocalDateTime launchDate;
 
     private String fundManager;
-
-    private Subcategory subcategory;
 
     @OneToOne(mappedBy = "mutualFundDetail")
     private MutualFundStatistic mutualFundStatistic;
 
     @OneToOne(mappedBy = "mutualFundDetail")
     private CompanyDetail companyDetail;
-
-    @ManyToMany(mappedBy = "mutualFundDetail")
-    private List<MutualFundCategory> mutualFundCategory;
 
     @OneToMany(mappedBy = "mutualFundDetail")
     private List<MutualFundPrice> mutualFundPriceList;

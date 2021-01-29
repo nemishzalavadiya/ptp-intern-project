@@ -15,7 +15,7 @@ import java.util.UUID;
 @Table(name = "stockStatistic")
 public class StockStatistic {
     @Id
-    private UUID stockID;
+    private UUID id;
 
     private Integer numberOfStackHolders;
 
@@ -36,7 +36,6 @@ public class StockStatistic {
     private Float earningPerShareTTM;
 
     @OneToOne(targetEntity = StockDetail.class)
-    @JoinColumn(name="stockID")
     @MapsId
     private StockDetail stockDetail;
 }

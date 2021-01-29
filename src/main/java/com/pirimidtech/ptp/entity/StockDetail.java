@@ -17,7 +17,7 @@ import java.util.UUID;
 @Table(name = "stockDetail")
 public class StockDetail {
     @Id
-    private UUID stockID;
+    private UUID id;
 
     private LocalDateTime yearFounded;
 
@@ -29,9 +29,6 @@ public class StockDetail {
     @OneToOne(mappedBy ="stockDetail")
     @PrimaryKeyJoinColumn
     private StockStatistic stockStatistic;
-
-    @OneToMany(mappedBy = "stockDetail")
-    private List<StockBrands> stockBrandsList;
 
     @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
     private List<StockPrice> stockPriceList;

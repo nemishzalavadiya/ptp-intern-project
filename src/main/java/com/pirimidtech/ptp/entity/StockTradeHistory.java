@@ -18,7 +18,7 @@ import java.util.UUID;
 @Table(name = "stockTradeHistory")
 public class StockTradeHistory {
     @Id
-    private UUID tradeId;
+    private UUID id;
 
     private LocalDateTime timestamp;
 
@@ -30,10 +30,8 @@ public class StockTradeHistory {
     private Float price;
 
     @ManyToOne(targetEntity =  User.class)
-    @JoinColumn(name = "userId")
     private User user;
 
     @ManyToOne(targetEntity =  StockDetail.class)
-    @JoinColumn(name = "stockId")
     private StockDetail stockDetail;
 }

@@ -17,7 +17,7 @@ import java.util.UUID;
 @Table(name = "mutualFundStatistic")
 public class MutualFundStatistic {
     @Id
-    private UUID MutualFundID;
+    private UUID id;
 
     private String risk;
 
@@ -34,6 +34,5 @@ public class MutualFundStatistic {
     private Float fundSize;
 
     @OneToOne(targetEntity = MutualFundDetail.class)
-    @JoinColumn(name = "mutualFundID")
     private MutualFundDetail mutualFundDetail;
 }

@@ -15,9 +15,9 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "watchList")
-public class WatchList {
+public class Watchlist {
     @Id
-    private UUID watchListID;
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     private AssetClass assetClass;

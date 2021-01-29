@@ -16,9 +16,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "stockOrder")
 public class StockOrder {
-
     @Id
-    private UUID stockOrderID;
+    private UUID id;
 
     private LocalDateTime timestamp;
 
@@ -41,10 +40,8 @@ public class StockOrder {
     private String status;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
     private User user;
 
     @ManyToOne(targetEntity = StockDetail.class)
-    @JoinColumn(name = "stockId")
     private StockDetail stockDetail;
 }

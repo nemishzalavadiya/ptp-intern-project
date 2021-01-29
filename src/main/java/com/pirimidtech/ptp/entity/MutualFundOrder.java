@@ -17,7 +17,7 @@ import java.util.UUID;
 @Table(name ="mutualFundOrder")
 public class MutualFundOrder {
     @Id
-    private UUID mutualFundOrderId;
+    private UUID id;
 
     private LocalDateTime SIPDate;
 
@@ -27,10 +27,8 @@ public class MutualFundOrder {
     private InvestmentType investmentType;
 
     @ManyToOne(targetEntity = MutualFundDetail.class)
-    @JoinColumn(name  = "MutualFundId")
     private MutualFundDetail mutualFundDetail;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
     private User user;
 }

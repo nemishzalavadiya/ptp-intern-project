@@ -18,7 +18,7 @@ import java.util.UUID;
 @Table(name = "stockPrice")
 public class StockPrice {
     @Id
-    private UUID stockPriceId;
+    private UUID id;
 
     private float  price;
 
@@ -28,6 +28,5 @@ public class StockPrice {
     private StockExchangeType stockExchange;
 
     @ManyToOne(targetEntity = StockDetail.class)
-    @JoinColumn( name = "stockId")
     private StockDetail stockDetail;
 }

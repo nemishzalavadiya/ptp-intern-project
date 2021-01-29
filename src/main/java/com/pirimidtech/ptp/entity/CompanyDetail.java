@@ -16,7 +16,7 @@ import java.util.UUID;
 @Table(name = "companyDetail")
 public class CompanyDetail {
     @Id
-    private UUID companyID;
+    private UUID id;
 
     private String name;
 
@@ -42,6 +42,6 @@ public class CompanyDetail {
     @OneToOne
     private MutualFundDetail mutualFundDetail;
 
-    @ManyToOne(targetEntity = WatchList.class)
-    private WatchList watchList;
+    @ManyToOne(targetEntity = Watchlist.class)
+    private Watchlist watchList;
 }

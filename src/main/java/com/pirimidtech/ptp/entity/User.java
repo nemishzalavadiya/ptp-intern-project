@@ -47,5 +47,8 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private  List<Position> positionList;
+
+    @OneToOne(mappedBy = "user")
+    private Watchlist watchlist;
 }
 

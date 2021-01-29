@@ -26,16 +26,16 @@ public class StockDetail {
     @OneToOne(mappedBy = "stockDetail")
     private CompanyDetail companyDetail;
 
-    @OneToOne(mappedBy ="stockDetail")
+    @OneToOne(mappedBy = "stockDetail")
     @PrimaryKeyJoinColumn
     private StockStatistic stockStatistic;
 
-    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stockDetail", cascade = CascadeType.ALL)
     private List<StockPrice> stockPriceList;
 
-    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stockDetail", cascade = CascadeType.ALL)
     private List<StockOrder> stockOrderList;
 
-    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stockDetail", cascade = CascadeType.ALL)
     private List<StockTradeHistory> stockTradeHistoryList;
 }

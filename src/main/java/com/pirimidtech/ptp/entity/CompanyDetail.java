@@ -42,6 +42,6 @@ public class CompanyDetail {
     @OneToOne
     private MutualFundDetail mutualFundDetail;
 
-    @ManyToOne(targetEntity = Watchlist.class)
-    private Watchlist watchList;
+    @OneToOne(mappedBy = "companyDetail")
+    private Watchlist watchlist;
 }

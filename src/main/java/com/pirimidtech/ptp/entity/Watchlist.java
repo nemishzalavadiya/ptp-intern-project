@@ -23,8 +23,9 @@ public class Watchlist {
     private AssetClass assetClass;
 
     @OneToOne
+    @JoinColumn(name="user_id",referencedColumnName = "id")
     private User user;
 
-    @OneToMany(mappedBy = "watchList")
-    private List<CompanyDetail> companyDetailList;
+    @OneToOne
+    private CompanyDetail companyDetail;
 }

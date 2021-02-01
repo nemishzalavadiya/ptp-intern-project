@@ -1,27 +1,29 @@
 package com.pirimidtech.ptp.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.persistence.Table;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "companyDetail")
 public class CompanyDetail {
-
     @Id
-    public UUID companyId;
+    private UUID id;
 
     private String name;
 
@@ -35,14 +37,18 @@ public class CompanyDetail {
 
     private String organization;
 
-    @OneToMany(mappedBy = "companyDetail")
-    private List<StockDetail> stockDetails;
+    @Enumerated(EnumType.STRING)
+    private Sector sector;
 
+    @OneToOne
+    private StockDetail stockDetail;
 
     @OneToMany(mappedBy = "companyDetail")
-    private List<MutualFundDetail> mutualFundDetails;
+    private List<Position> positionList;
 
-    @OneToMany(mappedBy = "companyDetail")
-    private List<Position> positions;
+    @OneToOne
+    private MutualFundDetail mutualFundDetail;
+
+    @ManyToOne(targetEntity = Watchlist.class)
+    private Watchlist watchList;
 }
-

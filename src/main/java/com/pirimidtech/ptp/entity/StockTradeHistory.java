@@ -1,17 +1,15 @@
 package com.pirimidtech.ptp.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -22,24 +20,21 @@ import java.util.UUID;
 @Entity
 @Table(name = "stockTradeHistory")
 public class StockTradeHistory {
-
     @Id
-    private UUID tradeId;
-
-    @ManyToOne(targetEntity =  User.class)
-    @JoinColumn(name = "userId")
-    private User user;
-
-    @ManyToOne(targetEntity =  StockDetail.class)
-    @JoinColumn(name = "stockId")
-    private StockDetail stockDetail;
+    private UUID id;
 
     private LocalDateTime timestamp;
 
     private Integer tradeVolume;
 
-    private char stockExchange; //BSE or NSE
+    @Enumerated(EnumType.STRING)
+    private StockExchangeType stockExchangeType;
 
-    private float price;
+    private Float price;
 
+    @ManyToOne(targetEntity =  User.class)
+    private User user;
+
+    @ManyToOne(targetEntity =  StockDetail.class)
+    private StockDetail stockDetail;
 }

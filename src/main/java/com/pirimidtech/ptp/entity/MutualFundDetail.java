@@ -1,47 +1,42 @@
 package com.pirimidtech.ptp.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
-
+@AllArgsConstructor
 @Entity
 @Table(name = "mutualFundDetail")
-
 public class MutualFundDetail {
     @Id
-    private UUID mutualFundId;
+    private UUID id;
 
-    private Date launchDate;
+    private LocalDateTime launchDate;
+
+    private String fundManager;
 
     @OneToOne(mappedBy = "mutualFundDetail")
     private MutualFundStatistic mutualFundStatistic;
 
-    @ManyToOne(targetEntity = CompanyDetail.class)
-    @JoinColumn(name = "companyId")
+    @OneToOne(mappedBy = "mutualFundDetail")
     private CompanyDetail companyDetail;
 
-    @ManyToMany(mappedBy = "mutualFundDetails")
-    private List<MutualFundCategory> mutualFundCategories;
+    @OneToMany(mappedBy = "mutualFundDetail")
+    private List<MutualFundPrice> mutualFundPriceList;
 
     @OneToMany(mappedBy = "mutualFundDetail")
-    private List<MutualFundPrice> mutualFundPrices;
-
-    @OneToMany(mappedBy = "mutualFundDetail")
-    private List<MutualFundOrder> mutualFundOrders;
+    private List<MutualFundOrder> mutualFundOrderList;
 }

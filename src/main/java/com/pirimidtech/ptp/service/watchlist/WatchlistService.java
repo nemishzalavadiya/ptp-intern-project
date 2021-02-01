@@ -1,9 +1,12 @@
 package com.pirimidtech.ptp.service.watchlist;
 
 import com.pirimidtech.ptp.entity.AssetClass;
+import com.pirimidtech.ptp.entity.CompanyDetail;
 import com.pirimidtech.ptp.entity.Watchlist;
+import com.pirimidtech.ptp.repository.CompanyDetailRepository;
 import com.pirimidtech.ptp.repository.WatchListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +18,9 @@ public class WatchlistService implements WatchlistServiceInterface {
     @Autowired
     private WatchListRepository watchListRepository;
 
+    @Autowired
+    private CompanyDetailRepository companyDetailRepository;
+
     public List<Watchlist> getAllStockDetailByUserId(UUID userId){
 
         List<Watchlist> stockDetailList = new ArrayList<>();
@@ -23,7 +29,6 @@ public class WatchlistService implements WatchlistServiceInterface {
                 stockDetailList.add(item);
             }
         });
-
         return stockDetailList;
     }
     public List<Watchlist> getAllMutualFundDetailByUserId(UUID userId){
@@ -34,7 +39,16 @@ public class WatchlistService implements WatchlistServiceInterface {
                 mutualFundDetailList.add(item);
             }
         });
-
         return mutualFundDetailList;
+    }
+
+    public List<CompanyDetail> searchCompanyNameLike(String name,String assetClass) {
+        List<CompanyDetail> searchList = new ArrayList<>();
+        searchList.addAll(companyDetailRepository.findByNameContainingAndAssetClass(name,assetClass));
+        return searchList;
+    }
+
+   public void addNewCompany(CompanyDetail companyDetail){
+        //watchListRepository.save()
     }
 }

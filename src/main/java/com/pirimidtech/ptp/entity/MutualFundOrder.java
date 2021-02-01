@@ -19,7 +19,7 @@ public class MutualFundOrder {
     @Id
     private UUID id;
 
-    private LocalDateTime SIPDate;
+    private LocalDateTime SipDate;
 
     private Float price;
 

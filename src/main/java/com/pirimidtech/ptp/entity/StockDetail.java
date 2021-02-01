@@ -23,19 +23,15 @@ public class StockDetail {
 
     private String managingDirector;
 
-    @OneToOne(mappedBy = "stockDetail")
+    @OneToOne
     private CompanyDetail companyDetail;
 
-    @OneToOne(mappedBy = "stockDetail")
-    @PrimaryKeyJoinColumn
-    private StockStatistic stockStatistic;
-
-    @OneToMany(mappedBy = "stockDetail", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
     private List<StockPrice> stockPriceList;
 
-    @OneToMany(mappedBy = "stockDetail", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
     private List<StockOrder> stockOrderList;
 
-    @OneToMany(mappedBy = "stockDetail", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
     private List<StockTradeHistory> stockTradeHistoryList;
 }

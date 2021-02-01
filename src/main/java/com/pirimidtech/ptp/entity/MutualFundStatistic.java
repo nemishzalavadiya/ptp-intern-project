@@ -21,13 +21,13 @@ public class MutualFundStatistic {
 
     private String risk;
 
-    private Float minSIP;
+    private Float minSip;
 
-    private Boolean SIPAllowed;
+    private Boolean SipAllowed;
 
     private Float expenseRatio;
 
-    private Float NAV;
+    private Float nav;
 
     private LocalDateTime fundStarted;
 

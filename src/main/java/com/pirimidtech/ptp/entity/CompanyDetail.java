@@ -30,18 +30,6 @@ public class CompanyDetail {
 
     private String organization;
 
-    @Enumerated(EnumType.STRING)
-    private Sector sector;
-
-    @OneToOne
-    private StockDetail stockDetail;
-
     @OneToMany(mappedBy = "companyDetail")
     private List<Position> positionList;
-
-    @OneToOne
-    private MutualFundDetail mutualFundDetail;
-
-    @OneToOne(mappedBy = "companyDetail")
-    private Watchlist watchlist;
 }

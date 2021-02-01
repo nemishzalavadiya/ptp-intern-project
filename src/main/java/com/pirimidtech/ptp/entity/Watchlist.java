@@ -24,9 +24,9 @@ public class Watchlist {
     @Id
     private UUID id;
 
-    @OneToOne
+    @OneToOne(targetEntity = User.class)
     private User user;
 
-    @OneToOne
+    @OneToOne(targetEntity = CompanyDetail.class)
     private CompanyDetail companyDetail;
 }

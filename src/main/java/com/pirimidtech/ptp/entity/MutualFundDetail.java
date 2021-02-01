@@ -28,7 +28,7 @@ public class MutualFundDetail {
 
     private String fundManager;
 
-    @OneToOne
+    @OneToOne(targetEntity = CompanyDetail.class)
     private CompanyDetail companyDetail;
 
     @OneToMany(mappedBy = "mutualFundDetail")

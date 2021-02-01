@@ -16,21 +16,25 @@ public class WatchlistService implements WatchlistServiceInterface {
     private WatchListRepository watchListRepository;
 
     public List<Watchlist> getAllStockDetailByUserId(UUID userId){
+
         List<Watchlist> stockDetailList = new ArrayList<>();
-        watchListRepository.findByUserId(userId).forEach((item)->{
+        watchListRepository.findByUserId(userId).stream().forEach((item)->{
             if(item.getAssetClass()== AssetClass.STOCK){
                 stockDetailList.add(item);
             }
         });
+
         return stockDetailList;
     }
     public List<Watchlist> getAllMutualFundDetailByUserId(UUID userId){
+
         List<Watchlist> mutualFundDetailList = new ArrayList<>();
-        watchListRepository.findByUserId(userId).forEach((item)->{
+        watchListRepository.findByUserId(userId).stream().forEach((item)->{
             if(item.getAssetClass()== AssetClass.MUTUAL_FUND){
                 mutualFundDetailList.add(item);
             }
         });
+
         return mutualFundDetailList;
     }
 }

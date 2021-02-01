@@ -6,30 +6,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "stockPrice")
-public class StockPrice {
+@Entity
+@Table(name = "watchList")
+public class Watchlist {
     @Id
     private UUID id;
 
-    private float  price;
-
-    private LocalDateTime timestamp;
-
     @Enumerated(EnumType.STRING)
-    private StockExchangeType stockExchange;
+    private AssetClass assetClass;
 
-    @ManyToOne(targetEntity = StockDetail.class)
-    private StockDetail stockDetail;
+    @OneToOne
+    private User user;
+
+    @OneToMany(mappedBy = "watchList")
+    private List<CompanyDetail> companyDetailList;
 }

@@ -1,49 +1,45 @@
 package com.pirimidtech.ptp.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
-
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "stockStatistic")
 public class StockStatistic {
     @Id
-    public UUID stockId;
+    private UUID id;
 
     private Integer numberOfStackHolders;
 
-    private float pbRatio;
+    private Float pbRatio;
 
-    private float peRatio;
+    private Float peRatio;
 
-    private float industryPE;
+    private Float industryPE;
 
-    private float divYield;
+    private Float divYield;
 
-    private float bookValue;
+    private Float bookValue;
 
-    private float marketCap;
+    private Float marketCap;
 
-    private float returnOnEquity;
+    private Float returnOnEquity;
 
-    private float earningPerShareTTM;
+    private Float earningPerShareTTM;
 
     @OneToOne(targetEntity = StockDetail.class)
-    @JoinColumn(name="stockId")
     @MapsId
     private StockDetail stockDetail;
-
-
 }

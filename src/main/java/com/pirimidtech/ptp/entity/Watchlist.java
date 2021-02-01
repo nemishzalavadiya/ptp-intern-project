@@ -1,13 +1,16 @@
 package com.pirimidtech.ptp.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,9 +28,8 @@ public class Watchlist {
     private AssetClass assetClass;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToOne
-    private CompanyDetail companyDetail;
+    @OneToMany(mappedBy = "watchList")
+    private List<CompanyDetail> companyDetailList;
 }

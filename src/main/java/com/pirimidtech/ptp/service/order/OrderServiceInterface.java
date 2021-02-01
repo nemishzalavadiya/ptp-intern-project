@@ -20,4 +20,6 @@ public interface OrderServiceInterface {
     List<MutualFundOrder> getAllMutualFundOrder(UUID userId);
 
     MutualFundOrder getMutualFundOrder(UUID orderId);
+
+    void deleteMutualFundOrder(UUID mutualFundOrderId);
 }

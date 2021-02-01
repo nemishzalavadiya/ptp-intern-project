@@ -27,7 +27,7 @@ public class PriceService implements PriceServiceInterface{
 
     @Override
     public List<StockPrice> getStockPrice(UUID stockId) {
-        return stockPriceRepository.findAllByStockId(stockId);
+        return stockPriceRepository.findAllByStockDetailId(stockId);
     }
 
     @Override
@@ -37,7 +37,6 @@ public class PriceService implements PriceServiceInterface{
 
     @Override
     public List<MutualFundPrice> getMutualFundPrice(UUID mutualFundId) {
-    return mutualFundPriceRepository.findAllByMutualFundId(mutualFundId);
-
+        return mutualFundPriceRepository.findAllByMutualFundDetailId(mutualFundId);
     }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface StockPriceRepository extends JpaRepository<StockPrice, UUID> {
-    List<StockPrice> findAllByStockId(UUID stockId);
+    List<StockPrice> findAllByStockDetailId(UUID stockId);
 }

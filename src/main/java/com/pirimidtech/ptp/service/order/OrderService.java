@@ -57,4 +57,9 @@ public class OrderService implements OrderServiceInterface {
         Optional<MutualFundOrder> mutualFundOrder =mutualFundOrderRepository.findById(orderId);
         return mutualFundOrder.isPresent()?mutualFundOrder.get():null;
     }
+
+    @Override
+    public void deleteMutualFundOrder(UUID mutualFundOrderId) {
+        mutualFundOrderRepository.deleteById(mutualFundOrderId);
+    }
 }

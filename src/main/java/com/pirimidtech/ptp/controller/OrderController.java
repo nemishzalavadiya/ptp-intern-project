@@ -1,6 +1,7 @@
 package com.pirimidtech.ptp.controller;
 
 
+import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.StockOrder;
 import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.repository.UserRepository;
@@ -21,23 +22,14 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    UserRepository userRepository;
-
     @PostMapping("/stock")
-    public ResponseEntity addToStockOrder(@RequestBody StockOrder stockOrder)
+    public void addToStockOrder(@RequestBody StockOrder stockOrder)
     {
         orderService.addToStockOrder(stockOrder);
-        return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/user")
-    public List<User> getUsers()
-    {
-        return userRepository.findAll();
-    }
-    @GetMapping("/stock/{orderId}")
-    public List<StockOrder> getAllStockOrder(@PathVariable("orderId") UUID userId)
+    @GetMapping("/stock/{userId}")
+    public List<StockOrder> getAllStockOrder(@PathVariable("userId") UUID userId)
     {
         return orderService.getAllStockOrder(userId);
     }
@@ -49,18 +41,41 @@ public class OrderController {
     }
 
     @PutMapping("/stock/update/{orderId}")
-    public StockOrder updateStockOrder(@PathVariable("orderId") UUID orderId,@RequestBody StockOrder stockOrder)
+    public void updateStockOrder(@PathVariable("orderId") UUID orderId,@RequestBody StockOrder stockOrder)
     {
-        stockOrder.setOrderId(orderId);
+        stockOrder.setId(orderId);
         orderService.addToStockOrder(stockOrder);
-        return stockOrder;
-
     }
     @DeleteMapping("/stock/delete/{orderId}")
-    public ResponseEntity deleteStockOrder(@PathVariable("orderId") UUID orderId)
+    public void deleteStockOrder(@PathVariable("orderId") UUID orderId)
     {
         orderService.deleteStockOrder(orderId);
-        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
+    @PostMapping("/mutualFund")
+    void addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder){
+        orderService.addToMutualFundOrder(mutualFundOrder);
+    }
+
+    @PutMapping("/mutualFund/update/{mutualFundId}")
+    void updateMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder){
+        orderService.addToMutualFundOrder(mutualFundOrder);
+    }
+
+    @GetMapping("/mutualFund/{userId}")
+    public List<MutualFundOrder> getAllMutualFundOrder(@PathVariable UUID userId) {
+        return orderService.getAllMutualFundOrder(userId);
+    }
+
+    @GetMapping("/mutualFund/order/{mutualFundOrderId}")
+    public MutualFundOrder getMutualFundOrderOrder(@PathVariable UUID mutualFundOrderId) {
+        return orderService.getMutualFundOrder(mutualFundOrderId);
+    }
+
+    @DeleteMapping("/mutualFund/{mutualFundOrderId}")
+    public void deleteMutualFundOrder(@PathVariable UUID mutualFundOrderId) {
+        orderService.deleteMutualFundOrder(mutualFundOrderId);
     }
 
 

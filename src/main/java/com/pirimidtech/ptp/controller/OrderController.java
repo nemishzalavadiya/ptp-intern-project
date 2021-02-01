@@ -46,12 +46,12 @@ public class OrderController {
         stockOrder.setId(orderId);
         orderService.addToStockOrder(stockOrder);
     }
+
     @DeleteMapping("/stock/delete/{orderId}")
     public void deleteStockOrder(@PathVariable("orderId") UUID orderId)
     {
         orderService.deleteStockOrder(orderId);
     }
-
 
     @PostMapping("/mutualFund")
     void addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder){
@@ -77,6 +77,4 @@ public class OrderController {
     public void deleteMutualFundOrder(@PathVariable UUID mutualFundOrderId) {
         orderService.deleteMutualFundOrder(mutualFundOrderId);
     }
-
-
 }

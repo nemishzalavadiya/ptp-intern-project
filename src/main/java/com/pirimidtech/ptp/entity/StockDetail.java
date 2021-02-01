@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.CascadeType;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -29,12 +28,8 @@ public class StockDetail {
 
     private String managingDirector;
 
-    @OneToOne(mappedBy = "stockDetail")
+    @OneToOne(targetEntity = CompanyDetail.class)
     private CompanyDetail companyDetail;
-
-    @OneToOne(mappedBy ="stockDetail")
-    @PrimaryKeyJoinColumn
-    private StockStatistic stockStatistic;
 
     @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
     private List<StockPrice> stockPriceList;

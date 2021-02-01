@@ -24,12 +24,9 @@ public class Watchlist {
     @Id
     private UUID id;
 
-    @Enumerated(EnumType.STRING)
-    private AssetClass assetClass;
-
-    @OneToOne
+    @OneToOne(targetEntity = User.class)
     private User user;
 
-    @OneToMany(mappedBy = "watchList")
-    private List<CompanyDetail> companyDetailList;
+    @OneToOne(targetEntity = CompanyDetail.class)
+    private CompanyDetail companyDetail;
 }

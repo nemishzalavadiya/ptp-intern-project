@@ -25,10 +25,9 @@ public class OrderController {
     UserRepository userRepository;
 
     @PostMapping("/stock")
-    public ResponseEntity addToStockOrder(@RequestBody StockOrder stockOrder)
+    public void addToStockOrder(@RequestBody StockOrder stockOrder)
     {
         orderService.addToStockOrder(stockOrder);
-        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/user")
@@ -49,18 +48,15 @@ public class OrderController {
     }
 
     @PutMapping("/stock/update/{orderId}")
-    public StockOrder updateStockOrder(@PathVariable("orderId") UUID orderId,@RequestBody StockOrder stockOrder)
+    public void updateStockOrder(@PathVariable("orderId") UUID orderId,@RequestBody StockOrder stockOrder)
     {
-        stockOrder.setOrderId(orderId);
+        stockOrder.setId(orderId);
         orderService.addToStockOrder(stockOrder);
-        return stockOrder;
-
     }
     @DeleteMapping("/stock/delete/{orderId}")
-    public ResponseEntity deleteStockOrder(@PathVariable("orderId") UUID orderId)
+    public void deleteStockOrder(@PathVariable("orderId") UUID orderId)
     {
         orderService.deleteStockOrder(orderId);
-        return new ResponseEntity(HttpStatus.OK);
     }
 
 

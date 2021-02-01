@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -21,13 +23,13 @@ public class MutualFundStatistic {
 
     private String risk;
 
-    private Float minSip;
+    private Float minSIP;
 
-    private Boolean SipAllowed;
+    private Boolean SIPAllowed;
 
     private Float expenseRatio;
 
-    private Float nav;
+    private Float NAV;
 
     private LocalDateTime fundStarted;
 

@@ -2,6 +2,7 @@ package com.pirimidtech.ptp.service.mutualfund;
 
 import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
+import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
 import com.pirimidtech.ptp.repository.MutualFundStatisticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,8 @@ public class MutualFundService implements MutualFundServiceInterface {
     }
     public MutualFundStatistic getMutualFundStatsById(UUID id){
         return mutualFundStatisticRepository.findById(id).get();
+    }
+    public MutualFundDetail getMutualFundDetailByCompanyId(UUID id) {
+        return mutualFundDetailRepository.findByCompanyDetailId(id);
     }
 }

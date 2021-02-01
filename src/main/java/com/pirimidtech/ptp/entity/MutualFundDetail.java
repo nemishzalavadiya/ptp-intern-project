@@ -28,12 +28,6 @@ public class MutualFundDetail {
 
     private String fundManager;
 
-    @OneToOne(targetEntity = CompanyDetail.class)
+    @OneToOne(mappedBy = "mutualFundDetail")
     private CompanyDetail companyDetail;
-
-    @OneToMany(mappedBy = "mutualFundDetail")
-    private List<MutualFundPrice> mutualFundPriceList;
-
-    @OneToMany(mappedBy = "mutualFundDetail")
-    private List<MutualFundOrder> mutualFundOrderList;
 }

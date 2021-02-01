@@ -35,9 +35,9 @@ public class WatchlistController {
     }
 
     @PostMapping("/watchlist/add")
-    public void add(@RequestBody CompanyDetail companyDetail){
-        List<CompanyDetail> addNew = new ArrayList();
-        addNew.add(companyDetail);
-        watchlistService.addNewCompany(companyDetail);
+    public void add(@RequestBody Watchlist watchlist){
+        List<Watchlist> addNew = new ArrayList();
+        addNew.add(watchlist);
+        watchlistService.addNewCompany(watchlist);
     }
 }

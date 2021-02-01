@@ -1,8 +1,12 @@
 package com.pirimidtech.ptp.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.pirimidtech.ptp.entity.AssetClass;
+import com.pirimidtech.ptp.entity.CompanyDetail;
+import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.Watchlist;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +23,21 @@ public class WatchlistController {
         List<Watchlist> stockData = watchlistService.getAllStockDetailByUserId(UUID.fromString(userId));
         return stockData;
     }
+
     @RequestMapping(method= RequestMethod.GET,value = "/watchlist/mutualfunds/{userId}")
     public List<Watchlist> displayMutualFundWatchlist(@PathVariable String userId){
         return watchlistService.getAllMutualFundDetailByUserId(UUID.fromString(userId));
+    }
+
+    @PostMapping("/watchlist/search")
+    public List<CompanyDetail> search(@RequestBody CompanyDetail companyDetail){
+        return watchlistService.searchCompanyNameLike(companyDetail.getName(),companyDetail.getAssetClass());
+    }
+
+    @PostMapping("/watchlist/add")
+    public void add(@RequestBody CompanyDetail companyDetail){
+        List<CompanyDetail> addNew = new ArrayList();
+        addNew.add(companyDetail);
+        watchlistService.addNewCompany(companyDetail);
     }
 }

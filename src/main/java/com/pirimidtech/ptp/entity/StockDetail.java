@@ -25,13 +25,4 @@ public class StockDetail {
 
     @OneToOne
     private CompanyDetail companyDetail;
-
-    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
-    private List<StockPrice> stockPriceList;
-
-    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
-    private List<StockOrder> stockOrderList;
-
-    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
-    private List<StockTradeHistory> stockTradeHistoryList;
 }

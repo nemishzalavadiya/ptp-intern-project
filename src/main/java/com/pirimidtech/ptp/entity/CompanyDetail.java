@@ -1,4 +1,4 @@
-package com.pirimidtech.ptp.entity;
+    package com.pirimidtech.ptp.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +29,4 @@ public class CompanyDetail {
     private String managingDirector;
 
     private String organization;
-
-    @OneToMany(mappedBy = "companyDetail")
-    private List<Position> positionList;
 }

@@ -26,10 +26,4 @@ public class MutualFundDetail {
 
     @OneToOne
     private CompanyDetail companyDetail;
-
-    @OneToMany(mappedBy = "mutualFundDetail")
-    private List<MutualFundPrice> mutualFundPriceList;
-
-    @OneToMany(mappedBy = "mutualFundDetail")
-    private List<MutualFundOrder> mutualFundOrderList;
 }

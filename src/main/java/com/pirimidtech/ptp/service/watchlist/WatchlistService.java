@@ -22,7 +22,6 @@ public class WatchlistService implements WatchlistServiceInterface {
     private CompanyDetailRepository companyDetailRepository;
 
     public List<Watchlist> getAllStockDetailByUserId(UUID userId){
-
         List<Watchlist> stockDetailList = new ArrayList<>();
         watchListRepository.findByUserId(userId).stream().forEach((item)->{
             if(item.getAssetClass()== AssetClass.STOCK){
@@ -32,7 +31,6 @@ public class WatchlistService implements WatchlistServiceInterface {
         return stockDetailList;
     }
     public List<Watchlist> getAllMutualFundDetailByUserId(UUID userId){
-
         List<Watchlist> mutualFundDetailList = new ArrayList<>();
         watchListRepository.findByUserId(userId).stream().forEach((item)->{
             if(item.getAssetClass()== AssetClass.MUTUAL_FUND){
@@ -48,7 +46,7 @@ public class WatchlistService implements WatchlistServiceInterface {
         return searchList;
     }
 
-   public void addNewCompany(CompanyDetail companyDetail){
-        //watchListRepository.save()
+   public void addNewCompany(Watchlist watchlist){
+        watchListRepository.save(watchlist);
     }
 }

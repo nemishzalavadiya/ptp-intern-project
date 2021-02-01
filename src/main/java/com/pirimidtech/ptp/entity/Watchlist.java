@@ -18,7 +18,6 @@ public class Watchlist {
     private UUID id;
 
     @OneToOne
-    @JoinColumn(name="user_id",referencedColumnName = "id")
     private User user;
 
     @OneToOne

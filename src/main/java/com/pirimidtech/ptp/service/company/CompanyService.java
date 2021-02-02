@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.service.company;
 
+import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.CompanyDetail;
 import com.pirimidtech.ptp.repository.CompanyDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;

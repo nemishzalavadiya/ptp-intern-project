@@ -8,7 +8,7 @@ import java.util.UUID;
 import com.pirimidtech.ptp.entity.*;
 import com.pirimidtech.ptp.entity.dto.MutualFundWatchlistDTO;
 import com.pirimidtech.ptp.entity.dto.StockWatchlistDTO;
-import com.pirimidtech.ptp.exception.WatchlistException;
+import com.pirimidtech.ptp.exception.ExceptionHandler;
 import com.pirimidtech.ptp.repository.CompanyDetailRepository;
 import com.pirimidtech.ptp.service.company.CompanyService;
 import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
@@ -65,10 +65,10 @@ public class WatchlistController {
                 }
             });
         } catch (IllegalArgumentException exception){
-            throw new WatchlistException("Invalid Input");
+            throw new ExceptionHandler("Invalid Input");
         }
         catch (Exception exception){
-            throw new WatchlistException(exception.getCause());
+            throw new ExceptionHandler(exception.getCause());
         }
         return stockWatchlistDTOList;
     }
@@ -100,10 +100,10 @@ public class WatchlistController {
                 }
             });
         }catch (IllegalArgumentException exception){
-            throw new WatchlistException("Invalid Input");
+            throw new ExceptionHandler("Invalid Input");
         }
         catch (Exception exception){
-            throw new WatchlistException(exception.getCause());
+            throw new ExceptionHandler(exception.getCause());
         }
         return mutualFundWatchlistDTOList;
     }
@@ -115,11 +115,8 @@ public class WatchlistController {
             searchName.add(companyDetailRepository.findByNameContainingAndAssetClass(companyDetail.getName(),
                     companyDetail.getAssetClass()));
         }
-        catch (IllegalArgumentException illegalArgumentException){
-            throw new WatchlistException("Invalid Input");
-        }
         catch (Exception exception){
-            throw new WatchlistException(exception.getCause());
+            throw new ExceptionHandler(exception.getCause());
         }
         return searchName;
     }
@@ -129,11 +126,8 @@ public class WatchlistController {
         try {
             watchlistService.add(watchlist);
         }
-        catch (IllegalArgumentException illegalArgumentException){
-            throw new WatchlistException("Invalid Input");
-        }
         catch (Exception exception){
-            throw new WatchlistException(exception.getCause());
+            throw new ExceptionHandler(exception.getCause());
         }
         return ResponseEntity.ok().build();
     }
@@ -143,11 +137,8 @@ public class WatchlistController {
         try{
             watchlistService.remove(watchlistId);
         }
-        catch (IllegalArgumentException illegalArgumentException){
-            throw new WatchlistException("Invalid Input");
-        }
         catch (Exception exception){
-            throw new WatchlistException(exception.getCause());
+            throw new ExceptionHandler(exception.getCause());
         }
         return ResponseEntity.ok().build();
     }

@@ -11,8 +11,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class StockWatchlistDTO {
     private String name;
+
     private Float tradePrice;
+
     private Float percentageChange;
+
     private Float openPrice;
+
     private Float closePrice;
 }

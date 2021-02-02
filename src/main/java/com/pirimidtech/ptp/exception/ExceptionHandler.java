@@ -4,17 +4,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class WatchlistException extends RuntimeException{
-    public WatchlistException() {
+public class ExceptionHandler extends RuntimeException{
+    public ExceptionHandler() {
         super();
     }
-    public WatchlistException(String message, Throwable cause) {
+    public ExceptionHandler(String message, Throwable cause) {
         super(message, cause);
     }
-    public WatchlistException(String message) {
+    public ExceptionHandler(String message) {
         super(message);
     }
-    public WatchlistException(Throwable cause) {
+    public ExceptionHandler(Throwable cause) {
         super(cause);
     }
 }

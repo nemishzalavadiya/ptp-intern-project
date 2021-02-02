@@ -5,7 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -24,10 +28,7 @@ public class MutualFundDetail {
 
     private String fundManager;
 
-    @OneToOne(mappedBy = "mutualFundDetail")
-    private MutualFundStatistic mutualFundStatistic;
-
-    @OneToOne(mappedBy = "mutualFundDetail")
+    @OneToOne(targetEntity = CompanyDetail.class)
     private CompanyDetail companyDetail;
 
     @OneToMany(mappedBy = "mutualFundDetail")

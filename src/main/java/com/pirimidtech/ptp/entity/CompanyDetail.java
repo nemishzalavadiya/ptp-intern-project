@@ -4,9 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.persistence.Table;
 
 @Getter
 @Setter
@@ -22,7 +27,8 @@ public class CompanyDetail {
 
     private String logoUrl;
 
-    private String assetClass;
+    @Enumerated(EnumType.STRING)
+    private AssetClass assetClass;
 
     private String about;
 
@@ -30,18 +36,7 @@ public class CompanyDetail {
 
     private String organization;
 
-    @Enumerated(EnumType.STRING)
-    private Sector sector;
-
-    @OneToOne
-    private StockDetail stockDetail;
-
     @OneToMany(mappedBy = "companyDetail")
     private List<Position> positionList;
 
-    @OneToOne
-    private MutualFundDetail mutualFundDetail;
-
-    @ManyToOne(targetEntity = Watchlist.class)
-    private Watchlist watchList;
 }

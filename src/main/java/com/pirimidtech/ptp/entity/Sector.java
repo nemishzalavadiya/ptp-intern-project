@@ -4,6 +4,5 @@ public enum Sector {
         BANKING,
         FINANCIAL,
         AGRICULTURAL,
-        AUTOMOBILE,
-        etc
+        AUTOMOBILE
 }

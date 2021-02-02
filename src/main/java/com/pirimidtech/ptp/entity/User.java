@@ -5,7 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +24,7 @@ public class User {
     @Id
     private UUID id;
 
-    private String userName;
+    private String name;
 
     private String email;
 
@@ -27,7 +32,7 @@ public class User {
 
     private String mobileNo;
 
-    private String signatureURL;
+    private String signatureUrl;
 
     private String dateOfBirth;
 
@@ -47,5 +52,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private  List<Position> positionList;
+
 }
 

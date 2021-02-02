@@ -9,11 +9,13 @@ import com.pirimidtech.ptp.entity.*;
 import com.pirimidtech.ptp.entity.dto.MutualFundWatchlistDTO;
 import com.pirimidtech.ptp.entity.dto.StockWatchlistDTO;
 import com.pirimidtech.ptp.exception.WatchlistException;
+import com.pirimidtech.ptp.repository.CompanyDetailRepository;
 import com.pirimidtech.ptp.service.company.CompanyService;
 import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
 import com.pirimidtech.ptp.service.stock.StockService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,6 +33,9 @@ public class WatchlistController {
 
     @Autowired
     private MutualFundService mutualFundService;
+
+    @Autowired
+    CompanyDetailRepository companyDetailRepository;
 
     @RequestMapping(method= RequestMethod.GET,value = "/stocks/{userId}")
     public List<StockWatchlistDTO> displayStockWatchlist(@PathVariable String userId){
@@ -54,7 +59,6 @@ public class WatchlistController {
                             stockWatchlistDTO.setClosePrice(0.0f);
                             stockWatchlistDTO.setTradePrice(stockStatistic.get().getMarketCap());
                             stockWatchlistDTO.setPercentageChange(0.0f);
-
                             stockWatchlistDTOList.add(stockWatchlistDTO);
                         }
                     }
@@ -90,7 +94,6 @@ public class WatchlistController {
                             mutualFundWatchlistDTO.setRisk(mutualFundWatchlistDTO.getRisk());
                             mutualFundWatchlistDTO.setName(companyDetail.get().getName());
                             mutualFundWatchlistDTO.setExpenseRatio(mutualFundWatchlistDTO.getExpenseRatio());
-
                             mutualFundWatchlistDTOList.add(mutualFundWatchlistDTO);
                         }
                     }
@@ -103,5 +106,49 @@ public class WatchlistController {
             throw new WatchlistException(exception.getCause());
         }
         return mutualFundWatchlistDTOList;
+    }
+
+    @PostMapping("/search")
+    public List<CompanyDetail> searchNameLike(@RequestBody CompanyDetail companyDetail){
+        List<CompanyDetail> searchName = new ArrayList<>();
+        try {
+            searchName.add(companyDetailRepository.findByNameContainingAndAssetClass(companyDetail.getName(),
+                    companyDetail.getAssetClass()));
+        }
+        catch (IllegalArgumentException illegalArgumentException){
+            throw new WatchlistException("Invalid Input");
+        }
+        catch (Exception exception){
+            throw new WatchlistException(exception.getCause());
+        }
+        return searchName;
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Void> addCompany(@RequestBody Watchlist watchlist){
+        try {
+            watchlistService.add(watchlist);
+        }
+        catch (IllegalArgumentException illegalArgumentException){
+            throw new WatchlistException("Invalid Input");
+        }
+        catch (Exception exception){
+            throw new WatchlistException(exception.getCause());
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/remove/{watchlistId}")
+    public ResponseEntity<Void> removeCompany(@PathVariable UUID watchlistId){
+        try{
+            watchlistService.remove(watchlistId);
+        }
+        catch (IllegalArgumentException illegalArgumentException){
+            throw new WatchlistException("Invalid Input");
+        }
+        catch (Exception exception){
+            throw new WatchlistException(exception.getCause());
+        }
+        return ResponseEntity.ok().build();
     }
 }

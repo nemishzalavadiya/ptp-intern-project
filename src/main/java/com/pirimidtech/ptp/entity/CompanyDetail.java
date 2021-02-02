@@ -35,8 +35,4 @@ public class CompanyDetail {
     private String managingDirector;
 
     private String organization;
-
-    @OneToMany(mappedBy = "companyDetail")
-    private List<Position> positionList;
-
 }

@@ -12,5 +12,5 @@ public interface MutualFundServiceInterface {
 
     Optional<MutualFundDetail> getMutualFundDetailsById(UUID id);
 
-    MutualFundStatistic getMutualFundStatsById(UUID id);
+    Optional<MutualFundStatistic> getMutualFundStatsById(UUID id);
 }

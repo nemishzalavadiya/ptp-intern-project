@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +21,9 @@ public class Position {
     private Integer volume;
 
     private Float price;
+
+    @Enumerated(EnumType.STRING)
+    private AssetClass assetClass;
 
     @ManyToOne(targetEntity = User.class)
     private User user;

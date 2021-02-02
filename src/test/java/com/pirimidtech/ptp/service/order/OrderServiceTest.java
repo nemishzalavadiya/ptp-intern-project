@@ -1,6 +1,14 @@
 package com.pirimidtech.ptp.service.order;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.Action;
+import com.pirimidtech.ptp.entity.Gender;
+import com.pirimidtech.ptp.entity.InvestmentType;
+import com.pirimidtech.ptp.entity.MutualFundOrder;
+import com.pirimidtech.ptp.entity.OrderType;
+import com.pirimidtech.ptp.entity.PriceType;
+import com.pirimidtech.ptp.entity.StockExchangeType;
+import com.pirimidtech.ptp.entity.StockOrder;
+import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.repository.MutualFundOrderRepository;
 import com.pirimidtech.ptp.repository.StockOrderRepository;
 import org.junit.jupiter.api.Test;
@@ -12,8 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class OrderServiceTest {
@@ -27,7 +37,7 @@ class OrderServiceTest {
     @MockBean
     private MutualFundOrderRepository mutualFundOrderRepository;
 
-    User user=new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"),"abc","abc@dev.com","","","","",Gender.MALE,"");
+    User user=new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"),"abc","abc@dev.com","","","","", Gender.MALE,"");
 
 
     @Test
@@ -64,7 +74,7 @@ class OrderServiceTest {
 
     @Test
     void addToMutualFundOrder() {
-        MutualFundOrder mutualFundOrder=new MutualFundOrder(UUID.randomUUID(),LocalDateTime.now(),100f,InvestmentType.MONTHLY_SIP,null,user);
+        MutualFundOrder mutualFundOrder=new MutualFundOrder(UUID.randomUUID(),LocalDateTime.now(),100f, InvestmentType.MONTHLY_SIP,null,user);
         orderService.addToMutualFundOrder(mutualFundOrder);
         verify(mutualFundOrderRepository,times(1)).save(mutualFundOrder);
     }

@@ -1,6 +1,10 @@
 package com.pirimidtech.ptp.service.position;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.AssetClass;
+import com.pirimidtech.ptp.entity.CompanyDetail;
+import com.pirimidtech.ptp.entity.Gender;
+import com.pirimidtech.ptp.entity.Position;
+import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.repository.PositionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class PositionServiceTest {

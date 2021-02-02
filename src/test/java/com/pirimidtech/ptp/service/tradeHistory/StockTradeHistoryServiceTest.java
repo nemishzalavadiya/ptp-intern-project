@@ -1,6 +1,9 @@
 package com.pirimidtech.ptp.service.tradeHistory;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.Gender;
+import com.pirimidtech.ptp.entity.StockExchangeType;
+import com.pirimidtech.ptp.entity.StockTradeHistory;
+import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.repository.StockTradeHistoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class StockTradeHistoryServiceTest {
 
     @Autowired
-    StockTradeHistoryService stockTradeHistoryService;
+    private StockTradeHistoryService stockTradeHistoryService;
 
     @MockBean
-    StockTradeHistoryRepository stockTradeHistoryRepository;
+    private StockTradeHistoryRepository stockTradeHistoryRepository;
 
-    User user=new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"),"abc","abc@dev.com","","","","", Gender.MALE,"");
+    private User user=new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"),"abc","abc@dev.com","","","","", Gender.MALE,"");
 
     @Test
     void getStockTradeHistory() {

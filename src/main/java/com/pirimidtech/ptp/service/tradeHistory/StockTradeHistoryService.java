@@ -16,7 +16,7 @@ import java.util.UUID;
 public class StockTradeHistoryService implements StockTradeHistoryServiceInterface{
 
     @Autowired
-    StockTradeHistoryRepository stockTradeHistoryRepository;
+    private StockTradeHistoryRepository stockTradeHistoryRepository;
 
     @Override
     public List<StockTradeHistory> getStockTradeHistory(UUID userId) {

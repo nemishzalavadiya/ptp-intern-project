@@ -1,6 +1,12 @@
 package com.pirimidtech.ptp.service.price;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.CompanyDetail;
+import com.pirimidtech.ptp.entity.MutualFundDetail;
+import com.pirimidtech.ptp.entity.MutualFundPrice;
+import com.pirimidtech.ptp.entity.StockDetail;
+import com.pirimidtech.ptp.entity.StockExchangeType;
+import com.pirimidtech.ptp.entity.StockPrice;
+import com.pirimidtech.ptp.entity.StockStatistic;
 import com.pirimidtech.ptp.repository.MutualFundPriceRepository;
 import com.pirimidtech.ptp.repository.StockPriceRepository;
 import org.junit.Before;
@@ -14,8 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
@@ -25,10 +33,10 @@ class PriceServiceTest {
     private PriceService priceService;
 
     @MockBean
-    StockPriceRepository stockPriceRepository;
+    private StockPriceRepository stockPriceRepository;
 
     @MockBean
-    MutualFundPriceRepository mutualFundPriceRepository;
+    private MutualFundPriceRepository mutualFundPriceRepository;
     private StockDetail stockDetail;
     private CompanyDetail companyDetail;
 

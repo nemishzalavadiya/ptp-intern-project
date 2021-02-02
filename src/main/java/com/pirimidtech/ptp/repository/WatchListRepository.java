@@ -9,4 +9,6 @@ import java.util.UUID;
 @Repository
 public interface WatchListRepository extends JpaRepository<Watchlist, UUID> {
     List<Watchlist> findByUserId(UUID userId);
+
+    void deleteById(UUID watchlistId);
 }

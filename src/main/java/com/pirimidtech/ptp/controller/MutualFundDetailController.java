@@ -31,6 +31,4 @@ public class MutualFundDetailController {
     private Optional<MutualFundStatistic> mutualFundStats(@PathVariable UUID id){
         return mutualFundService.getMutualFundStatsById(id);
     }
-
-
 }

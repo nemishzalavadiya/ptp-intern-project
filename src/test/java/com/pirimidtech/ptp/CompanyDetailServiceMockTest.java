@@ -2,20 +2,15 @@ package com.pirimidtech.ptp;
 
 import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.CompanyDetail;
-import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.repository.CompanyDetailRepository;
 import com.pirimidtech.ptp.service.company.CompanyService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
 import static org.junit.Assert.assertEquals;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +38,6 @@ public class CompanyDetailServiceMockTest {
         companyDetailList.add(new CompanyDetail(UUID.randomUUID(),"name", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
         companyDetailList.add(new CompanyDetail(UUID.randomUUID(),"name", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
         companyDetailList.add(new CompanyDetail(UUID.randomUUID(),"name", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
-
         when(companyDetailRepository.findAll()).thenReturn(companyDetailList);
         assertEquals(companyDetailList,companyService.getAllCompanyDetail());
     }
@@ -53,7 +47,6 @@ public class CompanyDetailServiceMockTest {
         List<CompanyDetail> companyDetailList = new ArrayList<>();
         companyDetailList.add(new CompanyDetail(UUID.randomUUID(),"ptp1", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
         companyDetailList.add(new CompanyDetail(UUID.randomUUID(),"ptp2", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
-
         when(companyDetailRepository.findByNameContaining("ptp")).thenReturn(companyDetailList);
         assertEquals(companyService.searchCompanyDetail("ptp"), companyDetailList);
     }

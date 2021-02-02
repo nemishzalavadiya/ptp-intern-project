@@ -1,25 +1,20 @@
 package com.pirimidtech.ptp;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.AssetClass;
+import com.pirimidtech.ptp.entity.CompanyDetail;
+import com.pirimidtech.ptp.entity.MutualFundDetail;
+import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
 import com.pirimidtech.ptp.repository.MutualFundStatisticRepository;
-import com.pirimidtech.ptp.repository.StockDetailRepository;
-import com.pirimidtech.ptp.repository.StockStatisticRepository;
 import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
-import com.pirimidtech.ptp.service.stock.StockService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
 import static org.junit.Assert.assertEquals;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

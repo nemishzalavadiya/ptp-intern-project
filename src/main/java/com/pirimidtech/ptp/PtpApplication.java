@@ -1,5 +1,7 @@
 package com.pirimidtech.ptp;
 
+import com.pirimidtech.ptp.entity.StockOrder;
+import com.pirimidtech.ptp.entity.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

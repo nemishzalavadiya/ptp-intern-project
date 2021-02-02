@@ -48,20 +48,13 @@ public class WatchlistController {
 
             userWatchlist.forEach((item)->{
                 Optional<CompanyDetail> companyDetail = companyService.getCompanyDetail(item.getCompanyDetail().getId());
-                if(companyDetail.isPresent()) {
-                    StockDetail stockDetail;
-                    stockDetail = stockService.getStockDetailByCompanyId(item.getCompanyDetail().getId());
-                    if(stockDetail!=null) {
-                        Optional<StockStatistic> stockStatistic = stockService.getStockStatsById(stockDetail.getId());
-                        if (stockStatistic.isPresent()) {
+                if(companyDetail.isPresent() && companyDetail.get().getAssetClass().equals(AssetClass.STOCK)) {
                             stockWatchlistDTO.setName(companyDetail.get().getName());
                             stockWatchlistDTO.setOpenPrice(0.0f);
                             stockWatchlistDTO.setClosePrice(0.0f);
-                            stockWatchlistDTO.setTradePrice(stockStatistic.get().getMarketCap());
+                            stockWatchlistDTO.setTradePrice(0.0f);
                             stockWatchlistDTO.setPercentageChange(0.0f);
                             stockWatchlistDTOList.add(stockWatchlistDTO);
-                        }
-                    }
                 }
             });
         } catch (IllegalArgumentException exception){
@@ -84,7 +77,7 @@ public class WatchlistController {
 
             userWatchlist.forEach((item) -> {
                 Optional<CompanyDetail> companyDetail = companyService.getCompanyDetail(item.getCompanyDetail().getId());
-                if (companyDetail.isPresent()) {
+                if (companyDetail.isPresent() && companyDetail.get().getAssetClass().equals(AssetClass.MUTUAL_FUND)) {
                     MutualFundDetail mutualFundDetail = mutualFundService.getMutualFundDetailByCompanyId(companyDetail.get().getId());
                     if (mutualFundDetail != null) {
                         MutualFundStatistic mutualFundStatistic = mutualFundService.getMutualFundStatsById(mutualFundDetail.getId());

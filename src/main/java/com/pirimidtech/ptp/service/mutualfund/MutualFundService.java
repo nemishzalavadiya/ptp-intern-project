@@ -25,8 +25,8 @@ public class MutualFundService implements MutualFundServiceInterface {
     public Optional<MutualFundDetail> getMutualFundDetailsById(UUID id){
         return mutualFundDetailRepository.findById(id);
     }
-    public MutualFundStatistic getMutualFundStatsById(UUID id){
-        return mutualFundStatisticRepository.findById(id).get();
+    public Optional<MutualFundStatistic> getMutualFundStatsById(UUID id){
+        return mutualFundStatisticRepository.findById(id);
     }
     public MutualFundDetail getMutualFundDetailByCompanyId(UUID id) {
         return mutualFundDetailRepository.findByCompanyDetailId(id);

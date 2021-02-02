@@ -28,9 +28,7 @@ public class MutualFundDetailController {
     }
 
     @GetMapping("/mutualfund/stats/{id}")
-    private MutualFundStatistic mutualFundStats(@PathVariable UUID id){
+    private Optional<MutualFundStatistic> mutualFundStats(@PathVariable UUID id){
         return mutualFundService.getMutualFundStatsById(id);
     }
-
-
 }

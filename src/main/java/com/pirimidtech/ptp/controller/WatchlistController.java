@@ -80,10 +80,10 @@ public class WatchlistController {
                 if (companyDetail.isPresent() && companyDetail.get().getAssetClass().equals(AssetClass.MUTUAL_FUND)) {
                     MutualFundDetail mutualFundDetail = mutualFundService.getMutualFundDetailByCompanyId(companyDetail.get().getId());
                     if (mutualFundDetail != null) {
-                        MutualFundStatistic mutualFundStatistic = mutualFundService.getMutualFundStatsById(mutualFundDetail.getId());
-                        if(mutualFundStatistic!=null) {
-                            mutualFundWatchlistDTO.setMinSIP(mutualFundStatistic.getMinSIP());
-                            mutualFundWatchlistDTO.setNav(mutualFundStatistic.getNav());
+                        Optional<MutualFundStatistic >mutualFundStatistic = mutualFundService.getMutualFundStatsById(mutualFundDetail.getId());
+                        if(mutualFundStatistic.isPresent()) {
+                            mutualFundWatchlistDTO.setMinSIP(mutualFundStatistic.get().getMinSIP());
+                            mutualFundWatchlistDTO.setNav(mutualFundStatistic.get().getNav());
                             mutualFundWatchlistDTO.setRisk(mutualFundWatchlistDTO.getRisk());
                             mutualFundWatchlistDTO.setName(companyDetail.get().getName());
                             mutualFundWatchlistDTO.setExpenseRatio(mutualFundWatchlistDTO.getExpenseRatio());

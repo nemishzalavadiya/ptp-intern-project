@@ -6,20 +6,24 @@ import com.pirimidtech.ptp.exception.ErrorHandler;
 import com.pirimidtech.ptp.service.price.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/prices")
 public class PriceController {
 
     @Autowired
     private PriceService priceService;
 
-    @PostMapping("/stock")
+    @PostMapping("/stock/prices")
     public ResponseEntity<Void> addToStockPrice(@RequestBody StockPrice stockPrice)
     {
         try {
@@ -29,8 +33,8 @@ public class PriceController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/stock/{stockId}")
-    public List<StockPrice> getStockPrice(@PathVariable("stockId")UUID stockId)
+    @GetMapping("/stock/{id}/prices")
+    public List<StockPrice> getStockPrice(@PathVariable("id")UUID stockId)
     {
         List<StockPrice> stockPriceList = new ArrayList<>();
         try {
@@ -41,7 +45,7 @@ public class PriceController {
         return stockPriceList;
     }
 
-    @PostMapping("/mutualFund")
+    @PostMapping("/mutualfund/prices")
     public ResponseEntity<Void> addToMutualFundPrice(@RequestBody MutualFundPrice mutualFundPrice)
     {
         try {
@@ -52,8 +56,8 @@ public class PriceController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/mutualFund/{mutualFundId}")
-    public List<MutualFundPrice> getMutualFundPrice(@PathVariable("mutualFundId")UUID mutualFundId)
+    @GetMapping("/mutualfund/{id}/prices")
+    public List<MutualFundPrice> getMutualFundPrice(@PathVariable("id")UUID mutualFundId)
     {
         List<MutualFundPrice> mutualFundPriceList =new ArrayList<>();
         try {

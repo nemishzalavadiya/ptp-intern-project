@@ -14,11 +14,12 @@ import java.util.UUID;
 
 @RestController
 public class PositionController {
+
     @Autowired
     private PositionService positionService;
 
-    @GetMapping("position/{userId}")
-    List<Position> getPosition(@PathVariable("userId") UUID userId)
+    @GetMapping("position/users/{id}")
+    List<Position> getPosition(@PathVariable("id") UUID userId)
     {
         List<Position> positionList = new ArrayList<>();
         try {

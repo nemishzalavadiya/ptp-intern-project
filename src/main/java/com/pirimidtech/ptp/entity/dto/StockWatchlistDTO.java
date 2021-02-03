@@ -12,15 +12,15 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StockWatchlistDTO {
-    private String name;
+    public String name;
 
-    private float tradePrice;
+    public float tradePrice;
 
-    private float percentageChange;
+    public float percentageChange;
 
-    private float openPrice;
+    public float openPrice;
 
-    private float closePrice;
+    public float closePrice;
 
     @Override
     public boolean equals(Object o) {

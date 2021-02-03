@@ -2,6 +2,7 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockStatistic;
+import com.pirimidtech.ptp.exception.ExceptionHandler;
 import com.pirimidtech.ptp.service.stock.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 public class StockDetailController {
@@ -21,7 +23,13 @@ public class StockDetailController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/stocks/details")
     public List<StockDetail> getAllStockDetails(){
-        return stockService.getAllStockDetails();
+        List<StockDetail> stockDetails;
+        try{
+            stockDetails=stockService.getAllStockDetails();
+        } catch (Exception exception){
+            throw new ExceptionHandler(exception.getCause());
+        }
+        return stockDetails;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "stocks/details/add")
@@ -31,7 +39,10 @@ public class StockDetailController {
 
     @RequestMapping(method = RequestMethod.GET, value = "stocks/details/{id}")
     public Optional<StockDetail> getStockDetailsById(@PathVariable UUID id){
-        return stockService.getStockDetailById(id);
+        Optional<StockDetail> stockDetail=stockService.getStockDetailById(id);
+        if(!stockDetail.isPresent())
+            throw new ExceptionHandler();
+        return stockDetail;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/stocks/stats/add")
@@ -41,6 +52,9 @@ public class StockDetailController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/stocks/stats/{id}")
     public Optional<StockStatistic> getStockStatsById(@PathVariable UUID id){
-        return stockService.getStockStatsById(id);
+        Optional<StockStatistic> stockStatistic=stockService.getStockStatsById(id);
+        if(!stockStatistic.isPresent())
+            throw new ExceptionHandler();
+        return stockStatistic;
     }
 }

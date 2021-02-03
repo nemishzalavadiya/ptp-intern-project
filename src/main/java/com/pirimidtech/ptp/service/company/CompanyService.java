@@ -16,7 +16,7 @@ public class CompanyService implements CompanyServiceInterface{
     }
     @Override
     public List<CompanyDetail> searchCompanyDetail(String infix){
-        return companyDetailRepository.findByNameContaining(infix);
+        return companyDetailRepository.findByNameContainingIgnoreCase(infix);
     }
     @Override
     public Optional<CompanyDetail> getCompanyDetail(UUID id) {

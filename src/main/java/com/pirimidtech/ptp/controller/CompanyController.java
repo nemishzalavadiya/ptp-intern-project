@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.controller;
 import com.pirimidtech.ptp.entity.CompanyDetail;
+import com.pirimidtech.ptp.exception.ExceptionHandler;
 import com.pirimidtech.ptp.service.company.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,10 @@ public class CompanyController {
     private CompanyService companyService;
     @RequestMapping(method = RequestMethod.GET, value = "/company/{id}")
     public Optional<CompanyDetail> getCompanyDetail(@PathVariable UUID id){
-        return companyService.getCompanyDetail(id);
+        Optional<CompanyDetail> companyDetail=companyService.getCompanyDetail(id);
+        if(!companyDetail.isPresent())
+            throw new ExceptionHandler();
+        return companyDetail;
     }
     @RequestMapping(method = RequestMethod.POST, value = "/company")
     public void addCompanyDetail(@RequestBody CompanyDetail companyDetail){
@@ -25,10 +29,22 @@ public class CompanyController {
     }
     @GetMapping(value = "/company")
     public List<CompanyDetail> companyDetailList(){
-        return companyService.getAllCompanyDetail();
+        List<CompanyDetail> companyDetailList;
+        try{
+            companyDetailList=companyService.getAllCompanyDetail();
+        } catch (Exception exception){
+            throw new ExceptionHandler(exception.getCause());
+        }
+        return companyDetailList;
     }
     @GetMapping(value = "/search/{infix}")
     public List<CompanyDetail> searchCompanyList(@PathVariable String infix){
-        return companyService.searchCompanyDetail(infix);
+        List<CompanyDetail> companyDetailList;
+        try{
+            companyDetailList=companyService.searchCompanyDetail(infix);
+        } catch (Exception exception){
+            throw new ExceptionHandler(exception.getCause());
+        }
+        return companyDetailList;
     }
 }

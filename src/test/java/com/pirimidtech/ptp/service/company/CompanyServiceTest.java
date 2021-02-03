@@ -3,7 +3,6 @@ package com.pirimidtech.ptp.service.company;
 import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.CompanyDetail;
 import com.pirimidtech.ptp.repository.CompanyDetailRepository;
-import com.pirimidtech.ptp.service.company.CompanyService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -47,7 +46,7 @@ public class CompanyServiceTest {
         List<CompanyDetail> companyDetailList = new ArrayList<>();
         companyDetailList.add(new CompanyDetail(UUID.randomUUID(),"ptp1", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
         companyDetailList.add(new CompanyDetail(UUID.randomUUID(),"ptp2", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
-        when(companyDetailRepository.findByNameContaining("ptp")).thenReturn(companyDetailList);
+        when(companyDetailRepository.findByNameContainingIgnoreCase("ptp")).thenReturn(companyDetailList);
         assertEquals(companyService.searchCompanyDetail("ptp"), companyDetailList);
     }
 }

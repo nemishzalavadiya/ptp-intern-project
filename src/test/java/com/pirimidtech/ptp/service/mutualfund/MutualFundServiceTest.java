@@ -6,7 +6,6 @@ import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
 import com.pirimidtech.ptp.repository.MutualFundStatisticRepository;
-import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

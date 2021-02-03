@@ -2,6 +2,7 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
+import com.pirimidtech.ptp.exception.ExceptionHandler;
 import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +20,28 @@ public class MutualFundDetailController {
 
     @GetMapping("/mutualfund/details")
     private List<MutualFundDetail> mutualFundsDetailList(){
-        return mutualFundService.getAllMutualFundsDetails();
+        List<MutualFundDetail> mutualFundDetailList;
+        try{
+            mutualFundDetailList=mutualFundService.getAllMutualFundsDetails();
+        } catch (Exception exception){
+            throw new ExceptionHandler(exception.getCause());
+        }
+        return mutualFundDetailList;
     }
 
     @GetMapping("/mutualfund/details/{id}")
     private Optional<MutualFundDetail> mutualFundDetails(@PathVariable UUID id){
-        return mutualFundService.getMutualFundDetailsById(id);
+        Optional<MutualFundDetail> mutualFundDetail=mutualFundService.getMutualFundDetailsById(id);
+        if(!mutualFundDetail.isPresent())
+            throw new ExceptionHandler();
+        return mutualFundDetail;
     }
 
     @GetMapping("/mutualfund/stats/{id}")
     private Optional<MutualFundStatistic> mutualFundStats(@PathVariable UUID id){
-        return mutualFundService.getMutualFundStatsById(id);
+        Optional<MutualFundStatistic> mutualFundStatistic=mutualFundService.getMutualFundStatsById(id);
+        if(!mutualFundStatistic.isPresent())
+            throw new ExceptionHandler();
+        return mutualFundStatistic;
     }
 }

@@ -8,5 +8,5 @@ import java.util.UUID;
 
 
 public interface CompanyDetailRepository extends JpaRepository<CompanyDetail, UUID> {
-    public List<CompanyDetail> findByNameContaining(String infix);
+    public List<CompanyDetail> findByNameContainingIgnoreCase(String infix);
 }

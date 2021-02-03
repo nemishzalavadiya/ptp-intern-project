@@ -87,5 +87,9 @@ public class WatchlistControllerIntegrationTest {
         //bad request
         mockMvc.perform(get("/watchlist/stocks/00000000-00000-000000000000")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+        mockMvc.perform(get("/watchlist/stocks/00000000")
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
+        mockMvc.perform(get("/watchlist/stocks/")
+                .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
     }
 }

@@ -2,18 +2,21 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.*;
 import com.pirimidtech.ptp.entity.dto.StockWatchlistDTO;
+import com.pirimidtech.ptp.exception.ExceptionHandler;
 import com.pirimidtech.ptp.service.company.CompanyService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testng.Assert;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +65,24 @@ public class WatchlistControllerTest {
         UUID userUuid = UUID.fromString("00000000-0000-0000-0000-00000000");
         List<StockWatchlistDTO> testStockWatchlistDTOList = new ArrayList<>();
         testStockWatchlistDTOList.add(new StockWatchlistDTO(companyDetailList.get(0).getName(),0.0f,0.0f,0.0f,0.0f));
+
+        //When user have stock watchlist
         when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(watchlistList);
         when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000001"))).thenReturn(java.util.Optional.of(companyDetailList.get(0)));
         List<StockWatchlistDTO> controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-00000000");
         assertEquals(controllerStockWatchlistDTOList,testStockWatchlistDTOList);
+
+        //When user don't have stock watchlist
+        userUuid = UUID.fromString("00000000-0000-0000-0000-999999999999");
+        when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(new ArrayList<Watchlist>());
+        controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-999999999999");
+        assertEquals(controllerStockWatchlistDTOList,new ArrayList<StockWatchlistDTO>());
+
+        //When user passes invalid UUID
+        try{
+            watchlistController.displayStockWatchlist("11111111");
+        }catch (Exception e){
+            assertTrue(e.getMessage().contains("Invalid Input"));
+        }
     }
 }

@@ -2,21 +2,16 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.*;
 import com.pirimidtech.ptp.entity.dto.StockWatchlistDTO;
-import com.pirimidtech.ptp.exception.ExceptionHandler;
 import com.pirimidtech.ptp.service.company.CompanyService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.testng.Assert;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

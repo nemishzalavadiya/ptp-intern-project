@@ -106,6 +106,7 @@ public class OrderController {
     @PutMapping("/mutualfund/orders/{id}")
     public ResponseEntity<Void> updateMutualFundOrder(@PathVariable("id") UUID orderId,@RequestBody MutualFundOrder mutualFundOrder){
         try {
+            mutualFundOrder.setId(orderId);
             orderService.addToMutualFundOrder(mutualFundOrder);
         }
         catch (Exception exception) {

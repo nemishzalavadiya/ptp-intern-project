@@ -24,17 +24,17 @@ public class MutualFundStatistic {
 
     private String risk;
 
-    private Float minSIP;
+    private float minSIP;
 
     private Boolean sipAllowed;
 
-    private Float expenseRatio;
+    private float expenseRatio;
 
-    private Float nav;
+    private float nav;
 
     private LocalDateTime fundStarted;
 
-    private Float fundSize;
+    private float fundSize;
 
     @OneToOne(targetEntity = MutualFundDetail.class)
     @MapsId

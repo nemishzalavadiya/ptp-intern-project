@@ -20,9 +20,9 @@ public class Position {
     @Id
     private UUID id;
 
-    private Integer volume;
+    private int volume;
 
-    private Float price;
+    private float price;
 
     @ManyToOne(targetEntity = User.class)
     private User user;

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -15,9 +16,22 @@ public class MutualFundWatchlistDTO {
 
     private String risk;
 
-    private Float minSIP;
+    private float minSIP;
 
-    private Float expenseRatio;
+    private float expenseRatio;
 
-    private Float nav;
+    private float nav;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MutualFundWatchlistDTO that = (MutualFundWatchlistDTO) o;
+        return Float.compare(that.minSIP, minSIP) == 0 && Float.compare(that.expenseRatio, expenseRatio) == 0 && Float.compare(that.nav, nav) == 0 && Objects.equals(name, that.name) && Objects.equals(risk, that.risk);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, risk, minSIP, expenseRatio, nav);
+    }
 }

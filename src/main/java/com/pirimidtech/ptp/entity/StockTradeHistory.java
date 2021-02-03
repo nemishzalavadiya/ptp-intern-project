@@ -25,12 +25,12 @@ public class StockTradeHistory {
 
     private LocalDateTime timestamp;
 
-    private Integer tradeVolume;
+    private int tradeVolume;
 
     @Enumerated(EnumType.STRING)
     private StockExchangeType stockExchangeType;
 
-    private Float price;
+    private float price;
 
     @ManyToOne(targetEntity =  User.class)
     private User user;

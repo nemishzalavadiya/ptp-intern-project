@@ -41,7 +41,6 @@ public class WatchlistController {
     public List<StockWatchlistDTO> displayStockWatchlist(@PathVariable String userId){
         UUID userUuid;
         List<StockWatchlistDTO> stockWatchlistDTOList = new ArrayList<>();
-        StockWatchlistDTO stockWatchlistDTO = new StockWatchlistDTO();
         try{
             userUuid = UUID.fromString(userId); // throws IllegalArgumentException
             List<Watchlist> userWatchlist = watchlistService.getAllWatchlistDetailByUserId(userUuid);
@@ -49,6 +48,7 @@ public class WatchlistController {
             userWatchlist.forEach((item)->{
                 Optional<CompanyDetail> companyDetail = companyService.getCompanyDetail(item.getCompanyDetail().getId());
                 if(companyDetail.isPresent() && companyDetail.get().getAssetClass().equals(AssetClass.STOCK)) {
+                            StockWatchlistDTO stockWatchlistDTO = new StockWatchlistDTO();
                             stockWatchlistDTO.setName(companyDetail.get().getName());
                             stockWatchlistDTO.setOpenPrice(0.0f);
                             stockWatchlistDTO.setClosePrice(0.0f);
@@ -70,7 +70,6 @@ public class WatchlistController {
 
         UUID userUuid;
         List<MutualFundWatchlistDTO> mutualFundWatchlistDTOList = new ArrayList<>();
-        MutualFundWatchlistDTO mutualFundWatchlistDTO = new MutualFundWatchlistDTO();
         try {
             userUuid = UUID.fromString(userId); // throws IllegalArgumentException
             List<Watchlist> userWatchlist = watchlistService.getAllWatchlistDetailByUserId(userUuid);
@@ -82,6 +81,7 @@ public class WatchlistController {
                     if (mutualFundDetail != null) {
                         Optional<MutualFundStatistic >mutualFundStatistic = mutualFundService.getMutualFundStatsById(mutualFundDetail.getId());
                         if(mutualFundStatistic.isPresent()) {
+                            MutualFundWatchlistDTO mutualFundWatchlistDTO = new MutualFundWatchlistDTO();
                             mutualFundWatchlistDTO.setMinSIP(mutualFundStatistic.get().getMinSIP());
                             mutualFundWatchlistDTO.setNav(mutualFundStatistic.get().getNav());
                             mutualFundWatchlistDTO.setRisk(mutualFundWatchlistDTO.getRisk());

@@ -1,4 +1,4 @@
-package com.pirimidtech.ptp;
+package com.pirimidtech.ptp.service.mutualfund;
 
 import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.CompanyDetail;
@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MutualFundServiceMockTest {
+public class MutualFundServiceTest {
     @Mock
     MutualFundDetailRepository mutualFundDetailRepository;
 

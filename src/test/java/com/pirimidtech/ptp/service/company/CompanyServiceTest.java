@@ -1,4 +1,4 @@
-package com.pirimidtech.ptp;
+package com.pirimidtech.ptp.service.company;
 
 import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.CompanyDetail;
@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CompanyDetailServiceMockTest {
+public class CompanyServiceTest {
     @Mock
     CompanyDetailRepository companyDetailRepository;
 

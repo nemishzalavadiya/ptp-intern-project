@@ -4,23 +4,25 @@ import com.pirimidtech.ptp.entity.StockTradeHistory;
 import com.pirimidtech.ptp.exception.ErrorHandler;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/history")
 public class StockTradeHistoryController {
 
     @Autowired
     private StockTradeHistoryService stockTradeHistoryService;
 
 
-    @PostMapping("/")
+    @PostMapping("/stock/trade-history")
     public ResponseEntity<Void> addToStockTradeHistory(@RequestBody StockTradeHistory stockTradeHistory)
     {
         try {
@@ -31,8 +33,8 @@ public class StockTradeHistoryController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{userId}")
-    public List<StockTradeHistory> getStockTradeHistory(@PathVariable("userId") UUID userId )
+    @GetMapping("/stock/trade-history/user/{id}")
+    public List<StockTradeHistory> getStockTradeHistory(@PathVariable("id") UUID userId )
     {
         List<StockTradeHistory> stockTradeHistoryList = new ArrayList<>();
         try {
@@ -42,8 +44,8 @@ public class StockTradeHistoryController {
         }
         return stockTradeHistoryList;
     }
-    @GetMapping("/trade/{tradeId}")
-    public StockTradeHistory getStockTradeByTradeId(@PathVariable("tradeId") UUID tradeId)
+    @GetMapping("/stock/trade-history/{id}")
+    public StockTradeHistory getStockTradeByTradeId(@PathVariable("id") UUID tradeId)
     {
         StockTradeHistory stockTradeHistory = new StockTradeHistory();
         try {

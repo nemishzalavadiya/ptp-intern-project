@@ -1,30 +1,31 @@
 package com.pirimidtech.ptp.controller;
 
-
 import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.StockOrder;
-import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.exception.ErrorHandler;
-import com.pirimidtech.ptp.repository.UserRepository;
 import com.pirimidtech.ptp.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/orders")
 public class OrderController {
-
 
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/stock")
+    @PostMapping("/stock/orders")
     public ResponseEntity<Void> addToStockOrder(@RequestBody StockOrder stockOrder)
     {
         try {
@@ -37,8 +38,8 @@ public class OrderController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/stock/{userId}")
-    public List<StockOrder> getAllStockOrder(@PathVariable("userId") UUID userId)
+    @GetMapping("/stock/orders/users/{id}")
+    public List<StockOrder> getAllStockOrder(@PathVariable("id") UUID userId)
     {
         List<StockOrder> stockOrderList = new ArrayList<>();
         try {
@@ -51,8 +52,8 @@ public class OrderController {
         return stockOrderList;
     }
 
-    @GetMapping("/stock/order/{orderId}")
-    public StockOrder getStockOrder(@PathVariable("orderId") UUID orderId)
+    @GetMapping("/stock/orders/{id}")
+    public StockOrder getStockOrder(@PathVariable("id") UUID orderId)
     {
         StockOrder stockOrder = new StockOrder();
         try {
@@ -65,8 +66,8 @@ public class OrderController {
         return stockOrder;
     }
 
-    @PutMapping("/stock/update/{orderId}")
-    public ResponseEntity<Void> updateStockOrder(@PathVariable("orderId") UUID orderId,@RequestBody StockOrder stockOrder)
+    @PutMapping("/stock/orders/{id}")
+    public ResponseEntity<Void> updateStockOrder(@PathVariable("id") UUID orderId,@RequestBody StockOrder stockOrder)
     {
         try {
             stockOrder.setId(orderId);
@@ -79,8 +80,8 @@ public class OrderController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/stock/delete/{orderId}")
-    public ResponseEntity<Void> deleteStockOrder(@PathVariable("orderId") UUID orderId)
+    @DeleteMapping("/stock/orders/{id}")
+    public ResponseEntity<Void> deleteStockOrder(@PathVariable("id") UUID orderId)
     {
         try{
         orderService.deleteStockOrder(orderId);
@@ -92,7 +93,7 @@ public class OrderController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/mutualFund")
+    @PostMapping("/mutualfund/orders")
     public ResponseEntity<Void> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder){
         try{
         orderService.addToMutualFundOrder(mutualFundOrder);}
@@ -102,8 +103,8 @@ public class OrderController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/mutualFund/update/{mutualFundId}")
-    public ResponseEntity<Void> updateMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder){
+    @PutMapping("/mutualfund/orders/{id}")
+    public ResponseEntity<Void> updateMutualFundOrder(@PathVariable("id") UUID orderId,@RequestBody MutualFundOrder mutualFundOrder){
         try {
             orderService.addToMutualFundOrder(mutualFundOrder);
         }
@@ -113,8 +114,8 @@ public class OrderController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/mutualFund/{userId}")
-    public List<MutualFundOrder> getAllMutualFundOrder(@PathVariable UUID userId) {
+    @GetMapping("/mutualfund/orders/users/{id}")
+    public List<MutualFundOrder> getAllMutualFundOrder(@PathVariable("id") UUID userId) {
         List<MutualFundOrder> mutualFundOrderList = new ArrayList<>();
 
         try {
@@ -127,8 +128,8 @@ public class OrderController {
         return mutualFundOrderList;
     }
 
-    @GetMapping("/mutualFund/order/{mutualFundOrderId}")
-    public MutualFundOrder getMutualFundOrderOrder(@PathVariable UUID mutualFundOrderId) {
+    @GetMapping("/mutualfund/orders/{id}")
+    public MutualFundOrder getMutualFundOrderOrder(@PathVariable("id") UUID mutualFundOrderId) {
         MutualFundOrder mutualFundOrder = new MutualFundOrder();
 
         try {
@@ -140,8 +141,8 @@ public class OrderController {
         return mutualFundOrder;
     }
 
-    @DeleteMapping("/mutualFund/{mutualFundOrderId}")
-    public ResponseEntity<Void> deleteMutualFundOrder(@PathVariable UUID mutualFundOrderId) {
+    @DeleteMapping("/mutualfund/orders/{id}")
+    public ResponseEntity<Void> deleteMutualFundOrder(@PathVariable("id") UUID mutualFundOrderId) {
         try {
             orderService.deleteMutualFundOrder(mutualFundOrderId);
         } catch (Exception exception) {

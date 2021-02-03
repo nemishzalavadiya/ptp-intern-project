@@ -2,15 +2,14 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.*;
 import com.pirimidtech.ptp.entity.dto.StockWatchlistDTO;
-import com.pirimidtech.ptp.repository.CompanyDetailRepository;
 import com.pirimidtech.ptp.service.company.CompanyService;
-import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
-import com.pirimidtech.ptp.service.stock.StockService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
@@ -18,38 +17,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@RunWith(MockitoJUnitRunner.class)
 public class WatchlistControllerTest {
 
-    public static List<User> userList;
-    public static List<CompanyDetail> companyDetailList;
-    public static List<StockDetail> stockDetailList;
-    public static List<StockStatistic> stockStatisticList;
-    public static List<MutualFundDetail> mutualFundDetailList;
-    public static List<MutualFundStatistic> mutualFundStatisticList;
-    public static List<Watchlist> watchlistList;
+    public List<User> userList;
+    public List<CompanyDetail> companyDetailList;
+    public List<StockDetail> stockDetailList;
+    public List<StockStatistic> stockStatisticList;
+    public List<MutualFundDetail> mutualFundDetailList;
+    public List<MutualFundStatistic> mutualFundStatisticList;
+    public List<Watchlist> watchlistList;
 
     @InjectMocks
-    WatchlistController watchlistController= new WatchlistController();
+    WatchlistController watchlistController;
 
     @Mock
-    private WatchlistService watchlistService;
+    WatchlistService watchlistService;
 
     @Mock
-    private CompanyService companyService;
+    CompanyService companyService;
 
-    @Mock
-    private StockService stockService;
+    @Before
+    public void setUp(){
 
-    @Mock
-    private MutualFundService mutualFundService;
-
-    @Mock
-    CompanyDetailRepository companyDetailRepository;
-
-    @BeforeAll
-    public static void setUp(){
         userList= new ArrayList<User>(){{
-            new User(){{
+            add(new User(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000000"));
                 setDateOfBirth("10/10/2000");
                 setEmail("dummy@gamil.com");
@@ -59,10 +51,10 @@ public class WatchlistControllerTest {
                 setPanCard("Pan_card_number");
                 setSignatureUrl("signatureUrl");
                 setName("Nemish");
-            }};
+            }});
         }};
         companyDetailList= new ArrayList<CompanyDetail>(){{
-            new CompanyDetail(){{
+            add(new CompanyDetail(){{
                 setName("TCS Stock");
                 setId(UUID.fromString("00000000-0000-0000-0000-00000001"));
                 setAbout("tata consultancy services stock");
@@ -70,8 +62,8 @@ public class WatchlistControllerTest {
                 setLogoUrl("LogoUrl");
                 setManagingDirector("Harsh Desai");
                 setOrganization("Tata Group");
-            }};
-            new CompanyDetail(){{
+            }});
+            add(new CompanyDetail(){{
                 setName("TCS Mutual Fund");
                 setId(UUID.fromString("00000000-0000-0000-0000-00000002"));
                 setAbout("tata consultancy services mutual funs");
@@ -79,8 +71,8 @@ public class WatchlistControllerTest {
                 setLogoUrl("LogoUrl");
                 setManagingDirector("Mohit Nankani");
                 setOrganization("Tata Group");
-            }};
-            new CompanyDetail(){{
+            }});
+            add(new CompanyDetail(){{
                 setName("Infosys Stock");
                 setId(UUID.fromString("00000000-0000-0000-0000-00000003"));
                 setAbout("Infosys consultancy services");
@@ -88,8 +80,8 @@ public class WatchlistControllerTest {
                 setLogoUrl("LogoUrl");
                 setManagingDirector("Nemish Zalavadiya");
                 setOrganization("Infosys Group");
-            }};
-            new CompanyDetail(){{
+            }});
+            add(new CompanyDetail(){{
                 setName("Infosys Mutual Fund");
                 setId(UUID.fromString("00000000-0000-0000-0000-00000004"));
                 setAbout("Infosys consultancy services");
@@ -97,25 +89,24 @@ public class WatchlistControllerTest {
                 setLogoUrl("LogoUrl");
                 setManagingDirector("Darshan Gohel");
                 setOrganization("Infosys Group");
-            }};
+            }});
         }};
-        System.out.println(companyDetailList);
         stockDetailList= new ArrayList<StockDetail>(){{
-            new StockDetail(){{
+            add(new StockDetail(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000005"));
                 setManagingDirector("Harsh Desai");
                 setYearFounded(LocalDateTime.now());
                 setCompanyDetail(companyDetailList.get(0));
-            }};
-            new StockDetail(){{
+            }});
+            add(new StockDetail(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000006"));
                 setManagingDirector("Nemish Zalavadiya");
                 setYearFounded(LocalDateTime.now());
                 setCompanyDetail(companyDetailList.get(2));
-            }};
+            }});
         }};
         stockStatisticList= new ArrayList<StockStatistic>(){{
-            new StockStatistic(){{
+            add(new StockStatistic(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000009"));
                 setBookValue(30f);
                 setDivYield(100.5f);
@@ -127,8 +118,8 @@ public class WatchlistControllerTest {
                 setIndustryPE(108.3f);
                 setNumberOfStackHolders(1000);
                 setStockDetail(stockDetailList.get(0));
-            }};
-            new StockStatistic(){{
+            }});
+            add(new StockStatistic(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000010"));
                 setBookValue(130f);
                 setDivYield(10.5f);
@@ -140,24 +131,24 @@ public class WatchlistControllerTest {
                 setIndustryPE(108.3f);
                 setNumberOfStackHolders(100);
                 setStockDetail(stockDetailList.get(1));
-            }};
+            }});
         }};
         mutualFundDetailList= new ArrayList<MutualFundDetail>(){{
-            new MutualFundDetail(){{
+            add(new MutualFundDetail(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000007"));
                 setFundManager("Mohit Nankani");
                 setLaunchDate(LocalDateTime.now());
                 setCompanyDetail(companyDetailList.get(1));
-            }};
-            new MutualFundDetail(){{
+            }});
+            add(new MutualFundDetail(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000008"));
                 setFundManager("Darshan Gohel");
                 setLaunchDate(LocalDateTime.now());
                 setCompanyDetail(companyDetailList.get(3));
-            }};
+            }});
         }};
         mutualFundStatisticList= new ArrayList<MutualFundStatistic>(){{
-            new MutualFundStatistic(){{
+            add(new MutualFundStatistic(){{
                 setMutualFundDetail(mutualFundDetailList.get(0));
                 setId(UUID.fromString("00000000-0000-0000-0000-00000011"));
                 setExpenseRatio(10.3f);
@@ -167,8 +158,8 @@ public class WatchlistControllerTest {
                 setSipAllowed(true);
                 setNav(12.8f);
                 setMinSIP(100f);
-            }};
-            new MutualFundStatistic(){{
+            }});
+            add(new MutualFundStatistic(){{
                 setMutualFundDetail(mutualFundDetailList.get(1));
                 setId(UUID.fromString("00000000-0000-0000-0000-00000012"));
                 setExpenseRatio(14.3f);
@@ -178,74 +169,58 @@ public class WatchlistControllerTest {
                 setSipAllowed(true);
                 setNav(12.8f);
                 setMinSIP(100f);
-            }};
+            }});
         }};
         watchlistList= new ArrayList<Watchlist>(){{
-            new Watchlist(){{
+            add(new Watchlist(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000013"));
                 setUser(userList.get(0));
                 setCompanyDetail(companyDetailList.get(0));
-            }};
-            new Watchlist(){{
+            }});
+            add(new Watchlist(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000013"));
                 setUser(userList.get(0));
                 setCompanyDetail(companyDetailList.get(1));
-            }};
-            new Watchlist(){{
+            }});
+            add(new Watchlist(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000013"));
                 setUser(userList.get(0));
                 setCompanyDetail(companyDetailList.get(2));
-            }};
-            new Watchlist(){{
+            }});
+            add(new Watchlist(){{
                 setId(UUID.fromString("00000000-0000-0000-0000-00000013"));
                 setUser(userList.get(0));
                 setCompanyDetail(companyDetailList.get(3));
-            }};
+            }});
         }};
     }
 
     @Test
-    void displayStockWatchlist() {
-
+    public void displayStockWatchlist() {
         UUID userUuid = UUID.fromString("00000000-0000-0000-0000-00000000");
+        List<StockWatchlistDTO> testStockWatchlistDTOList = new ArrayList<StockWatchlistDTO>(){{
+            add(new StockWatchlistDTO(){{
+                setName(companyDetailList.get(0).getName());
+                setPercentageChange(0.0f);
+                setTradePrice(0.0f);
+                setOpenPrice(0.0f);
+                setClosePrice(0.0f);
+            }});
+            add(new StockWatchlistDTO(){{
+                setName(companyDetailList.get(2).getName());
+                setPercentageChange(0.0f);
+                setTradePrice(0.0f);
+                setOpenPrice(0.0f);
+                setClosePrice(0.0f);
+            }});
+        }};
         when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(watchlistList);
-        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000001"))).thenReturn(java.util.Optional.ofNullable(companyDetailList.get(0)));
-        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000002"))).thenReturn(java.util.Optional.ofNullable(companyDetailList.get(1)));
-        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000003"))).thenReturn(java.util.Optional.ofNullable(companyDetailList.get(2)));
-        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000004"))).thenReturn(java.util.Optional.ofNullable(companyDetailList.get(3)));
+        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000001"))).thenReturn(java.util.Optional.of(companyDetailList.get(0)));
+        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000002"))).thenReturn(java.util.Optional.of(companyDetailList.get(1)));
+        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000003"))).thenReturn(java.util.Optional.of(companyDetailList.get(2)));
+        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000004"))).thenReturn(java.util.Optional.of(companyDetailList.get(3)));
+        List<StockWatchlistDTO> controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-00000000");
 
-        assertEquals(watchlistController.displayStockWatchlist("00000000-0000-0000-0000-00000000"),
-                new ArrayList<StockWatchlistDTO>(){{
-                    new StockWatchlistDTO(){{
-                        setName(companyDetailList.get(2).getName());
-                        setPercentageChange(0.0f);
-                        setTradePrice(0.0f);
-                        setOpenPrice(0.0f);
-                        setClosePrice(0.0f);
-                    }};
-                    new StockWatchlistDTO(){{
-                        setName(companyDetailList.get(0).getName());
-                        setPercentageChange(0.0f);
-                        setTradePrice(0.0f);
-                        setOpenPrice(0.0f);
-                        setClosePrice(0.0f);
-                    }};
-                }});
-    }
-
-    @Test
-    void displayMutualFundWatchlist() {
-    }
-
-    @Test
-    void searchNameLike() {
-    }
-
-    @Test
-    void addCompany() {
-    }
-
-    @Test
-    void removeCompany() {
+        assertEquals(controllerStockWatchlistDTOList,testStockWatchlistDTOList);
     }
 }

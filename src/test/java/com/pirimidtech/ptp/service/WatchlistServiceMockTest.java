@@ -1,24 +1,23 @@
-package com.pirimidtech.ptp.controller;
+package com.pirimidtech.ptp.service;
 
 import com.pirimidtech.ptp.entity.*;
-import com.pirimidtech.ptp.entity.dto.StockWatchlistDTO;
-import com.pirimidtech.ptp.service.company.CompanyService;
+import com.pirimidtech.ptp.repository.WatchListRepository;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WatchlistControllerTest {
+public class WatchlistServiceMockTest {
 
     public List<User> userList;
     public List<CompanyDetail> companyDetailList;
@@ -29,13 +28,10 @@ public class WatchlistControllerTest {
     public List<Watchlist> watchlistList;
 
     @InjectMocks
-    WatchlistController watchlistController;
-
-    @Mock
     WatchlistService watchlistService;
 
     @Mock
-    CompanyService companyService;
+    WatchListRepository watchListRepository;
 
     @Before
     public void setUp(){
@@ -56,29 +52,24 @@ public class WatchlistControllerTest {
     }
 
     @Test
-    public void displayStockWatchlist() {
-        UUID userUuid = UUID.fromString("00000000-0000-0000-0000-00000000");
-        List<StockWatchlistDTO> testStockWatchlistDTOList = new ArrayList<>();
-        testStockWatchlistDTOList.add(new StockWatchlistDTO(companyDetailList.get(0).getName(),0.0f,0.0f,0.0f,0.0f));
+    public void getAllWatchlistDetailByUserId(){
+        //When user do have watchlist
+        UUID userId = UUID.fromString("00000000-0000-0000-0000-00000000");
+        List<Watchlist> filteredWatchlist = new ArrayList<>();
+        UUID finalUserId = userId;
+        watchlistList.forEach((item->{
+            if(item.getUser().getId().compareTo(finalUserId)==0){
+                filteredWatchlist.add(item);
+            }
+        }));
+        when(watchListRepository.findByUserId(userId)).thenReturn(filteredWatchlist);
+        assertEquals(watchlistService.getAllWatchlistDetailByUserId(userId),filteredWatchlist);
 
-        //When user have stock watchlist
-        when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(watchlistList);
-        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000001"))).thenReturn(java.util.Optional.of(companyDetailList.get(0)));
-        List<StockWatchlistDTO> controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-00000000");
-        assertEquals(controllerStockWatchlistDTOList,testStockWatchlistDTOList);
+        //When user don't have watchlist
+        userId = UUID.fromString("00000000-0000-0000-0000-999999999999");
+        when(watchListRepository.findByUserId(userId)).thenReturn(new ArrayList<>());
+        when(watchListRepository.findByUserId(userId)).thenReturn(new ArrayList<>());
 
-        //When user don't have stock watchlist
-        userUuid = UUID.fromString("00000000-0000-0000-0000-999999999999");
-        when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(new ArrayList<Watchlist>());
-        controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-999999999999");
-        assertEquals(controllerStockWatchlistDTOList,new ArrayList<StockWatchlistDTO>());
-
-        //When user passes invalid UUID
-        try{
-            watchlistController.displayStockWatchlist("11111111");
-            assertFalse(false);
-        }catch (Exception e){
-            assertTrue(e.getMessage().contains("Invalid Input"));
-        }
     }
+
 }

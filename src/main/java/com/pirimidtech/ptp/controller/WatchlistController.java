@@ -38,7 +38,8 @@ public class WatchlistController {
     CompanyDetailRepository companyDetailRepository;
 
     @RequestMapping(method= RequestMethod.GET,value = "/stocks/{userId}")
-    public List<StockWatchlistDTO> displayStockWatchlist(@PathVariable String userId){
+    public List<StockWatchlistDTO> displayStockWatchlist(@PathVariable String userId)
+    throws ExceptionHandler{
         UUID userUuid;
         List<StockWatchlistDTO> stockWatchlistDTOList = new ArrayList<>();
         try{
@@ -66,7 +67,8 @@ public class WatchlistController {
         return stockWatchlistDTOList;
     }
     @RequestMapping(method= RequestMethod.GET,value = "/mutualfunds/{userId}")
-    public List<MutualFundWatchlistDTO> displayMutualFundWatchlist(@PathVariable String userId){
+    public List<MutualFundWatchlistDTO> displayMutualFundWatchlist(@PathVariable String userId)
+    throws ExceptionHandler{
 
         UUID userUuid;
         List<MutualFundWatchlistDTO> mutualFundWatchlistDTOList = new ArrayList<>();
@@ -77,16 +79,16 @@ public class WatchlistController {
             userWatchlist.forEach((item) -> {
                 Optional<CompanyDetail> companyDetail = companyService.getCompanyDetail(item.getCompanyDetail().getId());
                 if (companyDetail.isPresent() && companyDetail.get().getAssetClass().equals(AssetClass.MUTUAL_FUND)) {
-                    MutualFundDetail mutualFundDetail = mutualFundService.getMutualFundDetailByCompanyId(companyDetail.get().getId());
-                    if (mutualFundDetail != null) {
-                        Optional<MutualFundStatistic >mutualFundStatistic = mutualFundService.getMutualFundStatsById(mutualFundDetail.getId());
+                    Optional<MutualFundDetail> mutualFundDetail = mutualFundService.getMutualFundDetailByCompanyId(companyDetail.get().getId());
+                    if (mutualFundDetail.isPresent()) {
+                        Optional<MutualFundStatistic> mutualFundStatistic = mutualFundService.getMutualFundStatsById(mutualFundDetail.get().getId());
                         if(mutualFundStatistic.isPresent()) {
                             MutualFundWatchlistDTO mutualFundWatchlistDTO = new MutualFundWatchlistDTO();
                             mutualFundWatchlistDTO.setMinSIP(mutualFundStatistic.get().getMinSIP());
                             mutualFundWatchlistDTO.setNav(mutualFundStatistic.get().getNav());
-                            mutualFundWatchlistDTO.setRisk(mutualFundWatchlistDTO.getRisk());
+                            mutualFundWatchlistDTO.setRisk(mutualFundStatistic.get().getRisk());
                             mutualFundWatchlistDTO.setName(companyDetail.get().getName());
-                            mutualFundWatchlistDTO.setExpenseRatio(mutualFundWatchlistDTO.getExpenseRatio());
+                            mutualFundWatchlistDTO.setExpenseRatio(mutualFundStatistic.get().getExpenseRatio());
                             mutualFundWatchlistDTOList.add(mutualFundWatchlistDTO);
                         }
                     }

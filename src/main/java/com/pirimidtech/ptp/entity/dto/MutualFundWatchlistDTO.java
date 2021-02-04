@@ -12,15 +12,15 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MutualFundWatchlistDTO {
-    private String name;
+    public String name;
 
-    private String risk;
+    public String risk;
 
-    private float minSIP;
+    public float minSIP;
 
-    private float expenseRatio;
+    public float expenseRatio;
 
-    private float nav;
+    public float nav;
 
     @Override
     public boolean equals(Object o) {

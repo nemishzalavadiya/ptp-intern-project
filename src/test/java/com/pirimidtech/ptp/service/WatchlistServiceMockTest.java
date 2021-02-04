@@ -7,7 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -69,6 +70,16 @@ public class WatchlistServiceMockTest {
         userId = UUID.fromString("00000000-0000-0000-0000-999999999999");
         when(watchListRepository.findByUserId(userId)).thenReturn(new ArrayList<>());
         assertEquals(watchlistService.getAllWatchlistDetailByUserId(userId),new ArrayList<>());
+    }
+    @Test
+    void add() {
+        CompanyDetail companyDetail = new CompanyDetail();
+        companyDetail.setId(UUID.randomUUID());
+        Watchlist watchlist = new Watchlist(UUID.randomUUID(),
+                new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"),"abc","abc@dev.com","","","","", Gender.MALE,""),
+                companyDetail);
+        watchlistService.add(watchlist);
+        verify(watchListRepository,times(1)).save(watchlist);
     }
 
 }

@@ -68,8 +68,7 @@ public class WatchlistServiceMockTest {
         //When user don't have watchlist
         userId = UUID.fromString("00000000-0000-0000-0000-999999999999");
         when(watchListRepository.findByUserId(userId)).thenReturn(new ArrayList<>());
-        when(watchListRepository.findByUserId(userId)).thenReturn(new ArrayList<>());
-
+        assertEquals(watchlistService.getAllWatchlistDetailByUserId(userId),new ArrayList<>());
     }
 
 }

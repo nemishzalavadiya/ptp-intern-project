@@ -22,7 +22,6 @@ import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WatchlistControllerTest {
-
     public List<User> userList;
     public List<CompanyDetail> companyDetailList;
     public List<StockDetail> stockDetailList;
@@ -30,19 +29,14 @@ public class WatchlistControllerTest {
     public List<MutualFundDetail> mutualFundDetailList;
     public List<MutualFundStatistic> mutualFundStatisticList;
     public List<Watchlist> watchlistList;
-
     @InjectMocks
     WatchlistController watchlistController;
-
     @Mock
     WatchlistService watchlistService;
-
     @Mock
     CompanyService companyService;
-
     @Mock
     MutualFundService mutualFundService;
-
     @Before
     public void setUp(){
         userList = new ArrayList<>();
@@ -62,26 +56,22 @@ public class WatchlistControllerTest {
         watchlistList.add(new Watchlist(UUID.fromString("00000000-0000-0000-0000-00000006"),userList.get(0),companyDetailList.get(0)));
         watchlistList.add(new Watchlist(UUID.fromString("00000000-0000-0000-0000-00000007"),userList.get(0),companyDetailList.get(1)));
     }
-
     @Test
     public void displayStockWatchlist() {
         UUID userUuid = UUID.fromString("00000000-0000-0000-0000-00000000");
         List<StockWatchlistDTO> testStockWatchlistDTOList = new ArrayList<>();
         testStockWatchlistDTOList.add(new StockWatchlistDTO(companyDetailList.get(0).getName(),0.0f,0.0f,0.0f,0.0f));
-
         //When user have stock watchlist
         when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(watchlistList);
         when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000001"))).thenReturn(Optional.of(companyDetailList.get(0)));
         when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-0000010"))).thenReturn(Optional.of(companyDetailList.get(1)));
         List<StockWatchlistDTO> controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-00000000");
         assertEquals(controllerStockWatchlistDTOList,testStockWatchlistDTOList);
-
         //When user don't have stock watchlist
         userUuid = UUID.fromString("00000000-0000-0000-0000-999999999999");
         when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(new ArrayList<Watchlist>());
         controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-999999999999");
         assertEquals(controllerStockWatchlistDTOList,new ArrayList<StockWatchlistDTO>());
-
         //When user passes invalid UUID
         try{
             watchlistController.displayStockWatchlist("11111111");
@@ -95,7 +85,6 @@ public class WatchlistControllerTest {
         UUID userUuid = UUID.fromString("00000000-0000-0000-0000-00000000");
         List<MutualFundWatchlistDTO> testMutualFundWatchlistDTOList = new ArrayList<>();
         testMutualFundWatchlistDTOList.add(new MutualFundWatchlistDTO(companyDetailList.get(0).getName(),"Low",0.0f,0.0f,0.0f));
-
         //When user have mutual fund watchlist
         when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(watchlistList);
         when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-0000001"))).thenReturn(Optional.of(companyDetailList.get(0)));
@@ -104,13 +93,11 @@ public class WatchlistControllerTest {
         when(mutualFundService.getMutualFundStatsById(mutualFundDetailList.get(0).getId())).thenReturn(Optional.of(mutualFundStatisticList.get(0)));
         List<MutualFundWatchlistDTO> controllerMutualFundWatchlistDTOList = watchlistController.displayMutualFundWatchlist("00000000-0000-0000-0000-00000000");
         assertEquals(controllerMutualFundWatchlistDTOList,testMutualFundWatchlistDTOList);
-
         //When user don't have mutual fund watchlist
         userUuid = UUID.fromString("00000000-0000-0000-0000-999999999999");
         when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(new ArrayList<>());
         controllerMutualFundWatchlistDTOList = watchlistController.displayMutualFundWatchlist("00000000-0000-0000-0000-999999999999");
         assertEquals(controllerMutualFundWatchlistDTOList,new ArrayList<>());
-
         //When user passes invalid UUID
         try{
             watchlistController.displayMutualFundWatchlist("11111111");

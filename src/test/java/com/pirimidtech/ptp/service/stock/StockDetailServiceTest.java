@@ -6,7 +6,6 @@ import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockStatistic;
 import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.repository.StockStatisticRepository;
-import com.pirimidtech.ptp.service.stock.StockService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

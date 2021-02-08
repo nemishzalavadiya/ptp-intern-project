@@ -24,14 +24,16 @@ public class PriceController {
     private PriceService priceService;
 
     @PostMapping("/stock/prices")
-    public ResponseEntity<Void> addToStockPrice(@RequestBody StockPrice stockPrice) {
+    public ResponseEntity<UUID> addToStockPrice(@RequestBody StockPrice stockPrice) {
+        UUID uuid;
         try {
-            stockPrice.setId(UUID.randomUUID());
+            uuid = UUID.randomUUID();
+            stockPrice.setId(uuid);
             priceService.addToStockPrice(stockPrice);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(uuid);
     }
 
     @GetMapping("/stock/{id}/prices")
@@ -46,9 +48,11 @@ public class PriceController {
     }
 
     @PostMapping("/mutualfund/prices")
-    public ResponseEntity<Void> addToMutualFundPrice(@RequestBody MutualFundPrice mutualFundPrice) {
+    public ResponseEntity<UUID> addToMutualFundPrice(@RequestBody MutualFundPrice mutualFundPrice) {
+        UUID uuid;
         try {
-            mutualFundPrice.setId(UUID.randomUUID());
+            uuid  = UUID.randomUUID();
+            mutualFundPrice.setId(uuid);
             priceService.addToMutualFundPrice(mutualFundPrice);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());

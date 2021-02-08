@@ -21,23 +21,23 @@ public class StockStatistic {
     @Id
     private UUID id;
 
-    private Integer numberOfStackHolders;
+    private int numberOfStackHolders;
 
-    private Float pbRatio;
+    private float pbRatio;
 
-    private Float peRatio;
+    private float peRatio;
 
-    private Float industryPE;
+    private float industryPE;
 
-    private Float divYield;
+    private float divYield;
 
-    private Float bookValue;
+    private float bookValue;
 
-    private Float marketCap;
+    private float marketCap;
 
-    private Float returnOnEquity;
+    private float returnOnEquity;
 
-    private Float earningPerShareTTM;
+    private float earningPerShareTTM;
 
     @OneToOne(targetEntity = StockDetail.class)
     @MapsId

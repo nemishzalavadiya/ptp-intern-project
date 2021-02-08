@@ -7,11 +7,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
 import javax.persistence.Table;
-import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -24,12 +20,9 @@ public class Watchlist {
     @Id
     private UUID id;
 
-    @Enumerated(EnumType.STRING)
-    private AssetClass assetClass;
-
-    @OneToOne
+    @OneToOne(targetEntity = User.class)
     private User user;
 
-    @OneToMany(mappedBy = "watchList")
-    private List<CompanyDetail> companyDetailList;
+    @OneToOne(targetEntity = CompanyDetail.class)
+    private CompanyDetail companyDetail;
 }

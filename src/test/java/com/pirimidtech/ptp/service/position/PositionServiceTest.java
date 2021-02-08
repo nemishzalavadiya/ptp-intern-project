@@ -1,11 +1,10 @@
 package com.pirimidtech.ptp.service.position;
 
-import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.CompanyDetail;
-import com.pirimidtech.ptp.entity.Gender;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.repository.PositionRepository;
+import com.pirimidtech.ptp.utility.ObjectUtility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,38 +24,34 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class PositionServiceTest {
 
+    User user = ObjectUtility.user;
     @Autowired
     private PositionService positionService;
-
     @MockBean
     private PositionRepository positionRepository;
 
-    User user=new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"),"abc","abc@dev.com","","","","", Gender.MALE,"");
     @Test
     void getAllPosition() {
-        CompanyDetail companyDetail=new CompanyDetail();
-        companyDetail.setId(UUID.randomUUID());
-        List<Position> positionList=new ArrayList<>();
-        positionList.add(new Position(UUID.randomUUID(),35,100f, AssetClass.STOCK,user,companyDetail));
-        positionList.add(new Position(UUID.randomUUID(),10,10f, AssetClass.MUTUAL_FUND,user,companyDetail));
-        when(positionRepository.findAllByUserId(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<>(positionList));
-        assertEquals(2,positionService.getAllPosition(user.getId(),0,2).size());
+        CompanyDetail companyDetail = ObjectUtility.companyDetail;
+        List<Position> positionList = new ArrayList<>();
+        positionList.add(ObjectUtility.position);
+        when(positionRepository.findAllByUserId(user.getId(), PageRequest.of(0, 1))).thenReturn(new PageImpl<>(positionList));
+        assertEquals(1, positionService.getAllPosition(user.getId(), 0, 1).size());
 
     }
 
     @Test
     void deleteFromPosition() {
-        UUID positionId=UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e");
+        UUID positionId = ObjectUtility.position.getId();
         positionService.deleteFromPosition(positionId);
-        verify(positionRepository,times(1)).deleteById(positionId);
+        verify(positionRepository, times(1)).deleteById(positionId);
     }
 
     @Test
     void addToPosition() {
-        CompanyDetail companyDetail=new CompanyDetail();
-        companyDetail.setId(UUID.randomUUID());
-        Position position=new Position(UUID.randomUUID(),35,100, AssetClass.STOCK,user,companyDetail);
+        CompanyDetail companyDetail = ObjectUtility.companyDetail;
+        Position position = ObjectUtility.position;
         positionService.addToPosition(position);
-        verify(positionRepository,times(1)).save(position);
+        verify(positionRepository, times(1)).save(position);
     }
 }

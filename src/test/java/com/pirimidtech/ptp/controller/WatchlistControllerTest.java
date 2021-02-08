@@ -92,8 +92,10 @@ public class WatchlistControllerTest {
         testMutualFundWatchlistDTOList.add(new MutualFundWatchlistDTO(companyDetailList.get(0).getName(),"Low",0.0f,0.0f,0.0f));
         //When user have mutual fund watchlist
         Pageable pageable= PageRequest.of(0,10);
-        when(watchlistService.getWatchlistDetailByUserId(userUuid,AssetClass.MUTUAL_FUND,pageable)).thenReturn(watchlistList.subList(1,2));
-        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-0000010"))).thenReturn(Optional.of(companyDetailList.get(1)));
+        when(watchlistService.getWatchlistDetailByUserId(userUuid,AssetClass.MUTUAL_FUND,pageable))
+                .thenReturn(watchlistList.subList(1,2));
+        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-0000010")))
+                .thenReturn(Optional.of(companyDetailList.get(1)));
         when(mutualFundService.getMutualFundDetailByCompanyId(companyDetailList.get(1).getId())).thenReturn(Optional.of(mutualFundDetailList.get(0)));
         when(mutualFundService.getMutualFundStatsById(mutualFundDetailList.get(0).getId())).thenReturn(Optional.of(mutualFundStatisticList.get(0)));
         List<MutualFundWatchlistDTO> controllerMutualFundWatchlistDTOList = watchlistController.displayMutualFundWatchlist("00000000-0000-0000-0000-00000000",0,10);

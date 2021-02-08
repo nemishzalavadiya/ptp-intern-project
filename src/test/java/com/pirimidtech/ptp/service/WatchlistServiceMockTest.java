@@ -12,6 +12,9 @@ import static org.mockito.Mockito.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +56,7 @@ public class WatchlistServiceMockTest {
     }
 
     @Test
-    public void getAllWatchlistDetailByUserId(){
+    public void getWatchlistDetailByUserId(){
         //When user do have watchlist
         UUID userId = UUID.fromString("00000000-0000-0000-0000-00000000");
         List<Watchlist> filteredWatchlist = new ArrayList<>();
@@ -63,16 +66,17 @@ public class WatchlistServiceMockTest {
                 filteredWatchlist.add(item);
             }
         }));
-        when(watchListRepository.findByUserId(userId)).thenReturn(filteredWatchlist);
-        assertEquals(watchlistService.getAllWatchlistDetailByUserId(userId),filteredWatchlist);
+        Pageable pageable= PageRequest.of(0,10);
+        when(watchListRepository.findByUserIdAndCompanyDetailAssetClass(userId,AssetClass.STOCK,pageable)).thenReturn(filteredWatchlist);
+        assertEquals(watchlistService.getWatchlistDetailByUserId(userId,AssetClass.STOCK,pageable),filteredWatchlist);
 
         //When user don't have watchlist
         userId = UUID.fromString("00000000-0000-0000-0000-999999999999");
-        when(watchListRepository.findByUserId(userId)).thenReturn(new ArrayList<>());
-        assertEquals(watchlistService.getAllWatchlistDetailByUserId(userId),new ArrayList<>());
+        when(watchListRepository.findByUserIdAndCompanyDetailAssetClass(userId,AssetClass.STOCK,pageable)).thenReturn(new ArrayList<>());
+        assertEquals(watchlistService.getWatchlistDetailByUserId(userId,AssetClass.STOCK,pageable),new ArrayList<>());
     }
     @Test
-    void add() {
+    public void add() {
         CompanyDetail companyDetail = new CompanyDetail();
         companyDetail.setId(UUID.randomUUID());
         Watchlist watchlist = new Watchlist(UUID.randomUUID(),

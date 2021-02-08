@@ -5,6 +5,7 @@ import com.pirimidtech.ptp.entity.dto.MutualFundWatchlistDTO;
 import com.pirimidtech.ptp.entity.dto.StockWatchlistDTO;
 import com.pirimidtech.ptp.service.company.CompanyService;
 import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
+import com.pirimidtech.ptp.service.stock.StockService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +13,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import java.time.LocalDateTime;
@@ -62,19 +66,20 @@ public class WatchlistControllerTest {
         List<StockWatchlistDTO> testStockWatchlistDTOList = new ArrayList<>();
         testStockWatchlistDTOList.add(new StockWatchlistDTO(companyDetailList.get(0).getName(),0.0f,0.0f,0.0f,0.0f));
         //When user have stock watchlist
-        when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(watchlistList);
+        Pageable pageable= PageRequest.of(0,10);
+        when(watchlistService.getWatchlistDetailByUserId(userUuid,AssetClass.STOCK,pageable)).thenReturn(watchlistList.subList(0,1));
         when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-00000001"))).thenReturn(Optional.of(companyDetailList.get(0)));
-        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-0000010"))).thenReturn(Optional.of(companyDetailList.get(1)));
-        List<StockWatchlistDTO> controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-00000000");
+        List<StockWatchlistDTO> controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-00000000",0,10);
         assertEquals(controllerStockWatchlistDTOList,testStockWatchlistDTOList);
         //When user don't have stock watchlist
         userUuid = UUID.fromString("00000000-0000-0000-0000-999999999999");
-        when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(new ArrayList<Watchlist>());
-        controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-999999999999");
+        pageable= PageRequest.of(0,10);
+        when(watchlistService.getWatchlistDetailByUserId(userUuid,AssetClass.STOCK,pageable)).thenReturn(new ArrayList<>());
+        controllerStockWatchlistDTOList = watchlistController.displayStockWatchlist("00000000-0000-0000-0000-999999999999",0,10);
         assertEquals(controllerStockWatchlistDTOList,new ArrayList<StockWatchlistDTO>());
         //When user passes invalid UUID
         try{
-            watchlistController.displayStockWatchlist("11111111");
+            watchlistController.displayStockWatchlist("11111111",0,10);
             assertFalse(false);
         }catch (Exception e){
             assertTrue(e.getMessage().contains("Invalid Input"));
@@ -86,21 +91,21 @@ public class WatchlistControllerTest {
         List<MutualFundWatchlistDTO> testMutualFundWatchlistDTOList = new ArrayList<>();
         testMutualFundWatchlistDTOList.add(new MutualFundWatchlistDTO(companyDetailList.get(0).getName(),"Low",0.0f,0.0f,0.0f));
         //When user have mutual fund watchlist
-        when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(watchlistList);
-        when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-0000001"))).thenReturn(Optional.of(companyDetailList.get(0)));
+        Pageable pageable= PageRequest.of(0,10);
+        when(watchlistService.getWatchlistDetailByUserId(userUuid,AssetClass.MUTUAL_FUND,pageable)).thenReturn(watchlistList.subList(1,2));
         when(companyService.getCompanyDetail(UUID.fromString("00000000-0000-0000-0000-0000010"))).thenReturn(Optional.of(companyDetailList.get(1)));
         when(mutualFundService.getMutualFundDetailByCompanyId(companyDetailList.get(1).getId())).thenReturn(Optional.of(mutualFundDetailList.get(0)));
         when(mutualFundService.getMutualFundStatsById(mutualFundDetailList.get(0).getId())).thenReturn(Optional.of(mutualFundStatisticList.get(0)));
-        List<MutualFundWatchlistDTO> controllerMutualFundWatchlistDTOList = watchlistController.displayMutualFundWatchlist("00000000-0000-0000-0000-00000000");
+        List<MutualFundWatchlistDTO> controllerMutualFundWatchlistDTOList = watchlistController.displayMutualFundWatchlist("00000000-0000-0000-0000-00000000",0,10);
         assertEquals(controllerMutualFundWatchlistDTOList,testMutualFundWatchlistDTOList);
         //When user don't have mutual fund watchlist
         userUuid = UUID.fromString("00000000-0000-0000-0000-999999999999");
-        when(watchlistService.getAllWatchlistDetailByUserId(userUuid)).thenReturn(new ArrayList<>());
-        controllerMutualFundWatchlistDTOList = watchlistController.displayMutualFundWatchlist("00000000-0000-0000-0000-999999999999");
+        when(watchlistService.getWatchlistDetailByUserId(userUuid,AssetClass.MUTUAL_FUND,pageable)).thenReturn(new ArrayList<>());
+        controllerMutualFundWatchlistDTOList = watchlistController.displayMutualFundWatchlist("00000000-0000-0000-0000-999999999999",0,10);
         assertEquals(controllerMutualFundWatchlistDTOList,new ArrayList<>());
         //When user passes invalid UUID
         try{
-            watchlistController.displayMutualFundWatchlist("11111111");
+            watchlistController.displayMutualFundWatchlist("11111111",0,10);
             assertFalse(false);
         }catch (Exception e){
             assertTrue(e.getMessage().contains("Invalid Input"));

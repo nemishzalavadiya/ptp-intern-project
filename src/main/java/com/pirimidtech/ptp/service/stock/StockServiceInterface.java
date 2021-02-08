@@ -18,5 +18,5 @@ public interface StockServiceInterface {
 
     void addStockStats(StockStatistic stockStatistic);
 
-    StockDetail getStockDetailByCompanyId(UUID id);
+    Optional<StockDetail> getStockDetailByCompanyId(UUID id);
 }

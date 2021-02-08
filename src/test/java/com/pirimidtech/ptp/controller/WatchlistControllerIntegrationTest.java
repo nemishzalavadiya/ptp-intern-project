@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -79,12 +81,13 @@ public class WatchlistControllerIntegrationTest {
     @Test
     public void displayStockWatchlist() throws Exception {
         UUID userUuid = UUID.fromString("00000000-0000-0000-0000-000000000000");
-        when(watchListRepository.findByUserId(userUuid)).thenReturn(watchlistList);
+        Pageable pageable= PageRequest.of(0,10);
+        when(watchListRepository.findByUserIdAndCompanyDetailAssetClass(userUuid,AssetClass.STOCK,pageable)).thenReturn(watchlistList);
         when(companyDetailRepository.findById(companyDetailList.get(0).getId())).thenReturn(Optional.of(companyDetailList.get(0)));
         when(companyDetailRepository.findById(companyDetailList.get(1).getId())).thenReturn(Optional.of(companyDetailList.get(1)));
         when(stockStatisticRepository.findById(stockStatisticList.get(0).getId())).thenReturn(Optional.of(stockStatisticList.get(0)));
 
-        mockMvc.perform(get("/watchlist/stocks/00000000-0000-0000-0000-000000000000")
+        mockMvc.perform(get("/watchlist/stocks/00000000-0000-0000-0000-000000000000/0/10")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
                 .andExpect(jsonPath("$[0]."+StockWatchlistDTO.class.getFields()[0].getName()).value("name"))
                 .andExpect(jsonPath("$[0]."+StockWatchlistDTO.class.getFields()[1].getName()).value(0.0))
@@ -92,24 +95,25 @@ public class WatchlistControllerIntegrationTest {
                 .andExpect(jsonPath("$[0]."+StockWatchlistDTO.class.getFields()[3].getName()).value(0.0))
                 .andExpect(jsonPath("$[0]."+StockWatchlistDTO.class.getFields()[4].getName()).value(0.0));
         //bad request
-        mockMvc.perform(get("/watchlist/stocks/00000000-00000-000000000000")
+        mockMvc.perform(get("/watchlist/stocks/00000000-00000-000000000000/0/10")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-        mockMvc.perform(get("/watchlist/stocks/00000000")
+        mockMvc.perform(get("/watchlist/stocks/00000000/0/10")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-        mockMvc.perform(get("/watchlist/stocks/")
+        mockMvc.perform(get("/watchlist/stocks/0/10")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
     }
 
     @Test
     public void displayMutualFundWatchlist() throws Exception {
         UUID userUuid = UUID.fromString("00000000-0000-0000-0000-000000000000");
-        when(watchListRepository.findByUserId(userUuid)).thenReturn(watchlistList);
+        Pageable pageable= PageRequest.of(0,10);
+        when(watchListRepository.findByUserIdAndCompanyDetailAssetClass(userUuid,AssetClass.MUTUAL_FUND,pageable)).thenReturn(watchlistList);
         when(companyDetailRepository.findById(companyDetailList.get(0).getId())).thenReturn(Optional.of(companyDetailList.get(0)));
         when(companyDetailRepository.findById(companyDetailList.get(1).getId())).thenReturn(Optional.of(companyDetailList.get(1)));
         when(mutualFundDetailRepository.findByCompanyDetailId(companyDetailList.get(1).getId())).thenReturn(Optional.of(mutualFundDetailList.get(0)));
         when(mutualFundStatisticRepository.findById(mutualFundDetailList.get(0).getId())).thenReturn(Optional.of(mutualFundStatisticList.get(0)));
 
-        mockMvc.perform(get("/watchlist/mutualfunds/00000000-0000-0000-0000-000000000000")
+        mockMvc.perform(get("/watchlist/mutualfunds/00000000-0000-0000-0000-000000000000/0/10")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
                 .andExpect(jsonPath("$[0]."+MutualFundWatchlistDTO.class.getFields()[0].getName()).value("name"))
                 .andExpect(jsonPath("$[0]."+MutualFundWatchlistDTO.class.getFields()[1].getName()).value("Low"))
@@ -117,11 +121,11 @@ public class WatchlistControllerIntegrationTest {
                 .andExpect(jsonPath("$[0]."+MutualFundWatchlistDTO.class.getFields()[3].getName()).value(0.0))
                 .andExpect(jsonPath("$[0]."+MutualFundWatchlistDTO.class.getFields()[4].getName()).value(0.0));
         //bad request
-        mockMvc.perform(get("/watchlist/mutualfunds/00000000-00000-000000000000")
+        mockMvc.perform(get("/watchlist/mutualfunds/00000000-00000-000000000000/0/10")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-        mockMvc.perform(get("/watchlist/mutualfunds/00000000")
+        mockMvc.perform(get("/watchlist/mutualfunds/00000000/0/10")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
-        mockMvc.perform(get("/watchlist/mutualfunds/")
+        mockMvc.perform(get("/watchlist/mutualfunds/0/10")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
     }
 

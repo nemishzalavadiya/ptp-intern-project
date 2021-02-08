@@ -15,6 +15,8 @@ import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
 import com.pirimidtech.ptp.service.stock.StockService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,31 +39,25 @@ public class WatchlistController {
     @Autowired
     CompanyDetailRepository companyDetailRepository;
 
-    @RequestMapping(method= RequestMethod.GET,value = "/stocks/{userId}")
-    public List<StockWatchlistDTO> displayStockWatchlist(@PathVariable String userId){
+    @RequestMapping(method= RequestMethod.GET,value = "/stocks/{userId}/{number}/{size}")
+    public List<StockWatchlistDTO> displayStockWatchlist(@PathVariable String userId,@PathVariable int number,@PathVariable int size){
         UUID userUuid;
         List<StockWatchlistDTO> stockWatchlistDTOList = new ArrayList<>();
-        StockWatchlistDTO stockWatchlistDTO = new StockWatchlistDTO();
+        Pageable pageable;
         try{
             userUuid = UUID.fromString(userId); // throws IllegalArgumentException
-            List<Watchlist> userWatchlist = watchlistService.getAllWatchlistDetailByUserId(userUuid);
-
+            pageable = PageRequest.of(number,size);
+            List<Watchlist> userWatchlist = watchlistService.getWatchlistDetailByUserId(userUuid,AssetClass.STOCK,pageable);
             userWatchlist.forEach((item)->{
                 Optional<CompanyDetail> companyDetail = companyService.getCompanyDetail(item.getCompanyDetail().getId());
                 if(companyDetail.isPresent()) {
-                    StockDetail stockDetail;
-                    stockDetail = stockService.getStockDetailByCompanyId(item.getCompanyDetail().getId());
-                    if(stockDetail!=null) {
-                        Optional<StockStatistic> stockStatistic = stockService.getStockStatsById(stockDetail.getId());
-                        if (stockStatistic.isPresent()) {
-                            stockWatchlistDTO.setName(companyDetail.get().getName());
-                            stockWatchlistDTO.setOpenPrice(0.0f);
-                            stockWatchlistDTO.setClosePrice(0.0f);
-                            stockWatchlistDTO.setTradePrice(stockStatistic.get().getMarketCap());
-                            stockWatchlistDTO.setPercentageChange(0.0f);
-                            stockWatchlistDTOList.add(stockWatchlistDTO);
-                        }
-                    }
+                    StockWatchlistDTO stockWatchlistDTO = new StockWatchlistDTO();
+                    stockWatchlistDTO.setName(companyDetail.get().getName());
+                    stockWatchlistDTO.setOpenPrice(0.0f);
+                    stockWatchlistDTO.setClosePrice(0.0f);
+                    stockWatchlistDTO.setTradePrice(0.0f);
+                    stockWatchlistDTO.setPercentageChange(0.0f);
+                    stockWatchlistDTOList.add(stockWatchlistDTO);
                 }
             });
         } catch (IllegalArgumentException exception){
@@ -73,28 +69,29 @@ public class WatchlistController {
         return stockWatchlistDTOList;
     }
 
-    @RequestMapping(method= RequestMethod.GET,value = "/mutualfunds/{userId}")
-    public List<MutualFundWatchlistDTO> displayMutualFundWatchlist(@PathVariable String userId){
+    @RequestMapping(method= RequestMethod.GET,value = "/mutualfunds/{userId}/{number}/{size}")
+    public List<MutualFundWatchlistDTO> displayMutualFundWatchlist(@PathVariable String userId,@PathVariable int number,@PathVariable int size){
 
         UUID userUuid;
         List<MutualFundWatchlistDTO> mutualFundWatchlistDTOList = new ArrayList<>();
-        MutualFundWatchlistDTO mutualFundWatchlistDTO = new MutualFundWatchlistDTO();
+        Pageable pageable;
         try {
             userUuid = UUID.fromString(userId); // throws IllegalArgumentException
-            List<Watchlist> userWatchlist = watchlistService.getAllWatchlistDetailByUserId(userUuid);
-
+            pageable=  PageRequest.of(number,size);
+            List<Watchlist> userWatchlist = watchlistService.getWatchlistDetailByUserId(userUuid,AssetClass.MUTUAL_FUND,pageable);
             userWatchlist.forEach((item) -> {
                 Optional<CompanyDetail> companyDetail = companyService.getCompanyDetail(item.getCompanyDetail().getId());
                 if (companyDetail.isPresent()) {
-                    MutualFundDetail mutualFundDetail = mutualFundService.getMutualFundDetailByCompanyId(companyDetail.get().getId());
-                    if (mutualFundDetail != null) {
-                        MutualFundStatistic mutualFundStatistic = mutualFundService.getMutualFundStatsById(mutualFundDetail.getId());
-                        if(mutualFundStatistic!=null) {
-                            mutualFundWatchlistDTO.setMinSIP(mutualFundStatistic.getMinSIP());
-                            mutualFundWatchlistDTO.setNav(mutualFundStatistic.getNav());
-                            mutualFundWatchlistDTO.setRisk(mutualFundWatchlistDTO.getRisk());
+                    Optional<MutualFundDetail> mutualFundDetail = mutualFundService.getMutualFundDetailByCompanyId(companyDetail.get().getId());
+                    if (mutualFundDetail.isPresent()) {
+                        Optional<MutualFundStatistic> mutualFundStatistic = mutualFundService.getMutualFundStatsById(mutualFundDetail.get().getId());
+                        if(mutualFundStatistic.isPresent()) {
+                            MutualFundWatchlistDTO mutualFundWatchlistDTO = new MutualFundWatchlistDTO();
+                            mutualFundWatchlistDTO.setMinSIP(mutualFundStatistic.get().getMinSIP());
+                            mutualFundWatchlistDTO.setNav(mutualFundStatistic.get().getNav());
+                            mutualFundWatchlistDTO.setRisk(mutualFundStatistic.get().getRisk());
                             mutualFundWatchlistDTO.setName(companyDetail.get().getName());
-                            mutualFundWatchlistDTO.setExpenseRatio(mutualFundWatchlistDTO.getExpenseRatio());
+                            mutualFundWatchlistDTO.setExpenseRatio(mutualFundStatistic.get().getExpenseRatio());
                             mutualFundWatchlistDTOList.add(mutualFundWatchlistDTO);
                         }
                     }

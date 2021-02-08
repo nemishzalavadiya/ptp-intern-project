@@ -47,7 +47,7 @@ public class StockService implements StockServiceInterface {
     }
 
     @Override
-    public StockDetail getStockDetailByCompanyId(UUID id) {
+    public Optional<StockDetail> getStockDetailByCompanyId(UUID id) {
         return stockDetailRepository.findByCompanyDetailId(id);
     }
 }

@@ -26,26 +26,28 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/stock/orders")
-    public ResponseEntity<Void> addToStockOrder(@RequestBody StockOrder stockOrder) {
+    public ResponseEntity<UUID> addToStockOrder(@RequestBody StockOrder stockOrder) {
+        UUID uuid;
         try {
-            stockOrder.setId(UUID.randomUUID());
-            orderService.addToStockOrder(stockOrder);
+            uuid = UUID.randomUUID();
+            stockOrder.setId(uuid);
+            orderService.addToStockOrder(stockOrder)    ;
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(uuid);
     }
 
     @GetMapping("/stock/orders/users/{id}")
-    public ResponseEntity<List<StockOrder>> getAllStockOrder(@PathVariable("id") UUID userId, @RequestParam(name="page") int page,@RequestParam(name="size") int size) {
+    public ResponseEntity<List<StockOrder>> getAllStockOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
         List<StockOrder> stockOrderList = new ArrayList<>();
         try {
-            stockOrderList = orderService.getAllStockOrder(userId,page,size);
+            stockOrderList = orderService.getAllStockOrder(userId, page, size);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
-        return stockOrderList.size()!=0?ResponseEntity.ok().body(stockOrderList):ResponseEntity.notFound().build();
+        return stockOrderList.size() != 0 ? ResponseEntity.ok().body(stockOrderList) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/stock/orders/{id}")
@@ -56,7 +58,7 @@ public class OrderController {
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
-        return stockOrder!=null?ResponseEntity.ok().body(stockOrder):ResponseEntity.notFound().build();
+        return stockOrder != null ? ResponseEntity.ok().body(stockOrder) : ResponseEntity.notFound().build();
     }
 
     @PutMapping("/stock/orders/{id}")
@@ -81,14 +83,16 @@ public class OrderController {
     }
 
     @PostMapping("/mutualfund/orders")
-    public ResponseEntity<Void> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
+    public ResponseEntity<UUID> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
+        UUID uuid;
         try {
-            mutualFundOrder.setId(UUID.randomUUID());
+            uuid = UUID.randomUUID();
+            mutualFundOrder.setId(uuid);
             orderService.addToMutualFundOrder(mutualFundOrder);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(uuid);
     }
 
     @PutMapping("/mutualfund/orders/{id}")
@@ -103,20 +107,20 @@ public class OrderController {
     }
 
     @GetMapping("/mutualfund/orders/users/{id}")
-    public ResponseEntity<List<MutualFundOrder>> getAllMutualFundOrder(@PathVariable("id") UUID userId,@RequestParam(name="page") int page,@RequestParam(name="size") int size) {
+    public ResponseEntity<List<MutualFundOrder>> getAllMutualFundOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
         List<MutualFundOrder> mutualFundOrderList = new ArrayList<>();
 
         try {
-            mutualFundOrderList = orderService.getAllMutualFundOrder(userId,page,size);
+            mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
 
-        return mutualFundOrderList.size()!=0?ResponseEntity.ok().body(mutualFundOrderList):ResponseEntity.notFound().build();
+        return mutualFundOrderList.size() != 0 ? ResponseEntity.ok().body(mutualFundOrderList) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/mutualfund/orders/{id}")
-    public ResponseEntity<MutualFundOrder> getMutualFundOrderOrder(@PathVariable("id") UUID mutualFundOrderId) {
+    public ResponseEntity<MutualFundOrder> getMutualFundOrder(@PathVariable("id") UUID mutualFundOrderId) {
         MutualFundOrder mutualFundOrder;
 
         try {
@@ -124,7 +128,7 @@ public class OrderController {
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
-        return mutualFundOrder!=null?ResponseEntity.ok().body(mutualFundOrder):ResponseEntity.notFound().build();
+        return mutualFundOrder != null ? ResponseEntity.ok().body(mutualFundOrder) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/mutualfund/orders/{id}")

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -23,18 +24,19 @@ public class MutualFundStatistic {
 
     private String risk;
 
-    private Float minSIP;
+    private float minSIP;
 
-    private Boolean SIPAllowed;
+    private boolean sipAllowed;
 
-    private Float expenseRatio;
+    private float expenseRatio;
 
-    private Float NAV;
+    private float nav;
 
     private LocalDateTime fundStarted;
 
-    private Float fundSize;
+    private float fundSize;
 
     @OneToOne(targetEntity = MutualFundDetail.class)
+    @MapsId
     private MutualFundDetail mutualFundDetail;
 }

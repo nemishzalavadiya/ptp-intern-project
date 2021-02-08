@@ -24,14 +24,16 @@ public class StockTradeHistoryController {
 
 
     @PostMapping("/stock/trade-history")
-    public ResponseEntity<Void> addToStockTradeHistory(@RequestBody StockTradeHistory stockTradeHistory) {
+    public ResponseEntity<UUID> addToStockTradeHistory(@RequestBody StockTradeHistory stockTradeHistory) {
+        UUID uuid;
         try {
-            stockTradeHistory.setId(UUID.randomUUID());
+            uuid = UUID.randomUUID();
+            stockTradeHistory.setId(uuid);
             stockTradeHistoryService.addToStockTradeHistory(stockTradeHistory);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(uuid);
     }
 
     @GetMapping("/stock/trade-history/user/{id}")

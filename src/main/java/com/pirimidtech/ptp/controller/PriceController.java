@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,31 +24,31 @@ public class PriceController {
     private PriceService priceService;
 
     @PostMapping("/stock/prices")
-    public ResponseEntity<Void> addToStockPrice(@RequestBody StockPrice stockPrice)
-    {
+    public ResponseEntity<Void> addToStockPrice(@RequestBody StockPrice stockPrice) {
         try {
+            stockPrice.setId(UUID.randomUUID());
             priceService.addToStockPrice(stockPrice);
         } catch (Exception exception) {
-            throw new ErrorHandler(exception.getCause());        }
+            throw new ErrorHandler(exception.getCause());
+        }
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/stock/{id}/prices")
-    public List<StockPrice> getStockPrice(@PathVariable("id")UUID stockId)
-    {
+    public ResponseEntity<List<StockPrice>> getStockPrice(@PathVariable("id") UUID stockId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
         List<StockPrice> stockPriceList = new ArrayList<>();
         try {
-            stockPriceList = priceService.getStockPrice(stockId);
+            stockPriceList = priceService.getStockPrice(stockId, page, size);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
-        return stockPriceList;
+        return stockPriceList.size() != 0 ? ResponseEntity.ok().body(stockPriceList) : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/mutualfund/prices")
-    public ResponseEntity<Void> addToMutualFundPrice(@RequestBody MutualFundPrice mutualFundPrice)
-    {
+    public ResponseEntity<Void> addToMutualFundPrice(@RequestBody MutualFundPrice mutualFundPrice) {
         try {
+            mutualFundPrice.setId(UUID.randomUUID());
             priceService.addToMutualFundPrice(mutualFundPrice);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
@@ -57,15 +57,14 @@ public class PriceController {
     }
 
     @GetMapping("/mutualfund/{id}/prices")
-    public List<MutualFundPrice> getMutualFundPrice(@PathVariable("id")UUID mutualFundId)
-    {
-        List<MutualFundPrice> mutualFundPriceList =new ArrayList<>();
+    public ResponseEntity<List<MutualFundPrice>> getMutualFundPrice(@PathVariable("id") UUID mutualFundId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
+        List<MutualFundPrice> mutualFundPriceList = new ArrayList<>();
         try {
-            mutualFundPriceList = priceService.getMutualFundPrice(mutualFundId);
+            mutualFundPriceList = priceService.getMutualFundPrice(mutualFundId, page, size);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
-        return mutualFundPriceList;
+        return mutualFundPriceList.size() != 0 ? ResponseEntity.ok().body(mutualFundPriceList) : ResponseEntity.notFound().build();
     }
 
 }

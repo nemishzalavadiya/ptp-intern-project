@@ -25,7 +25,7 @@ public class StockOrder {
 
     private LocalDateTime timestamp;
 
-    private Integer tradeVolume;
+    private int tradeVolume;
 
     @Enumerated(EnumType.STRING)
     private Action action;
@@ -39,7 +39,7 @@ public class StockOrder {
     @Enumerated(EnumType.STRING)
     private OrderType orderType ;
 
-    private Float price;
+    private float price;
 
     private String status;
 

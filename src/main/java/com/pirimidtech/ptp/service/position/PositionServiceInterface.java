@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface PositionServiceInterface {
 
-    List<Position> getAllPosition(UUID userId);
+    List<Position> getAllPosition(UUID userId,int pageNo,int pageSize);
     void deleteFromPosition(UUID positionId);
     void addToPosition(Position position);
 }

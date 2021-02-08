@@ -15,6 +15,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +56,8 @@ class OrderServiceTest {
         stockOrderList.add(new StockOrder(UUID.randomUUID(), LocalDateTime.now(),100, Action.BUY, StockExchangeType.BSE, PriceType.LIMIT, OrderType.DELIVERY,100f,"Active",user,null));
         stockOrderList.add(new StockOrder(UUID.randomUUID(), LocalDateTime.now(),200, Action.BUY, StockExchangeType.BSE, PriceType.MARKET, OrderType.INTRA_DAY,105f,"rejected",user,null));
         stockOrderList.add(new StockOrder(UUID.randomUUID(), LocalDateTime.now(),300, Action.BUY, StockExchangeType.BSE, PriceType.LIMIT, OrderType.DELIVERY,10086f,"Active",user,null));
-        when(stockOrderRepository.findAllByUserId(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"))).thenReturn(stockOrderList);
-        assertEquals(3,orderService.getAllStockOrder(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e")).size());
+        when(stockOrderRepository.findAllByUserId(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"), PageRequest.of(0, 3))).thenReturn(new PageImpl<StockOrder>(stockOrderList));
+        assertEquals(3,orderService.getAllStockOrder(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"),0,3).size());
     }
 
     @Test
@@ -85,8 +88,8 @@ class OrderServiceTest {
         mutualFundOrderList.add(new MutualFundOrder(UUID.randomUUID(),null,100f,InvestmentType.ONE_TIME,null,user));
         mutualFundOrderList.add(new MutualFundOrder(UUID.randomUUID(),LocalDateTime.now(),100f,InvestmentType.MONTHLY_SIP,null,user));
         mutualFundOrderList.add(new MutualFundOrder(UUID.randomUUID(),LocalDateTime.now(),100f,InvestmentType.MONTHLY_SIP,null,user));
-        when(mutualFundOrderRepository.findAllByUserId(user.getId())).thenReturn(mutualFundOrderList);
-        assertEquals(3,orderService.getAllMutualFundOrder(user.getId()).size());
+        when(mutualFundOrderRepository.findAllByUserId(user.getId(),PageRequest.of(0, 3))).thenReturn(new PageImpl<MutualFundOrder>(mutualFundOrderList));
+        assertEquals(3,orderService.getAllMutualFundOrder(user.getId(),0,3).size());
     }
 
     @Test

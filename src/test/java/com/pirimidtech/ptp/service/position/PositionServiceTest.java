@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +39,8 @@ class PositionServiceTest {
         List<Position> positionList=new ArrayList<>();
         positionList.add(new Position(UUID.randomUUID(),35,100f, AssetClass.STOCK,user,companyDetail));
         positionList.add(new Position(UUID.randomUUID(),10,10f, AssetClass.MUTUAL_FUND,user,companyDetail));
-        when(positionRepository.findAllByUserId(user.getId())).thenReturn(positionList);
-        assertEquals(2,positionService.getAllPosition(user.getId()).size());
+        when(positionRepository.findAllByUserId(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<>(positionList));
+        assertEquals(2,positionService.getAllPosition(user.getId(),0,2).size());
 
     }
 
@@ -53,7 +55,7 @@ class PositionServiceTest {
     void addToPosition() {
         CompanyDetail companyDetail=new CompanyDetail();
         companyDetail.setId(UUID.randomUUID());
-        Position position=new Position(UUID.randomUUID(),35,100f, AssetClass.STOCK,user,companyDetail);
+        Position position=new Position(UUID.randomUUID(),35,100, AssetClass.STOCK,user,companyDetail);
         positionService.addToPosition(position);
         verify(positionRepository,times(1)).save(position);
     }

@@ -1,10 +1,14 @@
 package com.pirimidtech.ptp.service.price;
 
+import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.MutualFundPrice;
 import com.pirimidtech.ptp.entity.StockPrice;
 import com.pirimidtech.ptp.repository.MutualFundPriceRepository;
 import com.pirimidtech.ptp.repository.StockPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +30,10 @@ public class PriceService implements PriceServiceInterface{
     }
 
     @Override
-    public List<StockPrice> getStockPrice(UUID stockId) {
-        return stockPriceRepository.findAllByStockDetailId(stockId);
+    public List<StockPrice> getStockPrice(UUID stockId,int pageNo,int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<StockPrice> pageResult=stockPriceRepository.findAllByStockDetailId(stockId,pageable);
+        return pageResult.toList();
     }
 
     @Override
@@ -36,7 +42,9 @@ public class PriceService implements PriceServiceInterface{
     }
 
     @Override
-    public List<MutualFundPrice> getMutualFundPrice(UUID mutualFundId) {
-        return mutualFundPriceRepository.findAllByMutualFundDetailId(mutualFundId);
+    public List<MutualFundPrice> getMutualFundPrice(UUID mutualFundId,int pageNo,int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<MutualFundPrice> pageResult=mutualFundPriceRepository.findAllByMutualFundDetailId(mutualFundId,pageable);
+        return pageResult.toList();
     }
 }

@@ -5,6 +5,9 @@ import com.pirimidtech.ptp.entity.StockOrder;
 import com.pirimidtech.ptp.repository.MutualFundOrderRepository;
 import com.pirimidtech.ptp.repository.StockOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +30,11 @@ public class OrderService implements OrderServiceInterface {
     }
 
     @Override
-    public List<StockOrder> getAllStockOrder(UUID userId) {
-         return stockOrderRepository.findAllByUserId(userId);
+    public List<StockOrder> getAllStockOrder(UUID userId,int pageNo,int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<StockOrder> pageResult=stockOrderRepository.findAllByUserId(userId,pageable);
+
+        return pageResult.toList();
     }
 
     @Override
@@ -48,8 +54,11 @@ public class OrderService implements OrderServiceInterface {
     }
 
     @Override
-    public List<MutualFundOrder> getAllMutualFundOrder(UUID userId) {
-        return mutualFundOrderRepository.findAllByUserId(userId);
+    public List<MutualFundOrder> getAllMutualFundOrder(UUID userId,int pageNo,int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<MutualFundOrder> pageResult=mutualFundOrderRepository.findAllByUserId(userId,pageable);
+
+        return pageResult.toList();
     }
 
     @Override

@@ -25,7 +25,7 @@ public class MutualFundOrder {
 
     private LocalDateTime SIPDate;
 
-    private Float price;
+    private float price;
 
     @Enumerated(EnumType.STRING)
     private InvestmentType investmentType;

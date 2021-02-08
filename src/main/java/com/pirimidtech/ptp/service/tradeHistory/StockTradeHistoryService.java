@@ -1,9 +1,13 @@
 package com.pirimidtech.ptp.service.tradeHistory;
 
+import com.pirimidtech.ptp.entity.StockPrice;
 import com.pirimidtech.ptp.entity.StockTradeHistory;
 import com.pirimidtech.ptp.repository.StockTradeHistoryRepository;
 import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,8 +23,10 @@ public class StockTradeHistoryService implements StockTradeHistoryServiceInterfa
     private StockTradeHistoryRepository stockTradeHistoryRepository;
 
     @Override
-    public List<StockTradeHistory> getStockTradeHistory(UUID userId) {
-        return stockTradeHistoryRepository.findAllByUserId(userId);
+    public List<StockTradeHistory> getStockTradeHistory(UUID userId,int pageNo,int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<StockTradeHistory> pageResult=stockTradeHistoryRepository.findAllByUserId(userId,pageable);
+        return pageResult.toList();
     }
 
     @Override

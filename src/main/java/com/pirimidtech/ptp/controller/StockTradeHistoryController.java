@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -23,9 +24,9 @@ public class StockTradeHistoryController {
 
 
     @PostMapping("/stock/trade-history")
-    public ResponseEntity<Void> addToStockTradeHistory(@RequestBody StockTradeHistory stockTradeHistory)
-    {
+    public ResponseEntity<Void> addToStockTradeHistory(@RequestBody StockTradeHistory stockTradeHistory) {
         try {
+            stockTradeHistory.setId(UUID.randomUUID());
             stockTradeHistoryService.addToStockTradeHistory(stockTradeHistory);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
@@ -34,26 +35,25 @@ public class StockTradeHistoryController {
     }
 
     @GetMapping("/stock/trade-history/user/{id}")
-    public List<StockTradeHistory> getStockTradeHistory(@PathVariable("id") UUID userId )
-    {
+    public ResponseEntity<List<StockTradeHistory>> getStockTradeHistory(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
         List<StockTradeHistory> stockTradeHistoryList = new ArrayList<>();
         try {
-            stockTradeHistoryList = stockTradeHistoryService.getStockTradeHistory(userId);
+            stockTradeHistoryList = stockTradeHistoryService.getStockTradeHistory(userId, page, size);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
-        return stockTradeHistoryList;
+        return stockTradeHistoryList.size() != 0 ? ResponseEntity.ok().body(stockTradeHistoryList) : ResponseEntity.notFound().build();
     }
+
     @GetMapping("/stock/trade-history/{id}")
-    public StockTradeHistory getStockTradeByTradeId(@PathVariable("id") UUID tradeId)
-    {
-        StockTradeHistory stockTradeHistory = new StockTradeHistory();
+    public ResponseEntity<StockTradeHistory> getStockTradeByTradeId(@PathVariable("id") UUID tradeId) {
+        StockTradeHistory stockTradeHistory;
         try {
             stockTradeHistory = stockTradeHistoryService.getStockTradeByTradeId(tradeId);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }
-        return stockTradeHistory;
+        return stockTradeHistory != null ? ResponseEntity.ok().body(stockTradeHistory) : ResponseEntity.notFound().build();
     }
 
 

@@ -21,7 +21,7 @@ public class MutualFundPrice {
     @Id
     private UUID id;
 
-    private Integer price;
+    private float price;
 
     private LocalDateTime timestamp;
 

@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface OrderServiceInterface {
     void addToStockOrder(StockOrder stockOrder);
 
-    List<StockOrder> getAllStockOrder(UUID userId);
+    List<StockOrder> getAllStockOrder(UUID userId,int pageNo,int pageSize);
 
     StockOrder getStockOrder(UUID orderId);
 
@@ -17,7 +17,7 @@ public interface OrderServiceInterface {
 
     void addToMutualFundOrder(MutualFundOrder mutualFundOrder);
 
-    List<MutualFundOrder> getAllMutualFundOrder(UUID userId);
+    List<MutualFundOrder> getAllMutualFundOrder(UUID userId,int pageNo,int pageSize);
 
     MutualFundOrder getMutualFundOrder(UUID orderId);
 

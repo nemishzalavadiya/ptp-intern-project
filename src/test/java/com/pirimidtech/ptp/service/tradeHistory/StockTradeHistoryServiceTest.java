@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +37,8 @@ class StockTradeHistoryServiceTest {
         List<StockTradeHistory> stockTradeHistoryList=new ArrayList<>();
         stockTradeHistoryList.add(new StockTradeHistory(UUID.randomUUID(),null,100, StockExchangeType.BSE,100f,user,null));
         stockTradeHistoryList.add(new StockTradeHistory(UUID.randomUUID(),null,200, StockExchangeType.BSE,100f,user,null));
-        when(stockTradeHistoryRepository.findAllByUserId(user.getId())).thenReturn(stockTradeHistoryList);
-        assertEquals(2,stockTradeHistoryService.getStockTradeHistory(user.getId()).size());
+        when(stockTradeHistoryRepository.findAllByUserId(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<>(stockTradeHistoryList));
+        assertEquals(2,stockTradeHistoryService.getStockTradeHistory(user.getId(),0,2).size());
     }
 
     @Test

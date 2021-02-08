@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -64,8 +66,8 @@ class PriceServiceTest {
         stockPriceList.add(new StockPrice(UUID.randomUUID(),100f, LocalDateTime.now(), StockExchangeType.BSE,stockDetail));
         stockPriceList.add(new StockPrice(UUID.randomUUID(),200f, LocalDateTime.now(), StockExchangeType.BSE,stockDetail));
         stockPriceList.add(new StockPrice(UUID.randomUUID(),300f, LocalDateTime.now(), StockExchangeType.BSE,stockDetail));
-        when(stockPriceRepository.findAllByStockDetailId(stockId)).thenReturn(stockPriceList);
-        assertEquals(3,priceService.getStockPrice(stockId).size());
+        when(stockPriceRepository.findAllByStockDetailId(stockId,PageRequest.of(0, 3))).thenReturn(new PageImpl<>(stockPriceList));
+        assertEquals(3,priceService.getStockPrice(stockId,0,3).size());
     }
 
     @Test
@@ -86,7 +88,7 @@ class PriceServiceTest {
         mutualFundDetail.setCompanyDetail(companyDetail);
         mutualFundPriceList.add(new MutualFundPrice(UUID.randomUUID(),200,LocalDateTime.now(),mutualFundDetail));
         mutualFundPriceList.add(new MutualFundPrice(UUID.randomUUID(),400,LocalDateTime.now(),mutualFundDetail));
-        when(mutualFundPriceRepository.findAllByMutualFundDetailId(mutualFundDetail.getId())).thenReturn(mutualFundPriceList);
-        assertEquals(2,priceService.getMutualFundPrice(mutualFundDetail.getId()).size());
+        when(mutualFundPriceRepository.findAllByMutualFundDetailId(mutualFundDetail.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<>(mutualFundPriceList));
+        assertEquals(2,priceService.getMutualFundPrice(mutualFundDetail.getId(),0,2).size());
     }
 }

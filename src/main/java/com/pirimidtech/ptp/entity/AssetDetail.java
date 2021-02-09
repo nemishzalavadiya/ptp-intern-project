@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,8 +17,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "companyDetail")
-public class CompanyDetail {
+@Table(name = "assetDetail")
+public class AssetDetail {
     @Id
     private UUID id;
 

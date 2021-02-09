@@ -27,6 +27,6 @@ public class Position {
     @ManyToOne(targetEntity = User.class)
     private User user;
 
-    @ManyToOne(targetEntity = CompanyDetail.class)
-    private CompanyDetail companyDetail;
+    @ManyToOne(targetEntity = AssetDetail.class)
+    private AssetDetail assetDetail;
 }

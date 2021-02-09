@@ -4,14 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
 import javax.persistence.Table;
-import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -19,7 +16,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "watchList")
+@Table(name = "watchlist")
 public class Watchlist {
     @Id
     private UUID id;
@@ -27,6 +24,6 @@ public class Watchlist {
     @OneToOne(targetEntity = User.class)
     private User user;
 
-    @OneToOne(targetEntity = CompanyDetail.class)
-    private CompanyDetail companyDetail;
+    @OneToOne(targetEntity = AssetDetail.class)
+    private AssetDetail assetDetail;
 }

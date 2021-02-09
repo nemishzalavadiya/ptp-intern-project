@@ -5,10 +5,10 @@ import com.pirimidtech.ptp.entity.StockStatistic;
 import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.repository.StockStatisticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,10 +20,8 @@ public class StockService implements StockServiceInterface {
     private StockStatisticRepository stockStatisticRepository;
 
     @Override
-    public List<StockDetail> getAllStockDetails() {
-        List<StockDetail> stocks = new ArrayList<>();
-        stockDetailRepository.findAll().forEach(stocks::add);
-        return stocks;
+    public Page<StockDetail> getAllStockDetails(Pageable paging) {
+        return stockDetailRepository.findAll(paging);
     }
 
     @Override

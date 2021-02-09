@@ -1,5 +1,6 @@
-package com.pirimidtech.ptp.controller.company;
+package com.pirimidtech.ptp.controller.asset;
 
+import com.pirimidtech.ptp.controller.UrlHelper;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CompanyControllerTest {
+class AssetControllerTest {
 
     @LocalServerPort
     private int port;
@@ -24,37 +25,33 @@ class CompanyControllerTest {
 
     HttpHeaders headers = new HttpHeaders();
 
+    UrlHelper urlHelper;
 
     @Test
-    void getCompanyDetail() throws JSONException {
+    void getAssetDetail() throws JSONException {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort("/company/51381618-1bc9-4c19-aab9-44994433b18c"),
+                urlHelper.createURLWithPort("/assets/51381618-1bc9-4c19-aab9-44994433b18c", port),
                 HttpMethod.GET, entity, String.class);
         String expected = "{\"id\":\"51381618-1bc9-4c19-aab9-44994433b18c\",\"name\":\"ptp\",\"logoUrl\":\"logo_url\",\"assetClass\":\"STOCK\",\"about\":\"about\",\"managingDirector\":\"devesh\",\"organization\":\"org\"}";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
 
     @Test
-    void companyDetailList() throws JSONException {
+    void assetDetailList() throws JSONException {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort("/company"),
+                urlHelper.createURLWithPort("/assets?page=0&size=2", port),
                 HttpMethod.GET, entity, String.class);
         String expected = "[{\"id\":\"51381618-1bc9-4c19-aab9-44994433b18c\",\"name\":\"ptp\",\"logoUrl\":\"logo_url\",\"assetClass\":\"STOCK\",\"about\":\"about\",\"managingDirector\":\"devesh\",\"organization\":\"org\"},{\"id\":\"a4f5c114-02c0-4340-bca6-7dbee2702e25\",\"name\":\"Axis Mutual Fund\",\"logoUrl\":\"logo_url\",\"assetClass\":\"MUTUAL_FUND\",\"about\":\"Axis MF about\",\"managingDirector\":\"darshan\",\"organization\":\"Axis bank\"}]";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
 
-    private String createURLWithPort(String uri) {
-        return "http://localhost:" + port + uri;
-
-    }
-
     @Test
-    void searchCompanyList() throws JSONException {
+    void searchAssetList() throws JSONException {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort("/search/Axis"),
+                urlHelper.createURLWithPort("/search/Axis?page=0&size=1", port),
                 HttpMethod.GET, entity, String.class);
         String expected = "[{\"id\":\"a4f5c114-02c0-4340-bca6-7dbee2702e25\",\"name\":\"Axis Mutual Fund\",\"logoUrl\":\"logo_url\",\"assetClass\":\"MUTUAL_FUND\",\"about\":\"Axis MF about\",\"managingDirector\":\"darshan\",\"organization\":\"Axis bank\"}]";
         JSONAssert.assertEquals(expected, response.getBody(), false);

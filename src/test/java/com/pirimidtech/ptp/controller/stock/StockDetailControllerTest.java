@@ -25,15 +25,15 @@ class StockDetailControllerTest {
 
     HttpHeaders headers = new HttpHeaders();
 
-    UrlHelper urlHelper;
+    UrlHelper urlHelper = new UrlHelper();
 
     @Test
     void getAllStockDetails() throws JSONException {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                urlHelper.createURLWithPort("/stocks/details", port),
+                urlHelper.createURLWithPort("/stocks/details?page=0&size=2", port),
                 HttpMethod.GET, entity, String.class);
-        String expected = "[{\"id\":\"2ffedff5-70c5-45cd-9c35-b36c25d77362\",\"yearFounded\":\"2019-01-21T05:47:08.644\",\"managingDirector\":\"dir\",\"assetDetail\":{\"id\":\"51381618-1bc9-4c19-aab9-44994433b18c\",\"name\":\"ptp\",\"logoUrl\":\"logo_url\",\"assetClass\":\"STOCK\",\"about\":\"about\",\"managingDirector\":\"devesh\",\"organization\":\"org\"}}]";
+        String expected = "{\"content\":[{\"id\":\"2ffedff5-70c5-45cd-9c35-b36c25d77362\",\"yearFounded\":\"2019-01-21T05:47:08.644\",\"managingDirector\":\"dir\",\"assetDetail\":{\"id\":\"51381618-1bc9-4c19-aab9-44994433b18c\",\"name\":\"ptp\",\"logoUrl\":\"logo_url\",\"assetClass\":\"STOCK\",\"about\":\"about\",\"managingDirector\":\"devesh\",\"organization\":\"org\"}}],\"pageable\":{\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"offset\":0,\"pageSize\":2,\"pageNumber\":0,\"unpaged\":false,\"paged\":true},\"totalElements\":1,\"last\":true,\"totalPages\":1,\"size\":2,\"number\":0,\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"numberOfElements\":1,\"first\":true,\"empty\":false}";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
 

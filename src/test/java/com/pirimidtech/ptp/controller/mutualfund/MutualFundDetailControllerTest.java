@@ -25,15 +25,15 @@ class MutualFundDetailControllerTest {
 
     HttpHeaders headers = new HttpHeaders();
 
-    UrlHelper urlHelper;
+    UrlHelper urlHelper = new UrlHelper();
 
     @Test
     void getAllMutualFundDetails() throws JSONException {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                urlHelper.createURLWithPort("/mutualfund/details?page=0&size=2", port),
+                urlHelper.createURLWithPort("/mutualfunds/details?page=0&size=2", port),
                 HttpMethod.GET, entity, String.class);
-        String expected = "[{\"id\":\"c9f27cd5-98e8-4277-b086-4595783f4761\",\"launchDate\":\"2019-01-21T05:47:08.644\",\"fundManager\":\"director\",\"assetDetail\":{\"id\":\"a4f5c114-02c0-4340-bca6-7dbee2702e25\",\"name\":\"Axis Mutual Fund\",\"logoUrl\":\"logo_url\",\"assetClass\":\"MUTUAL_FUND\",\"about\":\"Axis MF about\",\"managingDirector\":\"darshan\",\"organization\":\"Axis bank\"}}]";
+        String expected = "{\"content\":[{\"id\":\"9f1be004-4872-4343-be24-627fb7dc0d92\",\"launchDate\":\"1999-09-09T00:00:00\",\"fundManager\":\"manager\",\"assetDetail\":{\"id\":\"a70c4714-e1e5-40d4-b846-8fc6b943ecb5\",\"name\":\"ptp2\",\"logoUrl\":\"logo_url\",\"assetClass\":\"MUTUAL_FUND\",\"about\":\"about\",\"managingDirector\":\"darshan\",\"organization\":\"org\"}}],\"pageable\":{\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"offset\":0,\"pageSize\":2,\"pageNumber\":0,\"unpaged\":false,\"paged\":true},\"totalElements\":1,\"last\":true,\"totalPages\":1,\"size\":2,\"number\":0,\"sort\":{\"sorted\":false,\"unsorted\":true,\"empty\":true},\"numberOfElements\":1,\"first\":true,\"empty\":false}";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
 
@@ -41,9 +41,9 @@ class MutualFundDetailControllerTest {
     void getMutualFundDetailsById() throws JSONException {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                urlHelper.createURLWithPort("/mutualfund/details/c9f27cd5-98e8-4277-b086-4595783f4761", port),
+                urlHelper.createURLWithPort("/mutualfunds/details/9f1be004-4872-4343-be24-627fb7dc0d92", port),
                 HttpMethod.GET, entity, String.class);
-        String expected = "{\"id\":\"c9f27cd5-98e8-4277-b086-4595783f4761\",\"launchDate\":\"2019-01-21T05:47:08.644\",\"fundManager\":\"director\",\"assetDetail\":{\"id\":\"a4f5c114-02c0-4340-bca6-7dbee2702e25\",\"name\":\"Axis Mutual Fund\",\"logoUrl\":\"logo_url\",\"assetClass\":\"MUTUAL_FUND\",\"about\":\"Axis MF about\",\"managingDirector\":\"darshan\",\"organization\":\"Axis bank\"}}";
+        String expected = "{\"id\":\"9f1be004-4872-4343-be24-627fb7dc0d92\",\"launchDate\":\"1999-09-09T00:00:00\",\"fundManager\":\"manager\",\"assetDetail\":{\"id\":\"a70c4714-e1e5-40d4-b846-8fc6b943ecb5\",\"name\":\"ptp2\",\"logoUrl\":\"logo_url\",\"assetClass\":\"MUTUAL_FUND\",\"about\":\"about\",\"managingDirector\":\"darshan\",\"organization\":\"org\"}}";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
 
@@ -51,9 +51,9 @@ class MutualFundDetailControllerTest {
     void getMutualFundStatsById() throws JSONException {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = restTemplate.exchange(
-                urlHelper.createURLWithPort("/mutualfund/stats/c9f27cd5-98e8-4277-b086-4595783f4761", port),
+                urlHelper.createURLWithPort("/mutualfunds/stats/9f1be004-4872-4343-be24-627fb7dc0d92", port),
                 HttpMethod.GET, entity, String.class);
-        String expected = "{\"id\":\"c9f27cd5-98e8-4277-b086-4595783f4761\",\"risk\":\"high\",\"minSIP\":65.3,\"sipAllowed\":true,\"expenseRatio\":2.3,\"nav\":12.39,\"fundStarted\":\"2019-01-22T05:47:08.644\",\"fundSize\":1000.3,\"mutualFundDetail\":{\"id\":\"c9f27cd5-98e8-4277-b086-4595783f4761\",\"launchDate\":\"2019-01-21T05:47:08.644\",\"fundManager\":\"director\",\"assetDetail\":{\"id\":\"a4f5c114-02c0-4340-bca6-7dbee2702e25\",\"name\":\"Axis Mutual Fund\",\"logoUrl\":\"logo_url\",\"assetClass\":\"MUTUAL_FUND\",\"about\":\"Axis MF about\",\"managingDirector\":\"darshan\",\"organization\":\"Axis bank\"}}}";
+        String expected = "{\"id\":\"9f1be004-4872-4343-be24-627fb7dc0d92\",\"risk\":\"high\",\"minSIP\":4.4,\"sipAllowed\":true,\"expenseRatio\":1.1,\"nav\":1000.1,\"fundStarted\":\"2019-01-21T05:47:08.644\",\"fundSize\":2.2,\"mutualFundDetail\":{\"id\":\"9f1be004-4872-4343-be24-627fb7dc0d92\",\"launchDate\":\"1999-09-09T00:00:00\",\"fundManager\":\"manager\",\"assetDetail\":{\"id\":\"a70c4714-e1e5-40d4-b846-8fc6b943ecb5\",\"name\":\"ptp2\",\"logoUrl\":\"logo_url\",\"assetClass\":\"MUTUAL_FUND\",\"about\":\"about\",\"managingDirector\":\"darshan\",\"organization\":\"org\"}}}";
         JSONAssert.assertEquals(expected, response.getBody(), false);
     }
 }

@@ -30,65 +30,8 @@ public class WatchlistController {
     CompanyDetailRepository companyDetailRepository;
 
     @GetMapping("/{assetClass}/{userId}")
-    public List<UUID> displayWatchlist(@PathVariable String assetClass, @PathVariable String userId, @RequestParam int page, @RequestParam int size){
-        UUID userUuid;
-        Pageable pageable;
-        List<UUID> companyUuidList = new ArrayList<>();
-        try{
-            userUuid = UUID.fromString(userId); // throws IllegalArgumentException
-            pageable = PageRequest.of(page,size);
-            AssetClass assetType;
-            if(assetClass.equalsIgnoreCase("stocks")){
-                assetType=AssetClass.STOCK;
-            }
-            else{
-                assetType=AssetClass.MUTUAL_FUND;
-            }
-            List<Watchlist> userWatchlist = watchlistService.getWatchlistDetailByUserId(userUuid, assetType,pageable);
-            userWatchlist.forEach((item)->{
-                    companyUuidList.add(item.getCompanyDetail().getId());
-            });
-        } catch (IllegalArgumentException exception){
-            throw new ExceptionHandler("Invalid Input");
-        }
-        catch (Exception exception){
-            throw new ExceptionHandler(exception.getMessage());
-        }
-        return companyUuidList;
-    }
-
-    @PostMapping("/search")
-    public List<CompanyDetail> searchNameLike(@RequestBody CompanyDetail companyDetail){
-        List<CompanyDetail> searchName = new ArrayList<>();
-        try {
-            searchName.add(companyDetailRepository.findByNameContainingAndAssetClass(companyDetail.getName(),
-                    companyDetail.getAssetClass()));
-        }
-        catch (Exception exception){
-            throw new ExceptionHandler(exception.getCause());
-        }
-        return searchName;
-    }
-
-    @PostMapping("/add")
-    public ResponseEntity<Void> addCompany(@RequestBody Watchlist watchlist){
-        try {
-            watchlistService.add(watchlist);
-        }
-        catch (Exception exception){
-            throw new ExceptionHandler(exception.getCause());
-        }
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/remove/{watchlistId}")
-    public ResponseEntity<Void> removeCompany(@PathVariable UUID watchlistId){
-        try{
-            watchlistService.remove(watchlistId);
-        }
-        catch (Exception exception){
-            throw new ExceptionHandler(exception.getCause());
-        }
-        return ResponseEntity.ok().build();
+    public List<UUID> displayWatchlist(@PathVariable String assetClass, @PathVariable UUID userId, @RequestParam int page, @RequestParam int size){
+        List<UUID> assetUuidList=new ArrayList<>();
+        return assetUuidList;
     }
 }

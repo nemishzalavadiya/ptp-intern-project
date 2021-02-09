@@ -20,9 +20,10 @@ public class Watchlist {
     @Id
     private UUID id;
 
-    @OneToOne(targetEntity = User.class)
+    @OneToOne
     private User user;
 
-    @OneToOne(targetEntity = CompanyDetail.class)
-    private CompanyDetail companyDetail;
+    private String name;
+
+    private String description;
 }

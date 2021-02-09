@@ -8,5 +8,5 @@ import java.util.UUID;
 
 
 public interface StockDetailRepository extends JpaRepository<StockDetail, UUID> {
-    public Optional<StockDetail> findByCompanyDetailId(UUID companyId);
+    public Optional<StockDetail> findByAssetDetailId(UUID companyId);
 }

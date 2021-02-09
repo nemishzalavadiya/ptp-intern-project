@@ -15,7 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "watchList")
+@Table(name = "watchlist")
 public class Watchlist {
     @Id
     private UUID id;

@@ -1,6 +1,6 @@
 package com.pirimidtech.ptp.controller;
-import com.pirimidtech.ptp.entity.CompanyDetail;
-import com.pirimidtech.ptp.service.company.CompanyService;
+import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.service.asset.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,21 +14,21 @@ import java.util.UUID;
 @RestController
 public class CompanyController {
     @Autowired
-    private CompanyService companyService;
+    private AssetService assetService;
     @RequestMapping(method = RequestMethod.GET, value = "/company/{id}")
-    public Optional<CompanyDetail> getCompanyDetail(@PathVariable UUID id){
-        return companyService.getCompanyDetail(id);
+    public Optional<AssetDetail> getAssetDetail(@PathVariable UUID id){
+        return assetService.getAssetDetail(id);
     }
     @RequestMapping(method = RequestMethod.POST, value = "/company")
-    public void addCompanyDetail(@RequestBody CompanyDetail companyDetail){
-        companyService.addCompany(companyDetail);
+    public void addAssetDetail(@RequestBody AssetDetail assetDetail){
+        assetService.addCompany(assetDetail);
     }
     @GetMapping(value = "/company")
-    public List<CompanyDetail> companyDetailList(){
-        return companyService.getAllCompanyDetail();
+    public List<AssetDetail> assetDetailList(){
+        return assetService.getAllAssetDetail();
     }
     @GetMapping(value = "/search/{infix}")
-    public List<CompanyDetail> searchCompanyList(@PathVariable String infix){
-        return companyService.searchCompanyDetail(infix);
+    public List<AssetDetail> searchAssetList(@PathVariable String infix){
+        return assetService.searchAssetDetail(infix);
     }
 }

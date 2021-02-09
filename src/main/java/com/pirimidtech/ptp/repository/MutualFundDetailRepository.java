@@ -8,5 +8,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface MutualFundDetailRepository extends JpaRepository<MutualFundDetail, UUID> {
-    Optional<MutualFundDetail> findByCompanyDetailId(UUID companyId);
+    Optional<MutualFundDetail> findByAssetDetailId(UUID companyId);
 }

@@ -16,8 +16,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "companyDetail")
-public class CompanyDetail {
+@Table(name = "assetDetail")
+public class AssetDetail {
     @Id
     private UUID id;
 

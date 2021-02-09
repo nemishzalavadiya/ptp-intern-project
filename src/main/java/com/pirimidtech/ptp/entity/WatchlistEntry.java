@@ -22,5 +22,5 @@ public class WatchlistEntry {
     private Watchlist watchlist;
 
     @ManyToOne
-    private CompanyDetail companyDetail;
+    private AssetDetail assetDetail;
 }

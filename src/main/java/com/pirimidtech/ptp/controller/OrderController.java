@@ -1,12 +1,15 @@
 package com.pirimidtech.ptp.controller;
 
+import com.pirimidtech.ptp.entity.Action;
 import com.pirimidtech.ptp.entity.AssetClass;
+import com.pirimidtech.ptp.entity.InvestmentType;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.Status;
 import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.entity.StockTradeHistory;
 import com.pirimidtech.ptp.exception.ErrorHandler;
+import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
 import com.pirimidtech.ptp.service.position.PositionService;
 import com.pirimidtech.ptp.service.trade.OrderService;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
@@ -35,6 +38,9 @@ public class OrderController {
 
     @Autowired
     private PositionService positionService;
+
+    @Autowired
+    private MutualFundDetailRepository mutualFundDetailRepository;
 
     @PostMapping("/stock/orders")
     public ResponseEntity<UUID> addToStockOrder(@RequestBody StockTrade stockTrade) {
@@ -81,10 +87,12 @@ public class OrderController {
         try {
             uuid = UUID.randomUUID();
             mutualFundOrder.setId(uuid);
+            if(mutualFundOrder.getInvestmentType().equals(InvestmentType.MONTHLY_SIP))
+            {
+                mutualFundOrder.setSIPDate(LocalDateTime.now());
+            }
             orderService.addToMutualFundOrder(mutualFundOrder);
-
-            positionService.addToPosition(new Position(UUID.randomUUID(), 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundOrder.getMutualFundDetail().getAssetDetail()), null);
-
+            positionService.addToPosition(new Position(UUID.randomUUID(), 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get().getAssetDetail()), Action.BUY);
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());
         }

@@ -38,11 +38,11 @@ public class WatchlistServiceMockTest {
     @Test
     public void getWatchlistDetailByUserId() {
         //When user do have watchlist
-        when(watchlistRepository.findByUserId(testDataStore.userUuid1,testDataStore.pageable)).thenReturn((Page<Watchlist>) testDataStore.watchlistList);
-        assertEquals(watchlistService.getWatchlistDetailByUserId(testDataStore.userUuid1,testDataStore.pageable).getContent(), testDataStore.watchlistList);
+        when(watchlistRepository.findByUserId(testDataStore.userUuid1, testDataStore.pageable)).thenReturn(new PageImpl<>(testDataStore.watchlistList));
+        assertEquals(watchlistService.getWatchlistDetailByUserId(testDataStore.userUuid1, testDataStore.pageable).getContent(), testDataStore.watchlistList);
 
         //When user don't have watchlist
-        when(watchlistRepository.findByUserId(testDataStore.userUuid2,testDataStore.pageable)).thenReturn(new PageImpl<>(new ArrayList<>()));
-        assertEquals(watchlistService.getWatchlistDetailByUserId(testDataStore.userUuid2,testDataStore.pageable).getContent(), new ArrayList<>());
+        when(watchlistRepository.findByUserId(testDataStore.userUuid2, testDataStore.pageable)).thenReturn(new PageImpl<>(new ArrayList<>()));
+        assertEquals(watchlistService.getWatchlistDetailByUserId(testDataStore.userUuid2, testDataStore.pageable).getContent(), new ArrayList<>());
     }
 }

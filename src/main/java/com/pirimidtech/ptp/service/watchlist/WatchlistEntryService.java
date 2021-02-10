@@ -15,7 +15,7 @@ public class WatchlistEntryService implements WatchlistEntryServiceInterface {
     @Autowired
     WatchlistEntryRepository watchlistEntryRepository;
 
-    public Page<WatchlistEntry> getAllWatchlistEntryByWatchlistId(UUID watchlistId, Pageable pageable){
-        return watchlistEntryRepository.findByWatchlistId(watchlistId,pageable);
+    public Page<WatchlistEntry> getAllWatchlistEntryByWatchlistId(UUID watchlistId, Pageable pageable) {
+        return watchlistEntryRepository.findByWatchlistId(watchlistId, pageable);
     }
 }

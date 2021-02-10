@@ -6,6 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;
 
-public interface WatchlistServiceInterface{
-    Page<Watchlist> getWatchlistDetailByUserId(UUID userId,Pageable pageable);
+public interface WatchlistServiceInterface {
+    Page<Watchlist> getWatchlistDetailByUserId(UUID userId, Pageable pageable);
 }

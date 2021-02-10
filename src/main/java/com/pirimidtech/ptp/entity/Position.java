@@ -28,6 +28,6 @@ public class Position {
     @ManyToOne(targetEntity = User.class)
     private User user;
 
-    @OneToOne(targetEntity = CompanyDetail.class)
-    private CompanyDetail companyDetail;
+    @OneToOne(targetEntity = AssetDetail.class)
+    private AssetDetail assetDetail;
 }

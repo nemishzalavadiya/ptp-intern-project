@@ -9,5 +9,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface StockTradeHistoryRepository extends JpaRepository<StockTradeHistory, UUID> {
-    Page<StockTradeHistory> findAllByUserId(UUID userId, Pageable pageable);
+
 }

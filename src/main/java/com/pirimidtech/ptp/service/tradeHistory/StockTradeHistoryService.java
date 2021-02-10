@@ -23,20 +23,7 @@ public class StockTradeHistoryService implements StockTradeHistoryServiceInterfa
     private StockTradeHistoryRepository stockTradeHistoryRepository;
 
     @Override
-    public List<StockTradeHistory> getStockTradeHistory(UUID userId,int pageNo,int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<StockTradeHistory> pageResult=stockTradeHistoryRepository.findAllByUserId(userId,pageable);
-        return pageResult.toList();
-    }
-
-    @Override
     public void addToStockTradeHistory(StockTradeHistory stockTradeHistory) {
             stockTradeHistoryRepository.save(stockTradeHistory);
-    }
-
-    @Override
-    public StockTradeHistory getStockTradeByTradeId(UUID tradeId) {
-        Optional<StockTradeHistory> stockTradeHistory=stockTradeHistoryRepository.findById(tradeId);
-        return stockTradeHistory.isPresent()?stockTradeHistory.get():null;
     }
 }

@@ -1,9 +1,9 @@
-package com.pirimidtech.ptp.service.order;
+package com.pirimidtech.ptp.service.trade;
 
 import com.pirimidtech.ptp.entity.MutualFundOrder;
-import com.pirimidtech.ptp.entity.StockOrder;
+import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.repository.MutualFundOrderRepository;
-import com.pirimidtech.ptp.repository.StockOrderRepository;
+import com.pirimidtech.ptp.repository.StockTradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,33 +19,33 @@ import java.util.UUID;
 public class OrderService implements OrderServiceInterface {
 
     @Autowired
-    private StockOrderRepository stockOrderRepository;
+    private StockTradeRepository stockTradeRepository;
 
     @Autowired
     private MutualFundOrderRepository mutualFundOrderRepository;
 
     @Override
-    public void addToStockOrder(StockOrder stockOrder) {
-        stockOrderRepository.save(stockOrder);
+    public void addToStockOrder(StockTrade stockTrade) {
+        stockTradeRepository.save(stockTrade);
     }
 
     @Override
-    public List<StockOrder> getAllStockOrder(UUID userId,int pageNo,int pageSize) {
+    public List<StockTrade> getAllStockOrder(UUID userId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<StockOrder> pageResult=stockOrderRepository.findAllByUserId(userId,pageable);
+        Page<StockTrade> pageResult= stockTradeRepository.findAllByUserId(userId,pageable);
 
         return pageResult.toList();
     }
 
     @Override
-    public StockOrder getStockOrder(UUID orderId) {
-        Optional<StockOrder> stockOrder=stockOrderRepository.findById(orderId);
+    public StockTrade getStockOrder(UUID orderId) {
+        Optional<StockTrade> stockOrder= stockTradeRepository.findById(orderId);
         return stockOrder.isPresent()?stockOrder.get():null;
     }
 
     @Override
     public void deleteStockOrder(UUID orderId) {
-        stockOrderRepository.deleteById(orderId);
+        stockTradeRepository.deleteById(orderId);
     }
 
     @Override

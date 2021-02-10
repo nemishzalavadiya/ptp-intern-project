@@ -1,6 +1,7 @@
 package com.pirimidtech.ptp.service.position;
 
-import com.pirimidtech.ptp.entity.CompanyDetail;
+import com.pirimidtech.ptp.entity.Action;
+import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.repository.PositionRepository;
@@ -32,7 +33,7 @@ class PositionServiceTest {
 
     @Test
     void getAllPosition() {
-        CompanyDetail companyDetail = ObjectUtility.companyDetail;
+        AssetDetail assetDetail = ObjectUtility.assetDetail;
         List<Position> positionList = new ArrayList<>();
         positionList.add(ObjectUtility.position);
         when(positionRepository.findAllByUserId(user.getId(), PageRequest.of(0, 1))).thenReturn(new PageImpl<>(positionList));
@@ -49,9 +50,9 @@ class PositionServiceTest {
 
     @Test
     void addToPosition() {
-        CompanyDetail companyDetail = ObjectUtility.companyDetail;
+        AssetDetail assetDetail = ObjectUtility.assetDetail;
         Position position = ObjectUtility.position;
-        positionService.addToPosition(position);
+        positionService.addToPosition(position, Action.BUY);
         verify(positionRepository, times(1)).save(position);
     }
 }

@@ -25,6 +25,6 @@ public class StockDetail {
 
     private String managingDirector;
 
-    @OneToOne(targetEntity = CompanyDetail.class)
-    private CompanyDetail companyDetail;
+    @OneToOne(targetEntity = AssetDetail.class)
+    private AssetDetail assetDetail;
 }

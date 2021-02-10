@@ -23,6 +23,6 @@ public class Watchlist {
     @OneToOne(targetEntity = User.class)
     private User user;
 
-    @OneToOne(targetEntity = CompanyDetail.class)
-    private CompanyDetail companyDetail;
+    @OneToOne(targetEntity = AssetDetail.class)
+    private AssetDetail assetDetail;
 }

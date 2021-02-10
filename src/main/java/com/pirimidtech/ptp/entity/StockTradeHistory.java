@@ -4,7 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Enumerated;
@@ -25,16 +29,9 @@ public class StockTradeHistory {
 
     private LocalDateTime timestamp;
 
-    private int tradeVolume;
-
     @Enumerated(EnumType.STRING)
-    private StockExchangeType stockExchangeType;
+    private Status status;
 
-    private float price;
-
-    @ManyToOne(targetEntity =  User.class)
-    private User user;
-
-    @ManyToOne(targetEntity =  StockDetail.class)
-    private StockDetail stockDetail;
+    @ManyToOne(targetEntity = StockTrade.class)
+    private StockTrade stockTrade;
 }

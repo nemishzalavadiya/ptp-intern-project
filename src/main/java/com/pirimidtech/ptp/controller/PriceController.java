@@ -23,19 +23,6 @@ public class PriceController {
     @Autowired
     private PriceService priceService;
 
-    @PostMapping("/stock/prices")
-    public ResponseEntity<UUID> addToStockPrice(@RequestBody StockPrice stockPrice) {
-        UUID uuid;
-        try {
-            uuid = UUID.randomUUID();
-            stockPrice.setId(uuid);
-            priceService.addToStockPrice(stockPrice);
-        } catch (Exception exception) {
-            throw new ErrorHandler(exception.getCause());
-        }
-        return ResponseEntity.ok().body(uuid);
-    }
-
     @GetMapping("/stock/{id}/prices")
     public ResponseEntity<List<StockPrice>> getStockPrice(@PathVariable("id") UUID stockId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
         List<StockPrice> stockPriceList = new ArrayList<>();
@@ -45,19 +32,6 @@ public class PriceController {
             throw new ErrorHandler(exception.getCause());
         }
         return stockPriceList.size() != 0 ? ResponseEntity.ok().body(stockPriceList) : ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/mutualfund/prices")
-    public ResponseEntity<UUID> addToMutualFundPrice(@RequestBody MutualFundPrice mutualFundPrice) {
-        UUID uuid;
-        try {
-            uuid  = UUID.randomUUID();
-            mutualFundPrice.setId(uuid);
-            priceService.addToMutualFundPrice(mutualFundPrice);
-        } catch (Exception exception) {
-            throw new ErrorHandler(exception.getCause());
-        }
-        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/mutualfund/{id}/prices")

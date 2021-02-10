@@ -1,17 +1,17 @@
-package com.pirimidtech.ptp.service.order;
+package com.pirimidtech.ptp.service.trade;
 
 import com.pirimidtech.ptp.entity.MutualFundOrder;
-import com.pirimidtech.ptp.entity.StockOrder;
+import com.pirimidtech.ptp.entity.StockTrade;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface OrderServiceInterface {
-    void addToStockOrder(StockOrder stockOrder);
+    void addToStockOrder(StockTrade stockTrade);
 
-    List<StockOrder> getAllStockOrder(UUID userId,int pageNo,int pageSize);
+    List<StockTrade> getAllStockOrder(UUID userId, int pageNo, int pageSize);
 
-    StockOrder getStockOrder(UUID orderId);
+    StockTrade getStockOrder(UUID orderId);
 
     void deleteStockOrder(UUID orderId);
 

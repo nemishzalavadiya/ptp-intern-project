@@ -1,10 +1,15 @@
 package com.pirimidtech.ptp.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Enumerated;
@@ -18,8 +23,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "stockOrder")
-public class StockOrder {
+@Table(name = "stockTrade")
+public class StockTrade {
     @Id
     private UUID id;
 
@@ -41,7 +46,8 @@ public class StockOrder {
 
     private float price;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToOne(targetEntity = User.class)
     private User user;

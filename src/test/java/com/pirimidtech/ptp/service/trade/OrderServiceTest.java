@@ -1,10 +1,10 @@
-package com.pirimidtech.ptp.service.order;
+package com.pirimidtech.ptp.service.trade;
 
 import com.pirimidtech.ptp.entity.MutualFundOrder;
-import com.pirimidtech.ptp.entity.StockOrder;
+import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.repository.MutualFundOrderRepository;
-import com.pirimidtech.ptp.repository.StockOrderRepository;
+import com.pirimidtech.ptp.repository.StockTradeRepository;
 import com.pirimidtech.ptp.utility.ObjectUtility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,39 +29,39 @@ class OrderServiceTest {
     @Autowired
     private OrderService orderService;
     @MockBean
-    private StockOrderRepository stockOrderRepository;
+    private StockTradeRepository stockTradeRepository;
     @MockBean
     private MutualFundOrderRepository mutualFundOrderRepository;
 
     @Test
     void addToStockOrder() {
-        StockOrder stockOrder = ObjectUtility.stockOrder1;
-        orderService.addToStockOrder(stockOrder);
-        verify(stockOrderRepository, times(1)).save(stockOrder);
+        StockTrade stockTrade = ObjectUtility.stockTrade1;
+        orderService.addToStockOrder(stockTrade);
+        verify(stockTradeRepository, times(1)).save(stockTrade);
     }
 
     @Test
     void getAllStockOrder() {
-        List<StockOrder> stockOrderList = new ArrayList<>();
-        stockOrderList.add(ObjectUtility.stockOrder1);
-        stockOrderList.add(ObjectUtility.stockOrder2);
+        List<StockTrade> stockTradeList = new ArrayList<>();
+        stockTradeList.add(ObjectUtility.stockTrade1);
+        stockTradeList.add(ObjectUtility.stockTrade2);
 
-        when(stockOrderRepository.findAllByUserId(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<StockOrder>(stockOrderList));
+        when(stockTradeRepository.findAllByUserId(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<StockTrade>(stockTradeList));
         assertEquals(2, orderService.getAllStockOrder(user.getId(), 0, 2).size());
     }
 
     @Test
     void getStockOrder() {
-        StockOrder stockOrder = ObjectUtility.stockOrder1;
-        when(stockOrderRepository.findById(stockOrder.getId())).thenReturn(java.util.Optional.of(stockOrder));
-        assertEquals(stockOrder, orderService.getStockOrder(stockOrder.getId()));
+        StockTrade stockTrade = ObjectUtility.stockTrade1;
+        when(stockTradeRepository.findById(stockTrade.getId())).thenReturn(java.util.Optional.of(stockTrade));
+        assertEquals(stockTrade, orderService.getStockOrder(stockTrade.getId()));
     }
 
     @Test
     void deleteStockOrder() {
 
-        orderService.deleteStockOrder(ObjectUtility.stockOrder1.getId());
-        verify(stockOrderRepository, times(1)).deleteById(ObjectUtility.stockOrder1.getId());
+        orderService.deleteStockOrder(ObjectUtility.stockTrade1.getId());
+        verify(stockTradeRepository, times(1)).deleteById(ObjectUtility.stockTrade1.getId());
     }
 
     @Test

@@ -1,6 +1,6 @@
 package com.pirimidtech.ptp.service.price;
 
-import com.pirimidtech.ptp.entity.CompanyDetail;
+import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundPrice;
 import com.pirimidtech.ptp.entity.StockDetail;
@@ -39,11 +39,11 @@ class PriceServiceTest {
     @MockBean
     private MutualFundPriceRepository mutualFundPriceRepository;
     private StockDetail stockDetail;
-    private CompanyDetail companyDetail;
+    private AssetDetail assetDetail;
 
     @Before
     void setUp() {
-        companyDetail = ObjectUtility.companyDetail;
+        assetDetail = ObjectUtility.assetDetail;
         StockStatistic stockStatistic = ObjectUtility.stockStatistic;
         stockDetail = ObjectUtility.stockDetail;
     }

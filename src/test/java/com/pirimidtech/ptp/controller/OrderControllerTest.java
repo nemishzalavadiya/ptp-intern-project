@@ -4,23 +4,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.pirimidtech.ptp.PtpApplication;
-import com.pirimidtech.ptp.entity.Action;
-import com.pirimidtech.ptp.entity.Gender;
-import com.pirimidtech.ptp.entity.InvestmentType;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
-import com.pirimidtech.ptp.entity.OrderType;
-import com.pirimidtech.ptp.entity.PriceType;
-import com.pirimidtech.ptp.entity.StockExchangeType;
-import com.pirimidtech.ptp.entity.StockOrder;
-import com.pirimidtech.ptp.entity.User;
+import com.pirimidtech.ptp.entity.StockTrade;
+import com.pirimidtech.ptp.utility.ObjectUtility;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 
 import java.util.UUID;
 
@@ -34,26 +33,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = PtpApplication.class
 )
+@TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application.properties")
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class OrderControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    UUID stockOrderId=null,mutualFundOrderId=null;
 
     @Test
     void addToStockOrder() {
-        StockOrder stockOrder = new StockOrder(UUID.fromString("96312e56-e122-4fa4-b0ec-c8afa80d6779"), null, 100, Action.BUY, StockExchangeType.BSE, PriceType.LIMIT, OrderType.DELIVERY, 100f, "Active", new User(UUID.fromString("96312e56-e122-4fa4-b0ec-c8afa80d6779"), "abc", "abc@dev.com", "", "", "", "", Gender.MALE, ""), null);
+        StockTrade stockTrade = ObjectUtility.stockTrade1;
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 
         try {
-            String requestJson = ow.writeValueAsString(stockOrder);
-            mockMvc.perform(post("/stock/orders").
+            String requestJson = ow.writeValueAsString(stockTrade);
+            MvcResult mvcResult =mockMvc.perform(post("/stock/orders").
                     contentType(MediaType.APPLICATION_JSON).
                     content(requestJson)).
-                    andExpect(status().isOk());
+                    andExpect(status().isOk()).
+                    andReturn();
+            stockOrderId=UUID.nameUUIDFromBytes(mvcResult.getResponse().getContentAsByteArray());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,10 +67,10 @@ class OrderControllerTest {
     void getAllStockOrder() {
         try {
 
-            mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/users/96312e56-e122-4fa4-b0ec-c8afa80d6779")).
+            mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/users/"+ObjectUtility.user.getId()+"?page=0&size=3")).
                     andExpect(status().isOk()).
                     andExpect(content().contentType(MediaType.APPLICATION_JSON)).
-                    andExpect(jsonPath("$.[0].user.id").value("96312e56-e122-4fa4-b0ec-c8afa80d6779")).
+                    andExpect(jsonPath("$.[0].user.id").value(ObjectUtility.user.getId().toString())).
                     andDo(print());
 
         } catch (Exception e) {
@@ -77,10 +81,11 @@ class OrderControllerTest {
     @Test
     void getStockOrder() {
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/96312e56-e122-4fa4-b0ec-c8afa80d6779")).
+            mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/"+stockOrderId)).
                     andExpect(status().isOk()).
                     andExpect(content().contentType(MediaType.APPLICATION_JSON)).
-                    andExpect(jsonPath("$.id").value("96312e56-e122-4fa4-b0ec-c8afa80d6779"));
+                    andDo(print()).
+                    andExpect(jsonPath("$.id").value(stockOrderId));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,14 +94,12 @@ class OrderControllerTest {
 
     @Test
     void updateStockOrder() {
-        StockOrder stockOrder = new StockOrder();
-        stockOrder.setOrderType(OrderType.INTRA_DAY);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         try {
-            String requestJson = ow.writeValueAsString(stockOrder);
-            mockMvc.perform(MockMvcRequestBuilders.put("/stock/orders/96312e56-e122-4fa4-b0ec-c8afa80d6779").
+            String requestJson = ow.writeValueAsString(ObjectUtility.stockTrade1);
+            mockMvc.perform(MockMvcRequestBuilders.put("/stock/orders/"+stockOrderId).
                     contentType(MediaType.APPLICATION_JSON).
                     content(requestJson)).
                     andExpect(status().isOk());
@@ -108,9 +111,7 @@ class OrderControllerTest {
     @Test
     void deleteStockOrder() {
         try {
-            mockMvc.perform(MockMvcRequestBuilders.delete("/stock/orders/d92437f9-2823-41b1-adb8-d9230f483bba")).
-                    andExpect(status().isBadRequest());
-            mockMvc.perform(MockMvcRequestBuilders.delete("/stock/orders/96312e56-e122-4fa4-b0ec-c8afa80d6779")).
+            mockMvc.perform(MockMvcRequestBuilders.delete("/stock/orders/"+stockOrderId)).
                     andExpect(status().isOk());
 
         } catch (Exception e) {
@@ -121,37 +122,23 @@ class OrderControllerTest {
 
     @Test
     void addToMutualFundOrder() {
-        MutualFundOrder mutualFundOrder = new MutualFundOrder(UUID.randomUUID(), null, 100f, InvestmentType.MONTHLY_SIP, null, new User(UUID.fromString("96312e56-e122-4fa4-b0ec-c8afa80d6779"), "abc", "abc@dev.com", "", "", "", "", Gender.MALE, ""));
+        MutualFundOrder mutualFundOrder = ObjectUtility.mutualFundOrder1;
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 
         try {
             String requestJson = ow.writeValueAsString(mutualFundOrder);
-            mockMvc.perform(post("/mutualfund/orders").
+            MvcResult mvcResult =mockMvc.perform(post("/mutualfund/orders").
                     contentType(MediaType.APPLICATION_JSON).
                     content(requestJson)).
-                    andExpect(status().isOk());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void updateMutualFundOrder() {
-        User user = new User();
-        user.setId(UUID.fromString("96312e56-e122-4fa4-b0ec-c8afa80d6779"));
-        MutualFundOrder mutualFundOrder = new MutualFundOrder(null, null, 1000f, InvestmentType.MONTHLY_SIP, null, user);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-
-        try {
-            String requestJson = ow.writeValueAsString(mutualFundOrder);
-            mockMvc.perform(MockMvcRequestBuilders.put("/mutualfund/orders/d6a99154-11ac-4b5a-9402-59a9205a231d").
-                    contentType(MediaType.APPLICATION_JSON).
-                    content(requestJson)).
-                    andExpect(status().isOk());
+                    andExpect(status().isOk()).
+                    andDo(print()).
+                    andDo(mvcResult1 -> {
+                        ObjectUtility.mutualFundOrder1.setId(UUID.nameUUIDFromBytes(mvcResult1.getResponse().getContentAsByteArray()));
+                    }).
+                    andReturn();
+            mutualFundOrderId=UUID.nameUUIDFromBytes(mvcResult.getResponse().getContentAsByteArray());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -160,10 +147,10 @@ class OrderControllerTest {
     @Test
     void getAllMutualFundOrder() {
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/users/96312e56-e122-4fa4-b0ec-c8afa80d6779")).
+            mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/users/"+ObjectUtility.user.getId()+"?page=0&size=3")).
                     andExpect(status().isOk()).
                     andExpect(content().contentType(MediaType.APPLICATION_JSON)).
-                    andExpect(jsonPath("$.[0].user.id").value("96312e56-e122-4fa4-b0ec-c8afa80d6779")).
+                    andExpect(jsonPath("$.[0].user.id").value(ObjectUtility.user.getId().toString())).
                     andDo(print());
 
         } catch (Exception e) {
@@ -172,13 +159,31 @@ class OrderControllerTest {
     }
 
     @Test
-    void getMutualFundOrderOrder() {
+    void getMutualFundOrder() {
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/d6a99154-11ac-4b5a-9402-59a9205a231d")).
+            mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/"+mutualFundOrderId)).
                     andExpect(status().isOk()).
                     andExpect(content().contentType(MediaType.APPLICATION_JSON)).
-                    andExpect(jsonPath("$.id").value("d6a99154-11ac-4b5a-9402-59a9205a231d"));
+                    andDo(print()).
+                    andExpect(jsonPath("$.id").value(mutualFundOrderId.toString()));
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void updateMutualFundOrder() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+
+        try {
+            String requestJson = ow.writeValueAsString(ObjectUtility.mutualFundOrder1);
+            mockMvc.perform(MockMvcRequestBuilders.put("/mutualfund/orders/"+mutualFundOrderId).
+                    contentType(MediaType.APPLICATION_JSON).
+                    content(requestJson)).
+                    andExpect(status().isOk());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -187,11 +192,9 @@ class OrderControllerTest {
     @Test
     void deleteMutualFundOrder() {
         try {
-            mockMvc.perform(MockMvcRequestBuilders.delete("/mutualfund/orders/d92437f9-2823-41b1-adb8-d9230f483bba")).
-                    andExpect(status().isBadRequest());
-            mockMvc.perform(MockMvcRequestBuilders.delete("/mutualfund/orders/d6a99154-11ac-4b5a-9402-59a9205a231d")).
+            System.out.println(ObjectUtility.mutualFundOrder1.getId());
+            mockMvc.perform(MockMvcRequestBuilders.delete("/mutualfund/orders/"+mutualFundOrderId)).
                     andExpect(status().isOk());
-
         } catch (Exception e) {
             e.printStackTrace();
         }

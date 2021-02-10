@@ -10,15 +10,14 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Collections;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WatchlistControllerTest {
@@ -42,28 +41,28 @@ public class WatchlistControllerTest {
     @Test
     public void getAllWatchlistId() {
         //mocking
-        when(watchlistService.getWatchlistDetailByUserId(testDataStore.userUuid1)).thenReturn(testDataStore.watchlistList);
-        when(watchlistService.getWatchlistDetailByUserId(testDataStore.userUuid2)).thenReturn(new ArrayList<>());
+        when(watchlistService.getWatchlistDetailByUserId(testDataStore.userUuid1, testDataStore.pageable)).thenReturn(new PageImpl<>(testDataStore.watchlistList));
+        when(watchlistService.getWatchlistDetailByUserId(testDataStore.userUuid2, testDataStore.pageable)).thenReturn(new PageImpl<>(new ArrayList<>()));
 
         //Asserts
-        List<UUID> expectedUuidList = watchlistController.getAllWatchlistId(testDataStore.userUuid1);
-        assertEquals(expectedUuidList, testDataStore.watchlistList.stream().map(Watchlist::getId).collect(Collectors.toList()));
+        ResponseEntity<Page<Watchlist>> pageResponseEntity = watchlistController.getAllWatchlistId(testDataStore.userUuid1, 0, 10);
+        assertEquals(Objects.requireNonNull(pageResponseEntity.getBody()).getContent(), testDataStore.watchlistList);
 
-        expectedUuidList = watchlistController.getAllWatchlistId(testDataStore.userUuid2);
-        assertEquals(expectedUuidList, new ArrayList<>());
+        pageResponseEntity = watchlistController.getAllWatchlistId(testDataStore.userUuid2, 0, 10);
+        assertEquals(Objects.requireNonNull(pageResponseEntity.getBody()).getContent(), new ArrayList<>());
     }
 
     @Test
     public void getAllWatchlistEntry() {
         //mocking
-        when(watchlistEntryService.getAllWatchlistEntryByWatchlistId(testDataStore.watchlistList.get(0).getId(), testDataStore.pageable)).thenReturn(testDataStore.watchlistEntryList);
-        when(watchlistEntryService.getAllWatchlistEntryByWatchlistId(testDataStore.watchlistList.get(1).getId(), testDataStore.pageable)).thenReturn(new ArrayList<>());
+        when(watchlistEntryService.getAllWatchlistEntryByWatchlistId(testDataStore.watchlistList.get(0).getId(), testDataStore.pageable)).thenReturn(new PageImpl<>(testDataStore.watchlistEntryList));
+        when(watchlistEntryService.getAllWatchlistEntryByWatchlistId(testDataStore.watchlistList.get(1).getId(), testDataStore.pageable)).thenReturn(new PageImpl<>(new ArrayList<>()));
 
         //Asserts
-        List<UUID> expectedUuidList = watchlistController.getAllWatchlistEntry(testDataStore.watchlistList.get(0).getId(), 0, 10);
-        assertEquals(expectedUuidList, Collections.singletonList(testDataStore.watchlistEntryList.get(0).getAssetDetail().getId()));
+        ResponseEntity<Page<WatchlistEntry>> pageResponseEntity = watchlistController.getAllWatchlistEntry(testDataStore.watchlistList.get(0).getId(), 0, 10);
+        assertEquals(Objects.requireNonNull(pageResponseEntity.getBody()).getContent(), testDataStore.watchlistEntryList);
 
-        expectedUuidList = watchlistController.getAllWatchlistEntry(testDataStore.watchlistList.get(1).getId(), 0, 10);
-        assertEquals(expectedUuidList, new ArrayList<>());
+        pageResponseEntity = watchlistController.getAllWatchlistEntry(testDataStore.watchlistList.get(1).getId(), 0, 10);
+        assertEquals(Objects.requireNonNull(pageResponseEntity.getBody()).getContent(), new ArrayList<>());
     }
 }

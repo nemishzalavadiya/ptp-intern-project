@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -44,8 +45,8 @@ public class WatchlistControllerIntegrationTest {
     public void displayWatchlist() throws Exception {
 
         //mocking
-        when(watchlistRepository.findByUserId(testDataStore.userList.get(0).getId())).thenReturn(testDataStore.watchlistList);
-        when(watchlistEntryRepository.findByWatchlistId(testDataStore.watchlistList.get(0).getId(),testDataStore.pageable)).thenReturn(testDataStore.watchlistEntryList);
+        when(watchlistRepository.findByUserId(testDataStore.userList.get(0).getId(),testDataStore.pageable)).thenReturn(new PageImpl<>(testDataStore.watchlistList));
+        when(watchlistEntryRepository.findByWatchlistId(testDataStore.watchlistList.get(0).getId(),testDataStore.pageable)).thenReturn(new PageImpl<>(testDataStore.watchlistEntryList));
 
         //get watchlist entries
         MvcResult result = mockMvc.perform(get("/watchlist/"+testDataStore.watchlistList.get(0).getId()+"?page=0&size=10")

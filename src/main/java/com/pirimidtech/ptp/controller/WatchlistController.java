@@ -7,8 +7,11 @@ import com.pirimidtech.ptp.service.asset.AssetService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistEntryService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,19 +32,16 @@ public class WatchlistController {
     AssetDetailRepository assetDetailRepository;
 
     @GetMapping("/{watchlistId}")
-    public List<UUID> getAllWatchlistEntry(@PathVariable UUID watchlistId, @RequestParam int page, @RequestParam int size) {
-        List<UUID> assetUuidList = new ArrayList<>();
+    public ResponseEntity<Page<WatchlistEntry>> getAllWatchlistEntry(@PathVariable UUID watchlistId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        List<WatchlistEntry> watchlistEntryList = watchlistEntryService.getAllWatchlistEntryByWatchlistId(watchlistId, pageable);
-        watchlistEntryList.forEach((watchlistEntry -> assetUuidList.add(watchlistEntry.getAssetDetail().getId())));
-        return assetUuidList;
+        Page<WatchlistEntry> watchlistEntryPage = watchlistEntryService.getAllWatchlistEntryByWatchlistId(watchlistId, pageable);
+        return ResponseEntity.ok().body(watchlistEntryPage);
     }
 
     @GetMapping("/users/{userId}")
-    public List<UUID> getAllWatchlistId(@PathVariable UUID userId) {
-        List<UUID> watchlistUuidList = new ArrayList<>();
-        List<Watchlist> watchlistList = watchlistService.getWatchlistDetailByUserId(userId);
-        watchlistList.forEach((watchlist -> watchlistUuidList.add(watchlist.getId())));
-        return watchlistUuidList;
+    public ResponseEntity<Page<Watchlist>> getAllWatchlistId(@PathVariable UUID userId,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Watchlist> watchlistPage = watchlistService.getWatchlistDetailByUserId(userId,pageable);
+        return ResponseEntity.ok().body(watchlistPage);
     }
 }

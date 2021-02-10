@@ -44,7 +44,7 @@ public class AssetController {
         return assetDetailList;
     }
 
-    @GetMapping(value = "/search/{infix}")
+    @GetMapping(value = "/assets/search/{infix}")
     public Page<AssetDetail> searchAssetList(@PathVariable String infix, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Pageable paging = PageRequest.of(page, size);
         Page<AssetDetail> assetDetailList;

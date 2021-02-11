@@ -32,7 +32,7 @@ public class PriceService implements PriceServiceInterface{
     @Override
     public List<StockPrice> getStockPrice(UUID stockId,int pageNo,int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<StockPrice> pageResult=stockPriceRepository.findAllByStockDetailId(stockId,pageable);
+        Page<StockPrice> pageResult=stockPriceRepository.findAllByStockDetailIdOrderByTimestampDesc(stockId,pageable);
         return pageResult.toList();
     }
 
@@ -44,7 +44,7 @@ public class PriceService implements PriceServiceInterface{
     @Override
     public List<MutualFundPrice> getMutualFundPrice(UUID mutualFundId,int pageNo,int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<MutualFundPrice> pageResult=mutualFundPriceRepository.findAllByMutualFundDetailId(mutualFundId,pageable);
+        Page<MutualFundPrice> pageResult=mutualFundPriceRepository.findAllByMutualFundDetailIdOrderByTimestampDesc(mutualFundId,pageable);
         return pageResult.toList();
     }
 }

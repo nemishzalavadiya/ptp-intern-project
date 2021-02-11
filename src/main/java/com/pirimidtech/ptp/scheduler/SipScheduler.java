@@ -29,6 +29,5 @@ public class SipScheduler {
                     positionService.addToPosition(new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(),mutualFundOrder.getMutualFundDetail().getAssetDetail()), null);
                 }
         );
-
     }
 }

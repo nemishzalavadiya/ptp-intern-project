@@ -32,7 +32,7 @@ public class OrderService implements OrderServiceInterface {
     @Override
     public List<StockTrade> getAllStockOrder(UUID userId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<StockTrade> pageResult= stockTradeRepository.findAllByUserId(userId,pageable);
+        Page<StockTrade> pageResult= stockTradeRepository.findAllByUserIdOrderByTimestampDesc(userId,pageable);
 
         return pageResult.toList();
     }
@@ -51,7 +51,7 @@ public class OrderService implements OrderServiceInterface {
     @Override
     public List<MutualFundOrder> getAllMutualFundOrder(UUID userId,int pageNo,int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<MutualFundOrder> pageResult=mutualFundOrderRepository.findAllByUserId(userId,pageable);
+        Page<MutualFundOrder> pageResult=mutualFundOrderRepository.findAllByUserIdOrderBySIPDateDesc(userId,pageable);
 
         return pageResult.toList();
     }

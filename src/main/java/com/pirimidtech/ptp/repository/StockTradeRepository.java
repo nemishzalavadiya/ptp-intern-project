@@ -11,6 +11,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface StockTradeRepository extends JpaRepository<StockTrade, UUID> {
-    Page<StockTrade> findAllByUserId(UUID userId, Pageable pageable);
+    Page<StockTrade> findAllByUserIdOrderByTimestampDesc(UUID userId, Pageable pageable);
     List<StockTrade> findAllByStatus(Status status);
 }

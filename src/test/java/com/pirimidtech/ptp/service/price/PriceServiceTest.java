@@ -61,7 +61,7 @@ class PriceServiceTest {
         List<StockPrice> stockPriceList = new ArrayList<>();
         stockPriceList.add(ObjectUtility.stockPrice1);
         stockPriceList.add(ObjectUtility.stockPrice2);
-        when(stockPriceRepository.findAllByStockDetailId(stockId, PageRequest.of(0, 2))).thenReturn(new PageImpl<>(stockPriceList));
+        when(stockPriceRepository.findAllByStockDetailIdOrderByTimestampDesc(stockId, PageRequest.of(0, 2))).thenReturn(new PageImpl<>(stockPriceList));
         assertEquals(2, priceService.getStockPrice(stockId, 0, 2).size());
     }
 
@@ -78,7 +78,7 @@ class PriceServiceTest {
         MutualFundDetail mutualFundDetail = ObjectUtility.mutualFundDetail;
         mutualFundPriceList.add(ObjectUtility.mutualFundPrice1);
         mutualFundPriceList.add(ObjectUtility.mutualFundPrice2);
-        when(mutualFundPriceRepository.findAllByMutualFundDetailId(mutualFundDetail.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<>(mutualFundPriceList));
+        when(mutualFundPriceRepository.findAllByMutualFundDetailIdOrderByTimestampDesc(mutualFundDetail.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<>(mutualFundPriceList));
         assertEquals(2, priceService.getMutualFundPrice(mutualFundDetail.getId(), 0, 2).size());
     }
 }

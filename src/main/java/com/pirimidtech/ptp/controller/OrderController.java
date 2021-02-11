@@ -2,7 +2,6 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.Action;
 import com.pirimidtech.ptp.entity.AssetClass;
-import com.pirimidtech.ptp.entity.InvestmentType;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.Status;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -58,7 +56,7 @@ public class OrderController {
         }
         stockTrade.setStatus(Status.PENDING);
         stockTrade.setTimestamp(LocalDateTime.now());
-        stockTrade=orderService.addToStockOrder(stockTrade);
+        stockTrade = orderService.addToStockOrder(stockTrade);
         stockTradeHistoryService.addToStockTradeHistory(new StockTradeHistory(null, LocalDateTime.now(), Status.PENDING, stockTrade));
         return ResponseEntity.ok().body(stockTrade);
     }
@@ -77,12 +75,8 @@ public class OrderController {
 
     @PostMapping("/mutualfund/orders")
     public ResponseEntity<MutualFundOrder> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
-        if (mutualFundOrder.getInvestmentType().equals(InvestmentType.MONTHLY_SIP)) {
-            mutualFundOrder.setSIPDate(LocalDate.now());
-        } else if (mutualFundOrder.getInvestmentType().equals(InvestmentType.ONE_TIME)) {
-            mutualFundOrder.setSIPDate(null);
-        }
-        mutualFundOrder=orderService.addToMutualFundOrder(mutualFundOrder);
+        mutualFundOrder.setSIPDate(LocalDate.now());
+        mutualFundOrder = orderService.addToMutualFundOrder(mutualFundOrder);
         positionService.addToPosition(new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get().getAssetDetail()), Action.BUY);
         return ResponseEntity.ok().body(mutualFundOrder);
     }

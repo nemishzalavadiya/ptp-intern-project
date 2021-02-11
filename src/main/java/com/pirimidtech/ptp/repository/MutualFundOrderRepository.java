@@ -13,6 +13,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface MutualFundOrderRepository extends JpaRepository<MutualFundOrder, UUID> {
-    Page<MutualFundOrder> findAllByUserId(UUID userId, Pageable pageable);
+    Page<MutualFundOrder> findAllByUserIdOrderBySIPDateDesc(UUID userId, Pageable pageable);
     List<MutualFundOrder> findAllBySIPDateAndAndInvestmentType(LocalDate date, InvestmentType investmentType);
 }

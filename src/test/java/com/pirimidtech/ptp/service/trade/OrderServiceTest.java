@@ -4,7 +4,6 @@ import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.repository.MutualFundOrderRepository;
-import com.pirimidtech.ptp.repository.StockTradeHistoryRepository;
 import com.pirimidtech.ptp.repository.StockTradeRepository;
 import com.pirimidtech.ptp.utility.ObjectUtility;
 import org.junit.jupiter.api.Test;
@@ -46,7 +45,7 @@ class OrderServiceTest {
         List<StockTrade> stockTradeList = new ArrayList<>();
         stockTradeList.add(ObjectUtility.stockTrade1);
         stockTradeList.add(ObjectUtility.stockTrade2);
-        when(stockTradeRepository.findAllByUserId(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<StockTrade>(stockTradeList));
+        when(stockTradeRepository.findAllByUserIdOrderByTimestampDesc(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<StockTrade>(stockTradeList));
         assertEquals(2, orderService.getAllStockOrder(user.getId(), 0, 2).size());
     }
 
@@ -69,7 +68,7 @@ class OrderServiceTest {
         List<MutualFundOrder> mutualFundOrderList = new ArrayList<>();
         mutualFundOrderList.add(ObjectUtility.mutualFundOrder1);
         mutualFundOrderList.add(ObjectUtility.mutualFundOrder2);
-        when(mutualFundOrderRepository.findAllByUserId(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<MutualFundOrder>(mutualFundOrderList));
+        when(mutualFundOrderRepository.findAllByUserIdOrderBySIPDateDesc(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<MutualFundOrder>(mutualFundOrderList));
         assertEquals(2, orderService.getAllMutualFundOrder(user.getId(), 0, 2).size());
     }
 

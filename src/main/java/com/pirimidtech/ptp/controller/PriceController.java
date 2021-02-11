@@ -31,4 +31,5 @@ public class PriceController {
         List<MutualFundPrice> mutualFundPriceList = priceService.getMutualFundPrice(mutualFundId, page, size);
         return mutualFundPriceList.size() != 0 ? ResponseEntity.ok().body(mutualFundPriceList) : ResponseEntity.notFound().build();
     }
+
 }

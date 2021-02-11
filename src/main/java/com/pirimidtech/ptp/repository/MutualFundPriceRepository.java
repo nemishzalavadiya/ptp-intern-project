@@ -9,5 +9,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface MutualFundPriceRepository extends JpaRepository<MutualFundPrice, UUID> {
-    Page<MutualFundPrice> findAllByMutualFundDetailId(UUID mutualFundId, Pageable pageable);
+    Page<MutualFundPrice> findAllByMutualFundDetailIdOrderByTimestampDesc(UUID mutualFundId, Pageable pageable);
 }

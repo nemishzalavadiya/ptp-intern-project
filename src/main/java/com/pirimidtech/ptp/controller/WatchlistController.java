@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @RestController
@@ -56,7 +57,6 @@ public class WatchlistController {
     @GetMapping("/search")
     public ResponseEntity<List<AssetDetail>> searchNameLike(@RequestParam String name,
                                             @RequestParam String asset){
-
         List<AssetDetail> searchName = new ArrayList<>();
         AssetClass assetClass;
         if(asset.equalsIgnoreCase("stock")){
@@ -65,7 +65,7 @@ public class WatchlistController {
         else{
             assetClass = AssetClass.MUTUAL_FUND;
         }
-        searchName.add(assetDetailRepository.findByNameContainingAndAssetClass(name,assetClass));
+        searchName.add(assetService.searchByNameAndAsset(name,assetClass));
         return ResponseEntity.ok().body(searchName);
     }
 

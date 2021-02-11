@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.controller;
 
+import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.entity.Watchlist;
 import com.pirimidtech.ptp.entity.WatchlistEntry;
@@ -11,6 +12,7 @@ import com.pirimidtech.ptp.service.watchlist.WatchlistEntryService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -47,40 +49,44 @@ public class WatchlistController {
                                                              @RequestParam(defaultValue = "0") int page,
                                                              @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Watchlist> watchlistPage = watchlistService.getWatchlistDetailByUserId(userId, pageable);
+        Page<Watchlist> watchlistPage = watchlistService.getWatchlistDetailByUserId(userId,pageable);
         return ResponseEntity.ok().body(watchlistPage);
     }
 
     @GetMapping("/search")
-    public List<AssetDetail> searchNameLike(@RequestParam String name,
-                                            @RequestParam String assetClass,
-                                            @RequestParam Integer page,
-                                            @RequestParam Integer size) {
+    public ResponseEntity<List<AssetDetail>> searchNameLike(@RequestParam String name,
+                                            @RequestParam String asset){
 
-        Pageable pageable = PageRequest.of(page, size);
         List<AssetDetail> searchName = new ArrayList<>();
-        searchName.add(assetDetailRepository.findByNameContainingAndAssetClass(name, assetClass));
-        return searchName;
+        AssetClass assetClass;
+        if(asset.equalsIgnoreCase("stock")){
+            assetClass = AssetClass.STOCK;
+        }
+        else{
+            assetClass = AssetClass.MUTUAL_FUND;
+        }
+        searchName.add(assetDetailRepository.findByNameContainingAndAssetClass(name,assetClass));
+        return ResponseEntity.ok().body(searchName);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Watchlist> addWatchlist(@RequestBody Watchlist watchlist) {
-        watchlist.setId(null);
+    @PostMapping("")
+    public ResponseEntity<Watchlist> addWatchlist(@RequestBody Watchlist watchlist){
+        watchlist.setId(UUID.randomUUID());
         watchlistService.add(watchlist);
         return ResponseEntity.ok().body(watchlist);
     }
 
     @PostMapping("/addWatchlistEntry")
-    public ResponseEntity<WatchlistEntry> addWatchlistEntry(@RequestBody WatchlistEntry watchlistEntry) {
+    public ResponseEntity<WatchlistEntry> addWatchlistEntry(@RequestBody WatchlistEntry watchlistEntry){
         watchlistEntry.setId(UUID.randomUUID());
-        if (watchlistService.findById(watchlistEntry.getWatchlist().getId()).isPresent()) {
+        if(watchlistService.findById(watchlistEntry.getWatchlist().getId()).isPresent()) {
             watchlistEntryService.add(watchlistEntry);
         }
         return ResponseEntity.ok().body(watchlistEntry);
     }
 
     @DeleteMapping("")
-    public ResponseEntity<UUID> removeAssetDetail(@RequestParam UUID watchlistEntryId) {
+    public ResponseEntity<UUID> removeAssetDetail(@RequestParam UUID watchlistEntryId){
         watchlistEntryService.remove(watchlistEntryId);
         return ResponseEntity.ok().body(watchlistEntryId);
     }

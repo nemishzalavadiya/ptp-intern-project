@@ -48,7 +48,6 @@ public class OrderController {
     @PostMapping("/stock/orders")
     public ResponseEntity<StockTrade> addToStockOrder(@RequestBody StockTrade stockTrade) {
         stockTrade.setId(null);
-
         if (stockTrade.getAction().equals(Action.SELL)) {
             Position position = positionService.getPositionByUserIdAndAssetDetailId(stockTrade.getUser().getId(), stockDetailRepository.findById(stockTrade.getStockDetail().getId()).get().getAssetDetail().getId());
             if (position == null || position.getVolume() < stockTrade.getTradeVolume()) {

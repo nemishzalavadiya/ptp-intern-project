@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.service.price;
 
+import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.MutualFundPrice;
 import com.pirimidtech.ptp.entity.StockPrice;
 import com.pirimidtech.ptp.repository.MutualFundPriceRepository;

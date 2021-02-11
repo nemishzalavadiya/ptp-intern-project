@@ -1,12 +1,17 @@
 package com.pirimidtech.ptp.controller;
 
+import com.pirimidtech.ptp.entity.Action;
 import com.pirimidtech.ptp.entity.AssetClass;
+import com.pirimidtech.ptp.entity.InvestmentType;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.Status;
+import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.entity.StockTradeHistory;
 import com.pirimidtech.ptp.exception.ErrorHandler;
+import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
+import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.service.position.PositionService;
 import com.pirimidtech.ptp.service.trade.OrderService;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
@@ -19,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,14 +43,29 @@ public class OrderController {
     @Autowired
     private PositionService positionService;
 
+    @Autowired
+    private MutualFundDetailRepository mutualFundDetailRepository;
+
+    @Autowired
+    private StockDetailRepository stockDetailRepository;
+
     @PostMapping("/stock/orders")
     public ResponseEntity<UUID> addToStockOrder(@RequestBody StockTrade stockTrade) {
         UUID uuid;
         try {
             uuid = UUID.randomUUID();
             stockTrade.setId(uuid);
+            if(stockTrade.getAction().equals(Action.SELL))
+            {
+               Position position=positionService.getPositionByUserIdAndAssetDetailId(stockTrade.getUser().getId(),stockDetailRepository.findById(stockTrade.getStockDetail().getId()).get().getAssetDetail().getId());
+               System.out.println("hii");
+               if(position==null ||position.getVolume()<stockTrade.getTradeVolume())
+               {
+                    throw new ErrorHandler("bad volume");
+               }
+            }
             stockTrade.setStatus(Status.PENDING);
-//            stockTrade.setTimestamp(LocalDateTime.now());
+            stockTrade.setTimestamp(LocalDateTime.now());
             orderService.addToStockOrder(stockTrade);
             stockTradeHistoryService.addToStockTradeHistory(new StockTradeHistory(UUID.randomUUID(), LocalDateTime.now(), Status.PENDING, stockTrade));
         } catch (Exception exception) {
@@ -81,9 +103,16 @@ public class OrderController {
         try {
             uuid = UUID.randomUUID();
             mutualFundOrder.setId(uuid);
+            if(mutualFundOrder.getInvestmentType().equals(InvestmentType.MONTHLY_SIP))
+            {
+                mutualFundOrder.setSIPDate(LocalDate.now());
+            }
+            else
+            {
+                mutualFundOrder.setSIPDate(null);
+            }
             orderService.addToMutualFundOrder(mutualFundOrder);
-
-            positionService.addToPosition(new Position(UUID.randomUUID(), 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundOrder.getMutualFundDetail().getAssetDetail()), null);
+            positionService.addToPosition(new Position(UUID.randomUUID(), 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get().getAssetDetail()), null);
 
         } catch (Exception exception) {
             throw new ErrorHandler(exception.getCause());

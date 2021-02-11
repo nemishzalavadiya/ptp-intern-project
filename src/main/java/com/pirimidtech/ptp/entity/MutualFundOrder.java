@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class MutualFundOrder {
     @Id
     private UUID id;
 
-    private LocalDateTime SIPDate;
+    private LocalDate SIPDate;
 
     private float price;
 

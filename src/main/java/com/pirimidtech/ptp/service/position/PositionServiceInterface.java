@@ -10,5 +10,5 @@ public interface PositionServiceInterface {
 
     List<Position> getAllPosition(UUID userId,int pageNo,int pageSize);
     void deleteFromPosition(UUID positionId);
-    void addToPosition(Position position, Action action);
+    Position addToPosition(Position position, Action action);
 }

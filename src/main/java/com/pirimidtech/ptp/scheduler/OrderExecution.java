@@ -32,9 +32,10 @@ public class OrderExecution {
     @Autowired
     private StockTradeHistoryRepository stockTradeHistoryRepository;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 100000)
     public void trigger()
     {
+
             stockTradeRepository.findAllByStatus(Status.PENDING).stream().forEach(
                     stockTrade -> {
                         stockTrade.setStatus(Status.EXECUTED);

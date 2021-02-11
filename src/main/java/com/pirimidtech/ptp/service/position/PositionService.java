@@ -32,7 +32,7 @@ public class PositionService implements PositionServiceInterface {
     }
 
     @Override
-    public void addToPosition(Position position, Action action) {
+    public Position addToPosition(Position position, Action action) {
         Optional<Position> positionOptional = positionRepository.findAllByUserIdAndAssetDetailId(position.getUser().getId(), position.getAssetDetail().getId());
         if (positionOptional.isPresent()) {
             if (action.equals(Action.BUY)) {
@@ -47,7 +47,7 @@ public class PositionService implements PositionServiceInterface {
         } else {
             positionRepository.save(position);
         }
-
+        return position;
     }
 
 

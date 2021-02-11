@@ -38,7 +38,6 @@ class PositionServiceTest {
         positionList.add(ObjectUtility.position);
         when(positionRepository.findAllByUserId(user.getId(), PageRequest.of(0, 1))).thenReturn(new PageImpl<>(positionList));
         assertEquals(1, positionService.getAllPosition(user.getId(), 0, 1).size());
-
     }
 
     @Test

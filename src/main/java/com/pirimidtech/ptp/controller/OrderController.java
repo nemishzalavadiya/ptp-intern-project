@@ -8,7 +8,6 @@ import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.Status;
 import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.entity.StockTradeHistory;
-import com.pirimidtech.ptp.exception.ErrorHandler;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
 import com.pirimidtech.ptp.service.position.PositionService;
 import com.pirimidtech.ptp.service.trade.OrderService;
@@ -43,84 +42,54 @@ public class OrderController {
     private MutualFundDetailRepository mutualFundDetailRepository;
 
     @PostMapping("/stock/orders")
-    public ResponseEntity<UUID> addToStockOrder(@RequestBody StockTrade stockTrade) {
-        UUID uuid;
-        try {
-            uuid = UUID.randomUUID();
-            stockTrade.setId(uuid);
-            stockTrade.setStatus(Status.PENDING);
-//            stockTrade.setTimestamp(LocalDateTime.now());
-            orderService.addToStockOrder(stockTrade);
-            stockTradeHistoryService.addToStockTradeHistory(new StockTradeHistory(UUID.randomUUID(), LocalDateTime.now(), Status.PENDING, stockTrade));
-        } catch (Exception exception) {
-            throw new ErrorHandler(exception.getCause());
-        }
-
-        return ResponseEntity.ok().body(uuid);
+    public ResponseEntity<StockTrade> addToStockOrder(@RequestBody StockTrade stockTrade) {
+        UUID uuid = UUID.randomUUID();
+        stockTrade.setId(uuid);
+        stockTrade.setStatus(Status.PENDING);
+        stockTrade.setTimestamp(LocalDateTime.now());
+        orderService.addToStockOrder(stockTrade);
+        stockTradeHistoryService.addToStockTradeHistory(new StockTradeHistory(UUID.randomUUID(), LocalDateTime.now(), Status.PENDING, stockTrade));
+        return ResponseEntity.ok().body(stockTrade);
     }
 
     @GetMapping("/stock/orders/users/{id}")
     public ResponseEntity<List<StockTrade>> getAllStockOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
         List<StockTrade> stockTradeList = new ArrayList<>();
-        try {
-            stockTradeList = orderService.getAllStockOrder(userId, page, size);
-        } catch (Exception exception) {
-            throw new ErrorHandler(exception.getCause());
-        }
+        stockTradeList = orderService.getAllStockOrder(userId, page, size);
         return stockTradeList.size() != 0 ? ResponseEntity.ok().body(stockTradeList) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/stock/orders/{id}")
     public ResponseEntity<StockTrade> getStockOrder(@PathVariable("id") UUID orderId) {
         StockTrade stockTrade;
-        try {
-            stockTrade = orderService.getStockOrder(orderId);
-        } catch (Exception exception) {
-            throw new ErrorHandler(exception.getCause());
-        }
+        stockTrade = orderService.getStockOrder(orderId);
         return stockTrade != null ? ResponseEntity.ok().body(stockTrade) : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/mutualfund/orders")
-    public ResponseEntity<UUID> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
-        UUID uuid = null;
-        try {
-            uuid = UUID.randomUUID();
-            mutualFundOrder.setId(uuid);
-            if(mutualFundOrder.getInvestmentType().equals(InvestmentType.MONTHLY_SIP))
-            {
-                mutualFundOrder.setSIPDate(LocalDateTime.now());
-            }
-            orderService.addToMutualFundOrder(mutualFundOrder);
-            positionService.addToPosition(new Position(UUID.randomUUID(), 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get().getAssetDetail()), Action.BUY);
-        } catch (Exception exception) {
-            throw new ErrorHandler(exception.getCause());
+    public ResponseEntity<MutualFundOrder> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
+        UUID uuid = UUID.randomUUID();
+        mutualFundOrder.setId(uuid);
+        if (mutualFundOrder.getInvestmentType().equals(InvestmentType.MONTHLY_SIP)) {
+            mutualFundOrder.setSIPDate(LocalDateTime.now());
         }
-        return ResponseEntity.ok().body(uuid);
+        orderService.addToMutualFundOrder(mutualFundOrder);
+        positionService.addToPosition(new Position(UUID.randomUUID(), 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get().getAssetDetail()), Action.BUY);
+
+        return ResponseEntity.ok().body(mutualFundOrder);
     }
 
     @GetMapping("/mutualfund/orders/users/{id}")
     public ResponseEntity<List<MutualFundOrder>> getAllMutualFundOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
         List<MutualFundOrder> mutualFundOrderList = new ArrayList<>();
-
-        try {
-            mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
-        } catch (Exception exception) {
-            throw new ErrorHandler(exception.getCause());
-        }
-
+        mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
         return mutualFundOrderList.size() != 0 ? ResponseEntity.ok().body(mutualFundOrderList) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/mutualfund/orders/{id}")
     public ResponseEntity<MutualFundOrder> getMutualFundOrder(@PathVariable("id") UUID mutualFundOrderId) {
         MutualFundOrder mutualFundOrder;
-
-        try {
-            mutualFundOrder = orderService.getMutualFundOrder(mutualFundOrderId);
-        } catch (Exception exception) {
-            throw new ErrorHandler(exception.getCause());
-        }
+        mutualFundOrder = orderService.getMutualFundOrder(mutualFundOrderId);
         return mutualFundOrder != null ? ResponseEntity.ok().body(mutualFundOrder) : ResponseEntity.notFound().build();
     }
 }

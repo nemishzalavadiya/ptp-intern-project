@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.service.asset;
 
+import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.repository.AssetDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +28,9 @@ public class AssetService implements AssetServiceInterface {
     public void addCompany(AssetDetail assetDetail) {
         assetDetailRepository.save(assetDetail);
     }
+
+    public AssetDetail searchByNameAndAsset(String name, AssetClass assetClass){
+        return assetDetailRepository.findByNameContainingAndAssetClass(name,assetClass);
+    }
+
 }

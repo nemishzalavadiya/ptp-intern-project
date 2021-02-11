@@ -2,9 +2,12 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.Action;
 import com.pirimidtech.ptp.entity.AssetClass;
+import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.Status;
+import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.entity.StockTradeHistory;
 import com.pirimidtech.ptp.exception.NotFoundException;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -49,7 +53,13 @@ public class OrderController {
     public ResponseEntity<StockTrade> addToStockOrder(@RequestBody StockTrade stockTrade) {
         stockTrade.setId(null);
         if (stockTrade.getAction().equals(Action.SELL)) {
-            Position position = positionService.getPositionByUserIdAndAssetDetailId(stockTrade.getUser().getId(), stockDetailRepository.findById(stockTrade.getStockDetail().getId()).get().getAssetDetail().getId());
+            Optional<StockDetail> stockDetail = stockDetailRepository.findById(stockTrade.getStockDetail().getId());
+            if (!stockDetail.isPresent())
+                throw new NotFoundException("Stock Not Found");
+            AssetDetail assetDetail = stockDetail.get().getAssetDetail();
+            if (assetDetail == null)
+                throw new NotFoundException("Asset detail Not Found");
+            Position position = positionService.getPositionByUserIdAndAssetDetailId(stockTrade.getUser().getId(), assetDetail.getId());
             if (position == null || position.getVolume() < stockTrade.getTradeVolume()) {
                 throw new NotFoundException("insufficient stock");
             }
@@ -77,7 +87,14 @@ public class OrderController {
     public ResponseEntity<MutualFundOrder> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
         mutualFundOrder.setSIPDate(LocalDate.now());
         mutualFundOrder = orderService.addToMutualFundOrder(mutualFundOrder);
-        positionService.addToPosition(new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get().getAssetDetail()), Action.BUY);
+        Optional<MutualFundDetail> mutualFundDetail = mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId());
+        if (!mutualFundDetail.isPresent())
+            throw new NotFoundException("MutualFund Not Found");
+        AssetDetail assetDetail = mutualFundDetail.get().getAssetDetail();
+        if (assetDetail == null)
+            throw new NotFoundException("Asset detail Not Found");
+
+        positionService.addToPosition(new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), assetDetail), Action.BUY);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 

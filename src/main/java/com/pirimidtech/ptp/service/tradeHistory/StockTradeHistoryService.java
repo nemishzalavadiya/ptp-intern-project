@@ -1,12 +1,8 @@
 package com.pirimidtech.ptp.service.tradeHistory;
 
-import com.pirimidtech.ptp.entity.StockPrice;
 import com.pirimidtech.ptp.entity.StockTradeHistory;
 import com.pirimidtech.ptp.repository.StockTradeHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 

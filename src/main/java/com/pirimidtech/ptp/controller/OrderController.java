@@ -8,7 +8,9 @@ import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.Status;
 import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.entity.StockTradeHistory;
+import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
+import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.service.position.PositionService;
 import com.pirimidtech.ptp.service.trade.OrderService;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +44,19 @@ public class OrderController {
     @Autowired
     private MutualFundDetailRepository mutualFundDetailRepository;
 
+    @Autowired
+    private StockDetailRepository stockDetailRepository;
+
     @PostMapping("/stock/orders")
     public ResponseEntity<StockTrade> addToStockOrder(@RequestBody StockTrade stockTrade) {
         UUID uuid = UUID.randomUUID();
         stockTrade.setId(uuid);
+        if (stockTrade.getAction().equals(Action.SELL)) {
+            Position position = positionService.getPositionByUserIdAndAssetDetailId(stockTrade.getUser().getId(), stockDetailRepository.findById(stockTrade.getStockDetail().getId()).get().getAssetDetail().getId());
+            if (position == null || position.getVolume() < stockTrade.getTradeVolume()) {
+                throw new NotFoundException("insufficient stock");
+            }
+        }
         stockTrade.setStatus(Status.PENDING);
         stockTrade.setTimestamp(LocalDateTime.now());
         orderService.addToStockOrder(stockTrade);
@@ -71,11 +83,12 @@ public class OrderController {
         UUID uuid = UUID.randomUUID();
         mutualFundOrder.setId(uuid);
         if (mutualFundOrder.getInvestmentType().equals(InvestmentType.MONTHLY_SIP)) {
-            mutualFundOrder.setSIPDate(LocalDateTime.now());
+            mutualFundOrder.setSIPDate(LocalDate.now());
+        } else if (mutualFundOrder.getInvestmentType().equals(InvestmentType.ONE_TIME)) {
+            mutualFundOrder.setSIPDate(null);
         }
         orderService.addToMutualFundOrder(mutualFundOrder);
         positionService.addToPosition(new Position(UUID.randomUUID(), 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get().getAssetDetail()), Action.BUY);
-
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 

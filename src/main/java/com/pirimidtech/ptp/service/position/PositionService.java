@@ -1,6 +1,7 @@
 package com.pirimidtech.ptp.service.position;
 
 import com.pirimidtech.ptp.entity.Action;
+import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.repository.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class PositionService implements PositionServiceInterface {
     public List<Position> getAllPosition(UUID userId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<Position> pageResult = positionRepository.findAllByUserId(userId, pageable);
+
         return pageResult.toList();
     }
 
@@ -32,23 +34,33 @@ public class PositionService implements PositionServiceInterface {
     }
 
     @Override
-    public Position addToPosition(Position position, Action action) {
+    public void addToPosition(Position position, Action action) {
         Optional<Position> positionOptional = positionRepository.findAllByUserIdAndAssetDetailId(position.getUser().getId(), position.getAssetDetail().getId());
         if (positionOptional.isPresent()) {
-            if (action.equals(Action.BUY)) {
-                positionOptional.get().setVolume(positionOptional.get().getVolume() + position.getVolume());
-            } else {
-                positionOptional.get().setVolume(positionOptional.get().getVolume() - position.getVolume());
-                if (positionOptional.get().getVolume() == 0) {
-                    deleteFromPosition(positionOptional.get().getId());
+            Position oldPosition = positionOptional.get();
+            if (position.getAssetClass() == AssetClass.STOCK) {
+                if (action.equals(Action.BUY)) {
+                    oldPosition.setVolume(oldPosition.getVolume() + position.getVolume());
+                } else {
+                    oldPosition.setVolume(oldPosition.getVolume() - position.getVolume());
+                    if (oldPosition.getVolume() <= 0) {
+                        deleteFromPosition(oldPosition.getId());
+                        return;
+                    }
+
                 }
+            } else {
+                oldPosition.setPrice(oldPosition.getPrice() + position.getPrice());
             }
-            positionRepository.save(positionOptional.get());
+            positionRepository.save(oldPosition);
         } else {
             positionRepository.save(position);
         }
-        return position;
     }
 
+    public Position getPositionByUserIdAndAssetDetailId(UUID userId, UUID assetDetailId) {
+        Optional<Position> position = positionRepository.findAllByUserIdAndAssetDetailId(userId, assetDetailId);
+        return position.isPresent() ? position.get() : null;
+    }
 
 }

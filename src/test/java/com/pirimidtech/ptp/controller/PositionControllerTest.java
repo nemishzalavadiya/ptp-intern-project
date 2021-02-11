@@ -1,6 +1,7 @@
 package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.PtpApplication;
+import com.pirimidtech.ptp.utility.ObjectUtility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,10 +30,10 @@ class PositionControllerTest {
     @Test
     void getPosition() {
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/position/users/96312e56-e122-4fa4-b0ec-c8afa80d6779")).
+            mockMvc.perform(MockMvcRequestBuilders.get("/position/users/"+ ObjectUtility.user.getId()+"?page=0&size=1")).
                     andExpect(status().isOk()).
                     andExpect(content().contentType(MediaType.APPLICATION_JSON)).
-                    andExpect(jsonPath("$.[0].user.id").value("96312e56-e122-4fa4-b0ec-c8afa80d6779")).
+                    andExpect(jsonPath("$.[0].user.id").value(ObjectUtility.user.getId().toString())).
                     andExpect(jsonPath("$.[0]").exists()).
                     andDo(print());
 

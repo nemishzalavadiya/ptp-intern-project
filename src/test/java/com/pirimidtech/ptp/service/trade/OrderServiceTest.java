@@ -4,6 +4,7 @@ import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.repository.MutualFundOrderRepository;
+import com.pirimidtech.ptp.repository.StockTradeHistoryRepository;
 import com.pirimidtech.ptp.repository.StockTradeRepository;
 import com.pirimidtech.ptp.utility.ObjectUtility;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,8 @@ class OrderServiceTest {
     private StockTradeRepository stockTradeRepository;
     @MockBean
     private MutualFundOrderRepository mutualFundOrderRepository;
+    @MockBean
+    private StockTradeHistoryRepository stockTradeHistoryRepository;
 
     @Test
     void addToStockOrder() {
@@ -45,7 +48,6 @@ class OrderServiceTest {
         List<StockTrade> stockTradeList = new ArrayList<>();
         stockTradeList.add(ObjectUtility.stockTrade1);
         stockTradeList.add(ObjectUtility.stockTrade2);
-
         when(stockTradeRepository.findAllByUserId(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<StockTrade>(stockTradeList));
         assertEquals(2, orderService.getAllStockOrder(user.getId(), 0, 2).size());
     }

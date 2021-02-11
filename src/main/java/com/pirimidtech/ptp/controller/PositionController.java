@@ -20,7 +20,7 @@ public class PositionController {
     @Autowired
     private PositionService positionService;
 
-    @GetMapping("position/users/{id}")
+    @GetMapping("position/users/{id}/")
     public ResponseEntity<List<Position>> getPosition(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
         List<Position> positionList = new ArrayList<>();
         try {

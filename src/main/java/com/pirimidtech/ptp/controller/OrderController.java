@@ -58,10 +58,9 @@ public class OrderController {
             if(stockTrade.getAction().equals(Action.SELL))
             {
                Position position=positionService.getPositionByUserIdAndAssetDetailId(stockTrade.getUser().getId(),stockDetailRepository.findById(stockTrade.getStockDetail().getId()).get().getAssetDetail().getId());
-               System.out.println("hii");
                if(position==null ||position.getVolume()<stockTrade.getTradeVolume())
                {
-                    throw new ErrorHandler("bad volume");
+                    throw new ErrorHandler("insufficient stock");
                }
             }
             stockTrade.setStatus(Status.PENDING);

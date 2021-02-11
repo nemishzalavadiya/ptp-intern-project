@@ -17,16 +17,16 @@ public class WebSocketScheduler {
 
     private DataGenerator dataGenerator;
 
-    public WebSocketScheduler(){
-        dataGenerator= new DataGenerator();
+    public WebSocketScheduler() {
+        dataGenerator = new DataGenerator();
         dataGenerator.setDistinctCompanyId();
     }
 
     @Scheduled(fixedDelay = 1000)
     public void trigger() {
         dataGenerator.setData();
-        DataGenerator.dataGeneratorList.forEach((companyData)->{
-            this.simpMessagingTemplate.convertAndSend("/topic/"+companyData.company_id,companyData);
+        DataGenerator.dataGeneratorList.forEach((companyData) -> {
+            this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.company_id, companyData);
         });
     }
 }

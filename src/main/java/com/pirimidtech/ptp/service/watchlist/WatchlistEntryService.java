@@ -18,6 +18,7 @@ public class WatchlistEntryService implements WatchlistEntryServiceInterface {
     public Page<WatchlistEntry> getAllWatchlistEntryByWatchlistId(UUID watchlistId, Pageable pageable) {
         return watchlistEntryRepository.findByWatchlistId(watchlistId, pageable);
     }
+
     public void remove(UUID watchlistEntryId) {
         watchlistEntryRepository.deleteById(watchlistEntryId);
     }

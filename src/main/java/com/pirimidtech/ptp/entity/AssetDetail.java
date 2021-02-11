@@ -4,12 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.UUID;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -19,6 +16,7 @@ import javax.persistence.Table;
 @Table(name = "assetDetail")
 public class AssetDetail {
     @Id
+    @GeneratedValue
     private UUID id;
 
     private String name;

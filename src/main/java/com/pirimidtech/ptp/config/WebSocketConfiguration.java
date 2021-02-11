@@ -11,6 +11,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ptp").withSockJS();
     }
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         // use the /topic prefix for outgoing WebSocket communication

@@ -16,6 +16,7 @@ import java.util.UUID;
 @Table(name = "watchlistEntry")
 public class WatchlistEntry {
     @Id
+    @GeneratedValue
     private UUID id;
 
     @ManyToOne

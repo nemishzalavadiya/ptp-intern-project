@@ -29,7 +29,7 @@ public class AssetService implements AssetServiceInterface {
         assetDetailRepository.save(assetDetail);
     }
 
-    public AssetDetail searchByNameAndAsset(String name, AssetClass assetClass){
+    public List<AssetDetail> searchByNameAndAsset(String name, AssetClass assetClass){
         return assetDetailRepository.findByNameContainingAndAssetClass(name,assetClass);
     }
 

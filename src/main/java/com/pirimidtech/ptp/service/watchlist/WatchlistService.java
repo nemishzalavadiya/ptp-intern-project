@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,11 +19,12 @@ public class WatchlistService implements WatchlistServiceInterface {
     public Page<Watchlist> getWatchlistDetailByUserId(UUID userId, Pageable pageable) {
         return watchListRepository.findByUserId(userId, pageable);
     }
-    public void add(Watchlist watchlist){
+
+    public void add(Watchlist watchlist) {
         watchListRepository.save(watchlist);
     }
 
     public Optional<Watchlist> findById(UUID watchlistId) {
-        return  watchListRepository.findById(watchlistId);
+        return watchListRepository.findById(watchlistId);
     }
 }

@@ -2,7 +2,6 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.repository.*;
 import com.pirimidtech.ptp.util.TestDataStore;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

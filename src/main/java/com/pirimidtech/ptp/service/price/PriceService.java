@@ -1,6 +1,5 @@
 package com.pirimidtech.ptp.service.price;
 
-import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.MutualFundPrice;
 import com.pirimidtech.ptp.entity.StockPrice;
 import com.pirimidtech.ptp.repository.MutualFundPriceRepository;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class PriceService implements PriceServiceInterface{
+public class PriceService implements PriceServiceInterface {
 
     @Autowired
     private StockPriceRepository stockPriceRepository;
@@ -30,21 +29,21 @@ public class PriceService implements PriceServiceInterface{
     }
 
     @Override
-    public List<StockPrice> getStockPrice(UUID stockId,int pageNo,int pageSize) {
+    public List<StockPrice> getStockPrice(UUID stockId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<StockPrice> pageResult=stockPriceRepository.findAllByStockDetailIdOrderByTimestampDesc(stockId,pageable);
+        Page<StockPrice> pageResult = stockPriceRepository.findAllByStockDetailIdOrderByTimestampDesc(stockId, pageable);
         return pageResult.toList();
     }
 
     @Override
     public void addToMutualFundPrice(MutualFundPrice mutualFundPrice) {
-            mutualFundPriceRepository.save(mutualFundPrice);
+        mutualFundPriceRepository.save(mutualFundPrice);
     }
 
     @Override
-    public List<MutualFundPrice> getMutualFundPrice(UUID mutualFundId,int pageNo,int pageSize) {
+    public List<MutualFundPrice> getMutualFundPrice(UUID mutualFundId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<MutualFundPrice> pageResult=mutualFundPriceRepository.findAllByMutualFundDetailIdOrderByTimestampDesc(mutualFundId,pageable);
+        Page<MutualFundPrice> pageResult = mutualFundPriceRepository.findAllByMutualFundDetailIdOrderByTimestampDesc(mutualFundId, pageable);
         return pageResult.toList();
     }
 }

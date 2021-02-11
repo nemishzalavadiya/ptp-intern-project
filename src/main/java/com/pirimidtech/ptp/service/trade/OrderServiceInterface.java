@@ -15,7 +15,7 @@ public interface OrderServiceInterface {
 
     MutualFundOrder addToMutualFundOrder(MutualFundOrder mutualFundOrder);
 
-    List<MutualFundOrder> getAllMutualFundOrder(UUID userId,int pageNo,int pageSize);
+    List<MutualFundOrder> getAllMutualFundOrder(UUID userId, int pageNo, int pageSize);
 
     MutualFundOrder getMutualFundOrder(UUID orderId);
 }

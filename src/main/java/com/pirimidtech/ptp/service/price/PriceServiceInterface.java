@@ -8,10 +8,12 @@ import java.util.UUID;
 
 public interface PriceServiceInterface {
     void addToStockPrice(StockPrice stockPrice);
-    List<StockPrice> getStockPrice(UUID stockId,int pageNo,int pageSize);
+
+    List<StockPrice> getStockPrice(UUID stockId, int pageNo, int pageSize);
 
     void addToMutualFundPrice(MutualFundPrice mutualFundPrice);
-    List<MutualFundPrice> getMutualFundPrice(UUID mutualFundId,int pageNo,int pageSize);
+
+    List<MutualFundPrice> getMutualFundPrice(UUID mutualFundId, int pageNo, int pageSize);
 
 
 }

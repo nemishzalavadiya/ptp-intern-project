@@ -32,15 +32,15 @@ public class OrderService implements OrderServiceInterface {
     @Override
     public List<StockTrade> getAllStockOrder(UUID userId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<StockTrade> pageResult= stockTradeRepository.findAllByUserIdOrderByTimestampDesc(userId,pageable);
+        Page<StockTrade> pageResult = stockTradeRepository.findAllByUserIdOrderByTimestampDesc(userId, pageable);
 
         return pageResult.toList();
     }
 
     @Override
     public StockTrade getStockOrder(UUID orderId) {
-        Optional<StockTrade> stockOrder= stockTradeRepository.findById(orderId);
-        return stockOrder.isPresent()?stockOrder.get():null;
+        Optional<StockTrade> stockOrder = stockTradeRepository.findById(orderId);
+        return stockOrder.isPresent() ? stockOrder.get() : null;
     }
 
     @Override
@@ -49,16 +49,16 @@ public class OrderService implements OrderServiceInterface {
     }
 
     @Override
-    public List<MutualFundOrder> getAllMutualFundOrder(UUID userId,int pageNo,int pageSize) {
+    public List<MutualFundOrder> getAllMutualFundOrder(UUID userId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<MutualFundOrder> pageResult=mutualFundOrderRepository.findAllByUserIdOrderBySIPDateDesc(userId,pageable);
+        Page<MutualFundOrder> pageResult = mutualFundOrderRepository.findAllByUserIdOrderBySIPDateDesc(userId, pageable);
 
         return pageResult.toList();
     }
 
     @Override
     public MutualFundOrder getMutualFundOrder(UUID orderId) {
-        Optional<MutualFundOrder> mutualFundOrder =mutualFundOrderRepository.findById(orderId);
-        return mutualFundOrder.isPresent()?mutualFundOrder.get():null;
+        Optional<MutualFundOrder> mutualFundOrder = mutualFundOrderRepository.findById(orderId);
+        return mutualFundOrder.isPresent() ? mutualFundOrder.get() : null;
     }
 }

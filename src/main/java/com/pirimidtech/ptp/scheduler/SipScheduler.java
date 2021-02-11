@@ -2,7 +2,6 @@ package com.pirimidtech.ptp.scheduler;
 
 import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.InvestmentType;
-import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.repository.MutualFundOrderRepository;
 import com.pirimidtech.ptp.service.position.PositionService;
@@ -22,11 +21,10 @@ public class SipScheduler {
     private MutualFundOrderRepository mutualFundOrderRepository;
 
     @Scheduled(cron = "0 0 10 * * *")
-    public void trigger()
-    {
+    public void trigger() {
         mutualFundOrderRepository.findAllBySIPDateAndAndInvestmentType(LocalDate.now(), InvestmentType.MONTHLY_SIP).stream().forEach(
                 mutualFundOrder -> {
-                    positionService.addToPosition(new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(),mutualFundOrder.getMutualFundDetail().getAssetDetail()), null);
+                    positionService.addToPosition(new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundOrder.getMutualFundDetail().getAssetDetail()), null);
                 }
         );
     }

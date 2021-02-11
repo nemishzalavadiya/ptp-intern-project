@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Component
 public class OrderExecution {
@@ -27,18 +26,17 @@ public class OrderExecution {
     private StockTradeHistoryRepository stockTradeHistoryRepository;
 
     @Scheduled(fixedDelay = 10000)
-    public void trigger()
-    {
+    public void trigger() {
 
-            stockTradeRepository.findAllByStatus(Status.PENDING).stream().forEach(
-                    stockTrade -> {
-                        stockTrade.setStatus(Status.EXECUTED);
-                        stockTradeRepository.save(stockTrade);
-                        StockTradeHistory stockTradeHistory=new StockTradeHistory(null, LocalDateTime.now(),stockTrade.getStatus(),stockTrade);
-                        stockTradeHistoryRepository.save(stockTradeHistory);
-                        positionService.addToPosition(new Position(null, stockTrade.getTradeVolume(),0f, AssetClass.STOCK, stockTrade.getUser(),stockTrade.getStockDetail().getAssetDetail()),stockTrade.getAction());
-                    }
-            );
+        stockTradeRepository.findAllByStatus(Status.PENDING).stream().forEach(
+                stockTrade -> {
+                    stockTrade.setStatus(Status.EXECUTED);
+                    stockTradeRepository.save(stockTrade);
+                    StockTradeHistory stockTradeHistory = new StockTradeHistory(null, LocalDateTime.now(), stockTrade.getStatus(), stockTrade);
+                    stockTradeHistoryRepository.save(stockTradeHistory);
+                    positionService.addToPosition(new Position(null, stockTrade.getTradeVolume(), 0f, AssetClass.STOCK, stockTrade.getUser(), stockTrade.getStockDetail().getAssetDetail()), stockTrade.getAction());
+                }
+        );
 
     }
 

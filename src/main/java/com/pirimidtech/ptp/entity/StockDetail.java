@@ -4,15 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.CascadeType;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -29,19 +26,6 @@ public class StockDetail {
 
     private String managingDirector;
 
-    @OneToOne(mappedBy = "stockDetail")
-    private CompanyDetail companyDetail;
-
-    @OneToOne(mappedBy ="stockDetail")
-    @PrimaryKeyJoinColumn
-    private StockStatistic stockStatistic;
-
-    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
-    private List<StockPrice> stockPriceList;
-
-    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
-    private List<StockOrder> stockOrderList;
-
-    @OneToMany(mappedBy = "stockDetail",cascade = CascadeType.ALL)
-    private List<StockTradeHistory> stockTradeHistoryList;
+    @OneToOne(targetEntity = AssetDetail.class)
+    private AssetDetail assetDetail;
 }

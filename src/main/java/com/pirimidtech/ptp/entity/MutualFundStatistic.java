@@ -26,7 +26,7 @@ public class MutualFundStatistic {
 
     private float minSIP;
 
-    private Boolean sipAllowed;
+    private boolean sipAllowed;
 
     private float expenseRatio;
 

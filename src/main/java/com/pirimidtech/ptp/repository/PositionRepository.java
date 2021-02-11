@@ -9,4 +9,3 @@ import java.util.UUID;
 public interface PositionRepository extends JpaRepository<Position, UUID> {
     List<Position> findAllByUserId(UUID userId);
 }
-

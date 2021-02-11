@@ -11,5 +11,5 @@ public interface AssetDetailRepository extends JpaRepository<AssetDetail, UUID> 
 
     List<AssetDetail> findByNameContainingAndAssetClass(String name, AssetClass assetClass);
 
-    List<AssetDetail> findByNameContaining(String infix);
+    Page<AssetDetail> findByNameContainingIgnoreCase(String infix, Pageable paging);
 }

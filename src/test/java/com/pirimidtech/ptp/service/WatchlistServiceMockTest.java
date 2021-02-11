@@ -1,5 +1,8 @@
 package com.pirimidtech.ptp.service;
 
+import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.entity.Gender;
+import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.entity.Watchlist;
 import com.pirimidtech.ptp.repository.WatchlistRepository;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
@@ -14,10 +17,10 @@ import static org.mockito.Mockito.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WatchlistServiceMockTest {
@@ -44,5 +47,16 @@ public class WatchlistServiceMockTest {
         //When user don't have watchlist
         when(watchlistRepository.findByUserId(testDataStore.userUuid2, testDataStore.pageable)).thenReturn(new PageImpl<>(new ArrayList<>()));
         assertEquals(watchlistService.getWatchlistDetailByUserId(testDataStore.userUuid2, testDataStore.pageable).getContent(), new ArrayList<>());
+    }
+
+    @Test
+    void add() {
+        AssetDetail assetDetail = new AssetDetail();
+        assetDetail.setId(UUID.randomUUID());
+        Watchlist watchlist = new Watchlist(UUID.randomUUID(),
+                new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"), "abc", "abc@dev.com", "", "", "", "", Gender.MALE, ""),
+                "", "");
+        watchlistService.add(watchlist);
+        verify(watchlistRepository, times(1)).save(watchlist);
     }
 }

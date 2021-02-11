@@ -65,7 +65,7 @@ public class WatchlistController {
 
     @PostMapping("/")
     public ResponseEntity<Watchlist> addWatchlist(@RequestBody Watchlist watchlist) {
-        watchlist.setId(UUID.randomUUID());
+        watchlist.setId(null);
         watchlistService.add(watchlist);
         return ResponseEntity.ok().body(watchlist);
     }

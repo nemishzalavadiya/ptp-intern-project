@@ -49,8 +49,7 @@ public class OrderController {
 
     @PostMapping("/stock/orders")
     public ResponseEntity<StockTrade> addToStockOrder(@RequestBody StockTrade stockTrade) {
-        UUID uuid = UUID.randomUUID();
-        stockTrade.setId(uuid);
+        stockTrade.setId(null);
         if (stockTrade.getAction().equals(Action.SELL)) {
             Position position = positionService.getPositionByUserIdAndAssetDetailId(stockTrade.getUser().getId(), stockDetailRepository.findById(stockTrade.getStockDetail().getId()).get().getAssetDetail().getId());
             if (position == null || position.getVolume() < stockTrade.getTradeVolume()) {
@@ -59,42 +58,38 @@ public class OrderController {
         }
         stockTrade.setStatus(Status.PENDING);
         stockTrade.setTimestamp(LocalDateTime.now());
-        orderService.addToStockOrder(stockTrade);
-        stockTradeHistoryService.addToStockTradeHistory(new StockTradeHistory(UUID.randomUUID(), LocalDateTime.now(), Status.PENDING, stockTrade));
+        stockTrade=orderService.addToStockOrder(stockTrade);
+        stockTradeHistoryService.addToStockTradeHistory(new StockTradeHistory(null, LocalDateTime.now(), Status.PENDING, stockTrade));
         return ResponseEntity.ok().body(stockTrade);
     }
 
     @GetMapping("/stock/orders/users/{id}")
     public ResponseEntity<List<StockTrade>> getAllStockOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
-        List<StockTrade> stockTradeList = new ArrayList<>();
-        stockTradeList = orderService.getAllStockOrder(userId, page, size);
+        List<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
         return stockTradeList.size() != 0 ? ResponseEntity.ok().body(stockTradeList) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/stock/orders/{id}")
     public ResponseEntity<StockTrade> getStockOrder(@PathVariable("id") UUID orderId) {
-        StockTrade stockTrade;
-        stockTrade = orderService.getStockOrder(orderId);
+        StockTrade stockTrade = orderService.getStockOrder(orderId);
         return stockTrade != null ? ResponseEntity.ok().body(stockTrade) : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/mutualfund/orders")
     public ResponseEntity<MutualFundOrder> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
-        UUID uuid = UUID.randomUUID();
-        mutualFundOrder.setId(uuid);
         if (mutualFundOrder.getInvestmentType().equals(InvestmentType.MONTHLY_SIP)) {
             mutualFundOrder.setSIPDate(LocalDate.now());
         } else if (mutualFundOrder.getInvestmentType().equals(InvestmentType.ONE_TIME)) {
             mutualFundOrder.setSIPDate(null);
         }
-        orderService.addToMutualFundOrder(mutualFundOrder);
-        positionService.addToPosition(new Position(UUID.randomUUID(), 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get().getAssetDetail()), Action.BUY);
+        mutualFundOrder=orderService.addToMutualFundOrder(mutualFundOrder);
+        positionService.addToPosition(new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get().getAssetDetail()), Action.BUY);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 
     @GetMapping("/mutualfund/orders/users/{id}")
     public ResponseEntity<List<MutualFundOrder>> getAllMutualFundOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
-        List<MutualFundOrder> mutualFundOrderList = new ArrayList<>();
+        List<MutualFundOrder> mutualFundOrderList;
         mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
         return mutualFundOrderList.size() != 0 ? ResponseEntity.ok().body(mutualFundOrderList) : ResponseEntity.notFound().build();
     }

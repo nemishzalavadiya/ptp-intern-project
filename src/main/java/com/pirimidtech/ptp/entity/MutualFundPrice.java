@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @Table(name = "mutualFundPrice")
 public class MutualFundPrice {
     @Id
+    @GeneratedValue
     private UUID id;
 
     private float price;

@@ -33,8 +33,6 @@ class OrderServiceTest {
     private StockTradeRepository stockTradeRepository;
     @MockBean
     private MutualFundOrderRepository mutualFundOrderRepository;
-    @MockBean
-    private StockTradeHistoryRepository stockTradeHistoryRepository;
 
     @Test
     void addToStockOrder() {
@@ -57,13 +55,6 @@ class OrderServiceTest {
         StockTrade stockTrade = ObjectUtility.stockTrade1;
         when(stockTradeRepository.findById(stockTrade.getId())).thenReturn(java.util.Optional.of(stockTrade));
         assertEquals(stockTrade, orderService.getStockOrder(stockTrade.getId()));
-    }
-
-    @Test
-    void deleteStockOrder() {
-
-        orderService.deleteStockOrder(ObjectUtility.stockTrade1.getId());
-        verify(stockTradeRepository, times(1)).deleteById(ObjectUtility.stockTrade1.getId());
     }
 
     @Test
@@ -90,11 +81,4 @@ class OrderServiceTest {
         assertEquals(mutualFundOrder, orderService.getMutualFundOrder(orderId));
     }
 
-
-    @Test
-    void deleteMutualFundOrder() {
-        UUID orderId = ObjectUtility.mutualFundOrder1.getId();
-        orderService.deleteMutualFundOrder(orderId);
-        verify(mutualFundOrderRepository, times(1)).deleteById(orderId);
-    }
 }

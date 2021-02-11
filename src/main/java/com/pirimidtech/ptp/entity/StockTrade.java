@@ -26,6 +26,7 @@ import java.util.UUID;
 @Table(name = "stockTrade")
 public class StockTrade {
     @Id
+    @GeneratedValue
     private UUID id;
 
     private LocalDateTime timestamp;

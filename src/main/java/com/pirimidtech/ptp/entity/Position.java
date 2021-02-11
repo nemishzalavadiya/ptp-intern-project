@@ -16,6 +16,7 @@ import java.util.UUID;
 @Table(name = "position")
 public class Position {
     @Id
+    @GeneratedValue
     private UUID id;
 
     private int volume;

@@ -26,7 +26,7 @@ public class OrderExecution {
     @Autowired
     private StockTradeHistoryRepository stockTradeHistoryRepository;
 
-    @Scheduled(fixedDelay = 100000)
+    @Scheduled(fixedDelay = 10000)
     public void trigger()
     {
 
@@ -34,9 +34,9 @@ public class OrderExecution {
                     stockTrade -> {
                         stockTrade.setStatus(Status.EXECUTED);
                         stockTradeRepository.save(stockTrade);
-                        StockTradeHistory stockTradeHistory=new StockTradeHistory(UUID.randomUUID(), LocalDateTime.now(),stockTrade.getStatus(),stockTrade);
+                        StockTradeHistory stockTradeHistory=new StockTradeHistory(null, LocalDateTime.now(),stockTrade.getStatus(),stockTrade);
                         stockTradeHistoryRepository.save(stockTradeHistory);
-                        positionService.addToPosition(new Position(UUID.randomUUID(), stockTrade.getTradeVolume(),0f, AssetClass.STOCK, stockTrade.getUser(),stockTrade.getStockDetail().getAssetDetail()),stockTrade.getAction());
+                        positionService.addToPosition(new Position(null, stockTrade.getTradeVolume(),0f, AssetClass.STOCK, stockTrade.getUser(),stockTrade.getStockDetail().getAssetDetail()),stockTrade.getAction());
                     }
             );
 

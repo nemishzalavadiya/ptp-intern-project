@@ -19,10 +19,10 @@ public class PositionController {
     @Autowired
     private PositionService positionService;
 
-    @GetMapping("position/users/{id}/")
+    @GetMapping("position/users/{id}")
     public ResponseEntity<List<Position>> getPosition(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
-        List<Position> positionList = new ArrayList<>();
-        positionList = positionService.getAllPosition(userId, page, size);
+        List<Position> positionList = positionService.getAllPosition(userId, page, size);
+
         return positionList.size() != 0 ? ResponseEntity.ok().body(positionList) : ResponseEntity.notFound().build();
     }
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Enumerated;
@@ -22,6 +23,7 @@ import java.util.UUID;
 @Table(name ="mutualFundOrder")
 public class MutualFundOrder {
     @Id
+    @GeneratedValue
     private UUID id;
 
     private LocalDate SIPDate;

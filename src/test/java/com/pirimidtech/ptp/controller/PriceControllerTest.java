@@ -21,23 +21,12 @@ class PriceControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void addToStockPrice() throws Exception {
-        this.mockMvc.perform(post("/stock/prices").contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(ObjectUtility.stockPrice1))).andExpect(status().is2xxSuccessful());
-    }
-
-    @Test
     void getStockPrice() throws Exception {
-
-        this.mockMvc.perform(get("/stock/" + ObjectUtility.stockPrice1.getId().toString() + "/prices")).andExpect(status().is2xxSuccessful());
-    }
-
-    @Test
-    void addToMutualFundPrice() throws Exception {
-        this.mockMvc.perform(post("/mutualfund/prices").contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(ObjectUtility.mutualFundPrice1))).andExpect(status().is2xxSuccessful());
+        this.mockMvc.perform(get("/stock/" + ObjectUtility.stockPrice1.getId().toString() + "/prices?page=0&size=1")).andExpect(status().is2xxSuccessful());
     }
 
     @Test
     void getMutualFundPrice() throws Exception {
-        this.mockMvc.perform(get("/mutualfund/" + ObjectUtility.mutualFundPrice1.getId().toString() + "/prices")).andExpect(status().is2xxSuccessful());
+        this.mockMvc.perform(get("/mutualfund/" + ObjectUtility.mutualFundPrice1.getId().toString() + "/prices?page=0&size=1")).andExpect(status().is2xxSuccessful());
     }
 }

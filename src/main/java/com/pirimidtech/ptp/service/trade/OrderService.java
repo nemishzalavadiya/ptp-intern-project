@@ -25,8 +25,8 @@ public class OrderService implements OrderServiceInterface {
     private MutualFundOrderRepository mutualFundOrderRepository;
 
     @Override
-    public void addToStockOrder(StockTrade stockTrade) {
-        stockTradeRepository.save(stockTrade);
+    public StockTrade addToStockOrder(StockTrade stockTrade) {
+        return stockTradeRepository.save(stockTrade);
     }
 
     @Override
@@ -44,13 +44,8 @@ public class OrderService implements OrderServiceInterface {
     }
 
     @Override
-    public void deleteStockOrder(UUID orderId) {
-        stockTradeRepository.deleteById(orderId);
-    }
-
-    @Override
-    public void addToMutualFundOrder(MutualFundOrder mutualFundOrder) {
-        mutualFundOrderRepository.save(mutualFundOrder);
+    public MutualFundOrder addToMutualFundOrder(MutualFundOrder mutualFundOrder) {
+        return mutualFundOrderRepository.save(mutualFundOrder);
     }
 
     @Override
@@ -65,10 +60,5 @@ public class OrderService implements OrderServiceInterface {
     public MutualFundOrder getMutualFundOrder(UUID orderId) {
         Optional<MutualFundOrder> mutualFundOrder =mutualFundOrderRepository.findById(orderId);
         return mutualFundOrder.isPresent()?mutualFundOrder.get():null;
-    }
-
-    @Override
-    public void deleteMutualFundOrder(UUID mutualFundOrderId) {
-        mutualFundOrderRepository.deleteById(mutualFundOrderId);
     }
 }

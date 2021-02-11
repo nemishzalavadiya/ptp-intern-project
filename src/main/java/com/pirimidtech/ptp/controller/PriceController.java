@@ -22,15 +22,13 @@ public class PriceController {
 
     @GetMapping("/stock/{id}/prices")
     public ResponseEntity<List<StockPrice>> getStockPrice(@PathVariable("id") UUID stockId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
-        List<StockPrice> stockPriceList = new ArrayList<>();
-        stockPriceList = priceService.getStockPrice(stockId, page, size);
+        List<StockPrice> stockPriceList = priceService.getStockPrice(stockId, page, size);
         return stockPriceList.size() != 0 ? ResponseEntity.ok().body(stockPriceList) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/mutualfund/{id}/prices")
     public ResponseEntity<List<MutualFundPrice>> getMutualFundPrice(@PathVariable("id") UUID mutualFundId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
-        List<MutualFundPrice> mutualFundPriceList = new ArrayList<>();
-        mutualFundPriceList = priceService.getMutualFundPrice(mutualFundId, page, size);
+        List<MutualFundPrice> mutualFundPriceList = priceService.getMutualFundPrice(mutualFundId, page, size);
         return mutualFundPriceList.size() != 0 ? ResponseEntity.ok().body(mutualFundPriceList) : ResponseEntity.notFound().build();
     }
 }

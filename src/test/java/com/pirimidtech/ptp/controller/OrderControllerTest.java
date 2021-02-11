@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.pirimidtech.ptp.PtpApplication;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.StockTrade;
@@ -46,106 +47,82 @@ class OrderControllerTest {
 
     @Test
     @Order(1)
-    void addToStockOrder() {
+    void addToStockOrder() throws Exception{
         StockTrade stockTrade = ObjectUtility.stockTrade1;
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 
-        try {
             String requestJson = ow.writeValueAsString(stockTrade);
             MvcResult mvcResult = mockMvc.perform(post("/stock/orders").
                     contentType(MediaType.APPLICATION_JSON).
                     content(requestJson)).
                     andExpect(status().isOk()).
+                    andDo(print()).
                     andReturn();
-            stockOrderId = mapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<UUID>() {});
-            System.out.println(stockOrderId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mapper.registerModule(new JavaTimeModule());
+        StockTrade stockTrade1= mapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<StockTrade>() {});
+        stockOrderId = stockTrade1.getId();
+        System.out.println(stockOrderId);
+
     }
 
     @Test
     @Order(2)
-    void getAllStockOrder() {
-        try {
-
+    void getAllStockOrder() throws Exception{
             mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/users/" + ObjectUtility.user.getId() + "?page=0&size=4")).
                     andExpect(status().isOk()).
                     andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                     andExpect(jsonPath("$.[0].user.id").value(ObjectUtility.user.getId().toString())).
                     andDo(print());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
     @Order(3)
-    void getStockOrder() {
-        try {
+    void getStockOrder() throws Exception{
             mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/" + stockOrderId)).
                     andExpect(status().isOk()).
                     andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                     andDo(print()).
                     andExpect(jsonPath("$.id").value(stockOrderId.toString()));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
     @Order(5)
-    void addToMutualFundOrder() {
+    void addToMutualFundOrder() throws Exception{
         MutualFundOrder mutualFundOrder = ObjectUtility.mutualFundOrder1;
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 
-        try {
             String requestJson = ow.writeValueAsString(mutualFundOrder);
             MvcResult mvcResult = mockMvc.perform(post("/mutualfund/orders").
                     contentType(MediaType.APPLICATION_JSON).
                     content(requestJson)).
                     andExpect(status().isOk()).
                     andReturn();
-                    mutualFundOrderId = mapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<UUID>() {});
-                    System.out.println(mutualFundOrderId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mapper.registerModule(new JavaTimeModule());
+        MutualFundOrder mutualFundOrder1= mapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<MutualFundOrder>() {});
+        mutualFundOrderId = mutualFundOrder1.getId();
     }
 
     @Test
     @Order(6)
-    void getAllMutualFundOrder() {
-        try {
+    void getAllMutualFundOrder() throws Exception{
             mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/users/" + ObjectUtility.user.getId() + "?page=0&size=3")).
                     andExpect(status().isOk()).
                     andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                     andExpect(jsonPath("$.[0].user.id").value(ObjectUtility.user.getId().toString())).
                     andDo(print());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
     @Order(7)
-    void getMutualFundOrder() {
-        try {
+    void getMutualFundOrder() throws Exception{
             mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/" + mutualFundOrderId)).
                     andExpect(status().isOk()).
                     andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                     andDo(print()).
                     andExpect(jsonPath("$.id").value(mutualFundOrderId.toString()));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

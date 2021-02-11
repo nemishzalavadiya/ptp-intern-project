@@ -13,4 +13,3 @@ public interface PositionRepository extends JpaRepository<Position, UUID> {
     Page<Position> findAllByUserId(UUID userId, Pageable pageable);
     Optional<Position> findAllByUserIdAndAssetDetailId(UUID userId, UUID assetDetailId);
 }
-

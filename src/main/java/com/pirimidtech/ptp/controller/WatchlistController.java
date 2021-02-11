@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.controller;
 
+import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.entity.Watchlist;
 import com.pirimidtech.ptp.entity.WatchlistEntry;
@@ -48,18 +49,22 @@ public class WatchlistController {
     }
 
     @GetMapping("/search")
-    public List<AssetDetail> searchNameLike(@RequestParam String name,
-                                            @RequestParam String assetClass,
-                                            @RequestParam Integer page,
-                                            @RequestParam Integer size){
+    public ResponseEntity<List<AssetDetail>> searchNameLike(@RequestParam String name,
+                                            @RequestParam String asset){
 
-        Pageable pageable = PageRequest.of(page, size);
         List<AssetDetail> searchName = new ArrayList<>();
+        AssetClass assetClass;
+        if(asset.equalsIgnoreCase("stock")){
+            assetClass = AssetClass.STOCK;
+        }
+        else{
+            assetClass = AssetClass.MUTUAL_FUND;
+        }
         searchName.add(assetDetailRepository.findByNameContainingAndAssetClass(name,assetClass));
-        return searchName;
+        return ResponseEntity.ok().body(searchName);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Watchlist> addWatchlist(@RequestBody Watchlist watchlist){
         watchlist.setId(UUID.randomUUID());
         watchlistService.add(watchlist);

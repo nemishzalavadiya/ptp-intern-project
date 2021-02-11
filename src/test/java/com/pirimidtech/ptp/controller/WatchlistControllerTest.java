@@ -1,6 +1,7 @@
 package com.pirimidtech.ptp.controller;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.Watchlist;
+import com.pirimidtech.ptp.entity.WatchlistEntry;
 import com.pirimidtech.ptp.service.watchlist.WatchlistEntryService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import com.pirimidtech.ptp.util.TestDataStore;
@@ -14,24 +15,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import java.util.ArrayList;
+import java.util.Objects;
 
-import java.util.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WatchlistControllerTest {
 
-    private TestDataStore testDataStore;
-
     @InjectMocks
     WatchlistController watchlistController;
-
     @Mock
     WatchlistService watchlistService;
-
     @Mock
     WatchlistEntryService watchlistEntryService;
+    private TestDataStore testDataStore;
 
     @Before
     public void setUp() {

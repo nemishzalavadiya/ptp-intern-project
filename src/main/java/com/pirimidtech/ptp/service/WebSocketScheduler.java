@@ -2,11 +2,9 @@ package com.pirimidtech.ptp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-
-import javax.xml.crypto.Data;
 
 @EnableScheduling
 @Configuration

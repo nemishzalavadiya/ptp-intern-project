@@ -24,13 +24,13 @@ import java.util.UUID;
 public class WatchlistController {
 
     @Autowired
+    AssetDetailRepository assetDetailRepository;
+    @Autowired
     private WatchlistService watchlistService;
     @Autowired
     private WatchlistEntryService watchlistEntryService;
     @Autowired
     private AssetService assetService;
-    @Autowired
-    AssetDetailRepository assetDetailRepository;
 
     @GetMapping("/{watchlistId}")
     public ResponseEntity<Page<WatchlistEntry>> getAllWatchlistEntry(@PathVariable UUID watchlistId,

@@ -10,10 +10,6 @@ import com.pirimidtech.ptp.util.TestDataStore;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -22,16 +18,17 @@ import org.springframework.data.domain.PageImpl;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
 @RunWith(MockitoJUnitRunner.class)
 public class WatchlistServiceMockTest {
 
-    private TestDataStore testDataStore;
-
     @InjectMocks
     WatchlistService watchlistService;
-
     @Mock
     WatchlistRepository watchlistRepository;
+    private TestDataStore testDataStore;
 
     @Before
     public void setUp() {

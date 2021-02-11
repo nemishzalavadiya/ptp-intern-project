@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class DataGenerator {
+    public static List<DataGenerator> dataGeneratorList = new ArrayList<>();
+    public static List<UUID> companyIdList = new ArrayList<>();
     public LocalDateTime timestamp;
     public UUID company_id;
     public float open;
@@ -14,8 +16,6 @@ public class DataGenerator {
     public float high;
     public float low;
     public float percentageChange;
-    public static List<DataGenerator> dataGeneratorList = new ArrayList<>();
-    public static List<UUID> companyIdList = new ArrayList<>();
 
     public void setDistinctCompanyId() {
         companyIdList.add(UUID.fromString("00000000-0000-0000-0000-000000000000"));

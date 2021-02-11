@@ -1,6 +1,7 @@
 package com.pirimidtech.ptp.controller;
 
-import com.pirimidtech.ptp.repository.*;
+import com.pirimidtech.ptp.repository.WatchlistEntryRepository;
+import com.pirimidtech.ptp.repository.WatchlistRepository;
 import com.pirimidtech.ptp.util.TestDataStore;
 import org.junit.Before;
 import org.junit.Test;

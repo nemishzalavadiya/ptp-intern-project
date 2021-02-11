@@ -18,14 +18,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class MutualFundDetailControllerTest {
 
+    TestRestTemplate restTemplate = new TestRestTemplate();
+    HttpHeaders headers = new HttpHeaders();
+    UrlHelper urlHelper = new UrlHelper();
     @LocalServerPort
     private int port;
-
-    TestRestTemplate restTemplate = new TestRestTemplate();
-
-    HttpHeaders headers = new HttpHeaders();
-
-    UrlHelper urlHelper = new UrlHelper();
 
     @Test
     void getAllMutualFundDetails() throws JSONException {

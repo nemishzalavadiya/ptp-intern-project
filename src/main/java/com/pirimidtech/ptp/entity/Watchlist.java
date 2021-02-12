@@ -20,8 +20,10 @@ public class Watchlist {
     private UUID id;
 
     @ManyToOne
+    @Column(nullable = false)
     private User user;
 
+    @Column(nullable = false)
     private String name;
 
     private String description;

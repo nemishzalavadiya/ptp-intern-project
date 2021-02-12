@@ -20,8 +20,10 @@ public class WatchlistEntry {
     private UUID id;
 
     @ManyToOne
+    @Column(nullable = false)
     private Watchlist watchlist;
 
     @ManyToOne
+    @Column(nullable = false)
     private AssetDetail assetDetail;
 }

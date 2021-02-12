@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+
 
 @Component
 public class OrderExecution {
@@ -32,9 +33,10 @@ public class OrderExecution {
                 stockTrade -> {
                     stockTrade.setStatus(Status.EXECUTED);
                     stockTradeRepository.save(stockTrade);
-                    StockTradeHistory stockTradeHistory = new StockTradeHistory(null, LocalDateTime.now(), stockTrade.getStatus(), stockTrade);
+                    StockTradeHistory stockTradeHistory = new StockTradeHistory(null, new Date(), stockTrade.getStatus(), stockTrade);
                     stockTradeHistoryRepository.save(stockTradeHistory);
-                    positionService.addToPosition(new Position(null, stockTrade.getTradeVolume(), 0f, AssetClass.STOCK, stockTrade.getUser(), stockTrade.getStockDetail().getAssetDetail()), stockTrade.getAction());
+                    Position position = new Position(null, stockTrade.getTradeVolume(), 0f, AssetClass.STOCK, stockTrade.getUser(), stockTrade.getStockDetail().getAssetDetail());
+                    positionService.addToPosition(position, stockTrade.getAction());
                 }
         );
 

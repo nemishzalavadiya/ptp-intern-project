@@ -22,8 +22,8 @@ import com.pirimidtech.ptp.entity.StockTradeHistory;
 import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.entity.Watchlist;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,7 +51,7 @@ public class ObjectUtility {
     public static StockTrade stockTrade2 = new StockTrade(UUID.fromString("981a7cd2-feaf-4e29-8a77-f37ed75a6102"), null, 207, Action.BUY, StockExchangeType.NSE, PriceType.MARKET, OrderType.DELIVERY, mutualFundOrder1.getPrice(), Status.PENDING, user, stockDetail);
 
     public static List<StockTrade> stockTradeList = new ArrayList<>();
-    public static StockTradeHistory stockTradeHistory = new StockTradeHistory(UUID.randomUUID(), LocalDateTime.now(), Status.PENDING, stockTrade1);
+    public static StockTradeHistory stockTradeHistory = new StockTradeHistory(UUID.randomUUID(), new Date(), Status.PENDING, stockTrade1);
 
     public static StockPrice stockPrice1 = new StockPrice(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"), mutualFundOrder1.getPrice(), null, StockExchangeType.BSE, stockDetail);
     public static StockPrice stockPrice2 = new StockPrice(UUID.fromString("981a7cd2-feaf-4e29-8a77-f37ed75a6102"), mutualFundOrder1.getPrice(), null, StockExchangeType.BSE, stockDetail);

@@ -10,6 +10,7 @@ import com.pirimidtech.ptp.entity.Status;
 import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.entity.StockTradeHistory;
+import com.pirimidtech.ptp.exception.InsufficientStockException;
 import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
 import com.pirimidtech.ptp.repository.StockDetailRepository;
@@ -25,8 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -51,64 +51,59 @@ public class OrderController {
 
     @PostMapping("/stock/orders")
     public ResponseEntity<StockTrade> addToStockOrder(@RequestBody StockTrade stockTrade) {
-        stockTrade.setId(null);
         if (stockTrade.getAction().equals(Action.SELL)) {
             Optional<StockDetail> stockDetail = stockDetailRepository.findById(stockTrade.getStockDetail().getId());
-            if (!stockDetail.isPresent())
-                throw new NotFoundException("Stock Not Found");
             AssetDetail assetDetail = stockDetail.get().getAssetDetail();
-            if (assetDetail == null)
-                throw new NotFoundException("Asset detail Not Found");
             Position position = positionService.getPositionByUserIdAndAssetDetailId(stockTrade.getUser().getId(), assetDetail.getId());
             if (position == null || position.getVolume() < stockTrade.getTradeVolume()) {
-                throw new NotFoundException("insufficient stock");
+                throw new InsufficientStockException("insufficient stock");
             }
         }
         stockTrade.setStatus(Status.PENDING);
-        stockTrade.setTimestamp(LocalDateTime.now());
         stockTrade = orderService.addToStockOrder(stockTrade);
-        stockTradeHistoryService.addToStockTradeHistory(new StockTradeHistory(null, LocalDateTime.now(), Status.PENDING, stockTrade));
+        StockTradeHistory stockTradeHistory = new StockTradeHistory(null, new Date(), Status.PENDING, stockTrade);
+        stockTradeHistoryService.addToStockTradeHistory(stockTradeHistory);
         return ResponseEntity.ok().body(stockTrade);
     }
 
     @GetMapping("/stock/orders/users/{id}")
-    public ResponseEntity<List<StockTrade>> getAllStockOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
+    public ResponseEntity<List<StockTrade>> getAllStockOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
         List<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
-        return stockTradeList.size() != 0 ? ResponseEntity.ok().body(stockTradeList) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok().body(stockTradeList);
     }
 
     @GetMapping("/stock/orders/{id}")
     public ResponseEntity<StockTrade> getStockOrder(@PathVariable("id") UUID orderId) {
         StockTrade stockTrade = orderService.getStockOrder(orderId);
-        return stockTrade != null ? ResponseEntity.ok().body(stockTrade) : ResponseEntity.notFound().build();
+        if (stockTrade == null) {
+            throw new NotFoundException();
+        }
+        return ResponseEntity.ok().body(stockTrade);
+
     }
 
     @PostMapping("/mutualfund/orders")
     public ResponseEntity<MutualFundOrder> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
-        mutualFundOrder.setSIPDate(LocalDate.now());
         mutualFundOrder = orderService.addToMutualFundOrder(mutualFundOrder);
         Optional<MutualFundDetail> mutualFundDetail = mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId());
-        if (!mutualFundDetail.isPresent())
-            throw new NotFoundException("MutualFund Not Found");
         AssetDetail assetDetail = mutualFundDetail.get().getAssetDetail();
-        if (assetDetail == null)
-            throw new NotFoundException("Asset detail Not Found");
-
-        positionService.addToPosition(new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), assetDetail), Action.BUY);
+        Position position = new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), assetDetail);
+        positionService.addToPosition(position, Action.BUY);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 
     @GetMapping("/mutualfund/orders/users/{id}")
-    public ResponseEntity<List<MutualFundOrder>> getAllMutualFundOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
-        List<MutualFundOrder> mutualFundOrderList;
-        mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
-        return mutualFundOrderList.size() != 0 ? ResponseEntity.ok().body(mutualFundOrderList) : ResponseEntity.notFound().build();
+    public ResponseEntity<List<MutualFundOrder>> getAllMutualFundOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+        List<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
+        return ResponseEntity.ok().body(mutualFundOrderList);
     }
 
     @GetMapping("/mutualfund/orders/{id}")
     public ResponseEntity<MutualFundOrder> getMutualFundOrder(@PathVariable("id") UUID mutualFundOrderId) {
-        MutualFundOrder mutualFundOrder;
-        mutualFundOrder = orderService.getMutualFundOrder(mutualFundOrderId);
-        return mutualFundOrder != null ? ResponseEntity.ok().body(mutualFundOrder) : ResponseEntity.notFound().build();
+        MutualFundOrder mutualFundOrder = orderService.getMutualFundOrder(mutualFundOrderId);
+        if (mutualFundOrder == null) {
+            throw new NotFoundException();
+        }
+        return ResponseEntity.ok().body(mutualFundOrder);
     }
 }

@@ -64,8 +64,6 @@ class OrderControllerTest {
         StockTrade stockTrade1 = mapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<StockTrade>() {
         });
         stockOrderId = stockTrade1.getId();
-        System.out.println(stockOrderId);
-
     }
 
     @Test

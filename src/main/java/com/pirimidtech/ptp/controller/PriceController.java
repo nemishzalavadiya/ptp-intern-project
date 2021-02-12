@@ -20,15 +20,15 @@ public class PriceController {
     private PriceService priceService;
 
     @GetMapping("/stock/{id}/prices")
-    public ResponseEntity<List<StockPrice>> getStockPrice(@PathVariable("id") UUID stockId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
+    public ResponseEntity<List<StockPrice>> getStockPrice(@PathVariable("id") UUID stockId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
         List<StockPrice> stockPriceList = priceService.getStockPrice(stockId, page, size);
-        return stockPriceList.size() != 0 ? ResponseEntity.ok().body(stockPriceList) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok().body(stockPriceList);
     }
 
     @GetMapping("/mutualfund/{id}/prices")
-    public ResponseEntity<List<MutualFundPrice>> getMutualFundPrice(@PathVariable("id") UUID mutualFundId, @RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
+    public ResponseEntity<List<MutualFundPrice>> getMutualFundPrice(@PathVariable("id") UUID mutualFundId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
         List<MutualFundPrice> mutualFundPriceList = priceService.getMutualFundPrice(mutualFundId, page, size);
-        return mutualFundPriceList.size() != 0 ? ResponseEntity.ok().body(mutualFundPriceList) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok().body(mutualFundPriceList);
     }
 
 }

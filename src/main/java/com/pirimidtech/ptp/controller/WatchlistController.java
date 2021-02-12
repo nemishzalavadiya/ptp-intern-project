@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,14 +66,17 @@ public class WatchlistController {
 
     @PostMapping("")
     public ResponseEntity<Watchlist> addWatchlist(@RequestBody Watchlist watchlist) {
-        watchlist.setId(UUID.randomUUID());
+        watchlist.setId(null);
+        if (watchlist.getUser() == null || watchlist.getName() == null) {
+            return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(watchlist);
+        }
         watchlistService.add(watchlist);
         return ResponseEntity.ok().body(watchlist);
     }
 
     @PostMapping("/watchlistentry")
     public ResponseEntity<WatchlistEntry> addWatchlistEntry(@RequestBody WatchlistEntry watchlistEntry) {
-        watchlistEntry.setId(UUID.randomUUID());
+        watchlistEntry.setId(null);
         if (watchlistService.findById(watchlistEntry.getWatchlist().getId()).isPresent()) {
             watchlistEntryService.add(watchlistEntry);
         }

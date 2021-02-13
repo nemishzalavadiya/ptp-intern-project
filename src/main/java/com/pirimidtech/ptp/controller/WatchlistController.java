@@ -8,6 +8,8 @@ import com.pirimidtech.ptp.repository.AssetDetailRepository;
 import com.pirimidtech.ptp.service.asset.AssetService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistEntryService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,7 @@ import java.util.UUID;
 @RequestMapping("/watchlist")
 public class WatchlistController {
 
+    private static final Logger logger = LoggerFactory.getLogger(WatchlistController.class);
     @Autowired
     AssetDetailRepository assetDetailRepository;
     @Autowired
@@ -39,6 +42,7 @@ public class WatchlistController {
                                                                      @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<WatchlistEntry> watchlistEntryPage = watchlistEntryService.getAllWatchlistEntryByWatchlistId(watchlistId, pageable);
+        logger.info("Database hit for watchlist entries. Used watchlistId: " + watchlistId.toString());
         return ResponseEntity.ok().body(watchlistEntryPage);
     }
 
@@ -48,6 +52,7 @@ public class WatchlistController {
                                                              @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Watchlist> watchlistPage = watchlistService.getWatchlistDetailByUserId(userId, pageable);
+        logger.info("Database hit for watchlist by User with userId: " + userId.toString());
         return ResponseEntity.ok().body(watchlistPage);
     }
 
@@ -83,8 +88,8 @@ public class WatchlistController {
         return ResponseEntity.ok().body(watchlistEntry);
     }
 
-    @DeleteMapping("")
-    public ResponseEntity<UUID> removeAssetDetail(@RequestParam UUID watchlistEntryId) {
+    @DeleteMapping("/watchlistentry")
+    public ResponseEntity<UUID> removeWatchlistEntry(@RequestParam UUID watchlistEntryId) {
         watchlistEntryService.remove(watchlistEntryId);
         return ResponseEntity.ok().body(watchlistEntryId);
     }

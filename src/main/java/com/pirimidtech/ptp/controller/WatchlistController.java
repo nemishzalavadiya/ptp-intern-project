@@ -72,7 +72,7 @@ public class WatchlistController {
     public ResponseEntity<Watchlist> addWatchlist(@RequestBody Watchlist watchlist) {
         watchlist.setId(null);
         if (watchlist.getUser() == null || watchlist.getName() == null) {
-            return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(watchlist);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(watchlist);
         }
         watchlistService.add(watchlist);
         return ResponseEntity.ok().body(watchlist);
@@ -81,6 +81,9 @@ public class WatchlistController {
     @PostMapping("/watchlistentry")
     public ResponseEntity<WatchlistEntry> addWatchlistEntry(@RequestBody WatchlistEntry watchlistEntry) {
         watchlistEntry.setId(null);
+        if (watchlistEntry.getWatchlist() == null || watchlistEntry.getAssetDetail() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(watchlistEntry);
+        }
         if (watchlistService.findById(watchlistEntry.getWatchlist().getId()).isPresent()) {
             watchlistEntryService.add(watchlistEntry);
         }

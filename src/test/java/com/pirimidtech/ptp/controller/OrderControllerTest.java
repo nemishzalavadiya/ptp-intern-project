@@ -64,11 +64,12 @@ class OrderControllerTest {
         StockTrade stockTrade1 = mapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<StockTrade>() {
         });
         stockOrderId = stockTrade1.getId();
+
     }
 
     @Test
     @Order(2)
-    void getAllStockOrder() throws Exception {
+    void getAllStockOrderByUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/users/" + ObjectUtility.user.getId() + "?page=0&size=4")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
@@ -108,7 +109,7 @@ class OrderControllerTest {
 
     @Test
     @Order(6)
-    void getAllMutualFundOrder() throws Exception {
+    void getAllMutualFundOrderByUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/users/" + ObjectUtility.user.getId() + "?page=0&size=3")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).

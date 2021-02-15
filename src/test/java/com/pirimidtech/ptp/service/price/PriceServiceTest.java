@@ -14,12 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
@@ -56,13 +54,14 @@ class PriceServiceTest {
     }
 
     @Test
-    void getStockPrice() {
-        UUID stockId = ObjectUtility.stockDetail.getId();
+    void getStockPrice() throws ParseException {
         List<StockPrice> stockPriceList = new ArrayList<>();
+        StockDetail stockDetail = ObjectUtility.stockDetail;
         stockPriceList.add(ObjectUtility.stockPrice1);
         stockPriceList.add(ObjectUtility.stockPrice2);
-        when(stockPriceRepository.findAllByStockDetailIdOrderByTimestampDesc(stockId, PageRequest.of(0, 2))).thenReturn(new PageImpl<>(stockPriceList));
-        assertEquals(2, priceService.getStockPrice(stockId, 0, 2).size());
+
+        when(stockPriceRepository.findAllByStockDetailIdAndTimestampBetween(stockDetail.getId(), ObjectUtility.date1, ObjectUtility.date1)).thenReturn((stockPriceList));
+        assertEquals(2, priceService.getStockPrice(stockDetail.getId(), "Sun Feb 14 10:35:01 UTC 2021", "Sun Feb 14 10:35:01 UTC 2021").size());
     }
 
     @Test
@@ -73,12 +72,13 @@ class PriceServiceTest {
     }
 
     @Test
-    void getMutualFundPrice() {
+    void getMutualFundPrice() throws ParseException {
         List<MutualFundPrice> mutualFundPriceList = new ArrayList<>();
         MutualFundDetail mutualFundDetail = ObjectUtility.mutualFundDetail;
         mutualFundPriceList.add(ObjectUtility.mutualFundPrice1);
         mutualFundPriceList.add(ObjectUtility.mutualFundPrice2);
-        when(mutualFundPriceRepository.findAllByMutualFundDetailIdOrderByTimestampDesc(mutualFundDetail.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<>(mutualFundPriceList));
-        assertEquals(2, priceService.getMutualFundPrice(mutualFundDetail.getId(), 0, 2).size());
+
+        when(mutualFundPriceRepository.findAllByMutualFundDetailIdAndTimestampBetween(mutualFundDetail.getId(), ObjectUtility.date1, ObjectUtility.date1)).thenReturn((mutualFundPriceList));
+        assertEquals(2, priceService.getMutualFundPrice(mutualFundDetail.getId(), "Sun Feb 14 10:35:01 UTC 2021", "Sun Feb 14 10:35:01 UTC 2021").size());
     }
 }

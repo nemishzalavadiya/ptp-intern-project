@@ -67,7 +67,7 @@ public class OrderController {
     }
 
     @GetMapping("/stock/orders/users/{id}")
-    public ResponseEntity<List<StockTrade>> getAllStockOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+    public ResponseEntity<List<StockTrade>> getAllStockOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
         List<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
         return ResponseEntity.ok().body(stockTradeList);
     }
@@ -93,7 +93,7 @@ public class OrderController {
     }
 
     @GetMapping("/mutualfund/orders/users/{id}")
-    public ResponseEntity<List<MutualFundOrder>> getAllMutualFundOrder(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+    public ResponseEntity<List<MutualFundOrder>> getAllMutualFundOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
         List<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
         return ResponseEntity.ok().body(mutualFundOrderList);
     }

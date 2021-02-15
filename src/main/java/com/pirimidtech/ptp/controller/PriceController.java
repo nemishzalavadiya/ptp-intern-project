@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,14 +21,14 @@ public class PriceController {
     private PriceService priceService;
 
     @GetMapping("/stock/{id}/prices")
-    public ResponseEntity<List<StockPrice>> getStockPrice(@PathVariable("id") UUID stockId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        List<StockPrice> stockPriceList = priceService.getStockPrice(stockId, page, size);
+    public ResponseEntity<List<StockPrice>> getStockPrice(@PathVariable("id") UUID stockId, @RequestParam(name = "startDate") String startDate, @RequestParam(name = "endDate") String endDate) throws ParseException {
+        List<StockPrice> stockPriceList = priceService.getStockPrice(stockId, startDate, endDate);
         return ResponseEntity.ok().body(stockPriceList);
     }
 
     @GetMapping("/mutualfund/{id}/prices")
-    public ResponseEntity<List<MutualFundPrice>> getMutualFundPrice(@PathVariable("id") UUID mutualFundId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        List<MutualFundPrice> mutualFundPriceList = priceService.getMutualFundPrice(mutualFundId, page, size);
+    public ResponseEntity<List<MutualFundPrice>> getMutualFundPrice(@PathVariable("id") UUID mutualFundId, @RequestParam(name = "startDate") String startDate, @RequestParam(name = "endDate") String endDate) throws ParseException {
+        List<MutualFundPrice> mutualFundPriceList = priceService.getMutualFundPrice(mutualFundId, startDate, endDate);
         return ResponseEntity.ok().body(mutualFundPriceList);
     }
 

@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,7 +38,7 @@ public class MutualFundServiceTest {
     MutualFundService mutualFundService;
 
     public MutualFundDetail createMutualDetail(UUID id, String name) {
-        return new MutualFundDetail(id, LocalDateTime.now(), name, new AssetDetail(UUID.randomUUID(), "ptp1", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
+        return new MutualFundDetail(id, new Date(), name, new AssetDetail(UUID.randomUUID(), "ptp1", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
     }
 
     @Test

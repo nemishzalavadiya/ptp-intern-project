@@ -19,11 +19,11 @@ class PriceControllerTest {
 
     @Test
     void getStockPrice() throws Exception {
-        this.mockMvc.perform(get("/stock/" + ObjectUtility.stockPrice1.getId().toString() + "/prices?page=0&size=1")).andExpect(status().is2xxSuccessful());
+        this.mockMvc.perform(get("/stock/" + ObjectUtility.stockDetail.getId().toString() + "/prices?startDate=Sun Feb 14 10:35:01 UTC 2021&endDate=Sun Feb 14 10:35:01 UTC 2021")).andExpect(status().is2xxSuccessful());
     }
 
     @Test
     void getMutualFundPrice() throws Exception {
-        this.mockMvc.perform(get("/mutualfund/" + ObjectUtility.mutualFundPrice1.getId().toString() + "/prices?page=0&size=1")).andExpect(status().is2xxSuccessful());
+        this.mockMvc.perform(get("/mutualfund/" + ObjectUtility.mutualFundDetail.getId().toString() + "/prices?startDate=Sun Feb 14 10:35:01 UTC 2021&endDate=Sun Feb 14 10:35:01 UTC 2021")).andExpect(status().is2xxSuccessful());
     }
 }

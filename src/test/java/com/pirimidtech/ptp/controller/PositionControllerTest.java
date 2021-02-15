@@ -32,8 +32,6 @@ class PositionControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/position/users/" + ObjectUtility.user.getId() + "?page=0&size=1")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
-                andExpect(jsonPath("$.[0].user.id").value(ObjectUtility.user.getId().toString())).
-                andExpect(jsonPath("$.[0]").exists()).
                 andDo(print());
     }
 }

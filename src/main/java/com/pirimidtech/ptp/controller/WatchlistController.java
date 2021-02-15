@@ -83,8 +83,8 @@ public class WatchlistController {
         return ResponseEntity.ok().body(watchlistEntry);
     }
 
-    @DeleteMapping("")
-    public ResponseEntity<UUID> removeAssetDetail(@RequestParam UUID watchlistEntryId) {
+    @DeleteMapping("/watchlistentry")
+    public ResponseEntity<UUID> removeWatchlistEntry(@RequestParam UUID watchlistEntryId) {
         watchlistEntryService.remove(watchlistEntryId);
         return ResponseEntity.ok().body(watchlistEntryId);
     }

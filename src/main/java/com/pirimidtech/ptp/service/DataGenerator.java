@@ -26,18 +26,18 @@ public class DataGenerator {
     }
 
     public void setData() {
-
+        float Min = 20, Max = 1000;
         if (dataGeneratorList.size() != companyIdList.size())
             DataGenerator.companyIdList.forEach((id) -> {
                 DataGenerator dataGenerator = new DataGenerator();
                 dataGenerator.company_id = id;
                 dataGenerator.timestamp = LocalDateTime.now();
-                dataGenerator.open = (float) Math.random() * 1000;
-                dataGenerator.close = (float) Math.random() * 1000;
-                dataGenerator.marketPrice = (float) Math.random() * 1000;
-                dataGenerator.high = (float) Math.random() * 1000;
-                dataGenerator.low = (float) Math.random() * 1000;
-                dataGenerator.percentageChange = (float) Math.random() * 100;
+                dataGenerator.open = Min + (float) (Math.random() * ((Max - Min) + 1));
+                dataGenerator.close = Min + (float) (Math.random() * ((Max - Min) + 1));
+                dataGenerator.marketPrice = Min + (float) (Math.random() * ((Max - Min) + 1));
+                dataGenerator.high = Min + (float) (Math.random() * ((Max - Min) + 1));
+                dataGenerator.low = Min + (float) (Math.random() * ((Max - Min) + 1));
+                dataGenerator.percentageChange = (float) (Math.random() * 5);
                 dataGeneratorList.add(dataGenerator);
             });
         else

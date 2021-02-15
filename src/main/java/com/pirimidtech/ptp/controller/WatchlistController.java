@@ -41,7 +41,7 @@ public class WatchlistController {
                                                                      @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<WatchlistEntry> watchlistEntryPage = watchlistEntryService.getAllWatchlistEntryByWatchlistId(watchlistId, pageable);
-        log.info("Database hit for watchlist entries. Used watchlistId: " + watchlistId.toString());
+        log.info("Database hit for watchlist entries. Used watchlistId: {}",watchlistId.toString());
         return ResponseEntity.ok().body(watchlistEntryPage);
     }
 
@@ -51,7 +51,7 @@ public class WatchlistController {
                                                              @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Watchlist> watchlistPage = watchlistService.getWatchlistDetailByUserId(userId, pageable);
-        log.info("Database hit for watchlist by User with userId: " + userId.toString());
+        log.info("Database hit for watchlist by User with userId: {}",userId.toString());
         return ResponseEntity.ok().body(watchlistPage);
     }
 

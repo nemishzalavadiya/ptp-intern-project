@@ -1,14 +1,8 @@
 /*
   Component: GridContainer
-  props: title, header, data
+  props: title: String, header: List, data: List of List, icon: <i></i>
 */
 export default function GridContainer(props) {
-  function conditionalDisplay(item) {
-    if (typeof item === "number") {
-      return <i className="rupee sign icon small"></i>;
-    }
-  }
-
   return (
     <>
       <div
@@ -40,7 +34,7 @@ export default function GridContainer(props) {
                     <div style={{ fontSize: "x-small" }}>
                       {props.header[innerIndex]}
                     </div>
-                    {conditionalDisplay(item)}{item}
+                    {props.icon[innerIndex]}{item}
                   </div>
                 ) : (
                   <div className="six wide column" key={`${outerIndex} ${innerIndex}`}>{item}</div>

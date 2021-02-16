@@ -15,9 +15,12 @@ export default function GridContainer(props) {
         className="ui equal width grid"
         style={{ margin: "10px 20px 10px 20px", minWidth: "100vh" }}
       >
-        <div className="ui horizontal divider" style={{ color: "#fff" }}>
-          {props.title}
-        </div>
+        {title ? (
+          <div className="ui horizontal divider" style={{ color: "#fff" }}>
+            {props.title}
+          </div>
+        ) : null}
+
         {props.data.map((row) => {
           return (
             <div

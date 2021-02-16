@@ -1,26 +1,6 @@
 package com.pirimidtech.ptp.utility;
 
-import com.pirimidtech.ptp.entity.Action;
-import com.pirimidtech.ptp.entity.AssetClass;
-import com.pirimidtech.ptp.entity.AssetDetail;
-import com.pirimidtech.ptp.entity.Gender;
-import com.pirimidtech.ptp.entity.InvestmentType;
-import com.pirimidtech.ptp.entity.MutualFundDetail;
-import com.pirimidtech.ptp.entity.MutualFundOrder;
-import com.pirimidtech.ptp.entity.MutualFundPrice;
-import com.pirimidtech.ptp.entity.MutualFundStatistic;
-import com.pirimidtech.ptp.entity.OrderType;
-import com.pirimidtech.ptp.entity.Position;
-import com.pirimidtech.ptp.entity.PriceType;
-import com.pirimidtech.ptp.entity.Status;
-import com.pirimidtech.ptp.entity.StockDetail;
-import com.pirimidtech.ptp.entity.StockExchangeType;
-import com.pirimidtech.ptp.entity.StockPrice;
-import com.pirimidtech.ptp.entity.StockStatistic;
-import com.pirimidtech.ptp.entity.StockTrade;
-import com.pirimidtech.ptp.entity.StockTradeHistory;
-import com.pirimidtech.ptp.entity.User;
-import com.pirimidtech.ptp.entity.Watchlist;
+import com.pirimidtech.ptp.entity.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,7 +30,6 @@ public class ObjectUtility {
     public static StockPrice stockPrice1 = new StockPrice(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"), mutualFundOrder1.getPrice(), date1, StockExchangeType.BSE, stockDetail);
     public static StockPrice stockPrice2 = new StockPrice(UUID.fromString("981a7cd2-feaf-4e29-8a77-f37ed75a6102"), mutualFundOrder1.getPrice(), date1, StockExchangeType.BSE, stockDetail);
     public static StockStatistic stockStatistic = new StockStatistic(UUID.fromString("981a7cd2-feaf-4e29-8a77-f37ed75a6102"), 12, 10, 11, 12, 52.2f, 12.3f, 14.3f, 15, 32, stockDetail);
-    public static Watchlist watchlist = new Watchlist(UUID.fromString("18d8c801-ec46-43c1-8295-edbf0d1aa406"), user, assetDetail);
     static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
     static Date date2;
     public static MutualFundPrice mutualFundPrice2 = new MutualFundPrice(UUID.fromString("f0108f8a-0d7c-4235-bce3-5deda9a3e151"), 11.5F, date2, mutualFundDetail);

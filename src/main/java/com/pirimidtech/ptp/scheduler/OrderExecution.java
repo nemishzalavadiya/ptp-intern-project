@@ -29,7 +29,7 @@ public class OrderExecution {
     @Scheduled(fixedDelay = 10000)
     public void trigger() {
 
-        stockTradeRepository.findAllByStatus(Status.PENDING).stream().forEach(
+        stockTradeRepository.findAllByStatus(Status.PENDING).forEach(
                 stockTrade -> {
                     stockTrade.setStatus(Status.EXECUTED);
                     stockTradeRepository.save(stockTrade);

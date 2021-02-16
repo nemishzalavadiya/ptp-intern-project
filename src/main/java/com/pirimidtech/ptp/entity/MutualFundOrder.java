@@ -4,13 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
-import javax.persistence.Table;
-import java.time.LocalDateTime;
+
+import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -26,7 +22,6 @@ public class MutualFundOrder {
 
     private Date SIPDate;
 
-    private float price;
     @Column(nullable = false)
     private float price;
 

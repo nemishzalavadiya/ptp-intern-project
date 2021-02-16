@@ -39,7 +39,7 @@ public class WatchlistController {
     public ResponseEntity<Page<WatchlistEntry>> getAllWatchlistEntry(@PathVariable UUID watchlistId,
                                                                      @RequestParam(defaultValue = "0") int page,
                                                                      @RequestParam(defaultValue = "10") int size) {
-        log.info("WatchlistId {} Requested all watchlist entries",watchlistId.toString());
+        log.info("WatchlistId {} Requested all watchlist entries", watchlistId.toString());
         Pageable pageable = PageRequest.of(page, size);
         Page<WatchlistEntry> watchlistEntryPage = watchlistEntryService.getAllWatchlistEntryByWatchlistId(watchlistId, pageable);
         return ResponseEntity.ok().body(watchlistEntryPage);
@@ -49,7 +49,7 @@ public class WatchlistController {
     public ResponseEntity<Page<Watchlist>> getAllWatchlistId(@PathVariable UUID userId,
                                                              @RequestParam(defaultValue = "0") int page,
                                                              @RequestParam(defaultValue = "10") int size) {
-        log.info("UserId {} requested all watchlist ids",userId.toString());
+        log.info("UserId {} requested all watchlist ids", userId.toString());
         Pageable pageable = PageRequest.of(page, size);
         Page<Watchlist> watchlistPage = watchlistService.getWatchlistDetailByUserId(userId, pageable);
         return ResponseEntity.ok().body(watchlistPage);

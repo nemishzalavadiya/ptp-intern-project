@@ -5,8 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -14,35 +22,45 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "stockOrder")
-public class StockOrder {
+@Table(name = "stockTrade")
+public class StockTrade {
     @Id
     @GeneratedValue
     private UUID id;
 
-    private LocalDateTime timestamp;
+    private Date timestamp;
 
+    @Column(nullable = false)
     private int tradeVolume;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Action action;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private StockExchangeType stockExchange;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private PriceType priceType;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+
     private OrderType orderType;
 
+    @Column(nullable = false)
     private float price;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToOne(targetEntity = User.class)
+    @JoinColumn(nullable = false)
     private User user;
 
     @ManyToOne(targetEntity = StockDetail.class)
+    @JoinColumn(nullable = false)
     private StockDetail stockDetail;
 }

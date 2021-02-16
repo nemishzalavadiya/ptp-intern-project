@@ -5,7 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Getter
@@ -16,7 +20,6 @@ import java.util.UUID;
 @Table(name = "stockStatistic")
 public class StockStatistic {
     @Id
-    @GeneratedValue
     private UUID id;
 
     private int numberOfStackHolders;

@@ -4,7 +4,7 @@
 */
 export default function GridContainer(props) {
   function conditionalDisplay(item) {
-    if (Number.isInteger(item)) {
+    if (typeof item === "number") {
       return <i className="rupee sign icon small"></i>;
     }
   }
@@ -13,17 +13,18 @@ export default function GridContainer(props) {
     <>
       <div
         className="ui equal width grid"
-        style={{ margin: "10px 20px 10px 20px", minWidth: "100vh" }}
+        style={{ margin: "10px 20px 10px 20px", minWidth: "1000px" }}
       >
-        {title ? (
+        {props.title ? (
           <div className="ui horizontal divider" style={{ color: "#fff" }}>
             {props.title}
           </div>
         ) : null}
 
-        {props.data.map((row) => {
+        {props.data.map((row,outerIndex) => {
           return (
             <div
+                key={outerIndex}
               className="row ui right floated segment"
               style={{
                 minheight: "100vh",
@@ -33,16 +34,16 @@ export default function GridContainer(props) {
                 cursor: "pointer",
               }}
             >
-              {row.map((item, index) =>
-                index != 0 ? (
-                  <div className="column">
+              {row.map((item, innerIndex) =>
+                innerIndex != 0 ? (
+                  <div className="column" key={`${outerIndex} ${innerIndex}`}>
                     <div style={{ fontSize: "x-small" }}>
-                      {props.header[index]}
+                      {props.header[innerIndex]}
                     </div>
-                    {item} {conditionalDisplay(item)}
+                    {conditionalDisplay(item)}{item}
                   </div>
                 ) : (
-                  <div className="eight wide column">{item}</div>
+                  <div className="six wide column" key={`${outerIndex} ${innerIndex}`}>{item}</div>
                 )
               )}
             </div>

@@ -8,27 +8,20 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name = "assetDetail")
-public class AssetDetail {
+@Table(name = "watchlistEntry")
+public class WatchlistEntry {
     @Id
     @GeneratedValue
     private UUID id;
 
-    private String name;
+    @ManyToOne
+    private Watchlist watchlist;
 
-    private String logoUrl;
-
-    @Enumerated(EnumType.STRING)
-    private AssetClass assetClass;
-
-    private String about;
-
-    private String managingDirector;
-
-    private String organization;
+    @ManyToOne
+    private AssetDetail assetDetail;
 }

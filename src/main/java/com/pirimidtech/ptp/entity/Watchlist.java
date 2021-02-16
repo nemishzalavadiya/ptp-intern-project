@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -19,11 +16,14 @@ import java.util.UUID;
 @Table(name = "watchlist")
 public class Watchlist {
     @Id
+    @GeneratedValue
     private UUID id;
 
-    @OneToOne(targetEntity = User.class)
+    @ManyToOne
     private User user;
 
-    @OneToOne(targetEntity = AssetDetail.class)
-    private AssetDetail assetDetail;
+    @Column(nullable = false)
+    private String name;
+
+    private String description;
 }

@@ -4,13 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -21,20 +25,16 @@ import java.util.UUID;
 @Table(name = "stockTradeHistory")
 public class StockTradeHistory {
     @Id
+    @GeneratedValue
     private UUID id;
 
-    private LocalDateTime timestamp;
-
-    private Integer tradeVolume;
+    private Date timestamp;
 
     @Enumerated(EnumType.STRING)
-    private StockExchangeType stockExchangeType;
+    @Column(nullable = false)
+    private Status status;
 
-    private Float price;
-
-    @ManyToOne(targetEntity =  User.class)
-    private User user;
-
-    @ManyToOne(targetEntity =  StockDetail.class)
-    private StockDetail stockDetail;
+    @ManyToOne(targetEntity = StockTrade.class)
+    @JoinColumn(nullable = false)
+    private StockTrade stockTrade;
 }

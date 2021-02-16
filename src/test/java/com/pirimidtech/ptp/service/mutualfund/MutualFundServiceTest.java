@@ -10,10 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertEquals;
-
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,9 +18,13 @@ import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MutualFundServiceTest {
@@ -38,7 +38,7 @@ public class MutualFundServiceTest {
     MutualFundService mutualFundService;
 
     public MutualFundDetail createMutualDetail(UUID id, String name) {
-        return new MutualFundDetail(id, LocalDateTime.now(), name, new AssetDetail(UUID.randomUUID(), "ptp1", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
+        return new MutualFundDetail(id, new Date(), name, new AssetDetail(UUID.randomUUID(), "ptp1", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
     }
 
     @Test

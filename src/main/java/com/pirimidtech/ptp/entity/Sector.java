@@ -1,8 +1,8 @@
 package com.pirimidtech.ptp.entity;
 
 public enum Sector {
-        BANKING,
-        FINANCIAL,
-        AGRICULTURAL,
-        AUTOMOBILE
+    BANKING,
+    FINANCIAL,
+    AGRICULTURAL,
+    AUTOMOBILE
 }

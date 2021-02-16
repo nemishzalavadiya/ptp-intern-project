@@ -1,16 +1,10 @@
-import GridContainer from "../grid/GridContainer";
-import Loading from "../loader/Loading";
-import WebSocket from "../util/websocket";
-export default function Watchlist() {
-  let uuid = [
-    "00000000-0000-0000-0000-000000000000",
-    "00000000-0000-0000-0000-000000000001",
-    "00000000-0000-0000-0000-000000000002",
-    "00000000-0000-0000-0000-000000000003",
-    "00000000-0000-0000-0000-000000000004",
-  ];
-  let data = new Map();
-  const Header = [
+import React from 'react'
+import { Tab } from 'semantic-ui-react'
+import { getAllWatchlistByUserId } from '../api/watchlist';
+import Loading from '../loader/Loading';
+import WatchlistById from './WatchlistById'
+
+const Header = [
     "Company_Id",
     "Open",
     "Close",
@@ -26,47 +20,26 @@ export default function Watchlist() {
     <i className="rupee sign icon small"></i>,
     <i className="rupee sign icon small"></i>,
     <i className="rupee sign icon small"></i>,
-    <i className="percent icon small"></i>
+    <i className="percent icon small"></i>,
   ];
-  let [isCompleted, myMap] = WebSocket(uuid);
 
-  Array.from(myMap.values()).map((row) => {
-    let companyData = Object.values(row);
-    companyData.shift();
-    let key = companyData.shift();
-    data.set(key, companyData);
-  });
-  return isCompleted ? (
-    <>
-      {
-        <div
-          style={{
-            backgroundColor: "black",
-            overflow: "scroll",
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <div
-            className="sideBar"
-            style={{ width: "60vh", height: "100vh" }}
-          ></div>
-          <div>
-            <GridContainer
-              data={Array.from(data.values())}
-              header={Header}
-              title={"Watchlist"}
-              icon = {sign}
-            />
-          </div>
-          <div
-            className="sideBar"
-            style={{ width: "60vh", height: "100vh" }}
-          ></div>
-        </div>
-      }
-    </>
-  ) : (
-    <Loading />
-  );
+const panes = (watchlist)=>{
+    let paneList=[];
+    watchlist.map((item)=>{
+        paneList.push({
+            menuItem: item.name,
+            render: () => <Tab.Pane><WatchlistById header={Header} sign={sign} watchlistId={item.id}/></Tab.Pane>,
+          })
+    })
+    return paneList;
+} 
+
+export default function Watchlist(){
+    const [
+        isContentFetchingCompleted,
+        response,
+      ] = getAllWatchlistByUserId('00000000-0000-0000-0000-000000000000');
+    
+
+    return isContentFetchingCompleted? <Tab defaultActiveIndex={0} panes={panes(response.content)} /> : <Loading/>
 }

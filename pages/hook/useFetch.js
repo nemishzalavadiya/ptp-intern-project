@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 function useFetch(url) {
-  const [data, setData] = useState([]);
-  const [isComplete, setCompleted] = useState(false);
+  const [content, setContent] = useState({data:[],isComplete:false});
 
   async function fetchUrl(Url) {
     try {
       const response = await fetch(Url);
       const json = await response.json();
-      setData(json);
-      setCompleted(true);
+      setContent({data:json,isComplete:true})
     } catch (error) {
       //handle errors here
     }
@@ -16,6 +14,6 @@ function useFetch(url) {
   useEffect(() => {
     fetchUrl(url);
   }, []);
-  return [data, isComplete];
+  return [content['isComplete'],content['data']];
 }
 export { useFetch };

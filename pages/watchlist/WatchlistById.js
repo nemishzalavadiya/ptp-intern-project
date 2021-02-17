@@ -1,6 +1,5 @@
 /*
   Component: WatchlistById
-  props: header*: list, sign: list of icon, watchlistId*: String
   TODO: 
   1. Handle Error on fetching
 */
@@ -19,8 +18,7 @@ export default function WatchlistById(props) {
     totalPages: 4,
     handlePaginationChange:handlePaginationChange
   }
-  const [isContentFetchingCompleted,response] = getAllWatchlistEntryByWatchlistId(props.watchlistId,page,2);
-  console.log(page,response.content)
+  const [isContentFetchingCompleted,response] = getAllWatchlistEntryByWatchlistId(props.watchlistId,page,20);
   if (isContentFetchingCompleted) {
     let responseData = response.content;
     responseData.map((item) => {

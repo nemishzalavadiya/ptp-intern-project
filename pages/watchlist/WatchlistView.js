@@ -17,7 +17,6 @@ export default function WatchlistView(props) {
   let [isSubscriptionCompleted, myMap] = [false];
   [isSubscriptionCompleted, myMap] = useWebSocket(props.companyUuids);
   data.clear();
-  console.log("cleared map ",data);
   Array.from(myMap.values()).map((row) => {
     let companyData = Object.values(row);
     companyData.shift();
@@ -25,7 +24,6 @@ export default function WatchlistView(props) {
     data.set(key, companyData);
   });
   myMap.clear();
-  console.log(data);
   return isSubscriptionCompleted ? (
     <>
       {
@@ -37,29 +35,11 @@ export default function WatchlistView(props) {
             flexDirection: "row",
           }}
         >
-          <div
-            className="leftSpace"
-            style={{ width: "60vh", height: "100vh" }}
-          ></div>
-          <div>
-            <div
-              className="topSpace"
-              style={{ width: "100vh", height: "20vh" }}
-            ></div>
             <GridContainer
               content={props.content}
               pagination={props.pagination}
               data = {Array.from(data.values())}
             />
-            <div
-              className="bottomSpace"
-              style={{ width: "100vh", height: "20vh" }}
-            ></div>
-          </div>
-          <div
-            className="rightSpace"
-            style={{ width: "60vh", height: "100vh" }}
-          ></div>
         </div>
       }
     </>

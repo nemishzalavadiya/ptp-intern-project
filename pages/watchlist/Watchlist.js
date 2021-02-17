@@ -39,11 +39,5 @@ export default function Watchlist() {
     "00000000-0000-0000-0000-000000000000"
   );
 
-  return (isContentFetchingCompleted? <Tab defaultActiveIndex={0} panes={panes(response.content)} /> : <Loading/>)
-  // return isContentFetchingCompleted ? (
-  //   <WatchlistById
-  //     content={content}
-  //     watchlistId={response.content[0].id}
-  //   />
-  // ) : <Loading />
+  return (isContentFetchingCompleted?<Tab menu={{pointing:true}} defaultActiveIndex={0} panes={panes(response.content)} /> : <Loading/>)
 }

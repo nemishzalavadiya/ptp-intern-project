@@ -12,10 +12,10 @@
 import PaginationContainer from "./PaginationContainer";
 export default function GridContainer(props) {
   return (
-    <>
+    <div className="ui grid" style={{ margin: "40px 60px 20px 60px",justifyContent:"center"}}>
       <div
         className="ui equal width grid"
-        style={{ margin: "10px 20px 10px 20px", minWidth: "1000px" }}
+        style={{ margin: "40px 60px 20px 60px", minWidth: "1000px" }}
       >
 
         {props.data.map((row, outerIndex) => {
@@ -53,9 +53,9 @@ export default function GridContainer(props) {
           );
         })}
       </div>
-      <div style={{ textAlign: "center", marginTop: "10vh" }}>
+      <div>
         <PaginationContainer pagination={props.pagination} />
       </div>
-    </>
+    </div>
   );
 }

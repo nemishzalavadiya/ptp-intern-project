@@ -1,10 +1,15 @@
 /*
   Component: GridContainer
-  props: title: String, header*: List, data*: List of List, icon: list of <i></i>
-
+  props:  content*: [ {header*: string,icon:<i></i>} ],
+          data* : data
+          pagination: Object {
+            activePage*:number,totalPages*:number,
+            handlePaginationChange(pageNumber): method
+          }
   TODO:
     1. No data present
 */
+import PaginationContainer from "./PaginationContainer";
 export default function GridContainer(props) {
   return (
     <>
@@ -12,16 +17,11 @@ export default function GridContainer(props) {
         className="ui equal width grid"
         style={{ margin: "10px 20px 10px 20px", minWidth: "1000px" }}
       >
-        {props.title ? (
-          <div className="ui horizontal divider" style={{ color: "#fff" }}>
-            {props.title}
-          </div>
-        ) : null}
 
-        {props.data.map((row,outerIndex) => {
+        {props.data.map((row, outerIndex) => {
           return (
             <div
-                key={outerIndex}
+              key={outerIndex}
               className="row ui right floated segment"
               style={{
                 minheight: "100vh",
@@ -35,17 +35,26 @@ export default function GridContainer(props) {
                 innerIndex != 0 ? (
                   <div className="column" key={`${outerIndex} ${innerIndex}`}>
                     <div style={{ fontSize: "x-small" }}>
-                      {props.header[innerIndex]}
+                      {props.content[innerIndex].header}
                     </div>
-                   {props.icon ? props.icon[innerIndex]:null}{item}
+                    {props.content[innerIndex].icon ? props.content[innerIndex].icon : null}
+                    {item}
                   </div>
                 ) : (
-                  <div className="six wide column" key={`${outerIndex} ${innerIndex}`}>{item}</div>
+                  <div
+                    className="six wide column"
+                    key={`${outerIndex} ${innerIndex}`}
+                  >
+                    {item}
+                  </div>
                 )
               )}
             </div>
           );
         })}
+      </div>
+      <div style={{ textAlign: "center", marginTop: "10vh" }}>
+        <PaginationContainer pagination={props.pagination} />
       </div>
     </>
   );

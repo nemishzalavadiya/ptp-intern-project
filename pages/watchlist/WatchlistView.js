@@ -1,7 +1,11 @@
 /*
   Component: WatchlistView
-  props: header*: list, sign: list of icon, companyUuids*: list of company uuids
-
+  props:  content*: [ {header*: string,icon:<i></i>} ],
+          pagination*: Object {
+            activePage*:number,totalPages*:number,
+            handlePaginationChange(pageNumber): method
+          },
+          companyUuids*: company uuid list
   TODO:
     1. remove div block space around grid with appropriate margin
 */
@@ -20,7 +24,6 @@ export default function WatchlistView(props) {
     let key = companyData.shift();
     data.set(key, companyData);
   });
-
   return isSubscriptionCompleted ? (
     <>
       {
@@ -42,9 +45,9 @@ export default function WatchlistView(props) {
               style={{ width: "100vh", height: "20vh" }}
             ></div>
             <GridContainer
-              data={Array.from(data.values())}
-              header={props.header}
-              icon={props.sign}
+              content={props.content}
+              pagination={props.pagination}
+              data = {Array.from(data.values())}
             />
             <div
               className="bottomSpace"

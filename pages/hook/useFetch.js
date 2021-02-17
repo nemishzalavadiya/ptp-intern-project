@@ -23,7 +23,7 @@ function useFetch(url) {
   }
   useEffect(() => {
     fetchUrl(url);
-  }, []);
+  }, [url]);
   return [content['isComplete'],content['data']];
 }
 export { useFetch };

@@ -26,7 +26,7 @@ const panes = (watchlist) => {
       menuItem: item.name,
       render: () => (
         <Tab.Pane>
-          <WatchlistById header={Header} sign={sign} watchlistId={item.id} />
+          <WatchlistById content={content} watchlistId={item.id} />
         </Tab.Pane>
       ),
     });
@@ -39,11 +39,11 @@ export default function Watchlist() {
     "00000000-0000-0000-0000-000000000000"
   );
 
-  //return (isContentFetchingCompleted? <Tab defaultActiveIndex={0} panes={panes(response.content)} /> : <Loading/>
-  return isContentFetchingCompleted ? (
-    <WatchlistById
-      content={content}
-      watchlistId={response.content[0].id}
-    />
-  ) : <Loading />
+  return (isContentFetchingCompleted? <Tab defaultActiveIndex={0} panes={panes(response.content)} /> : <Loading/>)
+  // return isContentFetchingCompleted ? (
+  //   <WatchlistById
+  //     content={content}
+  //     watchlistId={response.content[0].id}
+  //   />
+  // ) : <Loading />
 }

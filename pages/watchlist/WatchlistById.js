@@ -16,11 +16,11 @@ export default function WatchlistById(props) {
   }
   const pagination = {
     activePage: page,
-    totalPages: 10,
+    totalPages: 4,
     handlePaginationChange:handlePaginationChange
   }
-  const [isContentFetchingCompleted,response] = getAllWatchlistEntryByWatchlistId(props.watchlistId,0,10);
-  
+  const [isContentFetchingCompleted,response] = getAllWatchlistEntryByWatchlistId(props.watchlistId,page,2);
+  console.log(page,response.content)
   if (isContentFetchingCompleted) {
     let responseData = response.content;
     responseData.map((item) => {

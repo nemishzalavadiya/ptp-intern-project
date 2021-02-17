@@ -15,15 +15,17 @@ import useWebSocket from "../hook/useWebSocket";
 export default function WatchlistView(props) {
   let data = new Map();
   let [isSubscriptionCompleted, myMap] = [false];
-
   [isSubscriptionCompleted, myMap] = useWebSocket(props.companyUuids);
-
+  data.clear();
+  console.log("cleared map ",data);
   Array.from(myMap.values()).map((row) => {
     let companyData = Object.values(row);
     companyData.shift();
     let key = companyData.shift();
     data.set(key, companyData);
   });
+  myMap.clear();
+  console.log(data);
   return isSubscriptionCompleted ? (
     <>
       {

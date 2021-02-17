@@ -18,14 +18,19 @@ export default function useWebSocket(uuidList){
         stompClient.connect({ }, function(frame) {
             
             uuidList.forEach((uuid)=>{
+                console.log("subscribing for uuid ",uuid);
                 stompClient.subscribe("/topic/"+uuid, function(data) {
                     let contentBody = JSON.parse(data.body);
                     myMap.set(uuid,contentBody);
                     setMyMap(new Map(myMap));
-                });
+                },{ id : uuid});
             });
             setCompleted(true);
         });
-    },[])
+        return ()=>{
+           uuidList.forEach((uuid)=>{stompClient.unsubscribe(uuid)})
+           stompClient.disconnect();
+        }
+    },[uuidList])
     return [isCompleted,myMap];
 }

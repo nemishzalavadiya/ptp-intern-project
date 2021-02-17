@@ -13,6 +13,9 @@ import PaginationContainer from "./PaginationContainer";
 export default function GridContainer(props) {
   return (
     <div className="ui grid" style={{ margin: "40px 60px 20px 60px",justifyContent:"center"}}>
+      <div>
+        <PaginationContainer pagination={props.pagination} />
+      </div>
       <div
         className="ui equal width grid"
         style={{ margin: "40px 60px 20px 60px", minWidth: "1000px" }}
@@ -52,9 +55,6 @@ export default function GridContainer(props) {
             </div>
           );
         })}
-      </div>
-      <div>
-        <PaginationContainer pagination={props.pagination} />
       </div>
     </div>
   );

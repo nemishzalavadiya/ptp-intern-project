@@ -9,6 +9,7 @@ import { Tab } from "semantic-ui-react";
 import { getAllWatchlistByUserId } from "../api/watchlist";
 import Loading from "../loader/Loading";
 import WatchlistById from "./WatchlistById";
+import WatchlistRenderer from "./WatchlistRenderer";
 
 const content = [
   {header:"Company_Id",icon:""},
@@ -39,5 +40,5 @@ export default function Watchlist() {
     "00000000-0000-0000-0000-000000000000"
   );
 
-  return (isContentFetchingCompleted?<Tab menu={{pointing:true}} defaultActiveIndex={0} panes={panes(response.content)} /> : <Loading/>)
+  return (isContentFetchingCompleted?<Tab renderActiveOnly={true} menu={{pointing:true}} defaultActiveIndex={0} panes={panes(response.content)} /> : <Loading/>)
 }

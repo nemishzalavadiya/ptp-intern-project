@@ -1,21 +1,28 @@
 /*
   Component: PaginationContainer
   props: pagination: Object {
-    activePage*:number,totalPages*:number,
+    activePage:number,totalPages*:number,
     handlePaginationChange(pageNumber): method
   }
 */
 import { Grid, Pagination, Icon } from "semantic-ui-react";
 import { useState } from "react";
 export default function PaginationContainer(props) {
-  let state = {
-    activePage: props.pagination.activePage,
+
+  const [state,setState] = useState({
+    activePage: 0,
     boundaryRange: 2,
     siblingRange: 2,
     totalPages: props.pagination.totalPages,
-  };
+  });
 
   function handlePaginationChange(e, { activePage }){
+    setState({
+      activePage: activePage,
+      boundaryRange: 2,
+      siblingRange: 2,
+      totalPages: props.pagination.totalPages,
+    })
     props.pagination.handlePaginationChange(activePage);
   }
 

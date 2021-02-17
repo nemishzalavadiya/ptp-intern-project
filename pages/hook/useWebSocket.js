@@ -1,7 +1,14 @@
+/*
+  hook: useWebSocket
+  argument: uuidList
+  TODO:
+      1. manage throw errors
+      2. handle unsubscription
+*/
 import SockJS from "sockjs-client";
 import Stomp from 'stompjs';
 import { useState, useEffect } from 'react';
-export default function WebSocket(props){
+export default function useWebSocket(uuidList){
     const [myMap,setMyMap] = useState(new Map());
     const [isCompleted,setCompleted] = useState(false);
     useEffect(()=>{
@@ -10,7 +17,7 @@ export default function WebSocket(props){
         stompClient.debug = f=>f;
         stompClient.connect({ }, function(frame) {
             
-            props.forEach((uuid)=>{
+            uuidList.forEach((uuid)=>{
                 stompClient.subscribe("/topic/"+uuid, function(data) {
                     let contentBody = JSON.parse(data.body);
                     myMap.set(uuid,contentBody);

@@ -1,3 +1,9 @@
+/*
+  Component: WatchlistById
+  props: header*: list, sign: list of icon, watchlistId*: String
+  TODO: 
+  1. Handle Error on fetching
+*/
 import { getAllWatchlistEntryByWatchlistId } from "../api/watchlist";
 import Loading from "../loader/Loading";
 import WatchlistView from "./WatchlistView";
@@ -22,6 +28,6 @@ export default function WatchlistById(props) {
       companyUuids={companyUuids}
     />
   ) : (
-    <Loading />
+    response.error ? <div>{response.error}</div>:<Loading />
   );
 }

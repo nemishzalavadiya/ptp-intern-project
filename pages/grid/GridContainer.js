@@ -1,6 +1,9 @@
 /*
   Component: GridContainer
-  props: title: String, header: List, data: List of List, icon: <i></i>
+  props: title: String, header*: List, data*: List of List, icon: list of <i></i>
+
+  TODO:
+    1. No data present
 */
 export default function GridContainer(props) {
   return (
@@ -34,7 +37,7 @@ export default function GridContainer(props) {
                     <div style={{ fontSize: "x-small" }}>
                       {props.header[innerIndex]}
                     </div>
-                    {props.icon[innerIndex]}{item}
+                   {props.icon ? props.icon[innerIndex]:null}{item}
                   </div>
                 ) : (
                   <div className="six wide column" key={`${outerIndex} ${innerIndex}`}>{item}</div>

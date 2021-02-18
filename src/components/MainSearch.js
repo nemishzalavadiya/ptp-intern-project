@@ -9,7 +9,7 @@ const MainSearch = (props) => {
 	useEffect(() => {
 		if (value !== "") {
 			setLoading(true);
-			fetch(`http://localhost:8080/assets/search/${value}?page=0&size=${props.size}`)
+			fetch(`/api/assets/search/${value}?page=0&size=${props.size}`)
 				.then((res) => res.json())
 				.then((data) => {
 					setResults({

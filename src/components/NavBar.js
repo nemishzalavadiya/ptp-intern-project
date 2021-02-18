@@ -1,5 +1,6 @@
 import styles from "../styles/NavBar.module.css";
 import Link from "next/link";
+import { Popup } from "semantic-ui-react";
 const NavBar = () => {
 	return (
 		<div className={styles.sideBar}>
@@ -7,32 +8,48 @@ const NavBar = () => {
 				<li>
 					<Link href="/">
 						<div>
-							<img src="/icons8-stocks-growth-48.png" alt="Stocks" />
-							<h6>STOCKS</h6>
+							<Popup
+								trigger={<img src="/icons8-stocks-growth-48.png" alt="Stocks" />}
+								position="right center"
+								content="STOCKS"
+								inverted
+							/>
 						</div>
 					</Link>
 				</li>
 				<li>
-					<Link href="/">
+					<Link href="/test">
 						<div>
-							<img src="/icons8-coin-in-hand-48.png" alt="Mutual Funds" />
-							<h6>MUTUAL FUNDS</h6>
+							<Popup
+								trigger={<img src="/icons8-coin-in-hand-48.png" alt="Mutual Funds" />}
+								position="right center"
+								content="MUTUAL FUNDS"
+								inverted
+							/>
 						</div>
 					</Link>
 				</li>
 				<li>
-					<Link href="/">
+					<Link href="/test">
 						<div>
-							<img src="/round_add_shopping_cart_white_48dp.png" alt="Watchlist" />
-							<h6>WATCHLIST</h6>
+							<Popup
+								trigger={<img src="/round_add_shopping_cart_white_48dp.png" alt="Watchlist" />}
+								position="right center"
+								content="WATCHLIST"
+								inverted
+							/>
 						</div>
 					</Link>
 				</li>
 				<li>
-					<Link href="/">
+					<Link href="/test">
 						<div>
-							<img src="/round_request_page_white_48dp.png" alt="Positions" />
-							<h6>POSITIONS</h6>
+							<Popup
+								trigger={<img src="/round_request_page_white_48dp.png" alt="Positions" />}
+								position="right center"
+								content="POSITIONS"
+								inverted
+							/>
 						</div>
 					</Link>
 				</li>

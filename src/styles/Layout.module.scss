@@ -1,0 +1,15 @@
+@import "./variables";
+.main {
+	display: flex;
+	min-height: 100vh;
+}
+.right {
+	position: absolute;
+	background-color: $backgroundGrey;
+	color: $fontColor;
+	min-height: 100vh;
+	left: $navBarWidth;
+}
+.bar {
+	position: fixed;
+}

@@ -16,11 +16,18 @@ export default function WatchlistView(props) {
   let data = new Map();
   let [isSubscriptionCompleted, myMap] = [false];
   [isSubscriptionCompleted, myMap] = useWebSocket(props.companyUuids);
+
   data.clear();
   Array.from(myMap.values()).map((row) => {
     let companyData = Object.values(row);
-    companyData.shift();
-    let key = companyData.shift();
+    companyData.shift();//remove time stamp
+    let key = companyData.shift();// geting companyId
+    //adding commas to the numbers
+    companyData.map((item,index)=>{
+          if(isFinite(item)){
+              companyData[index] = item.toLocaleString();
+          }
+    })
     data.set(key, companyData);
   });
   myMap.clear();

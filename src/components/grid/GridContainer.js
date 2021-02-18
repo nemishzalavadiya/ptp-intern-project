@@ -12,23 +12,22 @@
 import PaginationContainer from "./PaginationContainer";
 export default function GridContainer(props) {
   return (
-    <div className="ui grid" style={{ margin: "40px 60px 20px 60px",justifyContent:"center"}}>
-      <div>
+    <div className="ui grid" style={{ margin: "2% 2%",justifyContent:'center'}}>
+      <div style={{ marginBottom:'30px'}}>
         <PaginationContainer pagination={props.pagination} />
       </div>
       <div
         className="ui equal width grid"
-        style={{ margin: "40px 60px 20px 60px", minWidth: "1000px" }}
+        style={{  minWidth: "1000px" }}
       >
 
         {props.data.map((row, outerIndex) => {
           return (
             <div
               key={outerIndex}
-              className="row ui right floated segment"
+              className="row ui segment"
               style={{
-                minheight: "100vh",
-                padding: "5vh 2vh 5vh 2vh",
+                padding: "5vh 2vh",
                 backgroundColor: "rgb(33, 33, 33)",
                 color: "#fff",
                 cursor: "pointer",
@@ -37,11 +36,13 @@ export default function GridContainer(props) {
               {row.map((item, innerIndex) =>
                 innerIndex != 0 ? (
                   <div className="column" key={`${outerIndex} ${innerIndex}`}>
-                    <div style={{ fontSize: "x-small" }}>
+                    <div style={{ fontSize: "0.7rem", minWidth:"90px" }}>
                       {props.content[innerIndex].header}
                     </div>
+                    <div style={{fontSize: "0.9rem", minWidth:"90px"}}>
                     {props.content[innerIndex].icon ? props.content[innerIndex].icon : null}
                     {item}
+                    </div>
                   </div>
                 ) : (
                   <div

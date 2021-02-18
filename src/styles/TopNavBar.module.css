@@ -1,0 +1,15 @@
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 90vw;
+	padding: 0 2rem;
+}
+.header img {
+	cursor: pointer;
+}
+.logo {
+	margin: 1rem;
+	width: 120px;
+	height: 90px;
+}

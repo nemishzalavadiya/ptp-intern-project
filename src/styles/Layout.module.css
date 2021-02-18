@@ -1,0 +1,13 @@
+.main {
+	display: flex;
+	background-color: #121212;
+	color: white;
+	min-height: 100vh;
+}
+.right {
+	position: absolute;
+	left: 6rem;
+}
+.bar {
+	position: fixed;
+}

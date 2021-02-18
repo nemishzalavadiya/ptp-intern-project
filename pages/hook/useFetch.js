@@ -10,12 +10,20 @@ function useFetch(url) {
 
   async function fetchUrl(Url) {
     try {
-      const response = await fetch(Url);
-      if(!response.ok){
-        throw new Error("Can't fetch the data, ",response);
-      }
-      const json = await response.json();
-      setContent({data:json,isComplete:true})
+      await fetch(Url).then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Something went wrong');
+        }
+      })
+      .then((responseJson) => {
+        setContent({data:responseJson,isComplete:true})
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+      
     } catch (error) {
       //handle errors
       setContent({data:[],error:error,isComplete:false})

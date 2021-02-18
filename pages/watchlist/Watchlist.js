@@ -9,7 +9,6 @@ import { Tab } from "semantic-ui-react";
 import { getAllWatchlistByUserId } from "../api/watchlist";
 import Loading from "../loader/Loading";
 import WatchlistById from "./WatchlistById";
-import WatchlistRenderer from "./WatchlistRenderer";
 
 const content = [
   {header:"Company_Id",icon:""},

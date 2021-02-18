@@ -11,10 +11,10 @@ export default function useWebSocket(uuidList) {
   const [myMap, setMyMap] = useState(new Map());
   const [isCompleted, setCompleted] = useState(false);
 
-  async function setUpSubscription(stompClient){
+  function setUpSubscription(stompClient){
     stompClient.debug = (f) => f;
-    stompClient.connect({}, function (frame) {
-      uuidList.forEach((uuid) => {
+    stompClient.connect({}, async function (frame) {
+      await  uuidList.forEach((uuid) => {
         stompClient.subscribe(
           "/topic/" + uuid,
           function (data) {
@@ -29,7 +29,7 @@ export default function useWebSocket(uuidList) {
     });
   }
   async function cleanUp(uuidList, stompClient) {
-    uuidList.forEach((uuid) => {
+    await uuidList.forEach((uuid) => {
       stompClient.unsubscribe(uuid);
     });
     stompClient.disconnect();

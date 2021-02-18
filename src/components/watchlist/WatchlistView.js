@@ -23,14 +23,9 @@ export default function WatchlistView(props) {
     companyData.shift();//remove time stamp
     let key = companyData.shift();// geting companyId
     //adding commas to the numbers
-    companyData.map((item,index)=>{
-          if(isFinite(item)){
-              companyData[index] = item.toLocaleString();
-          }
-    })
     data.set(key, companyData);
   });
-  myMap.clear();
+  myMap.clear()
   return isSubscriptionCompleted ? (
     <>
       {

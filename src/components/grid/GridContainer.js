@@ -41,7 +41,7 @@ export default function GridContainer(props) {
                     </div>
                     <div style={{fontSize: "0.9rem", minWidth:"90px"}}>
                     {props.content[innerIndex].icon ? props.content[innerIndex].icon : null}
-                    {item}
+                    {isFinite(item)?item.toLocaleString():item}
                     </div>
                   </div>
                 ) : (

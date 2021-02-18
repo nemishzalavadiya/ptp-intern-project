@@ -36,7 +36,7 @@ export default function useWebSocket(uuidList) {
   }
 
   useEffect(() => {
-    const webSocket = new SockJS("http://localhost:8080/ptp");
+    const webSocket = new SockJS("/webSocket/ptp");
     const stompClient = Stomp.over(webSocket);
     setUpSubscription(stompClient);
     return () => {

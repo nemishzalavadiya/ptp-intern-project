@@ -3,7 +3,7 @@
   TODO: 
   1. Handle Error on fetching
 */
-import { getAllWatchlistEntryByWatchlistId } from "../api/watchlist";
+import { getAllWatchlistEntryByWatchlistId } from "../../services/watchlist";
 import { useState } from "react";
 import Loading from "../loader/Loading";
 import WatchlistView from "./WatchlistView";

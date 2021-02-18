@@ -11,7 +11,7 @@
 */
 import GridContainer from "../grid/GridContainer";
 import Loading from "../loader/Loading";
-import useWebSocket from "../hook/useWebSocket";
+import useWebSocket from "../../hooks/useWebSocket";
 export default function WatchlistView(props) {
   let data = new Map();
   let [isSubscriptionCompleted, myMap] = [false];

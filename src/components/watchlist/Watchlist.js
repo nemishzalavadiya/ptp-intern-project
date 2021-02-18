@@ -6,7 +6,7 @@
 */
 import React from "react";
 import { Tab } from "semantic-ui-react";
-import { getAllWatchlistByUserId } from "../api/watchlist";
+import { getAllWatchlistByUserId } from "../../services/watchlist";
 import Loading from "../loader/Loading";
 import WatchlistById from "./WatchlistById";
 

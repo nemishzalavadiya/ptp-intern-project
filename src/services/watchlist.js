@@ -1,4 +1,4 @@
-import { useFetch } from "../hook/useFetch";
+import { useFetch } from "../hooks/useFetch";
 
 function getAllWatchlistByUserId(userId){
     const [isComplete,data] = useFetch('/api/watchlist/users/'+userId);

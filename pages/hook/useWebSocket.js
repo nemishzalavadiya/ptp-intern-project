@@ -3,7 +3,6 @@
   argument: uuidList
   TODO:
       1. manage throw errors
-      2. handle unsubscription
 */
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
@@ -11,9 +10,8 @@ import { useState, useEffect } from "react";
 export default function useWebSocket(uuidList) {
   const [myMap, setMyMap] = useState(new Map());
   const [isCompleted, setCompleted] = useState(false);
-  useEffect(() => {
-    const webSocket = new SockJS("http://localhost:8080/ptp");
-    const stompClient = Stomp.over(webSocket);
+
+  async function setUpSubscription(stompClient){
     stompClient.debug = (f) => f;
     stompClient.connect({}, function (frame) {
       uuidList.forEach((uuid) => {
@@ -29,13 +27,19 @@ export default function useWebSocket(uuidList) {
       });
       setCompleted(true);
     });
+  }
+  async function cleanUp(uuidList, stompClient) {
+    uuidList.forEach((uuid) => {
+      stompClient.unsubscribe(uuid);
+    });
+    stompClient.disconnect();
+  }
+
+  useEffect(() => {
+    const webSocket = new SockJS("http://localhost:8080/ptp");
+    const stompClient = Stomp.over(webSocket);
+    setUpSubscription(stompClient);
     return () => {
-      async function cleanUp(uuidList, stompClient) {
-        uuidList.forEach((uuid) => {
-          stompClient.unsubscribe(uuid);
-        });
-        stompClient.disconnect();
-      }
       cleanUp(uuidList, stompClient);
     };
   }, [uuidList]);

@@ -18,7 +18,7 @@ export default function WatchlistView(props) {
   [isSubscriptionCompleted, myMap] = useWebSocket(props.companyUuids);
 
   data.clear();
-  Array.from(myMap.values()).map((row) => {
+  Array.from(myMap.values()).forEach((row) => {
     let companyData = Object.values(row);
     companyData.shift(); //remove time stamp
     let key = companyData.shift(); // geting companyId

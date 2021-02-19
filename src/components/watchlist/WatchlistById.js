@@ -34,7 +34,7 @@ export default function WatchlistById(props) {
 
   if (isContentFetchingCompleted) {
     let responseData = response.content;
-    responseData.map((item) => {
+    responseData.forEach((item) => {
       companyUuids.push(item.assetDetail.id);
     });
     pagination.totalPages = response.totalPages;

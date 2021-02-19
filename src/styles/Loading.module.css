@@ -29,11 +29,11 @@
 @keyframes processing {
     0% {
         visibility: visible;
-        color: black;
+        color: white;
     }
     75% {
         visibility: hidden;
-        color: rgb(22, 22, 112);
+        color: black;
     }
 }
 

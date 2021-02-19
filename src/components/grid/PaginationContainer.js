@@ -42,6 +42,7 @@ export default function PaginationContainer(props) {
     <Grid columns={1}>
       <Grid.Column>
         <Pagination
+          inverted
           activePage={state.activePage}
           boundaryRange={state.boundaryRange}
           onPageChange={handlePaginationChange}

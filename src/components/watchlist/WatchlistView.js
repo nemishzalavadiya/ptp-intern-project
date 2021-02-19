@@ -31,10 +31,7 @@ export default function WatchlistView(props) {
       {
         <div
           style={{
-            backgroundColor: "black",
-            overflow: "scroll",
-            display: "flex",
-            flexDirection: "row",
+            backgroundColor: "#121212",
           }}
         >
           <GridContainer

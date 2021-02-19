@@ -28,7 +28,7 @@ export default function Watchlist() {
   function handleItemClick( index ){setActiveItem(index)}
 
   return isContentFetchingCompleted ? (
-    <div style={{backgroundColor:'black'}}>
+    <div style={{backgroundColor:'#121212'}}>
       <Menu pointing inverted secondary>
         {
           response.content.map((item,index)=>{

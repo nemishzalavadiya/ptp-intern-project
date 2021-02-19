@@ -30,7 +30,7 @@ const NavBar = () => {
 					</Link>
 				</li>
 				<li>
-					<Link href="/test">
+					<Link href="/watchlist">
 						<div>
 							<Popup
 								trigger={<img src="/round_add_shopping_cart_white_48dp.png" alt="Watchlist" />}

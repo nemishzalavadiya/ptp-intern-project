@@ -43,4 +43,9 @@ public class StockService implements StockServiceInterface {
     public void addStockStats(StockStatistic stockStatistic) {
         stockStatisticRepository.save(stockStatistic);
     }
+
+    @Override
+    public Optional<StockStatistic> getStockStatisticByAssetId(UUID id) {
+        return stockStatisticRepository.findById(stockDetailRepository.findByAssetDetailId(id).get().getId());
+    }
 }

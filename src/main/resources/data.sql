@@ -25,40 +25,40 @@ INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_direc
 VALUES ('51381618-1bc9-4c19-aab9-44994433b188', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b189', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b189', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp9', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b190', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b190', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp10', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b191', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b191', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp11', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b192', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b192', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp12', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b193', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b193', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp13', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b194', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b194', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp14', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b195', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b195', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp15', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b196', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b196', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp16', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b197', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b197', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp17', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b198', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b198', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp18', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b199', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b199', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp19', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b200', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b200', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp20', 'org8');
 
 /** Stock Data **/
 
@@ -118,7 +118,53 @@ INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detai
 VALUES ('51381618-1bc9-4c19-aab9-000000000004', 'Mohit', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b188');
 
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000005', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b189');
 
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000006', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b190');
+
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000007', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b191');
+
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000008', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b192');
+
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000009', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b193');
+
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000010', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b194');
+
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000011', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b195');
+
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000012', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b196');
+
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000013', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b197');
+
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000014', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b198');
+
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000015', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b199');
+
+INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000016', 'Mohit', '2020-01-21T05:47:08.644',
+        '51381618-1bc9-4c19-aab9-44994433b200');
 /** Mutual Fund Statistics **/
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
@@ -136,6 +182,54 @@ VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
 VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000004');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000005');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000006');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000007');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000008');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000009');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000010');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000011');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000012');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000013');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000014');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000015');
+
+INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
+                                         mutual_fund_detail_id)
+VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000016');
 
 /** User Data **/
 

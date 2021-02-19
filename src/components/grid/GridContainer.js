@@ -10,53 +10,56 @@
     1. No data present
 */
 import PaginationContainer from "./PaginationContainer";
+import { Grid } from "semantic-ui-react";
 export default function GridContainer(props) {
   return (
-    <div className="ui grid" style={{ margin: "3px",justifyContent:'center'}}>
-      <div
-        className="ui equal width grid"
-        style={{  minWidth: "800px" }}
-      >
-
-        {props.data.map((row, outerIndex) => {
-          return (
-            <div
-              key={outerIndex}
-              className="row ui segment"
-              style={{
-                padding: "5vh 2vh",
-                backgroundColor: "rgb(33, 33, 33)",
-                color: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              {row.map((item, innerIndex) =>
-                innerIndex != 0 ? (
-                  <div className="column" key={`${outerIndex} ${innerIndex}`}>
-                    <div style={{ fontSize: "0.7rem", minWidth:"90px" }}>
-                      {props.content[innerIndex].header}
-                    </div>
-                    <div style={{fontSize: "0.9rem", minWidth:"90px"}}>
-                    {props.content[innerIndex].icon ? props.content[innerIndex].icon : null}
-                    {isFinite(item)?item.toLocaleString():item}
-                    </div>
+    <Grid
+      columns="equal"
+      style={{ minWidth: "800px", margin: "3px", justifyContent: "center" }}
+    >
+      {props.data.map((row, outerIndex) => {
+        return (
+          <div
+            key={outerIndex}
+            className="row ui segment"
+            style={{
+              padding: "5vh 2vh",
+              backgroundColor: "rgb(33, 33, 33)",
+              color: "#fff",
+              cursor: "pointer",
+            }}
+          >
+            {row.map((item, innerIndex) =>
+              innerIndex != 0 ? (
+                <div className="column" key={`${outerIndex} ${innerIndex}`}>
+                  <div style={{ fontSize: "0.7rem", minWidth: "90px" }}>
+                    {props.content[innerIndex].header}
                   </div>
-                ) : (
-                  <div
-                    className="six wide column"
-                    key={`${outerIndex} ${innerIndex}`}
-                  >
-                    {item}
+                  <div style={{ fontSize: "0.9rem", minWidth: "90px" }}>
+                    {props.content[innerIndex].icon
+                      ? props.content[innerIndex].icon
+                      : null}
+                    {isFinite(item) ? item.toLocaleString() : item}
                   </div>
-                )
-              )}
-            </div>
-          );
-        })}
+                </div>
+              ) : (
+                <div
+                  className="six wide column"
+                  key={`${outerIndex} ${innerIndex}`}
+                >
+                  {item}
+                </div>
+              )
+            )}
+          </div>
+        );
+      })}
+      <div style={{ marginTop: "30px" }}>
+        <PaginationContainer
+          pagination={props.pagination}
+          tabId={props.tabId}
+        />
       </div>
-      <div style={{ marginTop:'30px'}}>
-        <PaginationContainer pagination={props.pagination} tabId={props.tabId} />
-      </div>
-    </div>
+    </Grid>
   );
 }

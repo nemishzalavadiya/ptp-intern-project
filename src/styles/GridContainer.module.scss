@@ -1,0 +1,13 @@
+@import "_variables";
+.ui.grid.grid-container{
+  margin: 3px;
+  justify-content: center;
+  min-width: 800px;
+}
+
+.grid-row {
+  padding: 5vh 2vh !important;
+  background-color: $cardGrey !important;
+  color: #fff;
+  cursor: pointer;
+}

@@ -1,0 +1,20 @@
+import NavBar from "../components/NavBar";
+import "semantic-ui-css/semantic.min.css";
+import styles from "../styles/Layout.module.css";
+import TopNavBar from "./TopNavBar";
+
+const Layout = ({ children }) => {
+	return (
+		<div className={styles.main}>
+			<div className={styles.bar}>
+				<NavBar />
+			</div>
+			<div className={styles.right}>
+				<TopNavBar />
+				{children}
+			</div>
+		</div>
+	);
+};
+
+export default Layout;

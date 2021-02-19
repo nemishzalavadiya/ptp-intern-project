@@ -1,0 +1,17 @@
+@import "./variables";
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 95vw;
+	padding: 0 2rem;
+	img {
+		cursor: pointer;
+	}
+}
+
+.logo {
+	margin: 1rem;
+	width: 120px;
+	height: 90px;
+}

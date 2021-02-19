@@ -6,9 +6,9 @@
 */
 import React from "react";
 import { Menu } from "semantic-ui-react";
-import { getAllWatchlistByUserId } from "../../services/watchlist";
-import Loading from "../loader/Loading";
-import WatchlistById from "./WatchlistById";
+import { getAllWatchlistByUserId } from "src/services/watchlist";
+import Loading from "src/components/loader/Loading";
+import WatchlistById from "src/components/watchlist/WatchlistById";
 import {useState} from 'react';
 const content = [
   { header: "Company_Id", icon: "" },

@@ -1,4 +1,4 @@
-import styles from "../styles/NavBar.module.css";
+import styles from "src/styles/NavBar.module.css";
 import Link from "next/link";
 import { Popup } from "semantic-ui-react";
 const NavBar = () => {

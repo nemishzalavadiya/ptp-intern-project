@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Layout from "../components/Layout";
-import Watchlist from "../components/watchlist/Watchlist";
+import Layout from "src/components/Layout";
+import Watchlist from "src/components/watchlist/Watchlist";
 export default function Home() {
   return (
     <div style={{overflow:"scroll"}}>

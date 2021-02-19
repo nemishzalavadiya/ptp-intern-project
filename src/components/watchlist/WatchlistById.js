@@ -3,10 +3,10 @@
   TODO: 
   1. Handle Error on fetching
 */
-import { getAllWatchlistEntryByWatchlistId } from "../../services/watchlist";
+import { getAllWatchlistEntryByWatchlistId } from "src/services/watchlist";
 import { useState } from "react";
-import Loading from "../loader/Loading";
-import WatchlistView from "./WatchlistView";
+import Loading from "src/components/loader/Loading";
+import WatchlistView from "src/components/watchlist/WatchlistView";
 export default function WatchlistById(props) {
   let companyUuids = [];
   const [page, setPage] = useState({

@@ -9,9 +9,9 @@
   TODO:
     1. remove div block space around grid with appropriate margin
 */
-import GridContainer from "../grid/GridContainer";
-import Loading from "../loader/Loading";
-import useWebSocket from "../../hooks/useWebSocket";
+import GridContainer from "src/components/grid/GridContainer";
+import Loading from "src/components/loader/Loading";
+import useWebSocket from "src/hooks/useWebSocket";
 export default function WatchlistView(props) {
   let data = new Map();
   let [isSubscriptionCompleted, myMap] = [false];

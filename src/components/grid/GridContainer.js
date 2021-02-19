@@ -9,7 +9,7 @@
   TODO:
     1. No data present
 */
-import PaginationContainer from "./PaginationContainer";
+import PaginationContainer from "src/components/grid/PaginationContainer";
 import { Grid } from "semantic-ui-react";
 export default function GridContainer(props) {
   return (

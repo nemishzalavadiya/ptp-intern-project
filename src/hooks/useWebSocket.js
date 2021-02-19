@@ -5,7 +5,7 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useState, useEffect } from "react";
-import { WebSocketUrl } from 'src/components/WebSocketUrl'
+import { WebSocketUrl } from 'src/components/Objects'
 export default function useWebSocket(uuidList) {
   const [myMap, setMyMap] = useState(new Map());
   const [isCompleted, setCompleted] = useState(false);

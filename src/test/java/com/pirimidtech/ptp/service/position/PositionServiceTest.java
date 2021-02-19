@@ -46,10 +46,19 @@ class PositionServiceTest {
     }
 
     @Test
-    void addToPosition() {
+    void addMutualFundToPosition() {
         AssetDetail assetDetail = ObjectUtility.assetDetail;
         Position position = ObjectUtility.position;
-        positionService.addToPosition(position, Action.BUY);
+        positionService.addMutualFundToPosition(position);
+        verify(positionRepository, times(1)).save(position);
+    }
+
+    @Test
+    void addStockToPosition() {
+        AssetDetail assetDetail = ObjectUtility.assetDetail;
+        Position position = ObjectUtility.position;
+        positionService.addStockToPosition(position,Action.BUY);
+        verify(positionRepository, times(1)).save(position);
         verify(positionRepository, times(1)).save(position);
     }
 }

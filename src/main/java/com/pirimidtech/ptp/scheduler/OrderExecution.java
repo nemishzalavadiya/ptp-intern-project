@@ -35,8 +35,8 @@ public class OrderExecution {
                     stockTradeRepository.save(stockTrade);
                     StockTradeHistory stockTradeHistory = new StockTradeHistory(null, new Date(), stockTrade.getStatus(), stockTrade);
                     stockTradeHistoryRepository.save(stockTradeHistory);
-                    Position position = new Position(null, stockTrade.getTradeVolume(), 0f, AssetClass.STOCK, stockTrade.getUser(), stockTrade.getStockDetail().getAssetDetail());
-                    positionService.addToPosition(position, stockTrade.getAction());
+                    Position position = new Position(null, stockTrade.getTradeVolume(), stockTrade.getPrice(), AssetClass.STOCK, stockTrade.getUser(), stockTrade.getStockDetail().getAssetDetail());
+                    positionService.addStockToPosition(position, stockTrade.getAction());
                 }
         );
 

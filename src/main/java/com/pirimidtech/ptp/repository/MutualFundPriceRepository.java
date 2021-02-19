@@ -9,4 +9,5 @@ import java.util.UUID;
 
 public interface MutualFundPriceRepository extends JpaRepository<MutualFundPrice, UUID> {
     List<MutualFundPrice> findAllByMutualFundDetailIdAndTimestampBetween(UUID mutualFundId, Date date1, Date date2);
+    MutualFundPrice findFirstByMutualFundDetailId(UUID mutualFundDetailId);
 }

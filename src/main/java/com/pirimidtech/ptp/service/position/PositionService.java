@@ -34,30 +34,51 @@ public class PositionService implements PositionServiceInterface {
     }
 
     @Override
-    public void addToPosition(Position position, Action action) {
+    public void addStockToPosition(Position position, Action action) {
+
         Optional<Position> positionOptional = positionRepository.findAllByUserIdAndAssetDetailId(position.getUser().getId(), position.getAssetDetail().getId());
         if (positionOptional.isPresent()) {
             Position oldPosition = positionOptional.get();
-            if (position.getAssetClass() == AssetClass.STOCK) {
-                if (action.equals(Action.BUY)) {
-                    oldPosition.setVolume(oldPosition.getVolume() + position.getVolume());
-                } else {
-                    oldPosition.setVolume(oldPosition.getVolume() - position.getVolume());
-                    if (oldPosition.getVolume() <= 0) {
-                        deleteFromPosition(oldPosition.getId());
-                        return;
-                    }
-
-                }
+            if (action.equals(Action.BUY)) {
+                float currentPrice = oldPosition.getPrice();
+                float currentVolume = oldPosition.getVolume();
+                float price = currentPrice*currentVolume;
+                float average = (price + position.getVolume()*position.getPrice())/(currentVolume + position.getVolume());
+                oldPosition.setPrice(average);
+                oldPosition.setVolume(oldPosition.getVolume() + position.getVolume());
             } else {
-                oldPosition.setPrice(oldPosition.getPrice() + position.getPrice());
+                if (oldPosition.getVolume() - position.getVolume()<= 0) {
+                    deleteFromPosition(oldPosition.getId());
+                    return;
+                }
+                float currentPrice = oldPosition.getPrice();
+                float currentVolume = oldPosition.getVolume();
+                float price = currentPrice*currentVolume;
+                float average = (price - position.getVolume()*position.getPrice())/(oldPosition.getVolume()-position.getVolume());
+                oldPosition.setPrice(average);
+                oldPosition.setVolume(oldPosition.getVolume() - position.getVolume());
             }
+            positionRepository.save(oldPosition);
+
+        }else
+        {
+            positionRepository.save(position);
+        }
+    }
+
+    public void addMutualFundToPosition(Position position) {
+        Optional<Position> positionOptional = positionRepository.findAllByUserIdAndAssetDetailId(position.getUser().getId(), position.getAssetDetail().getId());
+        if (positionOptional.isPresent()) {
+            Position oldPosition = positionOptional.get();
+            float currentPrice = oldPosition.getPrice(); // total
+            float currentVolume = oldPosition.getVolume(); // total unit
+            oldPosition.setPrice(currentPrice + position.getPrice());
+            oldPosition.setVolume(oldPosition.getVolume() + position.getVolume());
             positionRepository.save(oldPosition);
         } else {
             positionRepository.save(position);
         }
     }
-
     public Position getPositionByUserIdAndAssetDetailId(UUID userId, UUID assetDetailId) {
         Optional<Position> position = positionRepository.findAllByUserIdAndAssetDetailId(userId, assetDetailId);
         return position.isPresent() ? position.get() : null;

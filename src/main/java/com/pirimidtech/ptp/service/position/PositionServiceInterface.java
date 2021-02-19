@@ -11,5 +11,7 @@ public interface PositionServiceInterface {
 
     void deleteFromPosition(UUID positionId);
 
-    void addToPosition(Position position, Action action);
+    void addStockToPosition(Position position, Action action);
+
+    void addMutualFundToPosition(Position position);
 }

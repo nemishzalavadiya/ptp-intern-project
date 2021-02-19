@@ -1,16 +1,32 @@
 package com.pirimidtech.ptp.controller;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.Action;
+import com.pirimidtech.ptp.entity.AssetClass;
+import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.entity.MutualFundDetail;
+import com.pirimidtech.ptp.entity.MutualFundOrder;
+import com.pirimidtech.ptp.entity.MutualFundStatistic;
+import com.pirimidtech.ptp.entity.Position;
+import com.pirimidtech.ptp.entity.Status;
+import com.pirimidtech.ptp.entity.StockDetail;
+import com.pirimidtech.ptp.entity.StockTrade;
+import com.pirimidtech.ptp.entity.StockTradeHistory;
 import com.pirimidtech.ptp.exception.InsufficientStockException;
 import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
+import com.pirimidtech.ptp.repository.MutualFundStatisticRepository;
 import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.service.position.PositionService;
 import com.pirimidtech.ptp.service.trade.OrderService;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
@@ -31,6 +47,9 @@ public class OrderController {
 
     @Autowired
     private MutualFundDetailRepository mutualFundDetailRepository;
+
+    @Autowired
+    private MutualFundStatisticRepository mutualFundStatisticRepository;
 
     @Autowired
     private StockDetailRepository stockDetailRepository;
@@ -73,8 +92,9 @@ public class OrderController {
         mutualFundOrder = orderService.addToMutualFundOrder(mutualFundOrder);
         Optional<MutualFundDetail> mutualFundDetail = mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId());
         AssetDetail assetDetail = mutualFundDetail.get().getAssetDetail();
-        Position position = new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), assetDetail);
-        positionService.addToPosition(position, Action.BUY);
+        MutualFundStatistic mutualFundStatistic = mutualFundStatisticRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get();
+        Position position = new Position(null, mutualFundOrder.getPrice() / mutualFundStatistic.getNav(), mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), assetDetail);
+        positionService.addMutualFundToPosition(position);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 

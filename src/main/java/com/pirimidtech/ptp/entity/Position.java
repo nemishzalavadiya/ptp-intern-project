@@ -19,7 +19,7 @@ public class Position {
     @GeneratedValue
     private UUID id;
 
-    private int volume;
+    private float volume;
 
     private float price;
 

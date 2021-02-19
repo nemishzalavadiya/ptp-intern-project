@@ -25,6 +25,10 @@ public class MutualFundOrder {
     @Column(nullable = false)
     private float price;
 
+    private float initialAmount;
+
+    private float nav;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private InvestmentType investmentType;

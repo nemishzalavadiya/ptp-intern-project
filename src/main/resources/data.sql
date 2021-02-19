@@ -24,6 +24,41 @@ VALUES ('51381618-1bc9-4c19-aab9-44994433b187', 'about', 'MUTUAL_FUND', 'logo_ur
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b188', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
 
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b189', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b190', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b191', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b192', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b193', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b194', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b195', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b196', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b197', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b198', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b199', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+
+INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b200', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
 
 /** Stock Data **/
 
@@ -144,16 +179,88 @@ INSERT INTO public.watchlist_entry(
 
 INSERT INTO public.watchlist_entry(
 	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200005','51381618-1bc9-4c19-aab9-44994433b185', '00000000-0000-0000-0000-000000000002');
+	VALUES ('10000000-0000-0000-0000-000204200005','51381618-1bc9-4c19-aab9-44994433b185', '00000000-0000-0000-0000-000000000001');
 
 INSERT INTO public.watchlist_entry(
 	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200006','51381618-1bc9-4c19-aab9-44994433b186', '00000000-0000-0000-0000-000000000002');
+	VALUES ('10000000-0000-0000-0000-000204200006','51381618-1bc9-4c19-aab9-44994433b186', '00000000-0000-0000-0000-000000000001');
 
 INSERT INTO public.watchlist_entry(
 	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200007','51381618-1bc9-4c19-aab9-44994433b187', '00000000-0000-0000-0000-000000000002');
+	VALUES ('10000000-0000-0000-0000-000204200007','51381618-1bc9-4c19-aab9-44994433b187', '00000000-0000-0000-0000-000000000001');
 
 INSERT INTO public.watchlist_entry(
 	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b188', '00000000-0000-0000-0000-000000000002');
+	VALUES ('10010000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b188', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10020000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b189', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10030000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b190', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10040000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b191', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10050000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b192', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10060000-0000-0000-0010-000204200008','51381618-1bc9-4c19-aab9-44994433b193', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10060010-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b197', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10060020-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b196', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10060030-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b195', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10060040-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b198', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10060050-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b199', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10060000-0600-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b200', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10060000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b194', '00000000-0000-0000-0000-000000000001');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10070000-0000-0000-0000-000204200009','51381618-1bc9-4c19-aab9-44994433b194', '00000000-0000-0000-0000-000000000002');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10000000-0000-0000-0000-000204200016','51381618-1bc9-4c19-aab9-44994433b186', '00000000-0000-0000-0000-000000000002');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10000000-0000-0000-0000-000204200017','51381618-1bc9-4c19-aab9-44994433b187', '00000000-0000-0000-0000-000000000002');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10000000-0000-0000-0000-000214200018','51381618-1bc9-4c19-aab9-44994433b188', '00000000-0000-0000-0000-000000000002');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10000000-0000-0000-0000-000224200018','51381618-1bc9-4c19-aab9-44994433b189', '00000000-0000-0000-0000-000000000002');
+
+INSERT INTO public.watchlist_entry(
+	id, asset_detail_id, watchlist_id)
+	VALUES ('10000000-0000-0000-0000-000234200018','51381618-1bc9-4c19-aab9-44994433b190', '00000000-0000-0000-0000-000000000002');

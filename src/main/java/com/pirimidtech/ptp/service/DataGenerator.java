@@ -30,6 +30,18 @@ public class DataGenerator {
         companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b186"));
         companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b187"));
         companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b188"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b189"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b190"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b191"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b192"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b193"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b194"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b195"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b196"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b197"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b198"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b199"));
+        companyIdList.add(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b200"));
         companyNameList.add("China Petroleum & Chemical Corp. (SNP)");
         companyNameList.add("Royal Dutch Shell PLC (RDS. A)");
         companyNameList.add("Bharat Sanchar Nigam Limited");
@@ -38,12 +50,24 @@ public class DataGenerator {
         companyNameList.add("Oil and Natural Gas Corporation");
         companyNameList.add("CVS Health Corp. (CVS)");
         companyNameList.add("Bonn Group of Industries");
+        companyNameList.add("Cathay Pacific Airways Ltd. (CPA)");
+        companyNameList.add("LOCUS INTERNATIONAL CENTRE FOR ENTREPRENEURSHIP DEVELOPMENT AND INCUBATION SERVICES LIMITED");
+        companyNameList.add("British Airways");
+        companyNameList.add("Indian Private Corporation");
+        companyNameList.add("Bharat Oil Fund Risers");
+        companyNameList.add("Gujarat Solid Corporation");
+        companyNameList.add("Pirimid Software TechGiant");
+        companyNameList.add("Aoba Chorasi Technology");
+        companyNameList.add("Motorola Tech Pharma");
+        companyNameList.add("Sivaji Private Corporations");
+        companyNameList.add("Nadani Private Organization");
+        companyNameList.add("World Wide Private Library Fund Raiser");
     }
 
     public void setData() {
         DecimalFormat df = new DecimalFormat("##.##");
         df.setRoundingMode(RoundingMode.DOWN);
-        float Min = 20, Max = 1000;
+        float Min = 20, Max = 10000;
         if (dataGeneratorList.size() != companyIdList.size()) {
             for (int i = 0; i < companyNameList.size(); i++) {
                 DataGenerator dataGenerator = new DataGenerator();

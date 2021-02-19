@@ -8,22 +8,34 @@
 import { Grid, Pagination, Icon } from "semantic-ui-react";
 import { useState } from "react";
 export default function PaginationContainer(props) {
-
-  const [state,setState] = useState({
-    activePage: 0,
+  const [state, setState] = useState({
+    tabId: props.tabId,
+    activePage: 1,
     boundaryRange: 2,
     siblingRange: 2,
     totalPages: props.pagination.totalPages,
   });
-
-  function handlePaginationChange(e, { activePage }){
+  function handlePaginationChange(e, { activePage }) {
     setState({
+      tabId: props.tabId,
       activePage: activePage,
       boundaryRange: 2,
       siblingRange: 2,
       totalPages: props.pagination.totalPages,
-    })
+    });
     props.pagination.handlePaginationChange(activePage);
+  }
+  if (
+    state.tabId !== props.tabId ||
+    state.totalPages !== props.pagination.totalPages
+  ) {
+    setState({
+      tabId: props.tabId,
+      activePage: 1,
+      boundaryRange: 2,
+      siblingRange: 2,
+      totalPages: props.pagination.totalPages,
+    });
   }
 
   return (

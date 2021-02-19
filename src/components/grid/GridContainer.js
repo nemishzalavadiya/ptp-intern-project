@@ -14,7 +14,7 @@ export default function GridContainer(props) {
   return (
     <div className="ui grid" style={{ margin: "2% 2%",justifyContent:'center'}}>
       <div style={{ marginBottom:'30px'}}>
-        <PaginationContainer pagination={props.pagination} />
+        <PaginationContainer pagination={props.pagination} tabId={props.tabId} />
       </div>
       <div
         className="ui equal width grid"

@@ -9,27 +9,44 @@ import Loading from "../loader/Loading";
 import WatchlistView from "./WatchlistView";
 export default function WatchlistById(props) {
   let companyUuids = [];
-  const [page, setPage] = useState(0);
-  function handlePaginationChange(page) {
-    setPage(page-1);
-  }
+  const [page, setPage] = useState({
+    pages: 0,
+    watchlistId: props.watchlistId,
+  });
   const pagination = {
     activePage: page,
     totalPages: 2,
-    handlePaginationChange:handlePaginationChange
+    handlePaginationChange: handlePaginationChange,
+  };
+
+  const [
+    isContentFetchingCompleted,
+    response,
+  ] = getAllWatchlistEntryByWatchlistId(props.watchlistId, page.pages, 5);
+
+  function handlePaginationChange(page) {
+    setPage({ page: page - 1, watchlistId: page.watchlistId });
   }
-  const [isContentFetchingCompleted,response] = getAllWatchlistEntryByWatchlistId(props.watchlistId,page,5);
+
+  if (page.watchlistId !== props.watchlistId) {
+    setPage({ pages: 0, watchlistId: props.watchlistId });
+  }
+
   if (isContentFetchingCompleted) {
     let responseData = response.content;
     responseData.map((item) => {
       companyUuids.push(item.assetDetail.id);
     });
+    pagination.totalPages = response.totalPages;
   }
-  return isContentFetchingCompleted ? 
+  return isContentFetchingCompleted ? (
     <WatchlistView
-    content={props.content}
-    pagination={pagination}
-    companyUuids={companyUuids}
+      content={props.content}
+      pagination={pagination}
+      companyUuids={companyUuids}
+      tabId={props.watchlistId}
     />
-  :<Loading />
+  ) : (
+    <Loading />
+  );
 }

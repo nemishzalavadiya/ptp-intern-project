@@ -20,12 +20,12 @@ export default function WatchlistView(props) {
   data.clear();
   Array.from(myMap.values()).map((row) => {
     let companyData = Object.values(row);
-    companyData.shift();//remove time stamp
-    let key = companyData.shift();// geting companyId
+    companyData.shift(); //remove time stamp
+    let key = companyData.shift(); // geting companyId
     //adding commas to the numbers
     data.set(key, companyData);
   });
-  myMap.clear()
+  myMap.clear();
   return isSubscriptionCompleted ? (
     <>
       {
@@ -37,11 +37,12 @@ export default function WatchlistView(props) {
             flexDirection: "row",
           }}
         >
-            <GridContainer
-              content={props.content}
-              pagination={props.pagination}
-              data = {Array.from(data.values())}
-            />
+          <GridContainer
+            content={props.content}
+            pagination={props.pagination}
+            data={Array.from(data.values())}
+            tabId={props.tabId}
+          />
         </div>
       }
     </>

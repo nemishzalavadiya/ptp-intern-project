@@ -5,7 +5,7 @@
   1. Handle Error on fetching
 */
 import React from "react";
-import { Menu,Segment } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import { getAllWatchlistByUserId } from "../../services/watchlist";
 import Loading from "../loader/Loading";
 import WatchlistById from "./WatchlistById";
@@ -25,11 +25,11 @@ export default function Watchlist() {
   const [isContentFetchingCompleted, response] = getAllWatchlistByUserId(
     "00000000-0000-0000-0000-000000000000"
   );
-  function handleItemClick( index ){console.log("click ",index);setActiveItem(index)}
+  function handleItemClick( index ){setActiveItem(index)}
 
   return isContentFetchingCompleted ? (
-    <>
-      <Menu pointing secondary pagination color={'grey'}>
+    <div style={{backgroundColor:'black'}}>
+      <Menu pointing inverted secondary>
         {
           response.content.map((item,index)=>{
             return <Menu.Item
@@ -42,7 +42,7 @@ export default function Watchlist() {
         }
       </Menu>
         <WatchlistById content={content} watchlistId={response.content[activeItem].id}/>
-    </>
+    </div>
   ) : (
     <Loading />
   );

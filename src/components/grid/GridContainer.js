@@ -9,9 +9,9 @@
           tabId: string 
 */
 import PaginationContainer from "src/components/grid/PaginationContainer";
-import { Grid, Loader } from "semantic-ui-react";
+import { Grid, Icon } from "semantic-ui-react";
 export default function GridContainer(props) {
-  return ( props.data.length!==0?
+  return props.data.length !== 0 ? (
     <Grid
       columns="equal"
       style={{ minWidth: "800px", margin: "3px", justifyContent: "center" }}
@@ -60,5 +60,25 @@ export default function GridContainer(props) {
         />
       </div>
     </Grid>
-  :<Loader active>Loading</Loader>);
+  ) : (
+    <div
+      style={{
+        height: "300px",
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          margin: "0",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <Icon name="box" />
+        <div style={{ transform: "translateX(-25%)" }}>No Data</div>
+      </div>
+    </div>
+  );
 }

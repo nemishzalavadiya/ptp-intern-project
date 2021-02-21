@@ -25,7 +25,7 @@ export default function WatchlistView(props) {
     data.set(key, companyData);
   });
   myMap.clear();
-  return isSubscriptionCompleted ? (
+  return isSubscriptionCompleted && data.size === props.companyUuids.length ? (
     <>
       {
         <div
@@ -43,6 +43,6 @@ export default function WatchlistView(props) {
       }
     </>
   ) : (
-      <Loader active={!isSubscriptionCompleted}>Loading</Loader>
+    <Loader active={!isSubscriptionCompleted}>Loading</Loader>
   );
 }

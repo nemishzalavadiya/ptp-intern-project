@@ -18,14 +18,13 @@ export default function WatchlistById(props) {
     totalPages: 2,
     handlePaginationChange: handlePaginationChange,
   };
-
   const [
     isContentFetchingCompleted,
     response,
   ] = getAllWatchlistEntryByWatchlistId(props.watchlistId, page.pages, 5);
 
-  function handlePaginationChange(page) {
-    setPage({ page: page - 1, watchlistId: page.watchlistId });
+  function handlePaginationChange(pageNo) {
+    setPage({ pages: pageNo - 1, watchlistId: page.watchlistId });
   }
 
   if (page.watchlistId !== props.watchlistId) {

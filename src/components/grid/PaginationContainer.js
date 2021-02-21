@@ -25,7 +25,7 @@ export default function PaginationContainer(props) {
       siblingRange: 2,
       totalPages: props.pagination.totalPages,
     });
-    props.pagination.handlePaginationChange(activePage);
+    props.pagination.handlePaginationChange(activePage-1);
   }
   if (
     state.tabId !== props.tabId ||

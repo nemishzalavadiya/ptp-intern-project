@@ -23,7 +23,7 @@ export default function WatchlistById(props) {
   ] = getAllWatchlistEntryByWatchlistId(props.watchlistId, page.pages, 5);
 
   function handlePaginationChange(pageNo) {
-    setPage({ pages: pageNo - 1, watchlistId: page.watchlistId });
+    setPage({ pages: pageNo, watchlistId: page.watchlistId });
   }
 
   if (page.watchlistId !== props.watchlistId) {

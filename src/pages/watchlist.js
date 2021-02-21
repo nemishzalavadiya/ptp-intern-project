@@ -6,7 +6,7 @@ export default function Home() {
     <div style={{overflow:"scroll"}}>
     <Layout>
       <Head>
-        <title>Pirimid Trading Platform</title>
+        <title>My Watchlist</title>
         <link rel="icon" href="/favicon.svg" />
       </Head>
       <div style={{margin:"2% 9% 2% 6%"}}>

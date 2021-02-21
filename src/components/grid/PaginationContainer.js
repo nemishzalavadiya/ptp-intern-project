@@ -18,19 +18,23 @@ export default function PaginationContainer(props) {
     totalPages: props.pagination.totalPages,
   });
   function handlePaginationChange(e, { activePage }) {
+    props.pagination.handlePaginationChange(activePage-1);
+  }
+  if(state.activePage!== props.pagination.activePage+1){
     setState({
       tabId: props.tabId,
-      activePage: activePage,
+      activePage: props.pagination.activePage+1,
       boundaryRange: 2,
       siblingRange: 2,
       totalPages: props.pagination.totalPages,
     });
-    props.pagination.handlePaginationChange(activePage-1);
   }
+
   if (
     state.tabId !== props.tabId ||
     state.totalPages !== props.pagination.totalPages
   ) {
+    console.log("this one total page running")
     setState({
       tabId: props.tabId,
       activePage: 1,

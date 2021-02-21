@@ -13,7 +13,7 @@ export default function WatchlistById(props) {
     watchlistId: props.watchlistId,
   });
   const pagination = {
-    activePage: page,
+    activePage: page.pages,
     totalPages: 2,
     handlePaginationChange: handlePaginationChange,
   };

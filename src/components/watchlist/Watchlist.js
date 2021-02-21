@@ -29,8 +29,8 @@ export default function Watchlist() {
   function handleItemClick( index ){setActiveItem(index)}
 
   return isContentFetchingCompleted ? (
-    <div style={{backgroundColor:'#121212'}}>
-      <Menu pointing inverted secondary>
+    <>
+      <Menu pointing inverted secondary style={{border:'none'}}>
         {
           response.content.map((item,index)=>{
             return <Menu.Item
@@ -43,7 +43,7 @@ export default function Watchlist() {
         }
       </Menu>
         <WatchlistById content={content} watchlistId={response.content[activeItem].id}/>
-    </div>
+    </>
   ) : (
     <Loading />
   );

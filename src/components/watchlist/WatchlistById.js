@@ -1,11 +1,10 @@
 /*
   Component: WatchlistById
-  TODO: 
-  1. Handle Error on fetching
+  props: watchlistId: string, content: Object
 */
 import { getAllWatchlistEntryByWatchlistId } from "src/services/watchlist";
 import { useState } from "react";
-import Loading from "src/components/loader/Loading";
+import { Loader } from "semantic-ui-react";
 import WatchlistView from "src/components/watchlist/WatchlistView";
 export default function WatchlistById(props) {
   let companyUuids = [];
@@ -46,6 +45,6 @@ export default function WatchlistById(props) {
       tabId={props.watchlistId}
     />
   ) : (
-    <Loading />
+      <Loader active={!isContentFetchingCompleted}>Loading</Loader>
   );
 }

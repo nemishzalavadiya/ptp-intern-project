@@ -6,11 +6,10 @@
             handlePaginationChange(pageNumber): method
           },
           companyUuids*: company uuid list
-  TODO:
-    1. remove div block space around grid with appropriate margin
+          tabId: watchlistId
 */
 import GridContainer from "src/components/grid/GridContainer";
-import Loading from "src/components/loader/Loading";
+import { Loader } from "semantic-ui-react";
 import useWebSocket from "src/hooks/useWebSocket";
 export default function WatchlistView(props) {
   let data = new Map();
@@ -44,6 +43,6 @@ export default function WatchlistView(props) {
       }
     </>
   ) : (
-    <Loading />
+      <Loader active={!isSubscriptionCompleted}>Loading</Loader>
   );
 }

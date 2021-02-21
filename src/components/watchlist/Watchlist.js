@@ -1,16 +1,13 @@
 /*
   Component: Watchlist
   props: None
-  TODO: 
-  1. Handle Error on fetching
 */
 import React from "react";
-import { Menu } from "semantic-ui-react";
+import { Loader, Menu } from "semantic-ui-react";
 import { getAllWatchlistByUserId } from "src/services/watchlist";
-import Loading from "src/components/loader/Loading";
 import WatchlistById from "src/components/watchlist/WatchlistById";
-import { UserId } from 'src/components/Objects'
-import {useState} from 'react';
+import { UserId } from "src/components/Objects";
+import { useState } from "react";
 const content = [
   { header: "Company_Id", icon: "" },
   { header: "Open", icon: <i className="rupee sign icon small"></i> },
@@ -26,25 +23,29 @@ export default function Watchlist() {
   const [isContentFetchingCompleted, response] = getAllWatchlistByUserId(
     UserId.userId
   );
-  function handleItemClick( index ){setActiveItem(index)}
-
+  function handleItemClick(index) {
+    setActiveItem(index);
+  }
   return isContentFetchingCompleted ? (
     <>
-      <Menu pointing inverted secondary style={{border:'none'}}>
-        {
-          response.content.map((item,index)=>{
-            return <Menu.Item
-            key={index}
-            name={item.name}
-            active={activeItem === index}
-            onClick={()=>handleItemClick(index)}
-          />
-          })
-        }
+      <Menu pointing inverted secondary style={{ border: "none" }}>
+        {response.content.map((item, index) => {
+          return (
+            <Menu.Item
+              key={index}
+              name={item.name}
+              active={activeItem === index}
+              onClick={() => handleItemClick(index)}
+            />
+          );
+        })}
       </Menu>
-        <WatchlistById content={content} watchlistId={response.content[activeItem].id}/>
+      <WatchlistById
+        content={content}
+        watchlistId={response.content[activeItem].id}
+      />
     </>
   ) : (
-    <Loading />
+    <Loader active={!isContentFetchingCompleted}>Loading</Loader>
   );
 }

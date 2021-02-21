@@ -1,9 +1,11 @@
 /*
   Component: PaginationContainer
   props: pagination: Object {
-    activePage:number,totalPages*:number,
-    handlePaginationChange(pageNumber): method
-  }
+            activePage:number,totalPages*:number,
+            handlePaginationChange(pageNumber): method
+          },
+          tabId: string
+
 */
 import { Grid, Pagination, Icon } from "semantic-ui-react";
 import { useState } from "react";

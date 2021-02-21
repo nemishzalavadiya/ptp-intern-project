@@ -6,8 +6,7 @@
             activePage*:number,totalPages*:number,
             handlePaginationChange(pageNumber): method
           }
-  TODO:
-    1. No data present
+          tabId: string 
 */
 import PaginationContainer from "src/components/grid/PaginationContainer";
 import { Grid } from "semantic-ui-react";

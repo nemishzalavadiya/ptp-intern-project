@@ -18,7 +18,7 @@ export default function GridContainer(props) {
           <Grid.Row key={outerIndex} className="ui segment grid-row ">
             {row.map((item, innerIndex) =>
               innerIndex != 0 ? (
-                <div className="column" key={`${outerIndex} ${innerIndex}`}>
+                <Grid.Column key={`${outerIndex} ${innerIndex}`}>
                   <div className="grid-header-item">
                     {props.content[innerIndex].header}
                   </div>
@@ -28,14 +28,14 @@ export default function GridContainer(props) {
                       : null}
                     {isFinite(item) ? item.toLocaleString() : item}
                   </div>
-                </div>
+                </Grid.Column>
               ) : (
-                <div
-                  className="six wide column"
+                <Grid.Column 
+                  width="6"
                   key={`${outerIndex} ${innerIndex}`}
                 >
                   {item}
-                </div>
+                </Grid.Column>
               )
             )}
           </Grid.Row>

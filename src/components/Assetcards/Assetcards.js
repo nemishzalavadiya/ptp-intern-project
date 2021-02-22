@@ -3,9 +3,9 @@ import { Card, Loader } from "semantic-ui-react";
 import { getAllAssets } from "../../service/assets";
 import Link from "next/link";
 export default function Assetcards() {
-  console.log("before...")
+  console.log("before...");
   const [isComplete, response] = getAllAssets();
-  console.log("after, ", response)
+  console.log("after, ", response);
   return isComplete ? (
     <div className={styles.main}>
       <Card.Group centered itemsPerRow={1} stackable={true} doubling={true}>

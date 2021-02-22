@@ -25,3 +25,8 @@ export default function details() {
     <Loader active={!isComplete}>Loading</Loader>
   );
 }
+export async function getServerSideProps(context) {
+  return {
+    props: {},
+  };
+}

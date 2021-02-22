@@ -9,4 +9,6 @@ import java.util.UUID;
 
 public interface WatchlistEntryRepository extends JpaRepository<WatchlistEntry, UUID> {
     Page<WatchlistEntry> findByWatchlistId(UUID watchlistId, Pageable pageable);
+
+    Page<WatchlistEntry> findByWatchlistIdAndAssetDetailNameContainingIgnoreCase(UUID watchlistId, String AssetName, Pageable pageable);
 }

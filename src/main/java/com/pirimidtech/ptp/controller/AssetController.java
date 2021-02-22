@@ -1,8 +1,12 @@
 package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.entity.MutualFundStatistic;
+import com.pirimidtech.ptp.entity.StockStatistic;
 import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.service.asset.AssetService;
+import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
+import com.pirimidtech.ptp.service.stock.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +20,12 @@ import java.util.UUID;
 public class AssetController {
     @Autowired
     private AssetService assetService;
+
+    @Autowired
+    private StockService stockService;
+
+    @Autowired
+    private MutualFundService mutualFundService;
 
     @GetMapping(value = "/assets/{id}")
     public Optional<AssetDetail> getAssetDetail(@PathVariable UUID id) {
@@ -45,5 +55,21 @@ public class AssetController {
         Page<AssetDetail> assetDetailList;
         assetDetailList = assetService.searchAssetDetail(infix, paging);
         return assetDetailList;
+    }
+
+    @GetMapping(value = "/assets/stocks/{assetId}")
+    public Optional<StockStatistic> getStockStatisticByAssetId(@PathVariable UUID assetId) {
+        Optional<StockStatistic> stockStatistic = stockService.getStockStatisticByAssetId(assetId);
+        if (!stockStatistic.isPresent())
+            throw new NotFoundException();
+        return stockStatistic;
+    }
+
+    @GetMapping(value = "/assets/mutualfunds/{assetId}")
+    public Optional<MutualFundStatistic> getMutualFundStatisticByAssetId(@PathVariable UUID assetId) {
+        Optional<MutualFundStatistic> mutualFundStatistic = mutualFundService.getMutualFundStatisticByAssetId(assetId);
+        if (!mutualFundStatistic.isPresent())
+            throw new NotFoundException();
+        return mutualFundStatistic;
     }
 }

@@ -1,11 +1,9 @@
-import styles from "../../styles/Assetcards.module.css";
+import styles from "src/styles/Assetcards.module.scss";
 import { Card, Loader } from "semantic-ui-react";
-import { getAllAssets } from "../../services/assets";
+import { getAllAssets } from "src/services/assets";
 import Link from "next/link";
 export default function Assetcards() {
-  console.log("before...");
   const [isComplete, response] = getAllAssets();
-  console.log("after, ", response);
   return isComplete ? (
     <div className={styles.main}>
       <Card.Group centered itemsPerRow={1} stackable={true} doubling={true}>
@@ -25,7 +23,7 @@ export default function Assetcards() {
                 </Card.Header>
               </Card.Content>
               <Card.Content extra style={{ color: "white" }}>
-                {card.about} {card.assetClass}
+                {card.assetClass}
               </Card.Content>
             </Card>
           </Link>

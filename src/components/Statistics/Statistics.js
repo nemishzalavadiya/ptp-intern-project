@@ -1,6 +1,4 @@
-import { Button } from "react-bootstrap";
-import { Jumbotron } from "react-bootstrap";
-import styles from "../../styles/Statistics.module.css";
+import styles from "src/styles/Statistics.module.scss";
 export default function Statistics(props) {
   return props.assetClass == "STOCK" ? (
     <div>

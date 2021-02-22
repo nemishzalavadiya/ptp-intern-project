@@ -1,8 +1,8 @@
-import Statistics from "../Statistics/Statistics";
-import { getMfByAssetId } from "../../services/assets";
+import Statistics from "src/components/Statistics/Statistics";
+import { getMfByAssetId } from "src/services/assets";
 import { Loader } from "semantic-ui-react";
-import Chart from "../MutualFund/Chart";
-import styles from "../../styles/MutualFundDetail.module.css";
+import Chart from "src/components/MutualFund/Chart";
+import styles from "src/styles/MutualFundDetail.module.scss";
 export default function MutualFundDetail(props) {
   const [isComplete, response] = getMfByAssetId(props.mfId);
 

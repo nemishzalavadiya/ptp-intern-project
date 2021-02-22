@@ -1,4 +1,4 @@
-import { useFetch } from "../hooks/useFetch";
+import { useFetch } from "src/hooks/useFetch";
 
 function getAllAssets() {
   const [isComplete, data] = useFetch("/api/assets?page=0&size=10");
@@ -10,7 +10,6 @@ function getAssetById(id) {
 }
 function getStockByAssetId(id) {
   const [isStockFetched, stockDetail] = useFetch("/api/assets/stocks/" + id);
-  console.log("stock : ", stockDetail);
   return [isStockFetched, stockDetail];
 }
 function getMfByAssetId(id) {

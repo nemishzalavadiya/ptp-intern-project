@@ -1,0 +1,17 @@
+@import "./variables";
+.sideBar {
+	background-color: $cardGrey;
+	height: 100vh;
+	width: $navBarWidth;
+	ul {
+		list-style: none;
+		padding: 2rem 1rem;
+		margin: 0;
+		padding-top: 8rem;
+		text-align: center;
+	}
+	li {
+		cursor: pointer;
+		margin: 1rem 0;
+	}
+}

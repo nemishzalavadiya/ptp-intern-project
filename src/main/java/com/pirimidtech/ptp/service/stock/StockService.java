@@ -1,7 +1,9 @@
 package com.pirimidtech.ptp.service.stock;
 
+import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockStatistic;
+import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.repository.StockStatisticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +44,10 @@ public class StockService implements StockServiceInterface {
     @Override
     public void addStockStats(StockStatistic stockStatistic) {
         stockStatisticRepository.save(stockStatistic);
+    }
+
+    @Override
+    public Optional<StockStatistic> getStockStatisticByAssetId(UUID assetId) {
+        return stockStatisticRepository.findByStockDetail_AssetDetail_id(assetId);
     }
 }

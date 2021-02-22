@@ -1,6 +1,6 @@
 import styles from "../../styles/Assetcards.module.css";
 import { Card, Loader } from "semantic-ui-react";
-import { getAllAssets } from "../../service/assets";
+import { getAllAssets } from "../../services/assets";
 import Link from "next/link";
 export default function Assetcards() {
   console.log("before...");

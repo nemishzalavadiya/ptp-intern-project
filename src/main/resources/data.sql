@@ -1,64 +1,64 @@
 /** asset Data **/
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b181', 'about', 'STOCK', 'logo_url', 'nemish', 'ptp1', 'org1');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b181', 'about', 'STOCK', 'logo_url', 'nemish', 'China Petroleum & Chemical Corp. (SNP)', 'org1');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b182', 'about', 'STOCK', 'logo_url', 'harsh', 'ptp2', 'org2');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b182', 'about', 'STOCK', 'logo_url', 'harsh', 'Royal Dutch Shell PLC (RDS. A)', 'org2');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b183', 'about', 'STOCK', 'logo_url', 'harsh', 'ptp3', 'org3');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b183', 'about', 'STOCK', 'logo_url', 'harsh', 'Bharat Sanchar Nigam Limited', 'org3');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b184', 'about', 'STOCK', 'logo_url', 'Mohit', 'ptp4', 'org4');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b184', 'about', 'STOCK', 'logo_url', 'Mohit', 'Berkshire Hathaway Inc. (BRK.A)', 'org4');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b185', 'about', 'MUTUAL_FUND', 'logo_url', 'devesh', 'ptp5', 'org5');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b185', 'about', 'MUTUAL_FUND', 'logo_url', 'devesh', 'Toyota Motor Corp. (TM)', 'org5');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b186', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp6', 'org6');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b186', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Oil and Natural Gas Corporation', 'org6');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b187', 'about', 'MUTUAL_FUND', 'logo_url', 'devesh', 'ptp7', 'org7');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b187', 'about', 'MUTUAL_FUND', 'logo_url', 'devesh', 'CVS Health Corp. (CVS)', 'org7');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b188', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp8', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b188', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Bonn Group of Industries', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b189', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp9', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b189', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Cathay Pacific Airways Ltd. (CPA)', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b190', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp10', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b190', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'LOCUS INTERNATIONAL CENTRE FOR ENTREPRENEURSHIP DEVELOPMENT AND INCUBATION SERVICES LIMITED', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b191', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp11', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b191', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'British Airways', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b192', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp12', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b192', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Indian Private Corporation', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b193', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp13', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b193', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Bharat Oil Fund Risers', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b194', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp14', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b194', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Gujarat Solid Corporation', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b195', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp15', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b195', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Pirimid Software TechGiant', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b196', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp16', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b196', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Aoba Chorasi Technology', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b197', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp17', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b197', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Motorola Tech Pharma', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b198', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp18', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b198', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Sivaji Private Corporations', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b199', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp19', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b199', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Nadani Private Organization', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b200', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'ptp20', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b200', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'World Wide Private Library Fund Raiser', 'org8');
 
 /** Stock Data **/
 
@@ -236,14 +236,16 @@ VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9
 INSERT INTO public.user_detail(id, date_of_birth, dpurl, email, gender, mobile_no, pan_card, signature_url, name)
 VALUES ('00000000-0000-0000-0000-000000000000', '23/10/1999', 'dpUrl', 'dummy1@gmail.com', 'MALE', '9876543211',
         'panCardNumber', 'signatureUrl', 'XYZ');
-INSERT INTO public.watchlist(
-    id, user_id, name, description)
-    VALUES ('00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000','one','description');
 
 INSERT INTO public.watchlist(
     id, user_id, name, description)
-    VALUES ('00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000','two','description');
-
+    VALUES ('00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000','Stock','Stock Fortune Companies');
+INSERT INTO public.watchlist(
+    id, user_id, name, description)
+    VALUES ('00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000','Mutual Fund','MutualFunds Investment Companies');
+INSERT INTO public.watchlist(
+    id, user_id, name, description)
+    VALUES ('00000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000000','Both','Stock & MutualFunds Together');
 
 INSERT INTO public.stock_price(id, price, stock_exchange, timestamp, stock_detail_id)
 VALUES ('00000000-0000-0000-1000-000000000000', 100, 'BSE', '2020-01-21T05:47:08.644',

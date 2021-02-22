@@ -1,0 +1,61 @@
+.loading {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  max-height: 50px;
+  max-width: 50px;
+}
+
+.dot1 {
+  font-size: 8vh;
+  visibility: hidden;
+  -webkit-animation: processing 0.9s linear 0.3s infinite;
+          animation: processing 0.9s linear 0.3s infinite;
+}
+
+.dot2 {
+  font-size: 8vh;
+  visibility: hidden;
+  -webkit-animation: processing 0.9s linear 0.6s infinite;
+          animation: processing 0.9s linear 0.6s infinite;
+}
+
+.dot3 {
+  font-size: 8vh;
+  visibility: hidden;
+  -webkit-animation: processing 0.9s linear 0.9s infinite;
+          animation: processing 0.9s linear 0.9s infinite;
+}
+
+@-webkit-keyframes processing {
+  0% {
+    visibility: visible;
+    color: black;
+  }
+  75% {
+    visibility: hidden;
+    color: #161670;
+  }
+}
+
+@keyframes processing {
+  0% {
+    visibility: visible;
+    color: black;
+  }
+  75% {
+    visibility: hidden;
+    color: #161670;
+  }
+}
+
+.dots-span-container {
+  margin-left: -4vh;
+  font-size: 3vh;
+  font-weight: bold;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+/*# sourceMappingURL=Loading.module.css.map */

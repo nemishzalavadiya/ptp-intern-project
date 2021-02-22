@@ -1,0 +1,14 @@
+.jumbo {
+  background-size: cover;
+  color: #737373;
+  height: 80px;
+  position: relative;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.about {
+  margin: 25px 0px;
+}
+/*# sourceMappingURL=Statistics.module.css.map */

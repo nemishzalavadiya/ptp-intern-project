@@ -12,29 +12,17 @@ import PaginationContainer from "src/components/grid/PaginationContainer";
 import { Grid, Icon } from "semantic-ui-react";
 export default function GridContainer(props) {
   return props.data.length !== 0 ? (
-    <Grid
-      columns="equal"
-      style={{ minWidth: "800px", margin: "3px", justifyContent: "center" }}
-    >
+    <Grid columns="equal" className="grid-container">
       {props.data.map((row, outerIndex) => {
         return (
-          <div
-            key={outerIndex}
-            className="row ui segment"
-            style={{
-              padding: "5vh 2vh",
-              backgroundColor: "rgb(33, 33, 33)",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
+          <Grid.Row key={outerIndex} className="ui segment grid-row ">
             {row.map((item, innerIndex) =>
               innerIndex != 0 ? (
                 <div className="column" key={`${outerIndex} ${innerIndex}`}>
-                  <div style={{ fontSize: "0.7rem", minWidth: "90px" }}>
+                  <div className="grid-header-item">
                     {props.content[innerIndex].header}
                   </div>
-                  <div style={{ fontSize: "0.9rem", minWidth: "90px" }}>
+                  <div className="grid-item">
                     {props.content[innerIndex].icon
                       ? props.content[innerIndex].icon
                       : null}
@@ -50,10 +38,10 @@ export default function GridContainer(props) {
                 </div>
               )
             )}
-          </div>
+          </Grid.Row>
         );
       })}
-      <div style={{ marginTop: "30px" }}>
+      <div>
         <PaginationContainer
           pagination={props.pagination}
           tabId={props.tabId}
@@ -61,23 +49,10 @@ export default function GridContainer(props) {
       </div>
     </Grid>
   ) : (
-    <div
-      style={{
-        height: "300px",
-        position: "relative",
-      }}
-    >
-      <div
-        style={{
-          margin: "0",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-      >
+    <div className="outer-div">
+      <div className="inner-div">
         <Icon name="box" />
-        <div style={{ transform: "translateX(-25%)" }}>No Data</div>
+        <div className="icon-content">No Data</div>
       </div>
     </div>
   );

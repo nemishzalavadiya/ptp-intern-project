@@ -28,7 +28,7 @@ export default function Watchlist() {
   }
   return isContentFetchingCompleted ? (
     <>
-      <Menu pointing inverted secondary style={{ border: "none" }}>
+      <Menu pointing inverted secondary className="tab-menu">
         {response.content.map((item, index) => {
           return (
             <Menu.Item

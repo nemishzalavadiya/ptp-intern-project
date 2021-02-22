@@ -29,18 +29,12 @@ export default function WatchlistView(props) {
   return isSubscriptionCompleted && data.size === props.companyUuids.length ? (
     <>
       {
-        <div
-          style={{
-            backgroundColor: "#121212",
-          }}
-        >
-          <GridContainer
-            content={props.content}
-            pagination={props.pagination}
-            data={Array.from(data.values())}
-            tabId={props.tabId}
-          />
-        </div>
+        <GridContainer
+          content={props.content}
+          pagination={props.pagination}
+          data={Array.from(data.values())}
+          tabId={props.tabId}
+        />
       }
     </>
   ) : (

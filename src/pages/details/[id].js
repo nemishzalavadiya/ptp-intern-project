@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { getAssetById } from "../../service/assets";
+import { getAssetById } from "../../services/assets";
 import Stockdetail from "../../components/Stockdetail/Stockdetail";
 import MutualFundDetail from "../../components/Mutualfund/MutualfundDetail";
 import Layout from "../../components/Layout";

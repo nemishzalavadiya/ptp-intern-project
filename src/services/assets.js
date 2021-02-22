@@ -1,4 +1,4 @@
-import { useFetch } from "../hook/useFetch";
+import { useFetch } from "../hooks/useFetch";
 
 function getAllAssets() {
   const [isComplete, data] = useFetch("/api/assets?page=0&size=10");

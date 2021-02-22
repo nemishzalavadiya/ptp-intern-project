@@ -1,6 +1,6 @@
 import Statistics from "../Statistics/Statistics";
 import Chart from "./Chart";
-import { getStockByAssetId } from "../../service/assets";
+import { getStockByAssetId } from "../../services/assets";
 import { Loader } from "semantic-ui-react";
 import styles from "../../styles/Stockdetail.module.css";
 export default function Stockdetail(props) {

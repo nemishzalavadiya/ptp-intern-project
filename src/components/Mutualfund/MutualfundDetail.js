@@ -1,5 +1,5 @@
 import Statistics from "../Statistics/Statistics";
-import { getMfByAssetId } from "../../service/assets";
+import { getMfByAssetId } from "../../services/assets";
 import { Loader } from "semantic-ui-react";
 import Chart from "../MutualFund/Chart";
 import styles from "../../styles/MutualFundDetail.module.css";

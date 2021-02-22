@@ -1,4 +1,4 @@
-import styles from "../styles/NavBar.module.css";
+import styles from "src/styles/NavBar.module.css";
 import Link from "next/link";
 import { Popup } from "semantic-ui-react";
 const NavBar = () => {
@@ -30,7 +30,7 @@ const NavBar = () => {
 					</Link>
 				</li>
 				<li>
-					<Link href="/test">
+					<Link href="/watchlist">
 						<div>
 							<Popup
 								trigger={<img src="/round_add_shopping_cart_white_48dp.png" alt="Watchlist" />}

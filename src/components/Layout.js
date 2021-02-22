@@ -1,7 +1,7 @@
-import NavBar from "../components/NavBar";
+import NavBar from "src/components/NavBar";
 import "semantic-ui-css/semantic.min.css";
-import styles from "../styles/Layout.module.css";
-import TopNavBar from "./TopNavBar";
+import styles from "src/styles/Layout.module.css";
+import TopNavBar from "src/components/TopNavBar";
 
 const Layout = ({ children }) => {
 	return (

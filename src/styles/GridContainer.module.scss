@@ -1,0 +1,24 @@
+@import "_variables";
+.ui.grid.grid-container {
+  margin: 3px;
+  justify-content: center;
+  min-width: 800px;
+}
+
+.row.ui.segment.grid-row {
+  padding: 5vh 2vh;
+  background-color: $cardGrey;
+  color: $white;
+  cursor: pointer;
+}
+.grid-header-item {
+  font-size: 0.7rem;
+  min-width: 90px;
+}
+.grid-item {
+  font-size: 0.9rem;
+  min-width: 90px;
+}
+.icon-content{
+  transform: translateX(-25%);
+}

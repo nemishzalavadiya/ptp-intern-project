@@ -1,7 +1,7 @@
-import MainSearch from "./MainSearch";
+import MainSearch from "src/components/MainSearch";
 import { Button } from "semantic-ui-react";
 import Link from "next/link";
-import styles from "../styles/TopNavBar.module.css";
+import styles from "src/styles/TopNavBar.module.css";
 const TopNavBar = () => {
 	return (
 		<div className={styles.header}>

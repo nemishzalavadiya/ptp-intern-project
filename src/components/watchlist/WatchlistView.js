@@ -16,15 +16,16 @@ export default function WatchlistView(props) {
   let [isSubscriptionCompleted, myMap] = [false];
   [isSubscriptionCompleted, myMap] = useWebSocket(props.companyUuids);
 
+  //processing data
   data.clear();
   Array.from(myMap.values()).forEach((row) => {
     let companyData = Object.values(row);
     companyData.shift(); //remove time stamp
     let key = companyData.shift(); // geting companyId
-    //adding commas to the numbers
     data.set(key, companyData);
   });
   myMap.clear();
+
   return isSubscriptionCompleted && data.size === props.companyUuids.length ? (
     <>
       {
@@ -43,6 +44,12 @@ export default function WatchlistView(props) {
       }
     </>
   ) : (
-    <Loader active={!isSubscriptionCompleted}>Loading</Loader>
+    <Loader
+      active={
+        !(isSubscriptionCompleted && data.size === props.companyUuids.length)
+      }
+    >
+      Loading
+    </Loader>
   );
 }

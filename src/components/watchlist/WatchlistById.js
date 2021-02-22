@@ -27,6 +27,7 @@ export default function WatchlistById(props) {
   }
 
   if (page.watchlistId !== props.watchlistId) {
+    companyUuids.length=0;
     setPage({ pages: 0, watchlistId: props.watchlistId });
   }
 

@@ -1,6 +1,6 @@
-import Statistics from "src/components/Statistics/Statistics";
+import StatisticMf from "src/components/Statistics/StatisticMf";
 import { getMfByAssetId } from "src/services/assets";
-import { Loader } from "semantic-ui-react";
+import { Header, Loader } from "semantic-ui-react";
 import Chart from "src/components/MutualFund/Chart";
 import styles from "src/styles/MutualFundDetail.module.scss";
 export default function MutualFundDetail(props) {
@@ -8,14 +8,11 @@ export default function MutualFundDetail(props) {
 
   return isComplete ? (
     <div className={styles.divMain}>
-      <h2 className="ui header" style={{ color: "white" }}>
+      <Header as="h2" className="ui header stats">
         {response.mutualFundDetail.assetDetail.name}
-      </h2>
+      </Header>
       <Chart />
-      <Statistics
-        mfDetail={response}
-        assetClass={response.mutualFundDetail.assetDetail.assetClass}
-      />
+      <StatisticMf mfDetail={response} />
     </div>
   ) : response.error ? (
     <div>{response.error}</div>

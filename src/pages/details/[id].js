@@ -4,18 +4,19 @@ import Stockdetail from "src/components/Stockdetail/Stockdetail";
 import MutualFundDetail from "src/components/Mutualfund/MutualfundDetail";
 import Layout from "src/components/Layout";
 import { Loader } from "semantic-ui-react";
+import {AssetClass} from "src/components/AssetClass.ts";
 export default function details() {
   const router = useRouter();
   const { id } = router.query;
   const [isComplete, response] = getAssetById(id);
   return isComplete ? (
-    response.assetClass == "STOCK" ? (
+    response.assetClass == AssetClass.STOCK ? (
       <Layout>
-        <Stockdetail stockId={router.query.id} />
+        <Stockdetail stockId={id} />
       </Layout>
     ) : (
       <Layout>
-        <MutualFundDetail mfId={router.query.id} />
+        <MutualFundDetail mfId={id} />
       </Layout>
     )
   ) : (

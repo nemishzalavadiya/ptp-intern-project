@@ -1,20 +1,16 @@
-import Statistics from "src/components/Statistics/Statistics";
+import StatisticStock from "src/components/Statistics/StatisticStock";
 import Chart from "src/components/Stockdetail/Chart";
 import { getStockByAssetId } from "src/services/assets";
-import { Loader } from "semantic-ui-react";
-import styles from "src/styles/Stockdetail.module.scss";
+import { Header, Loader } from "semantic-ui-react";
 export default function Stockdetail(props) {
   const [isComplete, response] = getStockByAssetId(props.stockId);
   return isComplete ? (
-    <div className={styles.divMain}>
-      <h2 className="ui header" style={{ color: "white" }}>
+    <div className="divMain">
+      <Header as="h2" className="ui header stockDetail">
         {response.stockDetail.assetDetail.name}
-      </h2>
+      </Header>
       <Chart />
-      <Statistics
-        stockDetail={response}
-        assetClass={response.stockDetail.assetDetail.assetClass}
-      />
+      <StatisticStock stockDetail={response} />
     </div>
   ) : response.error ? (
     <div>{response.error}</div>

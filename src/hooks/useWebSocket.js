@@ -19,6 +19,7 @@ export default function useWebSocket(uuidList) {
           function (data) {
             let contentBody = JSON.parse(data.body);
             myMap.set(uuid, contentBody);
+            console.log('WebSocket',contentBody);
             setMyMap(new Map(myMap));
           },
           { id: uuid }

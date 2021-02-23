@@ -14,10 +14,12 @@ import useWebSocket from "src/hooks/useWebSocket";
 export default function WatchlistView(props) {
   let data = new Map();
   let [isSubscriptionCompleted, myMap] = [false];
+
   [isSubscriptionCompleted, myMap] = useWebSocket(props.companyUuids);
 
   //processing data
   data.clear();
+  console.log(myMap.values());
   Array.from(myMap.values()).forEach((row) => {
     let companyData = Object.values(row);
     companyData.shift(); //remove time stamp
@@ -25,7 +27,8 @@ export default function WatchlistView(props) {
     data.set(key, companyData);
   });
   myMap.clear();
-
+  console.log(data,props.companyUuids);
+  console.log(isSubscriptionCompleted , data.size , props.companyUuids.length);
   return isSubscriptionCompleted && data.size === props.companyUuids.length ? (
     <>
       {

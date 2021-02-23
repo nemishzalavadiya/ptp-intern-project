@@ -6,6 +6,7 @@ import React from "react";
 import { Loader, Menu } from "semantic-ui-react";
 import { getAllWatchlistByUserId } from "src/services/watchlist";
 import WatchlistById from "src/components/watchlist/WatchlistById";
+import StockSearch from "src/components/watchlist/StockSearch";
 import { UserId } from "src/components/Objects";
 import { useState } from "react";
 const content = [
@@ -40,10 +41,9 @@ export default function Watchlist() {
           );
         })}
       </Menu>
-      <WatchlistById
-        content={content}
-        watchlistId={response.content[activeItem].id}
-      />
+      <div style={{padding:10}}>
+      <StockSearch/>
+      </div>
     </>
   ) : (
     <Loader active={!isContentFetchingCompleted}>Loading</Loader>

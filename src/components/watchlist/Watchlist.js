@@ -42,7 +42,10 @@ export default function Watchlist() {
         })}
       </Menu>
       <div style={{padding:10}}>
-      <StockSearch/>
+      <StockSearch
+        content={content}
+        watchlistId={response.content[activeItem].id}
+      />
       </div>
     </>
   ) : (

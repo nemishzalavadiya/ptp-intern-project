@@ -1,3 +1,7 @@
+/*
+  Component: WatchlistById
+  props: watchlistId: string, content: Object
+*/
 import { getAllWatchlistEntryByWatchlistId } from "src/services/watchlist";
 import { useState } from "react";
 import { Loader } from "semantic-ui-react";
@@ -23,20 +27,18 @@ export default function WatchlistById(props) {
   }
 
   if (page.watchlistId !== props.watchlistId) {
-    companyUuids.length=0;
+    companyUuids.length = 0;
     setPage({ pages: 0, watchlistId: props.watchlistId });
   }
 
   if (isContentFetchingCompleted) {
-    //let responseData = response.content;
-    
-      props.list.forEach((item) => {
-        companyUuids.push(item.id);
-        });
-    
-     
-   // pagination.totalPages = response.totalPages;
+    let responseData = response.content;
+    responseData.forEach((item) => {
+      companyUuids.push(item.assetDetail.id);
+    });
+    pagination.totalPages = response.totalPages;
   }
+  console.log(isContentFetchingCompleted,companyUuids);
   return isContentFetchingCompleted ? (
     <WatchlistView
       content={props.content}
@@ -45,6 +47,6 @@ export default function WatchlistById(props) {
       tabId={props.watchlistId}
     />
   ) : (
-      <Loader active={!isContentFetchingCompleted}>Loading</Loader>
+    <Loader active={!isContentFetchingCompleted}>Loading</Loader>
   );
 }

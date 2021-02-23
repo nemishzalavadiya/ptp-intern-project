@@ -30,7 +30,6 @@ export default function WatchlistById(props) {
     companyUuids.length = 0;
     setPage({ pages: 0, watchlistId: props.watchlistId });
   }
-
   if (isContentFetchingCompleted) {
     let responseData = response.content;
     responseData.forEach((item) => {
@@ -38,7 +37,6 @@ export default function WatchlistById(props) {
     });
     pagination.totalPages = response.totalPages;
   }
-  console.log(isContentFetchingCompleted,companyUuids);
   return isContentFetchingCompleted ? (
     <WatchlistView
       content={props.content}

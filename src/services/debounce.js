@@ -11,7 +11,6 @@ function debounce(funct, wait, leading) {
         setTimeoutId = null;
         //check if funct is already completed.
         if (!leading) funct.apply(context, args);
-        console.log(args);
       };
       //check when to execute funct
       var immediateRun = leading && !setTimeoutId;

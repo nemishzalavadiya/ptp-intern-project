@@ -34,7 +34,6 @@ export default function PaginationContainer(props) {
     state.tabId !== props.tabId ||
     state.totalPages !== props.pagination.totalPages
   ) {
-    console.log("this one total page running")
     setState({
       tabId: props.tabId,
       activePage: 1,

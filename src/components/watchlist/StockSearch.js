@@ -3,6 +3,7 @@ import { Search } from "semantic-ui-react";
 import WatchlistView from "src/components/watchlist/WatchlistView";
 import WatchlistById from "src/components/watchlist/WatchlistById";
 import { useFetch } from "src/hooks/useFetch";
+import debounce from "src/services/debounce";
 
 export default function StockSearch(props) {
   const [value, setValue] = useState("");
@@ -36,16 +37,16 @@ export default function StockSearch(props) {
       <Search
         fluid
         size="big"
-        onSearchChange={(e, data) => handleSearchChange(e, data)}
+        onSearchChange={(e, data) => debounce(handleSearchChange(e, data),100)}
       />{" "}
       {isCompleted && value != "" ? (
         <div>
-          {/* <WatchlistView
+           <WatchlistView
             content={props.content}
             companyUuids={lists}
             pagination={pagination}
             tabId={props.watchlistId}
-          /> */}
+          /> 
         </div>
       ) : (
         <WatchlistById

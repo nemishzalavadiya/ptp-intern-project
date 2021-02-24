@@ -7,47 +7,66 @@ import debounce from "src/services/debounce";
 
 export default function StockSearch(props) {
   const [value, setValue] = useState("");
-  let lists = [];
-  let [isCompleted, data] = [false];
+  const [page, setPage] = useState({
+    pages: 0,
+    watchlistId: props.watchlistId,
+  });
+  let companyUuids = [];
+  let [isCompleted, response] = [false];
 
-  let url = `/api/watchlist/searchWatchlist?AssetName=${value}&watchlistID=${props.watchlistId}`;
-  [isCompleted, data] = useFetch(url);
+  [isCompleted, response] = getAllWatchlistEntryByWatchlistId(
+    props.watchlistId,
+    value,
+    page.pages,
+    5
+  );
+
+  function handlePaginationChange(pageNo) {
+    setPage({ pages: pageNo, watchlistId: page.watchlistId });
+  }
   const pagination = {
-    activePage: 0,
-    totalPages: 20,
-    //handlePaginationChange: handlePaginationChange,
+    activePage: page.pages,
+    totalPages: 2,
+    handlePaginationChange: handlePaginationChange,
   };
+
+  if (page.watchlistId !== props.watchlistId) {
+    companyUuids.length = 0;
+    setPage({ pages: 0, watchlistId: props.watchlistId });
+  }
+
   function handleSearchChange(e, data) {
     setValue(data.value);
   }
   if (isCompleted) {
-    lists = [];
-    data.forEach((item) => {
-      lists.push(item.assetDetail.id);
+    companyUuids.length = 0;
+    response.content.forEach((item) => {
+      companyUuids.push(item.assetDetail.id);
     });
+    pagination.totalPages = response.totalPages;
   }
   return (
     <>
-      <Search
-        fluid
-        size="big"
-        onSearchChange={(e, data) => debounce(handleSearchChange(e, data), 100)}
-      />{" "}
+      <Search handleSearchChange={handleSearchChange} placeholder={"Search In Watchlist..."} />
       {isCompleted && value != "" ? (
         <div>
           <WatchlistView
             content={props.content}
-            companyUuids={lists}
+            companyUuids={companyUuids}
             pagination={pagination}
             tabId={props.watchlistId}
           />
         </div>
       ) : isCompleted ? (
-        <WatchlistById
+        <WatchlistView
           content={props.content}
-          watchlistId={props.watchlistId}
+          companyUuids={companyUuids}
+          pagination={pagination}
+          tabId={props.watchlistId}
         />
-      ) : <Loader active>Loading</Loader>}
+      ) : (
+        <Loader active>Loading</Loader>
+      )}
     </>
   );
 }

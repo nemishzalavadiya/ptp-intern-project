@@ -18,7 +18,7 @@ function debounce(funct, wait, leading) {
       clearTimeout(setTimeoutId);
       setTimeoutId = setTimeout(setDelayFunc, wait);
       if (immediateRun){
-        funct.apply(context, args);console.log(args);
+        funct.apply(context, args);
       }
     };
   };

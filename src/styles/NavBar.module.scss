@@ -17,9 +17,12 @@
 }
 .list-container{
 	position: fixed;
-	top: 30%;
+	top: 25%;
+	background-color: $cardGrey;
 }
 .list-container > .list-item {
-	margin: 18px;
+	margin: 10px;
+	margin-left: 2px;
+	cursor: pointer;
 }
 

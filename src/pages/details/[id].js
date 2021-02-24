@@ -11,11 +11,11 @@ export default function details() {
   const [isComplete, response] = getAssetById(id);
   return isComplete ? (
     response.assetClass == AssetClass.STOCK ? (
-      <Layout>
+      <Layout name="STOCK">
         <Stockdetail stockId={id} />
       </Layout>
     ) : (
-      <Layout>
+      <Layout name="MUTUAL_FUND">
         <MutualFundDetail mfId={id} />
       </Layout>
     )

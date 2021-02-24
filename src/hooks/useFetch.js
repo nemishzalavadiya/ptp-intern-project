@@ -9,7 +9,6 @@ function useFetch(url) {
     error: false,
     isComplete: false,
   });
-
   async function fetchUrl(Url) {
     try {
       await fetch(Url)

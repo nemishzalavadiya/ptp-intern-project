@@ -37,7 +37,7 @@ export default function StockSearch(props) {
       <Search
         fluid
         size="big"
-        onSearchChange={(e, data) => debounce(handleSearchChange(e, data),100)}
+        onSearchChange={(e, data) => handleSearchChange(e, data)}
       />{" "}
       {isCompleted && value != "" ? (
         <div>

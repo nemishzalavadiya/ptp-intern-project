@@ -14,6 +14,7 @@ export default function useWebSocket(uuidList) {
     stompClient.debug = (f) => f;
     stompClient.connect({}, function (frame) {
       uuidList.forEach((uuid) => {
+        console.log("sub ",uuid)
         stompClient.subscribe(
           "/topic/" + uuid,
           function (data) {
@@ -32,17 +33,20 @@ export default function useWebSocket(uuidList) {
     const webSocket = new SockJS(WebSocketUrl.url);
     const stompClient = Stomp.over(webSocket);
 
+    try {
       setUpSubscription(stompClient);
-
+    } catch (e) {}
     return () => {
       function cleanUp(uuidList, stompClient) {
          uuidList.forEach((uuid) => {
+          console.log("un-sub: ",uuid)
           stompClient.unsubscribe(uuid);
         });
         stompClient.disconnect();
       }
-      
+      try {
         cleanUp(uuidList, stompClient);
+      } catch (e) {}
     };
   }, [uuidList]);
   return [isCompleted, myMap];

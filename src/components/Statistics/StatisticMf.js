@@ -1,4 +1,4 @@
-import { Header } from "semantic-ui-react";
+import { Header, Table } from "semantic-ui-react";
 export default function StatisticMf(props) {
   const {
     risk,
@@ -18,44 +18,44 @@ export default function StatisticMf(props) {
         Statistics
       </Header>
       <section>
-        <table className="ui inverted table segment">
-          <thead>
-            <tr>
-              <th>Minimum SIP</th>
-              <th>Risk</th>
-              <th>Expense Ratio</th>
-              <th>NAV</th>
-              <th>Fund Started</th>
-              <th>Fund Size</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{minSIP}</td>
-              <td>{risk}</td>
-              <td>{expenseRatio}</td>
-              <td>{nav}</td>
-              <td>{fundStarted}</td>
-              <td>{fundSize}</td>
-            </tr>
-          </tbody>
-        </table>
+        <Table inverted>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Minimum SIP</Table.HeaderCell>
+              <Table.HeaderCell>Risk</Table.HeaderCell>
+              <Table.HeaderCell>Expense Ratio</Table.HeaderCell>
+              <Table.HeaderCell>NAV</Table.HeaderCell>
+              <Table.HeaderCell>Fund Started</Table.HeaderCell>
+              <Table.HeaderCell>Fund Size</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>{minSIP}</Table.Cell>
+              <Table.Cell>{risk}</Table.Cell>
+              <Table.Cell>{expenseRatio}</Table.Cell>
+              <Table.Cell>{nav}</Table.Cell>
+              <Table.Cell>{fundStarted}</Table.Cell>
+              <Table.Cell>{fundSize}</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
       </section>
       <br />
       <div className="about">
-        <Header as="h2" className="ui header stats">
+        <Header as="h2" className="stats">
           About
         </Header>
-        <Header as="h3" className="ui header stats">
+        <Header as="h3" className="stats">
           {about}
         </Header>
       </div>
       <br />
       <div className="about">
-        <Header as="h2" className="ui header stats">
+        <Header as="h2" className="stats">
           Fund Manager
         </Header>
-        <Header as="h3" className="ui header stats">
+        <Header as="h3" className="stats">
           {fundManager}
         </Header>
       </div>

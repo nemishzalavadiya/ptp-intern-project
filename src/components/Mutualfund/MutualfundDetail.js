@@ -8,7 +8,7 @@ export default function MutualFundDetail(props) {
 
   return isComplete ? (
     <div>
-      <Header as="h2" className="ui header stats">
+      <Header as="h2" className="stats">
         {response.mutualFundDetail.assetDetail.name}
       </Header>
       {/* <Chart /> */}

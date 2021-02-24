@@ -10,6 +10,7 @@
 */
 import GridContainer from "src/components/grid/GridContainer";
 import { Loader } from "semantic-ui-react";
+import Link from 'next/link'
 import useWebSocket from "src/hooks/useWebSocket";
 export default function WatchlistView(props) {
   let data = new Map();
@@ -22,6 +23,7 @@ export default function WatchlistView(props) {
       let companyData = Object.values(row);
       companyData.shift(); //remove time stamp
       let key = companyData.shift(); // geting companyId
+      companyData[0]=<Link className="nav-link" href={`/details/${key}`}>{companyData[0]}</Link>;
       data.set(key, companyData);
     });
     myMap.clear();

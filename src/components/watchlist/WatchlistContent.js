@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import { Loader, Search } from "semantic-ui-react";
+import { useState } from "react";
+import { Loader } from "semantic-ui-react";
 import WatchlistView from "src/components/watchlist/WatchlistView";
-import WatchlistById from "src/components/watchlist/WatchlistById";
-import { useFetch } from "src/hooks/useFetch";
-import debounce from "src/services/debounce";
+import { getAllWatchlistEntryByWatchlistId } from "src/services/watchlist";
+import Search from "src/components/Search";
 
-export default function StockSearch(props) {
+export default function WatchlistContent(props) {
   const [value, setValue] = useState("");
   const [page, setPage] = useState({
     pages: 0,
@@ -47,17 +46,11 @@ export default function StockSearch(props) {
   }
   return (
     <>
-      <Search handleSearchChange={handleSearchChange} placeholder={"Search In Watchlist..."} />
-      {isCompleted && value != "" ? (
-        <div>
-          <WatchlistView
-            content={props.content}
-            companyUuids={companyUuids}
-            pagination={pagination}
-            tabId={props.watchlistId}
-          />
-        </div>
-      ) : isCompleted ? (
+      <Search
+        handleSearchChange={handleSearchChange}
+        placeholder={"Search In Watchlist..."}
+      />
+      {isCompleted ? (
         <WatchlistView
           content={props.content}
           companyUuids={companyUuids}

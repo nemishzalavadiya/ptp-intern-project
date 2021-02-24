@@ -6,3 +6,4 @@ public enum InvestmentType {
     YEARLY_SIP,
     ONE_TIME
 }
+    

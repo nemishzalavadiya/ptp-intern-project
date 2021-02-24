@@ -7,11 +7,11 @@ export default function MutualFundDetail(props) {
   const [isComplete, response] = getMfByAssetId(props.mfId);
 
   return isComplete ? (
-    <div className={styles.divMain}>
+    <div>
       <Header as="h2" className="ui header stats">
         {response.mutualFundDetail.assetDetail.name}
       </Header>
-      <Chart />
+      {/* <Chart /> */}
       <StatisticMf mfDetail={response} />
     </div>
   ) : response.error ? (

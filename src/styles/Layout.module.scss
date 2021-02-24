@@ -11,5 +11,10 @@
 	left: $navBarWidth;
 }
 .bar {
+	border: 2px solid red;
 	position: fixed;
+	top: 50%;
+}
+.innerChild{
+	padding: 30px;
 }

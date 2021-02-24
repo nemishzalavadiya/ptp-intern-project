@@ -11,7 +11,9 @@ const Layout = ({ children }) => {
 			</div>
 			<div className={styles.right}>
 				<TopNavBar />
+				<div className={styles.innerChild}>
 				{children}
+				</div>
 			</div>
 		</div>
 	);

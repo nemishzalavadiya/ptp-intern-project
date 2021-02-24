@@ -16,4 +16,7 @@
 .bar {
   position: fixed;
 }
+.innerChild{
+  padding: 30px;
+}
 /*# sourceMappingURL=Layout.module.css.map */

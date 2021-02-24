@@ -1,4 +1,16 @@
 import { Header, Table } from "semantic-ui-react";
+
+const headers = [
+  "Book Value",
+  "Div. Yield",
+  "EPS(TTM)",
+  "Industry P/E",
+  "Market Cap",
+  "P/B Ratio",
+  "P/E Ratio",
+  "ROE",
+];
+
 export default function Statistics(props) {
   const {
     numberOfStackHolders,
@@ -16,7 +28,16 @@ export default function Statistics(props) {
       assetDetail: { name, logoUrl, assetClass, about },
     },
   } = props.stockDetail;
-
+  const values = [
+    bookValue,
+    divYield,
+    earningPerShareTTM,
+    industryPE,
+    marketCap,
+    pbRatio,
+    peRatio,
+    returnOnEquity,
+  ];
   return (
     <div>
       <Header as="h2" className="stats">
@@ -26,26 +47,16 @@ export default function Statistics(props) {
         <Table inverted>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Book Value</Table.HeaderCell>
-              <Table.HeaderCell>Div. Yield</Table.HeaderCell>
-              <Table.HeaderCell>EPS(TTM)</Table.HeaderCell>
-              <Table.HeaderCell>Industry P/E</Table.HeaderCell>
-              <Table.HeaderCell>Market Cap</Table.HeaderCell>
-              <Table.HeaderCell>P/B Ratio</Table.HeaderCell>
-              <Table.HeaderCell>P/E Ratio</Table.HeaderCell>
-              <Table.HeaderCell>ROE</Table.HeaderCell>
+              {headers.map((item) => {
+                return <Table.HeaderCell>{item}</Table.HeaderCell>;
+              })}
             </Table.Row>
           </Table.Header>
           <Table.Body>
             <Table.Row>
-              <Table.Cell>{bookValue}</Table.Cell>
-              <Table.Cell>{divYield}</Table.Cell>
-              <Table.Cell>{earningPerShareTTM}</Table.Cell>
-              <Table.Cell>{industryPE}</Table.Cell>
-              <Table.Cell>{marketCap}</Table.Cell>
-              <Table.Cell>{pbRatio}</Table.Cell>
-              <Table.Cell>{peRatio}</Table.Cell>
-              <Table.Cell>{returnOnEquity}</Table.Cell>
+              {values.map((item) => {
+                return <Table.Cell>{item}</Table.Cell>;
+              })}
             </Table.Row>
           </Table.Body>
         </Table>

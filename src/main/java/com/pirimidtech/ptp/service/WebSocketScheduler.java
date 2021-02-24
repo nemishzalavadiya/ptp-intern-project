@@ -23,5 +23,7 @@ public class WebSocketScheduler {
         DataGenerator.dataGeneratorList.forEach((companyData) -> {
             this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.company_id, companyData);
         });
+        DataGenerator.companyNameList.clear();
+        DataGenerator.companyIdList.clear();
     }
 }

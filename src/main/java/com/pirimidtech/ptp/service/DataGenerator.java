@@ -2,6 +2,7 @@ package com.pirimidtech.ptp.service;
 
 import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.service.asset.AssetService;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@ToString
 public class DataGenerator {
     public static List<DataGenerator> dataGeneratorList = new ArrayList<>();
     public static List<UUID> companyIdList = new ArrayList<>();

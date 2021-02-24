@@ -17,7 +17,7 @@ function useFetch(url) {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error("Something went wrong");
+            throw new Error("Something went wrong. check network connection");
           }
         })
         .then((responseJson) => {
@@ -33,6 +33,13 @@ function useFetch(url) {
   }
   useEffect(() => {
     fetchUrl(url);
+    return ()=>{
+      setContent({
+        data: [],
+        error: false,
+        isComplete: false,
+      });
+    }
   }, [url]);
   return [content["isComplete"], content["data"]];
 }

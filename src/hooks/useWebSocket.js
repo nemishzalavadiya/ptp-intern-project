@@ -32,9 +32,8 @@ export default function useWebSocket(uuidList) {
     const webSocket = new SockJS(WebSocketUrl.url);
     const stompClient = Stomp.over(webSocket);
 
-    try {
       setUpSubscription(stompClient);
-    } catch (e) {}
+
     return () => {
       function cleanUp(uuidList, stompClient) {
          uuidList.forEach((uuid) => {
@@ -42,9 +41,8 @@ export default function useWebSocket(uuidList) {
         });
         stompClient.disconnect();
       }
-      try {
+      
         cleanUp(uuidList, stompClient);
-      } catch (e) {}
     };
   }, [uuidList]);
   return [isCompleted, myMap];

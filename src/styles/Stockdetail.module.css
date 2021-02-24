@@ -1,0 +1,11 @@
+.divMain {
+  background-color: #121212;
+  margin: 0 auto;
+}
+
+.innerDiv {
+  left: 2rem 2rem;
+  position: absolute;
+  width: 100%;
+}
+/*# sourceMappingURL=Stockdetail.module.css.map */

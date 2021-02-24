@@ -1,5 +1,10 @@
 @import "src/styles/GridContainer.module.scss";
 @import "src/styles/Watchlist.module.scss";
+@import "src/styles/Stockdetail.module.scss";
+@import "src/styles/Chart.module.scss";
+@import "src/styles/MutualfundDetail.module.scss";
+@import "src/styles/StatisticStock.module.scss";
+@import "src/styles/StatisticMf.module.scss";
 html,
 body {
   padding: 0;
@@ -7,19 +12,17 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-.outter-div{
-    height: 300px;
-    position: relative;
+.outter-div {
+  height: 300px;
+  position: relative;
 }
-.inner-div{
+.inner-div {
   margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.watchlist{
-  margin:2% 9% 2% 6%;
+.watchlist {
+  margin: 2% 9% 2% 6%;
 }
-
-

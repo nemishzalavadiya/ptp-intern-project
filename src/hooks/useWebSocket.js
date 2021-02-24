@@ -5,15 +5,15 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useState, useEffect } from "react";
-import { WebSocketUrl } from 'src/components/Objects'
+import { WebSocketUrl } from "src/components/Objects";
 export default function useWebSocket(uuidList) {
   const [myMap, setMyMap] = useState(new Map());
   const [isCompleted, setCompleted] = useState(false);
 
-  async function setUpSubscription(stompClient) {
+  function setUpSubscription(stompClient) {
     stompClient.debug = (f) => f;
-    stompClient.connect({}, async function (frame) {
-      await uuidList.forEach((uuid) => {
+    stompClient.connect({}, function (frame) {
+      uuidList.forEach((uuid) => {
         stompClient.subscribe(
           "/topic/" + uuid,
           function (data) {
@@ -27,19 +27,24 @@ export default function useWebSocket(uuidList) {
       setCompleted(true);
     });
   }
-  async function cleanUp(uuidList, stompClient) {
-    await uuidList.forEach((uuid) => {
-      stompClient.unsubscribe(uuid);
-    });
-    stompClient.disconnect();
-  }
 
   useEffect(() => {
     const webSocket = new SockJS(WebSocketUrl.url);
     const stompClient = Stomp.over(webSocket);
-    setUpSubscription(stompClient);
+
+    try {
+      setUpSubscription(stompClient);
+    } catch (e) {}
     return () => {
-      cleanUp(uuidList, stompClient);
+      function cleanUp(uuidList, stompClient) {
+         uuidList.forEach((uuid) => {
+          stompClient.unsubscribe(uuid);
+        });
+        stompClient.disconnect();
+      }
+      try {
+        cleanUp(uuidList, stompClient);
+      } catch (e) {}
     };
   }, [uuidList]);
   return [isCompleted, myMap];

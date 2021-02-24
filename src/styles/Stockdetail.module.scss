@@ -1,0 +1,11 @@
+$widthDiv: 100%;
+.divMain{
+    background-color: #121212;
+    margin: 0 auto;
+}
+.innerDiv{
+    left: 2rem 2rem;
+    position: absolute;
+    width: $widthDiv;
+}
+.ui.header.stockDetail { color: white}

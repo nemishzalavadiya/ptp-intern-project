@@ -34,4 +34,14 @@ public class MutualFundService implements MutualFundServiceInterface {
     public Optional<MutualFundStatistic> getMutualFundStatisticByAssetId(UUID assetId) {
         return mutualFundStatisticRepository.findByMutualFundDetail_AssetDetail_id(assetId);
     }
+
+    public Page<MutualFundStatistic> getMutualFundsFilterByRisk(Pageable paging, String risk){
+        return mutualFundStatisticRepository.findByRisk(paging,risk);
+    }
+    public Page<MutualFundStatistic> getMutualFundsFilterBySip(Pageable paging, boolean sipAllowed){
+        return mutualFundStatisticRepository.findBySipAllowed(paging,sipAllowed);
+    }
+    public Page<MutualFundStatistic> getMutualFundsFilterByFundSize(Pageable paging, float sizeOpen,float sizeClose){
+        return mutualFundStatisticRepository.findByFundSizeBetween(paging,sizeOpen,sizeClose);
+    }
 }

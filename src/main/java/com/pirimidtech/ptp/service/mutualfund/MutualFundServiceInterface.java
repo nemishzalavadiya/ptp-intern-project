@@ -16,4 +16,10 @@ public interface MutualFundServiceInterface {
     Optional<MutualFundStatistic> getMutualFundStatsById(UUID id);
 
     Optional<MutualFundStatistic> getMutualFundStatisticByAssetId(UUID id);
+
+    Page<MutualFundStatistic> getMutualFundsFilterByRisk(Pageable paging, String risk);
+
+    Page<MutualFundStatistic> getMutualFundsFilterBySip(Pageable paging, boolean sipAllowed);
+
+    Page<MutualFundStatistic> getMutualFundsFilterByFundSize(Pageable paging, float sizeOpen,float sizeClose);
 }

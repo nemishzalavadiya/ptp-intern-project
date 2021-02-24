@@ -44,4 +44,20 @@ public class MutualFundDetailController {
             throw new NotFoundException();
         return mutualFundStatistic;
     }
+
+    @GetMapping("/mutualfunds/filter/risk")
+    public Page<MutualFundStatistic> filterRisk(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@RequestParam String risk){
+        Pageable paging = PageRequest.of(page, size);
+        return mutualFundService.getMutualFundsFilterByRisk(paging,risk);
+    }
+    @GetMapping("/mutualfunds/filter/sip")
+    public Page<MutualFundStatistic> filterSipAllowed(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@RequestParam boolean sipAllowed){
+        Pageable paging = PageRequest.of(page, size);
+        return mutualFundService.getMutualFundsFilterBySip(paging,sipAllowed);
+    }
+    @GetMapping("/mutualfunds/filter/fundsize")
+    public Page<MutualFundStatistic> filterFundSize(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@RequestParam float sizeOpen,@RequestParam float sizeClose){
+        Pageable paging = PageRequest.of(page, size);
+        return mutualFundService.getMutualFundsFilterByFundSize(paging,sizeOpen,sizeClose);
+    }
 }

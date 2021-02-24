@@ -89,12 +89,8 @@ public class OrderController {
 
     @PostMapping("/mutualfund/orders")
     public ResponseEntity<MutualFundOrder> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
+        mutualFundOrder.setStatus(Status.PENDING);
         mutualFundOrder = orderService.addToMutualFundOrder(mutualFundOrder);
-        Optional<MutualFundDetail> mutualFundDetail = mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId());
-        AssetDetail assetDetail = mutualFundDetail.get().getAssetDetail();
-        MutualFundStatistic mutualFundStatistic = mutualFundStatisticRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get();
-        Position position = new Position(null, mutualFundOrder.getPrice() / mutualFundStatistic.getNav(), mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), assetDetail);
-        positionService.addMutualFundToPosition(position);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 

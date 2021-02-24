@@ -28,6 +28,9 @@ public class MutualFundOrder {
     private float nav;
 
     @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private InvestmentType investmentType;
 

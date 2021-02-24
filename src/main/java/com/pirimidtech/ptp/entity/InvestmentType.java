@@ -4,6 +4,7 @@ public enum InvestmentType {
     WEEKLY_SIP,
     MONTHLY_SIP,
     YEARLY_SIP,
-    ONE_TIME
+    ONE_TIME,
+    NONE
 }
     

@@ -58,7 +58,7 @@ public class AssetController {
     }
 
     @GetMapping(value = "/assets/stocks/{assetId}")
-    public Optional<StockStatistic> getStockStatisticByAssetId(@PathVariable UUID assetId){
+    public Optional<StockStatistic> getStockStatisticByAssetId(@PathVariable UUID assetId) {
         Optional<StockStatistic> stockStatistic = stockService.getStockStatisticByAssetId(assetId);
         if (!stockStatistic.isPresent())
             throw new NotFoundException();
@@ -66,7 +66,7 @@ public class AssetController {
     }
 
     @GetMapping(value = "/assets/mutualfunds/{assetId}")
-    public Optional<MutualFundStatistic> getMutualFundStatisticByAssetId(@PathVariable UUID assetId){
+    public Optional<MutualFundStatistic> getMutualFundStatisticByAssetId(@PathVariable UUID assetId) {
         Optional<MutualFundStatistic> mutualFundStatistic = mutualFundService.getMutualFundStatisticByAssetId(assetId);
         if (!mutualFundStatistic.isPresent())
             throw new NotFoundException();

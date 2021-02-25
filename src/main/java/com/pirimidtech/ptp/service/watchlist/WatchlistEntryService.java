@@ -19,6 +19,10 @@ public class WatchlistEntryService implements WatchlistEntryServiceInterface {
         return watchlistEntryRepository.findByWatchlistId(watchlistId, pageable);
     }
 
+    public Page<WatchlistEntry> searchByWatchlistIdAndAssetDetailName(UUID watchlistId, String assetName, Pageable pageable) {
+        return watchlistEntryRepository.findByWatchlistIdAndAssetDetailNameContainingIgnoreCase(watchlistId, assetName, pageable);
+    }
+
     public void remove(UUID watchlistEntryId) {
         watchlistEntryRepository.deleteById(watchlistEntryId);
     }

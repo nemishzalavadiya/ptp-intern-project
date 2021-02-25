@@ -6,7 +6,7 @@ function getAllWatchlistByUserId(userId) {
 }
 function getAllWatchlistEntryByWatchlistId(watchlistId, value, page, size) {
   const [isComplete, data] = useFetch(
-    `/api/watchlist/searchWatchlist?AssetName=${value}&watchlistID=${watchlistId}&page=${page}&size=${size}`
+    `/api/watchlist/searchWatchlist?assetName=${value}&watchlistID=${watchlistId}&page=${page}&size=${size}`
   );
 
   return [isComplete, data];

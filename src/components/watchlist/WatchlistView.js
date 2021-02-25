@@ -24,6 +24,7 @@ export default function WatchlistView(props) {
       companyData.shift(); //remove time stamp
       let key = companyData.shift(); // geting companyId
       companyData[0]=<Link className="nav-link" href={`/details/${key}`}>{companyData[0]}</Link>;
+      companyData.pop() //removing last value from array
       data.set(key, companyData);
     });
     myMap.clear();

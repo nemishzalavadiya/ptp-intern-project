@@ -95,6 +95,7 @@ public class WatchlistController {
                                                                   @RequestParam String assetName,
                                                                   @RequestParam(defaultValue = "0") int page,
                                                                   @RequestParam(defaultValue = "10") int size) {
+        log.info("searching in watchlist with watchlistId {} keyword: {}",watchlistID,assetName);
         Pageable pageable = PageRequest.of(page, size);
         Page<WatchlistEntry> search = watchlistEntryService.searchByWatchlistIdAndAssetDetailName(watchlistID, assetName, pageable);
         return ResponseEntity.ok().body(search);

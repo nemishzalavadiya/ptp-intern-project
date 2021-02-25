@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.service;
 
+import com.pirimidtech.ptp.service.datagenerator.DataGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -20,7 +21,7 @@ public class WebSocketScheduler {
     public void trigger() {
         dataGenerator.setDistinctCompany();
         dataGenerator.setData();
-        DataGenerator.getDataGeneratorList().forEach((companyData) -> {
+        dataGenerator.getGeneratedStockList().forEach((companyData) -> {
             this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.getCompany_id(), companyData);
         });
     }

@@ -10,26 +10,44 @@
 */
 import GridContainer from "src/components/grid/GridContainer";
 import { Loader } from "semantic-ui-react";
-import Link from 'next/link'
+import { useState } from "react";
+import Link from "next/link";
 import useWebSocket from "src/hooks/useWebSocket";
 export default function WatchlistView(props) {
+  const [companyUuids, setCompanyUuids] = useState([]);
   let data = new Map();
-  let isSubscriptionCompleted=false,myMap= new Map();
-  [isSubscriptionCompleted, myMap] = useWebSocket(props.companyUuids);
+  let isSubscriptionCompleted = false,
+    myMap = new Map();
+
+  //checking for state change
+  if (
+    !(
+      companyUuids.length === props.companyUuids.length &&
+      companyUuids.every((value, index) => value === props.companyUuids[index])
+    )
+  ) {
+    setCompanyUuids(props.companyUuids);
+  }
+  //websocket connection
+  [isSubscriptionCompleted, myMap] = useWebSocket(companyUuids);
+  data.clear();
   if (isSubscriptionCompleted) {
-    data.clear();
     //processing data
     Array.from(myMap.values()).forEach((row) => {
       let companyData = Object.values(row);
       companyData.shift(); //remove time stamp
       let key = companyData.shift(); // geting companyId
-      companyData[0]=<Link className="nav-link" href={`/details/${key}`}>{companyData[0]}</Link>;
-      companyData.pop() //removing last value from array
+      companyData[0] = (
+        <Link className="nav-link" href={`/details/${key}`}>
+          {companyData[0]}
+        </Link>
+      );
+      companyData.pop(); //removing last value from array
       data.set(key, companyData);
     });
     myMap.clear();
   }
-  return isSubscriptionCompleted && data.size === props.companyUuids.length ? (
+  return isSubscriptionCompleted && data.size === companyUuids.length ? (
     <>
       {
         <GridContainer

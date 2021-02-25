@@ -92,7 +92,7 @@ public class WatchlistController {
 
     @GetMapping("/searchWatchlist")
     public ResponseEntity<Page<WatchlistEntry>> searchInWatchlist(@RequestParam UUID watchlistID,
-                                                                  @RequestParam String AssetName,
+                                                                  @RequestParam String assetName,
                                                                   @RequestParam(defaultValue = "0") int page,
                                                                   @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);

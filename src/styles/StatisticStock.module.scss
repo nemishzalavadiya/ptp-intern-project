@@ -1,10 +1,24 @@
 $colorJumbo: #737373;
 
 .about{
-    margin: 25px 0px;
-}
-.header{
-    color: white;
+    margin-top: 80px;
 }
 
-.ui.header.stats { color: white}
+.ui.header.stats { 
+    color: #cbd0c2;
+    font-family: "PT Sans Narro";
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: .44px;
+}
+.info{
+    color: #C2CAD0;
+    font-family: Roboto,system-ui;
+    font-size: 15px;
+    text-align: justify;
+    font-weight: 400px;
+    line-height: 27px;
+}
+.stats-main{
+    margin-top: 80px;
+}

@@ -1,11 +1,17 @@
 $widthDiv: 100%;
-.divMain{
-    background-color: #121212;
-    margin: 0 auto;
+.divMain {
+  background-color: #121212;
+  margin: 0 auto;
 }
-.innerDiv{
-    left: 2rem 2rem;
-    position: absolute;
-    width: $widthDiv;
+.innerDiv {
+  left: 2rem 2rem;
+  position: absolute;
+  width: $widthDiv;
 }
-.ui.header.stockDetail { color: white}
+.ui.header.stockDetail {
+  color: #C2CAD0;
+  font-family: "PT Sans Narro";
+  font-size: 26px;
+  letter-spacing: .44px;
+  font-weight: 500;
+}

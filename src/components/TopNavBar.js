@@ -1,4 +1,3 @@
-import MainSearch from "src/components/MainSearch";
 import { Button } from "semantic-ui-react";
 import Link from "next/link";
 import styles from "src/styles/TopNavBar.module.scss";

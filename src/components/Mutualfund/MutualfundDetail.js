@@ -10,7 +10,7 @@ export default function MutualFundDetail(props) {
       <Header as="h2" className="stats">
         {response.mutualFundDetail.assetDetail.name}
       </Header>
-      {/* <Chart /> */}
+      <Chart />
       <StatisticMf mfDetail={response} />
     </div>
   ) : response.error ? (

@@ -21,8 +21,10 @@
 	background-color: $cardGrey;
 }
 .list-container > .list-item {
-	margin: 10px;
 	margin-left: 2px;
 	cursor: pointer;
+}
+.ui.vertical.menu.list-container {
+    width: 6rem;
 }
 

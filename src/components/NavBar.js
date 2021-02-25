@@ -40,7 +40,7 @@ const NavBar = (props) => {
     setActiveItem(props.name);
   }
   return (
-    <div className={styles.sideBar}>
+    <div className="sideBar">
       <Menu inverted vertical borderless className="list-container">
         {sidebar.map((item, index) => {
           return (
@@ -48,9 +48,9 @@ const NavBar = (props) => {
               <Link href={item.link}>
                 <div>
                   <Popup
-                    size="small"
+                    size="mini"
                     trigger={<img src={item.imgLink} alt={item.imgAlter} />}
-                    position="right center"
+                    position="right"
                     content={item.content}
                     inverted
                   />

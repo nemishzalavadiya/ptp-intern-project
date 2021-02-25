@@ -1,4 +1,4 @@
-import { Header, Table } from "semantic-ui-react";
+import { Header, Table, Segment, Container } from "semantic-ui-react";
 const headers = [
   "Minimum SIP",
   "Risk",
@@ -18,15 +18,13 @@ export default function StatisticMf(props) {
     fundSize,
     mutualFundDetail: {
       fundManager,
-      assetDetail: { name, logoUrl, assetClass, about},
+      assetDetail: { name, logoUrl, assetClass, about },
     },
   } = props.mfDetail;
   const values = [minSIP, risk, expenseRatio, nav, fundStarted, fundSize];
   return (
-    <div>
-      <Header as="h2" className="ui header stats">
-        Statistics
-      </Header>
+    <div className="stats-main">
+      <Header className="stats">Statistics</Header>
       <section>
         <Table inverted>
           <Table.Header>
@@ -47,21 +45,13 @@ export default function StatisticMf(props) {
       </section>
       <br />
       <div className="about">
-        <Header as="h2" className="stats">
-          About
-        </Header>
-        <Header as="h3" className="stats">
-          {about}
-        </Header>
+        <Header className="stats">About</Header>
+        <div className="info">{about}</div>
       </div>
       <br />
       <div className="about">
-        <Header as="h2" className="stats">
-          Fund Manager
-        </Header>
-        <Header as="h3" className="stats">
-          {fundManager}
-        </Header>
+        <Header className="stats">Fund Manager</Header>
+        <div className="info">{fundManager}</div>
       </div>
     </div>
   );

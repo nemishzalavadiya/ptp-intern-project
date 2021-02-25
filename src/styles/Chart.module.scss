@@ -1,8 +1,8 @@
-$jumbotronColor: #efefef;
+$jumbotronColor: #747474;
 
-
+@import "./variables";
 .area{
     min-height: 400px;
-    width: 60%;
-    background-color: powderblue;
+    width: 50%;
+    background-color: $cardGrey;
 }

@@ -39,10 +39,8 @@ export default function Statistics(props) {
     returnOnEquity,
   ];
   return (
-    <div>
-      <Header as="h2" className="stats">
-        Statistics
-      </Header>
+    <div className="stats-main">
+      <Header className="stats">Statistics</Header>
       <section>
         <Table inverted>
           <Table.Header>
@@ -61,23 +59,13 @@ export default function Statistics(props) {
           </Table.Body>
         </Table>
       </section>
-      <br />
       <div className="about">
-        <Header as="h2" className="stats">
-          About
-        </Header>
-        <Header as="h3" className="stats">
-          {about}
-        </Header>
+        <Header className="stats">About</Header>
+        <div className="info">{about}</div>
       </div>
-      <br />
       <div className="about">
-        <Header as="h2" className="stats">
-          Managing Director
-        </Header>
-        <Header as="h3" className="stats">
-          {managingDirector}
-        </Header>
+        <Header className="stats">Managing Director</Header>
+        <div className="info">{managingDirector}</div>
       </div>
     </div>
   );

@@ -6,10 +6,11 @@ export default function Stockdetail(props) {
   const [isComplete, response] = getStockByAssetId(props.stockId);
   return isComplete ? (
     <div>
-      <Header as="h2" className="stockDetail">
+      <Header className="stockDetail">
         {response.stockDetail.assetDetail.name}
       </Header>
-      {/* <Chart /> */}
+      <Chart />
+      <br/>
       <StatisticStock stockDetail={response} />
     </div>
   ) : response.error ? (

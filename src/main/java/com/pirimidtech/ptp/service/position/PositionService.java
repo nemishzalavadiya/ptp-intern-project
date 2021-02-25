@@ -21,11 +21,9 @@ public class PositionService implements PositionServiceInterface {
     private PositionRepository positionRepository;
 
     @Override
-    public List<Position> getAllPosition(UUID userId, int pageNo, int pageSize) {
+    public Page<Position> getPositionByAssetClass(UUID userId, AssetClass assetClass, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<Position> pageResult = positionRepository.findAllByUserId(userId, pageable);
-
-        return pageResult.toList();
+        return positionRepository.findByUserIdAndAndAssetClass(userId,assetClass,pageable);
     }
 
     @Override
@@ -82,6 +80,12 @@ public class PositionService implements PositionServiceInterface {
     public Position getPositionByUserIdAndAssetDetailId(UUID userId, UUID assetDetailId) {
         Optional<Position> position = positionRepository.findAllByUserIdAndAssetDetailId(userId, assetDetailId);
         return position.isPresent() ? position.get() : null;
+    }
+
+    public Page<Position> searchByAssetClassAndAssetDetailName(UUID userId,String name,AssetClass assetClass,int pageNo, int pageSize)
+    {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return positionRepository.findByUserIdAndAndAssetClassAndAndAssetDetailNameContainingIgnoreCase(userId,assetClass,name,pageable);
     }
 
 }

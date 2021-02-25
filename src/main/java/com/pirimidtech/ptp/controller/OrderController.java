@@ -20,6 +20,7 @@ import com.pirimidtech.ptp.service.position.PositionService;
 import com.pirimidtech.ptp.service.trade.OrderService;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,8 +73,8 @@ public class OrderController {
     }
 
     @GetMapping("/stock/orders/users/{id}")
-    public ResponseEntity<List<StockTrade>> getAllStockOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        List<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
+    public ResponseEntity<Page<StockTrade>> getAllStockOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+        Page<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
         return ResponseEntity.ok().body(stockTradeList);
     }
 
@@ -95,8 +96,8 @@ public class OrderController {
     }
 
     @GetMapping("/mutualfund/orders/users/{id}")
-    public ResponseEntity<List<MutualFundOrder>> getAllMutualFundOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        List<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
+    public ResponseEntity<Page<MutualFundOrder>> getAllMutualFundOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+        Page<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
         return ResponseEntity.ok().body(mutualFundOrderList);
     }
 

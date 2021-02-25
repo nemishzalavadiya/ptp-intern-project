@@ -71,7 +71,7 @@ class OrderControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/users/" + ObjectUtility.user.getId() + "?page=0&size=4")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
-                andExpect(jsonPath("$.[0].user.id").value(ObjectUtility.user.getId().toString())).
+                andExpect(jsonPath("$.content[0].user.id").value(ObjectUtility.user.getId().toString())).
                 andDo(print());
     }
 
@@ -111,7 +111,7 @@ class OrderControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/users/" + ObjectUtility.user.getId() + "?page=0&size=3")).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
-                andExpect(jsonPath("$.[0].user.id").value(ObjectUtility.user.getId().toString())).
+                andExpect(jsonPath("$.content.[0].user.id").value(ObjectUtility.user.getId().toString())).
                 andDo(print());
     }
 

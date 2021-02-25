@@ -44,7 +44,7 @@ class OrderServiceTest {
         stockTradeList.add(ObjectUtility.stockTrade1);
         stockTradeList.add(ObjectUtility.stockTrade2);
         when(stockTradeRepository.findAllByUserIdOrderByTimestampDesc(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<StockTrade>(stockTradeList));
-        assertEquals(2, orderService.getAllStockOrder(user.getId(), 0, 2).size());
+        assertEquals(2, orderService.getAllStockOrder(user.getId(), 0, 2).toList().size());
     }
 
     @Test
@@ -67,7 +67,7 @@ class OrderServiceTest {
         mutualFundOrderList.add(ObjectUtility.mutualFundOrder1);
         mutualFundOrderList.add(ObjectUtility.mutualFundOrder2);
         when(mutualFundOrderRepository.findAllByUserIdOrderBySIPDateDesc(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<MutualFundOrder>(mutualFundOrderList));
-        assertEquals(2, orderService.getAllMutualFundOrder(user.getId(), 0, 2).size());
+        assertEquals(2, orderService.getAllMutualFundOrder(user.getId(), 0, 2).toList().size());
     }
 
     @Test

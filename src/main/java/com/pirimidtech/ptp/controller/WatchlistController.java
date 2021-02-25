@@ -96,7 +96,7 @@ public class WatchlistController {
                                                                   @RequestParam(defaultValue = "0") int page,
                                                                   @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<WatchlistEntry> search = watchlistEntryService.searchByWatchlistIdAndAssetDetailName(watchlistID, AssetName, pageable);
+        Page<WatchlistEntry> search = watchlistEntryService.searchByWatchlistIdAndAssetDetailName(watchlistID, assetName, pageable);
         return ResponseEntity.ok().body(search);
     }
 

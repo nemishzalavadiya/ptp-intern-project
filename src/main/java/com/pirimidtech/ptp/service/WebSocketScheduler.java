@@ -20,10 +20,8 @@ public class WebSocketScheduler {
     public void trigger() {
         dataGenerator.setDistinctCompany();
         dataGenerator.setData();
-        DataGenerator.dataGeneratorList.forEach((companyData) -> {
-            this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.company_id, companyData);
+        DataGenerator.getDataGeneratorList().forEach((companyData) -> {
+            this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.getCompany_id(), companyData);
         });
-        DataGenerator.companyNameList.clear();
-        DataGenerator.companyIdList.clear();
     }
 }

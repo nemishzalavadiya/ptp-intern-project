@@ -40,9 +40,10 @@ export default function Statistics(props) {
   ];
   return (
     <div className="stats-main">
+      <div className="fancy">
       <Header className="stats">Statistics</Header>
       <section>
-        <Table inverted>
+        <Table color="black" inverted>
           <Table.Header>
             <Table.Row>
               {headers.map((item) => {
@@ -59,11 +60,10 @@ export default function Statistics(props) {
           </Table.Body>
         </Table>
       </section>
-      <div className="about">
+      </div>
+      <div className="about fancy" >
         <Header className="stats">About</Header>
         <div className="info">{about}</div>
-      </div>
-      <div className="about">
         <Header className="stats">Managing Director</Header>
         <div className="info">{managingDirector}</div>
       </div>

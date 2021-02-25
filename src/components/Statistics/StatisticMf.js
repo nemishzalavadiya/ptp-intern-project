@@ -24,9 +24,10 @@ export default function StatisticMf(props) {
   const values = [minSIP, risk, expenseRatio, nav, fundStarted, fundSize];
   return (
     <div className="stats-main">
+      <div className="fancy">
       <Header className="stats">Statistics</Header>
       <section>
-        <Table inverted>
+        <Table color="black" inverted>
           <Table.Header>
             <Table.Row>
               {headers.map((item) => {
@@ -43,13 +44,10 @@ export default function StatisticMf(props) {
           </Table.Body>
         </Table>
       </section>
-      <br />
-      <div className="about">
+      </div>
+      <div className="about fancy">
         <Header className="stats">About</Header>
         <div className="info">{about}</div>
-      </div>
-      <br />
-      <div className="about">
         <Header className="stats">Fund Manager</Header>
         <div className="info">{fundManager}</div>
       </div>

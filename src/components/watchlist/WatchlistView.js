@@ -42,7 +42,6 @@ export default function WatchlistView(props) {
           {companyData[0]}
         </Link>
       );
-      companyData.pop(); //removing last value from array
       data.set(key, companyData);
     });
     myMap.clear();

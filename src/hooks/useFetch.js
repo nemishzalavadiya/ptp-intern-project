@@ -32,13 +32,6 @@ function useFetch(url) {
   }
   useEffect(() => {
     fetchUrl(url);
-    return ()=>{
-      setContent({
-        data: [],
-        error: false,
-        isComplete: false,
-      });
-    }
   }, [url]);
   return [content["isComplete"], content["data"]];
 }

@@ -17,7 +17,7 @@ export default function WatchlistView(props) {
   const [companyUuids, setCompanyUuids] = useState([]);
   let data = new Map();
   let isSubscriptionCompleted = false,
-    myMap = new Map();
+    subscriptionDataMap = new Map();
 
   //checking for state change
   if (
@@ -29,11 +29,11 @@ export default function WatchlistView(props) {
     setCompanyUuids(props.companyUuids);
   }
   //websocket connection
-  [isSubscriptionCompleted, myMap] = useWebSocket(companyUuids);
-  data.clear();
-  if (isSubscriptionCompleted) {
-    //processing data
-    Array.from(myMap.values()).forEach((row) => {
+  [isSubscriptionCompleted, subscriptionDataMap] = useWebSocket(companyUuids);
+
+  //processing data
+  function subscriptionDataProcessing() {
+    Array.from(subscriptionDataMap.values()).forEach((row) => {
       let companyData = Object.values(row);
       companyData.shift(); //remove time stamp
       let key = companyData.shift(); // geting companyId
@@ -44,8 +44,17 @@ export default function WatchlistView(props) {
       );
       data.set(key, companyData);
     });
-    myMap.clear();
   }
+
+  if (
+    isSubscriptionCompleted &&
+    subscriptionDataMap.size === companyUuids.length
+  ) {
+    data.clear();
+    subscriptionDataProcessing();
+    subscriptionDataMap.clear();
+  }
+
   return isSubscriptionCompleted && data.size === companyUuids.length ? (
     <>
       {

@@ -1,0 +1,22 @@
+@import "./variables";
+.ticket
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ui.segment.stockTicket{
+width: 30%;
+padding: 3%;
+background-color:$cardGrey;
+margin-right: 7%;
+border-radius: 15px;
+}
+.positive{
+    background: yellowgreen !important;
+}
+
+.ui.fluid.button
+{
+    background-color: yellowgreen;  
+}

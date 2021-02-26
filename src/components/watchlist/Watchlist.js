@@ -3,11 +3,12 @@
   props: None
 */
 import React from "react";
-import { Loader, Menu } from "semantic-ui-react";
+import { Loader} from "semantic-ui-react";
 import { getAllWatchlistByUserId } from "src/services/watchlist";
-import WatchlistById from "src/components/watchlist/WatchlistById";
+import WatchlistContent from "src/components/watchlist/WatchlistContent";
 import { UserId } from "src/components/Objects";
 import { useState } from "react";
+import  Tab from "src/components/Tab"
 const content = [
   { header: "Company_Id", icon: "" },
   { header: "Open", icon: <i className="rupee sign icon small"></i> },
@@ -28,22 +29,11 @@ export default function Watchlist() {
   }
   return isContentFetchingCompleted ? (
     <>
-      <Menu pointing inverted secondary className="tab-menu">
-        {response.content.map((item, index) => {
-          return (
-            <Menu.Item
-              key={index}
-              name={item.name}
-              active={activeItem === index}
-              onClick={() => handleItemClick(index)}
-            />
-          );
-        })}
-      </Menu>
-      <WatchlistById
-        content={content}
-        watchlistId={response.content[activeItem].id}
-      />
+        <Tab content={response.content} handleItemClick={handleItemClick} activeItem={activeItem } />      
+        <WatchlistContent
+          content={content}
+          watchlistId={response.content[activeItem].id}
+        />
     </>
   ) : (
     <Loader active={!isContentFetchingCompleted}>Loading</Loader>

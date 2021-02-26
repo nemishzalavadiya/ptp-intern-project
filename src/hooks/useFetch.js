@@ -9,7 +9,6 @@ function useFetch(url) {
     error: false,
     isComplete: false,
   });
-
   async function fetchUrl(Url) {
     try {
       await fetch(Url)
@@ -33,13 +32,6 @@ function useFetch(url) {
   }
   useEffect(() => {
     fetchUrl(url);
-    return ()=>{
-      setContent({
-        data: [],
-        error: false,
-        isComplete: false,
-      });
-    }
   }, [url]);
   return [content["isComplete"], content["data"]];
 }

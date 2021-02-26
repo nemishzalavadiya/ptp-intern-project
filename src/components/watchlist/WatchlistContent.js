@@ -5,7 +5,7 @@ import { getAllWatchlistEntryByWatchlistId } from "src/services/watchlist";
 import Search from "src/components/Search";
 
 export default function WatchlistContent(props) {
-  const [value, setValue] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState({
     pages: 0,
     watchlistId: props.watchlistId,
@@ -15,7 +15,7 @@ export default function WatchlistContent(props) {
 
   [isCompleted, response] = getAllWatchlistEntryByWatchlistId(
     props.watchlistId,
-    value,
+    searchQuery,
     page.pages,
     5
   );
@@ -35,7 +35,7 @@ export default function WatchlistContent(props) {
   }
 
   function handleSearchChange(e, data) {
-    setValue(data.value);
+    setSearchQuery(data.value);
   }
   if (isCompleted) {
     companyUuids.length = 0;

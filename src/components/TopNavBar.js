@@ -1,14 +1,11 @@
-import MainSearch from "src/components/MainSearch";
 import { Button } from "semantic-ui-react";
 import Link from "next/link";
-import styles from "src/styles/TopNavBar.module.css";
 const TopNavBar = () => {
 	return (
-		<div className={styles.header}>
+		<div className="headerTopNavBar">
 			<Link href="/">
-				<img className={styles.logo} src="/LOGO.png" alt="PTP LOGO" />
+				<img className="logo" src="/LOGO.png" alt="PTP LOGO" />
 			</Link>
-			<MainSearch size={5} />
 			<Button className="green">LOGIN</Button>
 		</div>
 	);

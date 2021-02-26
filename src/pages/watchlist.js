@@ -3,7 +3,7 @@ import Layout from "src/components/Layout";
 import Watchlist from "src/components/watchlist/Watchlist";
 export default function Home() {
   return (
-    <Layout>
+    <Layout name="WATCHLIST">
       <Head>
         <title>My Watchlist</title>
         <link rel="icon" href="/favicon.svg" />

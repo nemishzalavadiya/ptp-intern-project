@@ -5,6 +5,10 @@
 @import "src/styles/MutualfundDetail.module.scss";
 @import "src/styles/StatisticStock.module.scss";
 @import "src/styles/StatisticMf.module.scss";
+@import "src/styles/StatisticMf.module.scss";
+@import "src/styles/NavBar.module.scss";
+@import "src/styles/Layout.module.scss";
+@import "src/styles/TopNavBar.module.scss";
 html,
 body {
   padding: 0;
@@ -24,5 +28,5 @@ body {
   transform: translate(-50%, -50%);
 }
 .watchlist {
-  margin: 2% 9% 2% 6%;
+  margin:0rem;
 }

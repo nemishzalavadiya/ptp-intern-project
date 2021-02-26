@@ -5,11 +5,12 @@ import { Header, Loader } from "semantic-ui-react";
 export default function Stockdetail(props) {
   const [isComplete, response] = getStockByAssetId(props.stockId);
   return isComplete ? (
-    <div className="divMain">
-      <Header as="h2" className="ui header stockDetail">
+    <div>
+      <Header className="stats">
         {response.stockDetail.assetDetail.name}
       </Header>
       <Chart />
+      <br/>
       <StatisticStock stockDetail={response} />
     </div>
   ) : response.error ? (

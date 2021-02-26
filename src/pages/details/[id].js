@@ -1,21 +1,30 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { getAssetById } from "src/services/assets";
 import Stockdetail from "src/components/Stockdetail/Stockdetail";
 import MutualFundDetail from "src/components/Mutualfund/MutualfundDetail";
 import Layout from "src/components/Layout";
 import { Loader } from "semantic-ui-react";
-import {AssetClass} from "src/components/AssetClass.ts";
+import { AssetClass } from "src/components/AssetClass.ts";
 export default function details() {
   const router = useRouter();
   const { id } = router.query;
   const [isComplete, response] = getAssetById(id);
   return isComplete ? (
     response.assetClass == AssetClass.STOCK ? (
-      <Layout>
+      <Layout name="STOCK">
+        <Head>
+          <title>Stock</title>
+          <link rel="icon" href="/favicon.svg" />
+        </Head>
         <Stockdetail stockId={id} />
       </Layout>
     ) : (
-      <Layout>
+      <Layout name="MUTUAL_FUND">
+        <Head>
+          <title>Mutual Fund</title>
+          <link rel="icon" href="/favicon.svg" />
+        </Head>
         <MutualFundDetail mfId={id} />
       </Layout>
     )

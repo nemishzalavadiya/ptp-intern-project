@@ -15,3 +15,16 @@
 		margin: 1rem 0;
 	}
 }
+.list-container{
+	position: fixed;
+	top: 25%;
+	background-color: $cardGrey;
+}
+.list-container > .list-item {
+	margin-left: 2px;
+	cursor: pointer;
+}
+.ui.vertical.menu.list-container {
+    width: 6rem;
+}
+

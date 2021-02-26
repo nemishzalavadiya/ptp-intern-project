@@ -1,4 +1,16 @@
-import { Header } from "semantic-ui-react";
+import { Header, Table } from "semantic-ui-react";
+
+const headers = [
+  "Book Value",
+  "Div. Yield",
+  "EPS(TTM)",
+  "Industry P/E",
+  "Market Cap",
+  "P/B Ratio",
+  "P/E Ratio",
+  "ROE",
+];
+
 export default function Statistics(props) {
   const {
     numberOfStackHolders,
@@ -16,57 +28,44 @@ export default function Statistics(props) {
       assetDetail: { name, logoUrl, assetClass, about },
     },
   } = props.stockDetail;
-
+  const values = [
+    bookValue,
+    divYield,
+    earningPerShareTTM,
+    industryPE,
+    marketCap,
+    pbRatio,
+    peRatio,
+    returnOnEquity,
+  ];
   return (
-    <div>
-      <Header as="h2" className="ui header stats">
-        Statistics
-      </Header>
+    <div className="stats-main">
+      <div className="div-style">
+      <Header className="stats">Statistics</Header>
       <section>
-        <table className="ui inverted table segment">
-          <thead>
-            <tr>
-              <th>Book Value</th>
-              <th>Div. Yield</th>
-              <th>EPS(TTM)</th>
-              <th>Industry P/E</th>
-              <th>Market Cap</th>
-              <th>P/B Ratio</th>
-              <th>P/E Ratio</th>
-              <th>ROE</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{bookValue}</td>
-              <td>{divYield}</td>
-              <td>{earningPerShareTTM}</td>
-              <td>{industryPE}</td>
-              <td>{marketCap}</td>
-              <td>{pbRatio}</td>
-              <td>{peRatio}</td>
-              <td>{returnOnEquity}</td>
-            </tr>
-          </tbody>
-        </table>
+        <Table color="black" inverted>
+          <Table.Header>
+            <Table.Row>
+              {headers.map((item,index) => {
+                return <Table.HeaderCell key={index}>{item}</Table.HeaderCell>;
+              })}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              {values.map((item,index) => {
+                return <Table.Cell key={index}>{item}</Table.Cell>;
+              })}
+            </Table.Row>
+          </Table.Body>
+        </Table>
       </section>
-      <br />
-      <div className="about">
-        <Header as="h2" className="ui header stats">
-          About
-        </Header>
-        <Header as="h3" className="ui header stats">
-          {about}
-        </Header>
       </div>
-      <br />
-      <div className="about">
-        <Header as="h2" className="ui header stats">
-          Managing Director
-        </Header>
-        <Header as="h3" className="ui header stats">
-          {managingDirector}
-        </Header>
+      <div className="about div-style" >
+        <Header className="stats">About</Header>
+        <div className="info">{about}</div>
+        <Header className="stats">Managing Director</Header>
+        <div className="info">{managingDirector}</div>
       </div>
     </div>
   );

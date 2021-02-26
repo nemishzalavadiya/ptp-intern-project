@@ -1,15 +1,23 @@
 @import "./variables";
-.main {
+.mainLayout {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
 	min-height: 100vh;
-}
-.right {
+  }
+  
+  .rightLayout {
 	position: absolute;
-	background-color: $backgroundGrey;
-	color: $fontColor;
+	background-color: #121212;
+	color: white;
 	min-height: 100vh;
-	left: $navBarWidth;
-}
-.bar {
+	left: 6rem;
+  }
+  
+  .barLayout {
 	position: fixed;
-}
+  }
+  .innerLayout{
+	padding: 50px;
+  }
+  /*# sourceMappingURL=Layout.module.css.map */

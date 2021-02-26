@@ -1,4 +1,13 @@
-import { Header } from "semantic-ui-react";
+import { Header, Table, Segment, Container } from "semantic-ui-react";
+const headers = [
+  "Minimum SIP",
+  "Risk",
+  "Expense Ratio",
+  "NAV",
+  "Fund Started",
+  "Fund Size",
+];
+
 export default function StatisticMf(props) {
   const {
     risk,
@@ -9,55 +18,38 @@ export default function StatisticMf(props) {
     fundSize,
     mutualFundDetail: {
       fundManager,
-      assetDetail: { name, about, assetClass },
+      assetDetail: { name, logoUrl, assetClass, about },
     },
   } = props.mfDetail;
+  const values = [minSIP, risk, expenseRatio, nav, fundStarted, fundSize];
   return (
-    <div>
-      <Header as="h2" className="ui header stats">
-        Statistics
-      </Header>
+    <div className="stats-main">
+      <div className="div-style">
+      <Header className="stats">Statistics</Header>
       <section>
-        <table className="ui inverted table segment">
-          <thead>
-            <tr>
-              <th>Minimum SIP</th>
-              <th>Risk</th>
-              <th>Expense Ratio</th>
-              <th>NAV</th>
-              <th>Fund Started</th>
-              <th>Fund Size</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{minSIP}</td>
-              <td>{risk}</td>
-              <td>{expenseRatio}</td>
-              <td>{nav}</td>
-              <td>{fundStarted}</td>
-              <td>{fundSize}</td>
-            </tr>
-          </tbody>
-        </table>
+        <Table color="black" inverted>
+          <Table.Header>
+            <Table.Row>
+              {headers.map((item,index) => {
+                return <Table.HeaderCell key={index}>{item}</Table.HeaderCell>;
+              })}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              {values.map((item,index) => {
+                return <Table.Cell key={index}>{item}</Table.Cell>;
+              })}
+            </Table.Row>
+          </Table.Body>
+        </Table>
       </section>
-      <br />
-      <div className="about">
-        <Header as="h2" className="ui header stats">
-          About
-        </Header>
-        <Header as="h3" className="ui header stats">
-          {about}
-        </Header>
       </div>
-      <br />
-      <div className="about">
-        <Header as="h2" className="ui header stats">
-          Fund Manager
-        </Header>
-        <Header as="h3" className="ui header stats">
-          {fundManager}
-        </Header>
+      <div className="about div-style">
+        <Header className="stats">About</Header>
+        <div className="info">{about}</div>
+        <Header className="stats">Fund Manager</Header>
+        <div className="info">{fundManager}</div>
       </div>
     </div>
   );

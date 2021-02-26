@@ -1,4 +1,3 @@
-import styles from "src/styles/NavBar.module.scss";
 import Link from "next/link";
 import { Popup } from "semantic-ui-react";
 import { Menu } from "semantic-ui-react";
@@ -50,7 +49,7 @@ const NavBar = (props) => {
                   <Popup
                     size="mini"
                     trigger={<img src={item.imgLink} alt={item.imgAlter} />}
-                    position="right"
+                    position="right center"
                     content={item.content}
                     inverted
                   />

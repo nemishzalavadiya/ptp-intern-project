@@ -6,7 +6,7 @@ export default function Stockdetail(props) {
   const [isComplete, response] = getStockByAssetId(props.stockId);
   return isComplete ? (
     <div>
-      <Header className="stockDetail">
+      <Header className="stats">
         {response.stockDetail.assetDetail.name}
       </Header>
       <Chart />

@@ -24,28 +24,28 @@ export default function StatisticMf(props) {
   const values = [minSIP, risk, expenseRatio, nav, fundStarted, fundSize];
   return (
     <div className="stats-main">
-      <div className="fancy">
+      <div className="div-style">
       <Header className="stats">Statistics</Header>
       <section>
         <Table color="black" inverted>
           <Table.Header>
             <Table.Row>
-              {headers.map((item) => {
-                return <Table.HeaderCell>{item}</Table.HeaderCell>;
+              {headers.map((item,index) => {
+                return <Table.HeaderCell key={index}>{item}</Table.HeaderCell>;
               })}
             </Table.Row>
           </Table.Header>
           <Table.Body>
             <Table.Row>
-              {values.map((item) => {
-                return <Table.Cell>{item}</Table.Cell>;
+              {values.map((item,index) => {
+                return <Table.Cell key={index}>{item}</Table.Cell>;
               })}
             </Table.Row>
           </Table.Body>
         </Table>
       </section>
       </div>
-      <div className="about fancy">
+      <div className="about div-style">
         <Header className="stats">About</Header>
         <div className="info">{about}</div>
         <Header className="stats">Fund Manager</Header>

@@ -1,17 +1,16 @@
 import NavBar from "src/components/NavBar";
 import "semantic-ui-css/semantic.min.css";
-import styles from "src/styles/Layout.module.scss";
 import TopNavBar from "src/components/TopNavBar";
 
 const Layout = (props) => {
 	return (
-		<div className={styles.main}>
-			<div className={styles.bar}>
+		<div className="mainLayout">
+			<div className="barLayout">
 				<NavBar name={props.name} />
 			</div>
-			<div className={styles.right}>
+			<div className="rightLayout">
 				<TopNavBar />
-				<div className={styles.innerChild}>
+				<div className="innerLayout">
 				{props.children}
 				</div>
 			</div>

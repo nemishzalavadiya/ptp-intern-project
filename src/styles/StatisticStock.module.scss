@@ -1,7 +1,7 @@
 $colorJumbo: #737373;
 
 .about{
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
 .ui.header.stats { 
@@ -10,19 +10,24 @@ $colorJumbo: #737373;
     font-size: 26px;
     font-weight: 500;
     letter-spacing: .44px;
+    padding-top: 8px;
+}
+.ui.header:first-child{
+    margin-top: 0rem;
 }
 .info{
-    color: #C2CAD0;
-    font-family: Roboto,system-ui;
+    color: rgb(241, 228, 228);
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
     font-size: 15px;
     text-align: justify;
-    font-weight: 400px;
-    line-height: 27px;
+    font-weight: 400;
+    line-height: 20px;
+    margin-top: 5px;
 }
 .stats-main{
-    margin-top: 80px;
+    margin-top: 20px;
 }
-.fancy {
+.div-style {
     padding : 1em;
     width: 100%;
     height: 40%;

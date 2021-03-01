@@ -1,40 +1,40 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import Cookies from "js-cookie";
-import { userLogin } from "src/services/authentication";
+import authenticateUser from "src/services/authenticate";
 const AuthContext = createContext({});
 import Router from "next/router";
 import { Loader } from "semantic-ui-react";
 
-
 export const AuthProvider = ({ children }) => {
-
   const [token, setToken] = useState(null);
-  const [isLoading,setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     function loadUserTokenFromCookies() {
       const tokenCookie = Cookies.get("token");
-     
       if (tokenCookie) {
-        console.log("Got a token in the cookies, let's see if it is valid");
-        authorization = `Bearer ${tokenCookie}`;
+        let authorization = `Bearer ${tokenCookie}`;
         setToken(authorization);
       } else {
         if (Router.pathname !== "/login") Router.push("/login");
       }
-      setLoading(false)
+      setLoading(false);
     }
     loadUserTokenFromCookies();
   }, []);
 
-  const login = (email, password) => {
-    const [isCompleted, data] = userLogin(email, password);
+  const login = (email, password, validate) => {
+    const [isCompleted, data, error] = authenticateUser(
+      email,
+      password,
+      validate
+    );
     if (isCompleted && data.token) {
-      console.log("Got token");
-      Cookies.set("token", token, { expires: 60 });
-      authorization = `Bearer ${token.token}`;
+      Cookies.set("token", data.token, { expires: 60 });
+      let authorization = `Bearer ${data.token}`;
       setToken(authorization);
     }
+    return [isCompleted, data, error];
   };
 
   const logout = () => {
@@ -45,8 +45,9 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!token, token, login, logout ,isLoading}}
-    >{children}
+      value={{ isAuthenticated: !!token, token, login, logout, isLoading }}
+    >
+      {children}
     </AuthContext.Provider>
   );
 };
@@ -56,10 +57,10 @@ export const useAuth = () => useContext(AuthContext);
 export const ProtectRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
   if (
-    isLoading || (!isAuthenticated &&
-    window.location.pathname !== "/login")
+    isLoading ||
+    (!isAuthenticated && window.location.pathname !== "/login")
   ) {
-    return <Loader active>Loading</Loader>;
+    return <Loader inverted active>Loading</Loader>;
   }
   return children;
 };

@@ -1,7 +1,5 @@
 import style from "src/styles/globals.scss";
 import "semantic-ui-css/semantic.min.css";
-import "react-toastify/dist/ReactToastify.css";
-
 import { AuthProvider, ProtectRoute } from "src/components/contexts/auth";
 function MyApp({ Component, pageProps }) {
   return (

@@ -1,12 +1,29 @@
 import { useFetch } from "src/hooks/useFetch";
+import { useAuth } from "src/components/contexts/auth";
 
 function getAllWatchlistByUserId(userId) {
-  const [isComplete, data] = useFetch(`/api/watchlist/users/${userId}`);
+  let { token } = useAuth();
+  let options = {
+    headers: {
+      Authentication: token,
+    },
+  };
+  const [isComplete, data] = useFetch(
+    "/api/watchlist/users/" + userId,
+    options
+  );
   return [isComplete, data];
 }
-function getAllWatchlistEntryByWatchlistId(watchlistId, value, page, size) {
+function getAllWatchlistEntryByWatchlistId(watchlistId, page, size) {
+  let { token } = useAuth();
+  let options = {
+    headers: {
+      Authentication: token,
+    },
+  };
   const [isComplete, data] = useFetch(
-    `/api/watchlist/searchWatchlist?assetName=${value}&watchlistID=${watchlistId}&page=${page}&size=${size}`
+    "/api/watchlist/" + watchlistId + "?page=" + page + "&size=" + size,
+    options
   );
 
   return [isComplete, data];

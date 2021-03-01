@@ -6,15 +6,15 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
 import { createStockOrder } from "src/services/stockOrder";
+import { ProductCode } from "src/enums/productCode.ts";
 import { OrderType } from "src/enums/orderType.ts";
-import { PriceType } from "src/enums/priceType.ts";
 import { Action } from "src/enums/action.ts";
 import { WebSocketUrl, UserId } from "src/components/Objects";
 
 export default function StockTicket({ assetId, stockId }) {
   const [action, setAction] = useState(Action.BUY);
-  const [orderType, setOrderType] = useState(OrderType.DELIVERY);
-  const [priceType, setPriceType] = useState(PriceType.LIMIT);
+  const [productCode, setProductCode] = useState(ProductCode.CNC);
+  const [orderType, setOrderType] = useState(OrderType.LIMIT);
   const [price, setPrice] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
   const [volume, setVolume] = useState(0);
@@ -47,9 +47,9 @@ export default function StockTicket({ assetId, stockId }) {
     let data = {
       tradeVolume: volume,
       action: action,
-      priceType: priceType,
       orderType: orderType,
-      price: priceType === PriceType.MARKET ? currentPrice : price,
+      productCode: productCode,
+      price: orderType === OrderType.MARKET ? currentPrice : price,
       user: {
         id: UserId.userId,
       },
@@ -83,44 +83,44 @@ export default function StockTicket({ assetId, stockId }) {
         <Grid>
           <Grid.Row>
             <Grid.Column width={5}>
-              <label> OrderType </label>
+              <label> Product Code </label>
             </Grid.Column>
             <Grid.Column width={8}>
-              <Button.Group name="ordrType">
+              <Button.Group name="productCode">
                 <Button
                   color="grey"
-                  positive={orderType === OrderType.DELIVERY}
-                  onClick={(event) => setOrderType(OrderType.DELIVERY)}
+                  positive={productCode === ProductCode.CNC}
+                  onClick={(event) => setProductCode(ProductCode.CNC)}
                 >
-                  Delivery
+                  CNC
                 </Button>
                 <Button
                   color="grey"
-                  positive={orderType === OrderType.INTRADAY}
-                  onClick={(event) => setOrderType(OrderType.INTRADAY)}
+                  positive={productCode === ProductCode.MIS}
+                  onClick={(event) => setProductCode(ProductCode.MIS)}
                 >
-                  IntraDay
+                  MIS
                 </Button>
               </Button.Group>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={5}>
-              <label> PriceType </label>
+              <label> OrderType </label>
             </Grid.Column>
             <Grid.Column width={8}>
-              <Button.Group name="priceType">
+              <Button.Group name="orderType">
                 <Button
                   color="grey"
-                  positive={priceType === PriceType.MARKET}
-                  onClick={(event) => setPriceType(PriceType.MARKET)}
+                  positive={orderType === OrderType.MARKET}
+                  onClick={(event) => setOrderType(OrderType.MARKET)}
                 >
                   Market
                 </Button>
                 <Button
                   color="grey"
-                  positive={priceType === PriceType.LIMIT}
-                  onClick={(event) => setPriceType(PriceType.LIMIT)}
+                  positive={orderType === OrderType.LIMIT}
+                  onClick={(event) => setOrderType(OrderType.LIMIT)}
                 >
                   Limit
                 </Button>
@@ -142,8 +142,8 @@ export default function StockTicket({ assetId, stockId }) {
                 </Button>
                 <Button
                   color="grey"
-                  positive={action === "BUY"}
-                  onClick={(event) => setAction("BUY")}
+                  positive={action ===Action.BUY}
+                  onClick={(event) => setAction(Action.BUY)}
                 >
                   BUY
                 </Button>
@@ -160,9 +160,9 @@ export default function StockTicket({ assetId, stockId }) {
                 size="mini"
                 type="number"
                 onChange={(event) => setPrice(event.target.value)}
-                readOnly={priceType === PriceType.MARKET}
+                readOnly={orderType === OrderType.MARKET}
                 fluid
-                value={priceType === PriceType.MARKET ? currentPrice : price}
+                value={orderType === OrderType.MARKET ? currentPrice : price}
                 iconPosition="left"
                 icon="rupee"
               />
@@ -188,7 +188,7 @@ export default function StockTicket({ assetId, stockId }) {
             fluid
             disabled={
               volume <= 0 ||
-              (price <= 0 && priceType === PriceType.LIMIT) ||
+              (price <= 0 && orderType === OrderType.LIMIT) ||
               isOrderExecuting
             }
           >

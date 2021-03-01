@@ -53,7 +53,7 @@ public class WatchlistServiceMockTest {
         AssetDetail assetDetail = new AssetDetail();
         assetDetail.setId(UUID.randomUUID());
         Watchlist watchlist = new Watchlist(UUID.randomUUID(),
-                new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"), "abc", "abc@dev.com", "", "", "", "", Gender.MALE, ""),
+                new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"),"encryptedPassword", "abc", "abc@dev.com", "", "", "", "", Gender.MALE, ""),
                 "", "");
         watchlistService.add(watchlist);
         verify(watchlistRepository, times(1)).save(watchlist);

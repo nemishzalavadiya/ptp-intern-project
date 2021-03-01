@@ -31,8 +31,8 @@ public class TestDataStore {
         userUuid2 = UUID.fromString("00000000-0000-0000-0000-999999999999");
         assetUuid1 = UUID.fromString("00000000-0000-0000-0000-000000000001");
         assetUuid2 = UUID.fromString("00000000-0000-0000-0000-000000000002");
-        userList.add(new User(userUuid1, "Nemish", "email", "panCard", "mobileNo", "signature", "dataOfBirth", Gender.MALE, "dpUrl"));
-        userList.add(new User(userUuid2, "Nemish", "email", "panCard", "mobileNo", "signature", "dataOfBirth", Gender.MALE, "dpUrl"));
+        userList.add(new User(userUuid1,"encryptedPassword", "Nemish", "email", "panCard", "mobileNo", "signature", "dataOfBirth", Gender.MALE, "dpUrl"));
+        userList.add(new User(userUuid2, "encryptedPassword","Nemish", "email", "panCard", "mobileNo", "signature", "dataOfBirth", Gender.MALE, "dpUrl"));
         assetDetailList.add(new AssetDetail(assetUuid1, "name", "logo_url", AssetClass.STOCK, "about", "nemish", "org"));
         assetDetailList.add(new AssetDetail(assetUuid2, "name", "logo_url", AssetClass.MUTUAL_FUND, "about", "mohit", "org"));
         watchlistList.add(new Watchlist(UUID.fromString("00000000-0000-0000-0000-000000000006"), userList.get(0), "myFirst", "description"));

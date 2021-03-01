@@ -19,7 +19,6 @@ public class WebSocketScheduler {
 
     @Scheduled(fixedDelay = 1000)
     public void trigger() {
-        dataGenerator.setDistinctCompany();
         dataGenerator.setData();
         dataGenerator.getGeneratedStockList().forEach((companyData) -> {
             this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.getCompany_id(), companyData);

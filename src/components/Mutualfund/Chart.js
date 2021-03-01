@@ -3,65 +3,8 @@ import React, { useState, useEffect } from "react";
 import HighchartsReact from "highcharts-react-official";
 import { Loader } from "semantic-ui-react";
 import mockData from "src/components/Mutualfund/MutualfundData";
-let mockOptions = {
-  chart: {
-    backgroundColor: "#272727",
-    borderRadius: "15px",
-    type: "spline",
-    style: {
-      color: "#fffdfd",
-    },
-    animation: {
-      duration: 1500,
-    },
-    zoomType: "x",
-  },
-  legend: {
-    enabled: false,
-  },
-  title: {
-    text: "",
-  },
-  credits: {
-    enabled: false,
-  },
-  tooltip: {
-    split: false,
-    backgroundColor: "#747474",
-    borderRadius: 20,
-    style: {
-      color: "#ffffff",
-    },
-    headerShape: "square",
-  },
-  yAxis: {
-    gridLineWidth: 0,
-    title: {
-      text: "",
-    },
-  },
-  xAxis: {
-    type: "datetime",
-    title: {
-      text: "",
-    },
-  },
-  plotOptions: {
-    line: {
-      color: "#50d688",
-    },
-  },
-  series: [
-    {
-      type: "line",
-      name: "nav",
-      data: [],
-      animation: {
-        duration: 2000,
-      },
-    },
-  ],
-};
+import options from "src/components/Mutualfund/MutualFundChartOptions";
+let mockOptions = options;
 const transformChartData = (options, array) => {
   const dataLength = array.length;
   console.log(dataLength);

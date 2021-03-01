@@ -81,10 +81,11 @@ public class SipScheduler {
     void addToMutualFundOrder(MutualFundOrder mutualFundOrder)
     {
         mutualFundOrder.setStatus(Status.EXECUTED);
+        MutualFundStatistic mutualFundStatistic = mutualFundStatisticRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get();
+        mutualFundOrder.setNav(mutualFundStatistic.getNav());
         mutualFundOrderRepository.save(mutualFundOrder);
         Optional<MutualFundDetail> mutualFundDetail = mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId());
         AssetDetail assetDetail = mutualFundDetail.get().getAssetDetail();
-        MutualFundStatistic mutualFundStatistic = mutualFundStatisticRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get();
         Position position = new Position(null, mutualFundOrder.getPrice() / mutualFundStatistic.getNav(), mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), assetDetail);
         positionService.addMutualFundToPosition(position);
 
@@ -92,10 +93,12 @@ public class SipScheduler {
 
     void addToMutualFundOrderRepeat(MutualFundOrder mutualFundOrder)
     {
+        MutualFundStatistic mutualFundStatistic = mutualFundStatisticRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get();
         MutualFundOrder mutualFundOrderRepeat = mutualFundOrder;
         mutualFundOrderRepeat.setId(null);
         mutualFundOrderRepeat.setStatus(Status.PENDING);
         mutualFundOrderRepeat.setInvestmentType(InvestmentType.NONE);
+        mutualFundOrder.setNav(mutualFundStatistic.getNav());
         mutualFundOrderRepository.save(mutualFundOrderRepeat);
     }
 }

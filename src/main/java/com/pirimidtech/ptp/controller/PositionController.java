@@ -71,6 +71,7 @@ public class PositionController {
 
         List<MutualFundPositionDTO> mutualFundPositionDTOList=new ArrayList<>();
         Page<Position> positionList=positionService.searchByAssetClassAndAssetDetailName(userId,name,AssetClass.MUTUAL_FUND,page,size);
+
         positionList.toList().forEach(position ->{
             Optional<MutualFundStatistic> mutualFundStatisticOptional =mutualFundService.getMutualFundStatisticByAssetId(position.getAssetDetail().getId());
             if(mutualFundStatisticOptional.isPresent()) {
@@ -82,7 +83,10 @@ public class PositionController {
                 mutualFundPositionDTOList.add(mutualFundPositionDTO);
             }
         });
-        Page<MutualFundPositionDTO> result =new PageImpl<MutualFundPositionDTO>(mutualFundPositionDTOList,positionList.getPageable(),positionList.getTotalPages());
+        Pageable pageable=positionList.getPageable();
+        int contentSize=positionList.toList().size();
+        long total = pageable.getOffset() + contentSize + (contentSize == size ? size : 0);
+        Page<MutualFundPositionDTO> result =new PageImpl<MutualFundPositionDTO>(mutualFundPositionDTOList,positionList.getPageable(),total);
         return ResponseEntity.ok().body(result);
     }
 

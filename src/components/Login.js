@@ -37,14 +37,14 @@ export default function Login() {
   }
   useEffect(()=>{
     if (isCompleted && data.token) {
-      if(Router.query.path==="/login"){
-        Router.push("/")
+      if(Router.query.path===undefined){
+        Router.replace("/")
       }
       else{
-        //Router.push(Router.query.path);
+        Router.replace(Router.query.path);
       }
-    }
-  },[isCompleted,data.token])
+    } 
+  })
   const submitHandler = (event) => {
     event.preventDefault();
     setValidate({
@@ -70,7 +70,6 @@ export default function Login() {
                       <Input
                         transparent
                         required
-                        inverted
                         placeholder="email"
                         iconPosition="left"
                         icon="user"
@@ -84,7 +83,6 @@ export default function Login() {
                     <Grid.Column width={11}>
                       <Input
                         required
-                        inverted
                         transparent
                         type="password"
                         iconPosition="left"

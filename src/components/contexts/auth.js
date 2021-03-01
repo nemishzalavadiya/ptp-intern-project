@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
     loadUserTokenFromCookies();
-  }, []);
+  });
 
   const login = (email, password, validate) => {
     const [isCompleted, data, error] = authenticateUser(
@@ -33,8 +33,6 @@ export const AuthProvider = ({ children }) => {
     );
     if (isCompleted && data.token) {
       Cookies.set("token", data.token, { expires: 60 });
-      let authorization = `Bearer ${data.token}`;
-      setToken(authorization);
     }
     return [isCompleted, data, error];
   };
@@ -42,7 +40,6 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     Cookies.remove("token");
     setToken(null);
-    window.location.pathname = "/login";
   };
 
   return (
@@ -62,7 +59,7 @@ export const ProtectRoute = ({ children }) => {
     isLoading ||
     (!isAuthenticated && window.location.pathname !== "/login")
   ) {
-    return <Loader inverted active>Loading</Loader>;
+    return <Loader active>Loading</Loader>;
   }
   return children;
 };

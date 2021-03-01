@@ -18,6 +18,10 @@ import com.pirimidtech.ptp.service.trade.OrderService;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +30,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
+
 
 @RestController
 public class OrderController {
@@ -82,6 +88,16 @@ public class OrderController {
         }
         return ResponseEntity.ok().body(stockTrade);
 
+    }
+    @GetMapping("/stock/orders/filter-by-date")
+    public ResponseEntity<Page<StockTrade>> getStockOrderBasedOnDate(@RequestParam UUID userId,
+                                                                     @RequestParam String startDate,
+                                                                     @RequestParam String endDate,
+                                                                     @RequestParam(defaultValue = "0") int page,
+                                                                     @RequestParam(defaultValue = "10") int size) throws Exception{
+        Pageable pageable = PageRequest.of(page, size);
+        Page<StockTrade> stockTradeBasedOnDate = orderService.getStockOrderFilteredOnDate(userId,startDate,endDate,pageable);
+        return ResponseEntity.ok().body(stockTradeBasedOnDate);
     }
 
     @PostMapping("/mutualfund/orders")

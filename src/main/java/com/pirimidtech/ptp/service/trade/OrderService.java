@@ -10,9 +10,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
+=======
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+>>>>>>> 767e2bd (ignore)
 
 
 @Service
@@ -59,5 +66,24 @@ public class OrderService implements OrderServiceInterface {
     public MutualFundOrder getMutualFundOrder(UUID orderId) {
         Optional<MutualFundOrder> mutualFundOrder = mutualFundOrderRepository.findById(orderId);
         return mutualFundOrder.isPresent() ? mutualFundOrder.get() : null;
+    }
+
+    public Page<StockTrade> getStockOrderFilteredOnDate(UUID userId, String startDate, String endDate, Pageable pageable) throws Exception {
+
+        DateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat targetFormat = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+        Date sDate = originalFormat.parse(startDate);
+        startDate = targetFormat.format(sDate);
+        Date eDate = originalFormat.parse(endDate);
+        endDate = targetFormat.format(eDate);
+        sDate = targetFormat.parse(startDate);
+        eDate = targetFormat.parse(endDate);
+        if(sDate.compareTo(eDate) <= 1){
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(eDate);
+            cal.add(Calendar.DATE, 1);
+            eDate = cal.getTime();
+        }
+        return stockTradeRepository.findAllByUserIdAndTimestampBetween(userId,sDate,eDate,pageable);
     }
 }

@@ -11,6 +11,7 @@ import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import com.pirimidtech.ptp.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.support.ResourcePropertiesPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -118,4 +119,5 @@ public class WatchlistController {
         watchlistEntryService.remove(watchlistEntryId);
         return ResponseEntity.ok().body(watchlistEntryId);
     }
+
 }

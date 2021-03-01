@@ -33,14 +33,14 @@ public class PositionController {
     @Autowired
     private MutualFundService mutualFundService;
 
-    @GetMapping("/position/assets/stock/users/{id}")
+    @GetMapping("/stock/position/users/{id}")
     public ResponseEntity<Page<Position>> getStockPositionByUser(@PathVariable("id") UUID userId,@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size)
     {
         Page<Position> positionList = positionService.getPositionByAssetClass(userId,AssetClass.STOCK, page, size);
         return ResponseEntity.ok().body(positionList);
     }
 
-    @GetMapping("/position/assets/mutualFund/users/{id}")
+    @GetMapping("/mutualfund/position/users/{id}")
     public ResponseEntity<Page<MutualFundPositionDTO>> getMutualFundPositionByUser(@PathVariable("id") UUID userId,@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size)
     {
         List<MutualFundPositionDTO> mutualFundPositionDTOList=new ArrayList<>();
@@ -60,13 +60,13 @@ public class PositionController {
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/position/search/assets/stock/users/{id}")
+    @GetMapping("/stock/position/search/users/{id}")
     public ResponseEntity<Page<Position>> searchInStockPosition(@PathVariable("id") UUID userId,@RequestParam("name") String name,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Page<Position> search = positionService.searchByAssetClassAndAssetDetailName(userId,name,AssetClass.STOCK,page,size);
         return ResponseEntity.ok().body(search);
     }
 
-    @GetMapping("/position/search/assets/mutualFund/users/{id}")
+    @GetMapping("/mutualfund/position/search/users/{id}")
     public ResponseEntity<Page<MutualFundPositionDTO>> searchInMutualFundPosition(@PathVariable("id") UUID userId,@RequestParam("name") String name,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 
         List<MutualFundPositionDTO> mutualFundPositionDTOList=new ArrayList<>();

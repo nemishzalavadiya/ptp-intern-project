@@ -14,7 +14,7 @@ function getAllWatchlistByUserId(userId) {
   );
   return [isComplete, data];
 }
-function getAllWatchlistEntryByWatchlistId(watchlistId, page, size) {
+function getAllWatchlistEntryByWatchlistId(watchlistId, searchQuery, page, size) {
   let { token } = useAuth();
   let options = {
     headers: {
@@ -22,10 +22,9 @@ function getAllWatchlistEntryByWatchlistId(watchlistId, page, size) {
     },
   };
   const [isComplete, data] = useFetch(
-    "/api/watchlist/" + watchlistId + "?page=" + page + "&size=" + size,
+    `/api/watchlist/searchWatchlist?assetName=${searchQuery}&watchlistID=${watchlistId}&page=${page}&size=${size}`,
     options
   );
-
   return [isComplete, data];
 }
 export { getAllWatchlistByUserId, getAllWatchlistEntryByWatchlistId };

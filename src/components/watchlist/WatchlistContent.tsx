@@ -11,8 +11,7 @@ export default function WatchlistContent(props) {
     watchlistId: props.watchlistId,
   });
   let companyUuids = [];
-  let [isCompleted, response] = [false];
-
+  let [isCompleted, response] = [false,null];
   [isCompleted, response] = getAllWatchlistEntryByWatchlistId(
     props.watchlistId,
     searchQuery,

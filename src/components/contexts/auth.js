@@ -16,7 +16,9 @@ export const AuthProvider = ({ children }) => {
         let authorization = `Bearer ${tokenCookie}`;
         setToken(authorization);
       } else {
-        if (Router.pathname !== "/login") Router.push("/login");
+        if (Router.pathname !== "/login"){ 
+          Router.push({pathname:"/login",query:{path:Router.pathname}});
+        }
       }
       setLoading(false);
     }

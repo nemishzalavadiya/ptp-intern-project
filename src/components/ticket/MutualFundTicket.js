@@ -38,7 +38,6 @@ export default function MutualFundTicket(props) {
 
 
   const createOrder = async (event) => {
-
     setOrdrStatus(true);
     event.preventDefault();
     let data = {
@@ -49,7 +48,7 @@ export default function MutualFundTicket(props) {
         id: UserId.userId,
       },
       mutualFundDetail: {
-        id: "51381618-1bc9-4c19-aab9-000000000001"
+        id: mfId
       }
     }
     if (investmentType == InvestmentType.ONE_TIME) {
@@ -57,7 +56,7 @@ export default function MutualFundTicket(props) {
       data.investmentType = InvestmentType.ONE_TIME
     }
     createMutualFundOrder(data).
-      then((res) => {
+      then(() => {
         toast('Order executed successfully', {
           position: "bottom-right",
           autoClose: 2000,
@@ -97,14 +96,14 @@ export default function MutualFundTicket(props) {
                 <Button
                   color="grey"
                   positive={investmentType === InvestmentType.SIP}
-                  onClick={(event) => { setInvestmentType(InvestmentType.SIP); setAmountTag("Amount"); }}
+                  onClick={() => { setInvestmentType(InvestmentType.SIP); setAmountTag("Amount"); }}
                 >
                   SIP
                 </Button>
                 <Button
                   color="grey"
                   positive={investmentType === InvestmentType.ONE_TIME}
-                  onClick={(event) => { setInvestmentType(InvestmentType.ONE_TIME); setAmountTag("Lumpsum Ammount"); }}
+                  onClick={() => { setInvestmentType(InvestmentType.ONE_TIME); setAmountTag("Lumpsum Ammount"); }}
                 >
                   LUMPSUM
                 </Button>
@@ -120,7 +119,7 @@ export default function MutualFundTicket(props) {
               <Select disabled={investmentType === InvestmentType.ONE_TIME}
                 placeholder='Frequency'
                 fluid
-                onChange={(e) => { setFrequency(e.target.innerText) }}
+                onChange={(event) => { setFrequency(event.target.innerText) }}
                 selection
                 color="Grey"
                 options={frequencyOptions}
@@ -163,9 +162,8 @@ export default function MutualFundTicket(props) {
           </Grid.Row>
           <Button
             type="submit"
-            onClick={(event) => createOrder(event)}
+            onClick={createOrder}
             fluid
-
             disabled={
               (amount < minSIP) ||
               isOrderExecuting

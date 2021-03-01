@@ -90,14 +90,14 @@ export default function StockTicket({ assetId, stockId }) {
                 <Button
                   color="grey"
                   positive={productCode === ProductCode.CNC}
-                  onClick={(event) => setProductCode(ProductCode.CNC)}
+                  onClick={() => setProductCode(ProductCode.CNC)}
                 >
                   CNC
                 </Button>
                 <Button
                   color="grey"
                   positive={productCode === ProductCode.MIS}
-                  onClick={(event) => setProductCode(ProductCode.MIS)}
+                  onClick={() => setProductCode(ProductCode.MIS)}
                 >
                   MIS
                 </Button>
@@ -113,14 +113,14 @@ export default function StockTicket({ assetId, stockId }) {
                 <Button
                   color="grey"
                   positive={orderType === OrderType.MARKET}
-                  onClick={(event) => setOrderType(OrderType.MARKET)}
+                  onClick={() => setOrderType(OrderType.MARKET)}
                 >
                   Market
                 </Button>
                 <Button
                   color="grey"
                   positive={orderType === OrderType.LIMIT}
-                  onClick={(event) => setOrderType(OrderType.LIMIT)}
+                  onClick={() => setOrderType(OrderType.LIMIT)}
                 >
                   Limit
                 </Button>
@@ -136,14 +136,14 @@ export default function StockTicket({ assetId, stockId }) {
                 <Button
                   color="grey"
                   positive={action === Action.SELL}
-                  onClick={(event) => setAction(Action.SELL)}
+                  onClick={() => setAction(Action.SELL)}
                 >
                   SELL
                 </Button>
                 <Button
                   color="grey"
                   positive={action ===Action.BUY}
-                  onClick={(event) => setAction(Action.BUY)}
+                  onClick={() => setAction(Action.BUY)}
                 >
                   BUY
                 </Button>
@@ -184,7 +184,7 @@ export default function StockTicket({ assetId, stockId }) {
           </Grid.Row>
           <Button
             type="submit"
-            onClick={(event) => createOrder(event)}
+            onClick={() => createOrder}
             fluid
             disabled={
               volume <= 0 ||

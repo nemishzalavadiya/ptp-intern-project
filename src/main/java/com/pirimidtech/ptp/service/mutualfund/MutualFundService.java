@@ -1,9 +1,7 @@
 package com.pirimidtech.ptp.service.mutualfund;
 
-import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
-import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
 import com.pirimidtech.ptp.repository.MutualFundStatisticRepository;
 import org.springframework.beans.factory.annotation.Autowired;

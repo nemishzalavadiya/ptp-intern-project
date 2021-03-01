@@ -39,7 +39,7 @@ public class WatchlistController {
     public ResponseEntity<Page<WatchlistEntry>> getAllWatchlistEntry(@PathVariable UUID watchlistId,
                                                                      @RequestParam(defaultValue = "0") int page,
                                                                      @RequestParam(defaultValue = "10") int size) {
-        log.info("WatchlistId {} Requested all watchlist entries, page {} size {}", watchlistId.toString(),page,size);
+        log.info("WatchlistId {} Requested all watchlist entries, page {} size {}", watchlistId.toString(), page, size);
         Pageable pageable = PageRequest.of(page, size);
         Page<WatchlistEntry> watchlistEntryPage = watchlistEntryService.getAllWatchlistEntryByWatchlistId(watchlistId, pageable);
         return ResponseEntity.ok().body(watchlistEntryPage);
@@ -49,7 +49,7 @@ public class WatchlistController {
     public ResponseEntity<Page<Watchlist>> getAllWatchlistId(@PathVariable UUID userId,
                                                              @RequestParam(defaultValue = "0") int page,
                                                              @RequestParam(defaultValue = "10") int size) {
-        log.info("UserId {} requested all watchlist ids, page {} size {}", userId.toString(),page,size);
+        log.info("UserId {} requested all watchlist ids, page {} size {}", userId.toString(), page, size);
         Pageable pageable = PageRequest.of(page, size);
         Page<Watchlist> watchlistPage = watchlistService.getWatchlistDetailByUserId(userId, pageable);
         return ResponseEntity.ok().body(watchlistPage);
@@ -88,6 +88,17 @@ public class WatchlistController {
             watchlistEntryService.add(watchlistEntry);
         }
         return ResponseEntity.ok().body(watchlistEntry);
+    }
+
+    @GetMapping("/searchWatchlist")
+    public ResponseEntity<Page<WatchlistEntry>> searchInWatchlist(@RequestParam UUID watchlistID,
+                                                                  @RequestParam String assetName,
+                                                                  @RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "10") int size) {
+        log.info("searching in watchlist with watchlistId {} keyword: {}",watchlistID,assetName);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<WatchlistEntry> search = watchlistEntryService.searchByWatchlistIdAndAssetDetailName(watchlistID, assetName, pageable);
+        return ResponseEntity.ok().body(search);
     }
 
     @DeleteMapping("/watchlistentry")

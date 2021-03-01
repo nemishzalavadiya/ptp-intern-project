@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.service;
 
+import com.pirimidtech.ptp.service.datagenerator.DataGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -13,18 +14,15 @@ public class WebSocketScheduler {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
+    @Autowired
     private DataGenerator dataGenerator;
-
-    public WebSocketScheduler() {
-        dataGenerator = new DataGenerator();
-        dataGenerator.setDistinctCompanyId();
-    }
 
     @Scheduled(fixedDelay = 1000)
     public void trigger() {
+        dataGenerator.setDistinctCompany();
         dataGenerator.setData();
-        DataGenerator.dataGeneratorList.forEach((companyData) -> {
-            this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.company_id, companyData);
+        dataGenerator.getGeneratedStockList().forEach((companyData) -> {
+            this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.getCompany_id(), companyData);
         });
     }
 }

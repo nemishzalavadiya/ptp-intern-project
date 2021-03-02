@@ -1,6 +1,10 @@
 package com.pirimidtech.ptp.entity;
 
 public enum InvestmentType {
+    WEEKLY_SIP,
     MONTHLY_SIP,
-    ONE_TIME
+    YEARLY_SIP,
+    ONE_TIME,
+    NONE
 }
+    

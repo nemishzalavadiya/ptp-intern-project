@@ -1,6 +1,11 @@
 package com.pirimidtech.ptp.util;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.AssetClass;
+import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.entity.Gender;
+import com.pirimidtech.ptp.entity.User;
+import com.pirimidtech.ptp.entity.Watchlist;
+import com.pirimidtech.ptp.entity.WatchlistEntry;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 

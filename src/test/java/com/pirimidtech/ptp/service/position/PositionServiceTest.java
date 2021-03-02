@@ -1,6 +1,7 @@
 package com.pirimidtech.ptp.service.position;
 
 import com.pirimidtech.ptp.entity.Action;
+import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.User;
@@ -18,7 +19,9 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class PositionServiceTest {
@@ -30,12 +33,12 @@ class PositionServiceTest {
     private PositionRepository positionRepository;
 
     @Test
-    void getAllPosition() {
+    void getPositionByAssetClass() {
         AssetDetail assetDetail = ObjectUtility.assetDetail;
         List<Position> positionList = new ArrayList<>();
         positionList.add(ObjectUtility.position);
-        when(positionRepository.findAllByUserId(user.getId(), PageRequest.of(0, 1))).thenReturn(new PageImpl<>(positionList));
-        assertEquals(1, positionService.getAllPosition(user.getId(), 0, 1).size());
+        when(positionRepository.findByUserIdAndAndAssetClass(user.getId(), AssetClass.STOCK, PageRequest.of(0, 1))).thenReturn(new PageImpl<>(positionList));
+        assertEquals(1, positionService.getPositionByAssetClass(user.getId(), AssetClass.STOCK, 0, 1).toList().size());
     }
 
     @Test
@@ -46,10 +49,28 @@ class PositionServiceTest {
     }
 
     @Test
-    void addToPosition() {
+    void addMutualFundToPosition() {
         AssetDetail assetDetail = ObjectUtility.assetDetail;
         Position position = ObjectUtility.position;
-        positionService.addToPosition(position, Action.BUY);
+        positionService.addMutualFundToPosition(position);
         verify(positionRepository, times(1)).save(position);
+    }
+
+    @Test
+    void addStockToPosition() {
+        AssetDetail assetDetail = ObjectUtility.assetDetail;
+        Position position = ObjectUtility.position;
+        positionService.addStockToPosition(position, Action.BUY);
+        verify(positionRepository, times(1)).save(position);
+        verify(positionRepository, times(1)).save(position);
+    }
+
+    @Test
+    void searchByAssetClassAndAssetDetailName() {
+        AssetDetail assetDetail = ObjectUtility.assetDetail;
+        List<Position> positionList = new ArrayList<>();
+        positionList.add(ObjectUtility.position);
+        when(positionRepository.findByUserIdAndAndAssetClassAndAndAssetDetailNameContainingIgnoreCase(ObjectUtility.user.getId(), AssetClass.STOCK, "a", PageRequest.of(0, 1))).thenReturn(new PageImpl<>(positionList));
+        assertEquals(1, positionService.searchByAssetClassAndAssetDetailName(ObjectUtility.user.getId(), "a", AssetClass.STOCK, 0, 1).toList().size());
     }
 }

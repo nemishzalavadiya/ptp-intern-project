@@ -1,6 +1,7 @@
 package com.pirimidtech.ptp.repository;
 
 import com.pirimidtech.ptp.entity.MutualFundOrder;
+import com.pirimidtech.ptp.entity.Status;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +15,13 @@ public interface MutualFundOrderRepository extends JpaRepository<MutualFundOrder
 
     @Query(value = "SELECT * FROM MUTUAL_FUND_ORDER m WHERE EXTRACT (Day from m.sipdate)= ?1 and m.investment_type='MONTHLY_SIP'", nativeQuery = true)
     List<MutualFundOrder> findAllByUserIdOrderByDay(int day);
+
+    @Query(value = "SELECT * FROM MUTUAL_FUND_ORDER m WHERE EXTRACT (DOW FROM m.sipdate)= ?1 and m.investment_type='WEEKLY_SIP'", nativeQuery = true)
+    List<MutualFundOrder> findAllByUserIdOrderByWeekDay(int weekDay);
+
+    @Query(value = "SELECT * FROM MUTUAL_FUND_ORDER m WHERE EXTRACT (DOY FROM m.sipdate)= ?1 and m.investment_type='YEARLY_SIP'", nativeQuery = true)
+    List<MutualFundOrder> findAllByUserIdOrderByYearDay(int yearDay);
+
+    List<MutualFundOrder> findAllByStatus(Status status);
+
 }

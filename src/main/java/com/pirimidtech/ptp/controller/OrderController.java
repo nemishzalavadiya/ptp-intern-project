@@ -1,19 +1,32 @@
 package com.pirimidtech.ptp.controller;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.Action;
+import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.entity.MutualFundOrder;
+import com.pirimidtech.ptp.entity.Position;
+import com.pirimidtech.ptp.entity.Status;
+import com.pirimidtech.ptp.entity.StockDetail;
+import com.pirimidtech.ptp.entity.StockTrade;
+import com.pirimidtech.ptp.entity.StockTradeHistory;
 import com.pirimidtech.ptp.exception.InsufficientStockException;
 import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
+import com.pirimidtech.ptp.repository.MutualFundStatisticRepository;
 import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.service.position.PositionService;
 import com.pirimidtech.ptp.service.trade.OrderService;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,6 +44,9 @@ public class OrderController {
 
     @Autowired
     private MutualFundDetailRepository mutualFundDetailRepository;
+
+    @Autowired
+    private MutualFundStatisticRepository mutualFundStatisticRepository;
 
     @Autowired
     private StockDetailRepository stockDetailRepository;
@@ -53,8 +69,8 @@ public class OrderController {
     }
 
     @GetMapping("/stock/orders/users/{id}")
-    public ResponseEntity<List<StockTrade>> getAllStockOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        List<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
+    public ResponseEntity<Page<StockTrade>> getAllStockOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+        Page<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
         return ResponseEntity.ok().body(stockTradeList);
     }
 
@@ -70,17 +86,14 @@ public class OrderController {
 
     @PostMapping("/mutualfund/orders")
     public ResponseEntity<MutualFundOrder> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
+        mutualFundOrder.setStatus(Status.PENDING);
         mutualFundOrder = orderService.addToMutualFundOrder(mutualFundOrder);
-        Optional<MutualFundDetail> mutualFundDetail = mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId());
-        AssetDetail assetDetail = mutualFundDetail.get().getAssetDetail();
-        Position position = new Position(null, 0, mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), assetDetail);
-        positionService.addToPosition(position, Action.BUY);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 
     @GetMapping("/mutualfund/orders/users/{id}")
-    public ResponseEntity<List<MutualFundOrder>> getAllMutualFundOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        List<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
+    public ResponseEntity<Page<MutualFundOrder>> getAllMutualFundOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+        Page<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
         return ResponseEntity.ok().body(mutualFundOrderList);
     }
 

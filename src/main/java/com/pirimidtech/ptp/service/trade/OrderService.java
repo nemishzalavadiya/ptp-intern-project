@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,10 +31,10 @@ public class OrderService implements OrderServiceInterface {
     }
 
     @Override
-    public List<StockTrade> getAllStockOrder(UUID userId, int pageNo, int pageSize) {
+    public Page<StockTrade> getAllStockOrder(UUID userId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<StockTrade> pageResult = stockTradeRepository.findAllByUserIdOrderByTimestampDesc(userId, pageable);
-        return pageResult.toList();
+        return pageResult;
     }
 
     @Override
@@ -50,10 +49,10 @@ public class OrderService implements OrderServiceInterface {
     }
 
     @Override
-    public List<MutualFundOrder> getAllMutualFundOrder(UUID userId, int pageNo, int pageSize) {
+    public Page<MutualFundOrder> getAllMutualFundOrder(UUID userId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<MutualFundOrder> pageResult = mutualFundOrderRepository.findAllByUserIdOrderBySIPDateDesc(userId, pageable);
-        return pageResult.toList();
+        return pageResult;
     }
 
     @Override

@@ -1,64 +1,83 @@
 /** asset Data **/
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b181', 'about', 'STOCK', 'logo_url', 'nemish', 'China Petroleum & Chemical Corp. (SNP)', 'org1');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b181', 'about', 'STOCK', 'logo_url', 'nemish',
+        'China Petroleum & Chemical Corp. (SNP)', 'org1');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b182', 'about', 'STOCK', 'logo_url', 'harsh', 'Royal Dutch Shell PLC (RDS. A)', 'org2');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b182', 'about', 'STOCK', 'logo_url', 'harsh', 'Royal Dutch Shell PLC (RDS. A)',
+        'org2');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b183', 'about', 'STOCK', 'logo_url', 'harsh', 'Bharat Sanchar Nigam Limited', 'org3');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b183', 'about', 'STOCK', 'logo_url', 'harsh', 'Bharat Sanchar Nigam Limited',
+        'org3');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b184', 'about', 'STOCK', 'logo_url', 'Mohit', 'Berkshire Hathaway Inc. (BRK.A)', 'org4');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b184', 'about', 'STOCK', 'logo_url', 'Mohit',
+        'Berkshire Hathaway Inc. (BRK.A)', 'org4');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b185', 'about', 'MUTUAL_FUND', 'logo_url', 'devesh', 'Toyota Motor Corp. (TM)', 'org5');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b185', 'about', 'MUTUAL_FUND', 'logo_url', 'devesh', 'Toyota Motor Corp. (TM)',
+        'org5');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b186', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Oil and Natural Gas Corporation', 'org6');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b186', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
+        'Oil and Natural Gas Corporation', 'org6');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b187', 'about', 'MUTUAL_FUND', 'logo_url', 'devesh', 'CVS Health Corp. (CVS)', 'org7');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b187', 'about', 'MUTUAL_FUND', 'logo_url', 'devesh', 'CVS Health Corp. (CVS)',
+        'org7');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b188', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Bonn Group of Industries', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b188', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Bonn Group of Industries',
+        'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b189', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Cathay Pacific Airways Ltd. (CPA)', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b189', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
+        'Cathay Pacific Airways Ltd. (CPA)', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b190', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'LOCUS INTERNATIONAL CENTRE FOR ENTREPRENEURSHIP DEVELOPMENT AND INCUBATION SERVICES LIMITED', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b190', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
+        'LOCUS INTERNATIONAL CENTRE FOR ENTREPRENEURSHIP DEVELOPMENT AND INCUBATION SERVICES LIMITED', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b191', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'British Airways', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b192', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Indian Private Corporation', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b192', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
+        'Indian Private Corporation', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b193', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Bharat Oil Fund Risers', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b193', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Bharat Oil Fund Risers',
+        'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b194', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Gujarat Solid Corporation', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b194', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
+        'Gujarat Solid Corporation', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b195', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Pirimid Software TechGiant', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b195', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
+        'Pirimid Software TechGiant', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b196', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Aoba Chorasi Technology', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b196', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Aoba Chorasi Technology',
+        'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b197', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Motorola Tech Pharma', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b197', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Motorola Tech Pharma',
+        'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b198', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Sivaji Private Corporations', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b198', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
+        'Sivaji Private Corporations', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b199', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Nadani Private Organization', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b199', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
+        'Nadani Private Organization', 'org8');
 
 INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b200', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'World Wide Private Library Fund Raiser', 'org8');
+VALUES ('51381618-1bc9-4c19-aab9-44994433b200', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
+        'World Wide Private Library Fund Raiser', 'org8');
 
 /** Stock Data **/
 
@@ -237,15 +256,15 @@ INSERT INTO public.user_detail(id, date_of_birth, dpurl, email, gender, mobile_n
 VALUES ('00000000-0000-0000-0000-000000000000', '23/10/1999', 'dpUrl', 'dummy1@gmail.com', 'MALE', '9876543211',
         'panCardNumber', 'signatureUrl', 'XYZ');
 
-INSERT INTO public.watchlist(
-    id, user_id, name, description)
-    VALUES ('00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000','Stock','Stock Fortune Companies');
-INSERT INTO public.watchlist(
-    id, user_id, name, description)
-    VALUES ('00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000','Mutual Fund','MutualFunds Investment Companies');
-INSERT INTO public.watchlist(
-    id, user_id, name, description)
-    VALUES ('00000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000000','Both','Stock & MutualFunds Together');
+INSERT INTO public.watchlist(id, user_id, name, description)
+VALUES ('00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000', 'Stock',
+        'Stock Fortune Companies');
+INSERT INTO public.watchlist(id, user_id, name, description)
+VALUES ('00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000', 'Mutual Fund',
+        'MutualFunds Investment Companies');
+INSERT INTO public.watchlist(id, user_id, name, description)
+VALUES ('00000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000000', 'Both',
+        'Stock & MutualFunds Together');
 
 INSERT INTO public.stock_price(id, price, stock_exchange, timestamp, stock_detail_id)
 VALUES ('00000000-0000-0000-1000-000000000000', 100, 'BSE', '2020-01-21T05:47:08.644',
@@ -257,106 +276,106 @@ VALUES ('00000000-0000-0000-1100-000000000000', 100, 'Wed Mar 27 08:22:02 IST 20
 
 
 /** WatchlistEntry Data **/
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200001','51381618-1bc9-4c19-aab9-44994433b181', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000204200001', '51381618-1bc9-4c19-aab9-44994433b181',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200002','51381618-1bc9-4c19-aab9-44994433b182', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000204200002', '51381618-1bc9-4c19-aab9-44994433b182',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200003','51381618-1bc9-4c19-aab9-44994433b183', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000204200003', '51381618-1bc9-4c19-aab9-44994433b183',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200004','51381618-1bc9-4c19-aab9-44994433b184', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000204200004', '51381618-1bc9-4c19-aab9-44994433b184',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200005','51381618-1bc9-4c19-aab9-44994433b185', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000204200005', '51381618-1bc9-4c19-aab9-44994433b185',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200006','51381618-1bc9-4c19-aab9-44994433b186', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000204200006', '51381618-1bc9-4c19-aab9-44994433b186',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200007','51381618-1bc9-4c19-aab9-44994433b187', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000204200007', '51381618-1bc9-4c19-aab9-44994433b187',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10010000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b188', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10010000-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b188',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10020000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b189', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10020000-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b189',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10030000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b190', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10030000-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b190',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10040000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b191', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10040000-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b191',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10050000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b192', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10050000-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b192',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10060000-0000-0000-0010-000204200008','51381618-1bc9-4c19-aab9-44994433b193', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10060000-0000-0000-0010-000204200008', '51381618-1bc9-4c19-aab9-44994433b193',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10060010-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b197', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10060010-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b197',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10060020-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b196', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10060020-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b196',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10060030-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b195', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10060030-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b195',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10060040-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b198', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10060040-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b198',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10060050-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b199', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10060050-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b199',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10060000-0600-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b200', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10060000-0600-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b200',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10060000-0000-0000-0000-000204200008','51381618-1bc9-4c19-aab9-44994433b194', '00000000-0000-0000-0000-000000000001');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10060000-0000-0000-0000-000204200008', '51381618-1bc9-4c19-aab9-44994433b194',
+        '00000000-0000-0000-0000-000000000001');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10070000-0000-0000-0000-000204200009','51381618-1bc9-4c19-aab9-44994433b194', '00000000-0000-0000-0000-000000000002');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10070000-0000-0000-0000-000204200009', '51381618-1bc9-4c19-aab9-44994433b194',
+        '00000000-0000-0000-0000-000000000002');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200016','51381618-1bc9-4c19-aab9-44994433b186', '00000000-0000-0000-0000-000000000002');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000204200016', '51381618-1bc9-4c19-aab9-44994433b186',
+        '00000000-0000-0000-0000-000000000002');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000204200017','51381618-1bc9-4c19-aab9-44994433b187', '00000000-0000-0000-0000-000000000002');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000204200017', '51381618-1bc9-4c19-aab9-44994433b187',
+        '00000000-0000-0000-0000-000000000002');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000214200018','51381618-1bc9-4c19-aab9-44994433b188', '00000000-0000-0000-0000-000000000002');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000214200018', '51381618-1bc9-4c19-aab9-44994433b188',
+        '00000000-0000-0000-0000-000000000002');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000224200018','51381618-1bc9-4c19-aab9-44994433b189', '00000000-0000-0000-0000-000000000002');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000224200018', '51381618-1bc9-4c19-aab9-44994433b189',
+        '00000000-0000-0000-0000-000000000002');
 
-INSERT INTO public.watchlist_entry(
-	id, asset_detail_id, watchlist_id)
-	VALUES ('10000000-0000-0000-0000-000234200018','51381618-1bc9-4c19-aab9-44994433b190', '00000000-0000-0000-0000-000000000002');
+INSERT INTO public.watchlist_entry(id, asset_detail_id, watchlist_id)
+VALUES ('10000000-0000-0000-0000-000234200018', '51381618-1bc9-4c19-aab9-44994433b190',
+        '00000000-0000-0000-0000-000000000002');

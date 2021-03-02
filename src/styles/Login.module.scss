@@ -21,3 +21,11 @@
 .ui.inverted.transparent.left.icon.input.textcolor>input{
   color: white
 }
+
+.mainLayout {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	min-height: 100vh;
+  background:black
+}

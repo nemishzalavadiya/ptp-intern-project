@@ -4,7 +4,6 @@ import { Divider, Input, Image, Icon, Button, Form, Grid, Segment } from "semant
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Router from "next/router";
-import "semantic-ui-css/semantic.min.css";
 export default function Login() {
   const userList = [
     {

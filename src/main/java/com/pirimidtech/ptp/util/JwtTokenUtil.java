@@ -16,10 +16,12 @@ import java.util.function.Function;
 
 @Component
 public class JwtTokenUtil implements Serializable {
-    public static final long JWT_TOKEN_VALIDITY = 60 * 60;
 
     @Value("${jwt.secret}")
     private String jwtSecret;
+
+    @Value("${jwt.token.validity}")
+    public long JWT_TOKEN_VALIDITY;
 
     //retrieve userId from jwt token
     public UUID getUserIdFromToken(String token) {
@@ -57,7 +59,7 @@ public class JwtTokenUtil implements Serializable {
     private String doGenerateToken(Map<String, Object> claims, UUID subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject.toString()).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
 

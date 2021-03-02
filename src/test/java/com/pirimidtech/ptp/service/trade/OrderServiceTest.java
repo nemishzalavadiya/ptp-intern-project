@@ -64,15 +64,6 @@ class OrderServiceTest {
     }
 
     @Test
-    void getAllMutualFundOrder() {
-        List<MutualFundOrder> mutualFundOrderList = new ArrayList<>();
-        mutualFundOrderList.add(ObjectUtility.mutualFundOrder1);
-        mutualFundOrderList.add(ObjectUtility.mutualFundOrder2);
-        when(mutualFundOrderRepository.findAllByUserIdOrderBySIPDateDesc(user.getId(), PageRequest.of(0, 2))).thenReturn(new PageImpl<MutualFundOrder>(mutualFundOrderList));
-        assertEquals(2, orderService.getAllMutualFundOrder(user.getId(), 0, 2).toList().size());
-    }
-
-    @Test
     void getMutualFundOrder() {
         UUID orderId = ObjectUtility.mutualFundOrder1.getId();
         MutualFundOrder mutualFundOrder = ObjectUtility.mutualFundOrder1;

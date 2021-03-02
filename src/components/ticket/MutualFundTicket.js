@@ -14,7 +14,7 @@ export default function MutualFundTicket(props) {
   const [amountTag, setAmountTag] = useState("Amount");
   const [date, setDate] = useState("");
   const [frequency, setFrequency] = useState(Frequency.MONTHLY_SIP)
-  const [isOrderExecuting, setOrdrStatus] = useState(false);
+  const [isOrderExecuting, setOrderStatus] = useState(false);
 
   const mfId = props.mfDetail.mutualFundDetail.id;
   const minSIP = props.mfDetail.minSIP;
@@ -38,7 +38,7 @@ export default function MutualFundTicket(props) {
 
 
   const createOrder = async (event) => {
-    setOrdrStatus(true);
+    setOrderStatus(true);
     event.preventDefault();
     let data = {
       sipdate: date,
@@ -79,7 +79,7 @@ export default function MutualFundTicket(props) {
           progress: undefined,
         });
       })
-    setOrdrStatus(false);
+    setOrderStatus(false);
   }
 
   return (

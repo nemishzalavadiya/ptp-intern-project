@@ -18,7 +18,7 @@ export default function StockTicket({ assetId, stockId }) {
   const [price, setPrice] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
   const [volume, setVolume] = useState(0);
-  const [isOrderExecuting, setOrdrStatus] = useState(false);
+  const [isOrderExecuting, setOrderStatus] = useState(false);
 
   useEffect(() => {
     const webSocket = new SockJS(WebSocketUrl.url);
@@ -41,7 +41,7 @@ export default function StockTicket({ assetId, stockId }) {
   }, []);
 
   const createOrder = async (event) => {
-    setOrdrStatus(true);
+    setOrderStatus(true);
     event.preventDefault();
 
     let data = {
@@ -74,7 +74,7 @@ export default function StockTicket({ assetId, stockId }) {
           hideProgressBar: false,
         });
       });
-    setOrdrStatus(false);
+    setOrderStatus(false);
   };
 
   return (

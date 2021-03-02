@@ -57,6 +57,7 @@ export default function MutualFundTicket(props) {
     }
     createMutualFundOrder(data).
       then(() => {
+        setOrderStatus(false);
         toast('Order executed successfully', {
           position: "bottom-right",
           autoClose: 2000,
@@ -69,6 +70,7 @@ export default function MutualFundTicket(props) {
 
       }).
       catch((err) => {
+        setOrderStatus(false);
         toast('Something went wrong please try', {
           position: "bottom-right",
           autoClose: 2000,
@@ -79,7 +81,6 @@ export default function MutualFundTicket(props) {
           progress: undefined,
         });
       })
-    setOrderStatus(false);
   }
 
   return (

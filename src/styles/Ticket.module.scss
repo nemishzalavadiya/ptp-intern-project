@@ -12,8 +12,9 @@ background-color:$cardGrey;
 margin-right: 7%;
 border-radius: 15px;
 }
-.positive{
-    background: yellowgreen !important;
+
+.ui.buttons>.ui.grey.positive{
+    background: yellowgreen;
 }
 
 .ui.fluid.button
@@ -28,5 +29,5 @@ border-radius: 15px;
     background-color:$cardGrey;
     margin-right: 7%;
     border-radius: 15px;
-    }
+}
 

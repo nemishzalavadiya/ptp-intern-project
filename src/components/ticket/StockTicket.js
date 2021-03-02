@@ -4,13 +4,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-
 import { createStockOrder } from "src/services/stockOrder";
 import { ProductCode } from "src/enums/productCode.ts";
 import { OrderType } from "src/enums/orderType.ts";
 import { Action } from "src/enums/action.ts";
 import { WebSocketUrl, UserId } from "src/components/Objects";
-
 export default function StockTicket({ assetId, stockId }) {
   const [action, setAction] = useState(Action.BUY);
   const [productCode, setProductCode] = useState(ProductCode.CNC);
@@ -18,8 +16,7 @@ export default function StockTicket({ assetId, stockId }) {
   const [price, setPrice] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
   const [volume, setVolume] = useState(0);
-  const [isOrderExecuting, setOrderStatus] = useState(false);
-
+  const [isOrderExecuting, setOrdrStatus] = useState(false);
   useEffect(() => {
     const webSocket = new SockJS(WebSocketUrl.url);
     const stompClient = Stomp.over(webSocket);
@@ -33,17 +30,14 @@ export default function StockTicket({ assetId, stockId }) {
         { id: assetId }
       );
     });
-
     return () => {
       stompClient.unsubscribe(assetId);
       stompClient.disconnect();
     };
   }, []);
-
   const createOrder = async (event) => {
-    setOrderStatus(true);
+    setOrdrStatus(true);
     event.preventDefault();
-
     let data = {
       tradeVolume: volume,
       action: action,
@@ -57,32 +51,30 @@ export default function StockTicket({ assetId, stockId }) {
         id: stockId,
       },
     };
-
     createStockOrder(data)
       .then((res) => {
+        setOrdrStatus(false);
         toast("Order Executed Successfully!", {
           position: "bottom-right",
           autoClose: 2000,
           hideProgressBar: false,
-          
         });
       })
       .catch((err) => {
+        setOrdrStatus(false);
         toast.error(err.message, {
           position: "bottom-right",
           autoClose: 2000,
           hideProgressBar: false,
         });
       });
-    setOrderStatus(false);
   };
-
   return (
     <Segment className="stockTicket">
       <Form inverted>
         <Grid>
           <Grid.Row>
-            <Grid.Column width={5}>
+            <Grid.Column width={6}>
               <label> Product Code </label>
             </Grid.Column>
             <Grid.Column width={8}>
@@ -105,7 +97,7 @@ export default function StockTicket({ assetId, stockId }) {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={5}>
+            <Grid.Column width={6}>
               <label> OrderType </label>
             </Grid.Column>
             <Grid.Column width={8}>
@@ -128,7 +120,7 @@ export default function StockTicket({ assetId, stockId }) {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={5}>
+            <Grid.Column width={6}>
               <label> Action </label>
             </Grid.Column>
             <Grid.Column width={8}>
@@ -142,7 +134,7 @@ export default function StockTicket({ assetId, stockId }) {
                 </Button>
                 <Button
                   color="grey"
-                  positive={action ===Action.BUY}
+                  positive={action === Action.BUY}
                   onClick={() => setAction(Action.BUY)}
                 >
                   BUY
@@ -150,9 +142,8 @@ export default function StockTicket({ assetId, stockId }) {
               </Button.Group>
             </Grid.Column>
           </Grid.Row>
-
           <Grid.Row>
-            <Grid.Column width={5}>
+            <Grid.Column width={6}>
               <label>Price</label>
             </Grid.Column>
             <Grid.Column width={8}>
@@ -169,7 +160,7 @@ export default function StockTicket({ assetId, stockId }) {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={5}>
+            <Grid.Column width={6}>
               <label>Volume</label>
             </Grid.Column>
             <Grid.Column width={8}>
@@ -184,7 +175,7 @@ export default function StockTicket({ assetId, stockId }) {
           </Grid.Row>
           <Button
             type="submit"
-            onClick={() => createOrder}
+            onClick={createOrder}
             fluid
             disabled={
               volume <= 0 ||

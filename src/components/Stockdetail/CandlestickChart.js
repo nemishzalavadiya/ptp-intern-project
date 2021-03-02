@@ -1,9 +1,10 @@
-import Highcharts from "highcharts/highstock";
+import HighStock from "highcharts/highstock";
 import React, { useState, useEffect } from "react";
 import HighchartsReact from "highcharts-react-official";
-import { Loader } from "semantic-ui-react";
+import { Menu, Loader, Popup } from "semantic-ui-react";
 import mockData from "src/components/Stockdetail/StockData";
 import options from "src/components/Stockdetail/StockChartOptions";
+
 let mockOptions = options;
 const transformChartData = (options, array) => {
   const dataLength = array.length;
@@ -24,7 +25,8 @@ const transformChartData = (options, array) => {
   }
   return options;
 };
-export default function Chart(props) {
+
+export default function CandlestickChart(props) {
   const [data, setData] = useState({ options: {} });
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -38,17 +40,17 @@ export default function Chart(props) {
     fetchData();
   }, []);
   return (
-    <div className="area">
+    <>
       {" "}
       {isLoading ? (
         <Loader active={!isLoading}></Loader>
       ) : (
         <HighchartsReact
-          highcharts={Highcharts}
+          highcharts={HighStock}
           constructorType={"stockChart"}
           options={data.options}
         />
       )}
-    </div>
+    </>
   );
 }

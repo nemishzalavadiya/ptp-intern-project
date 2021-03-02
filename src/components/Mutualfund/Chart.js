@@ -1,4 +1,4 @@
-import HighStock from "highcharts/highstock";
+import Highcharts from "highcharts/highstock";
 import React, { useState, useEffect } from "react";
 import HighchartsReact from "highcharts-react-official";
 import { Loader } from "semantic-ui-react";
@@ -33,7 +33,7 @@ export default function Chart(props) {
       {isLoading ? (
         <Loader active={!isLoading}></Loader>
       ) : (
-        <HighchartsReact highcharts={HighStock} options={data.options} />
+        <HighchartsReact highcharts={Highcharts} options={data.options} />
       )}
     </div>
   );

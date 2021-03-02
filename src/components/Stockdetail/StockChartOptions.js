@@ -10,11 +10,15 @@ const options = {
       duration: 1500,
     },
     zoomType: "x",
+    height: (9 / 16) * 100 + "%",
+    events: { load: function () {} },
   },
   credits: {
     enabled: false,
   },
-
+  exporting: {
+    enabled: false,
+  },
   yAxis: [
     {
       gridLineWidth: 0,

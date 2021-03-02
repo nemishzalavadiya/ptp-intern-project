@@ -1,5 +1,5 @@
 import StatisticStock from "src/components/Statistics/StatisticStock";
-import Chart from "src/components/Stockdetail/Chart";
+import StockChart from "src/components/Stockdetail/StockChart";
 import { getStockByAssetId } from "src/services/assets";
 import { Header, Loader } from "semantic-ui-react";
 import StockTicket from "src/components/ticket/StockTicket"
@@ -12,7 +12,7 @@ export default function Stockdetail(props) {
         {response.stockDetail.assetDetail.name}
       </Header>
       <div className="ticket">
-      <Chart />
+      <StockChart />
       <StockTicket assetId={props.stockId} stockId={response.stockDetail.id}/>
       </div>
       <StatisticStock stockDetail={response} />

@@ -10,8 +10,13 @@ const options = {
       duration: 1500,
     },
     zoomType: "x",
+    height: (9 / 16) * 100 + "%",
+    events: { load: function () {}, redraw: function () {} },
   },
   legend: {
+    enabled: false,
+  },
+  exporting: {
     enabled: false,
   },
   title: {
@@ -40,6 +45,7 @@ const options = {
     title: {
       text: "",
     },
+    ordinal: false 
   },
   plotOptions: {
     line: {
@@ -51,9 +57,6 @@ const options = {
       type: "line",
       name: "nav",
       data: [],
-      animation: {
-        duration: 2000,
-      },
     },
   ],
 };

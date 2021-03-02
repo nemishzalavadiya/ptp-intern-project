@@ -1,50 +1,78 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import Cookies from "js-cookie";
-import authenticateUser from "src/services/authenticate";
+import toastBody from "src/components/toast";
 const AuthContext = createContext({});
 import Router from "next/router";
 import { Loader } from "semantic-ui-react";
-
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(null);
+  let toggle = true;
+  const [user, setUser] = useState(null);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    function loadUserTokenFromCookies() {
-      const tokenCookie = Cookies.get("token");
-      if (tokenCookie) {
-        let authorization = `Bearer ${tokenCookie}`;
-        setToken(authorization);
-      } else {
-        if (Router.pathname !== "/login"){ 
-          Router.push({pathname:"/login",query:{path:Router.pathname}});
+    async function loadUserTokenFromCookies() {
+      console.log("User: ", user, Router.pathname);
+
+      if (!user && Router.pathname !== "/login") {
+        let response = await fetch("/api/user");
+        let responseData = await response.text();
+        if (response.ok) {
+          setUser(responseData);
+        } else {
+          toggle = false;
+          Router.push({ pathname: "/login", query: { path: Router.pathname } });
         }
       }
-      setLoading(false);
+      if (Router.pathname === "/login") {
+        let response = await fetch("/api/user");
+        if (response.ok) {
+          toggle = false;
+          Router.replace("/");
+        }
+      }
+      if (toggle) {
+        setLoading(false);
+      }
     }
+
     loadUserTokenFromCookies();
   });
 
-  const login = (email, password, validate) => {
-    const [isCompleted, data, error] = authenticateUser(
-      email,
-      password,
-      validate
-    );
-    if (isCompleted && data.token) {
-      Cookies.set("token", data.token, { expires: 60 });
+  const login = async (user) => {
+    let options = {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch('api/login',options);
+    if (response.ok) {
+      toastBody("Logged in successfully");
+      if (Router.query.path === undefined) {
+        Router.replace("/");
+      } else {
+        Router.replace(Router.query.path);
+      }
+    } else {
+      toastBody("Username or Password is incorrect");
     }
-    return [isCompleted, data, error];
   };
 
-  const logout = () => {
-    Cookies.remove("token");
-    setToken(null);
+  const logout = async () => {
+    let response = await fetch("/api/logout", { method: "POST" });
+    if (response.ok) {
+      toastBody("Logged out successfully");
+      setUser(null);
+    }
+    else{
+      toastBody("Something went wrong, try again later");
+      setUser(null);
+    }
   };
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!token, token, login, logout, isLoading }}
+      value={{ isAuthenticated: !!user, user, login, logout, isLoading }}
     >
       {children}
     </AuthContext.Provider>

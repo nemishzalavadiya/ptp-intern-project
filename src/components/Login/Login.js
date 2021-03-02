@@ -27,7 +27,8 @@ export default function Login() {
 
   useEffect(() => {
     var User = JSON.parse(localStorage.getItem("user"));
-
+    if(!User)
+      return;
     if (new Date().getTime() <= User.time) {
       userList.forEach((user) => {
         if (user.email == User.email && user.password == User.password) {
@@ -40,7 +41,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitHandler = async (event) => {
+  const verifyUser = async () => {
     var User = {
       email: email,
       password: password,
@@ -134,7 +135,7 @@ export default function Login() {
                       <Button
                         type="submit"
                         className="submitButton"
-                        onClick={(event) => submitHandler(event)}
+                        onClick={verifyUser}
                         fluid
                         
                      >

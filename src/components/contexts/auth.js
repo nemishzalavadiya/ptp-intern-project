@@ -10,8 +10,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     async function loadUserTokenFromCookies() {
-      console.log("User: ", user, Router.pathname);
-
       if (!user && Router.pathname !== "/login") {
         let response = await fetch("/api/user");
         let responseData = await response.text();
@@ -45,7 +43,7 @@ export const AuthProvider = ({ children }) => {
         "Content-Type": "application/json",
       },
     };
-    const response = await fetch('api/login',options);
+    const response = await fetch("api/login", options);
     if (response.ok) {
       toastBody("Logged in successfully");
       if (Router.query.path === undefined) {
@@ -63,8 +61,7 @@ export const AuthProvider = ({ children }) => {
     if (response.ok) {
       toastBody("Logged out successfully");
       setUser(null);
-    }
-    else{
+    } else {
       toastBody("Something went wrong, try again later");
       setUser(null);
     }

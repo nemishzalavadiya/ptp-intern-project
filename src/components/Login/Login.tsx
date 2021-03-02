@@ -1,83 +1,25 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { Divider, Input, Image, Icon, Button, Form, Grid, Segment } from "semantic-ui-react";
-import { ToastContainer, toast } from "react-toastify";
-import Router from "next/router";
+import {
+  Divider,
+  Input,
+  Image,
+  Button,
+  Form,
+  Grid,
+  Segment,
+} from "semantic-ui-react";
+import { ToastContainer } from "react-toastify";
+import { useAuth } from "src/components/contexts/auth";
+
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
-  const userList = [
-    {
-      email: "user@gmail.com",
-      password: "password",
-    },
-    {
-      email: "dummy@gmail.com",
-      password: "dummy",
-    },
-    {
-      email: "root@gmail.com",
-      password: "root",
-    },
-  ];
-
-  useEffect(() => {
-    var User = JSON.parse(localStorage.getItem("user"));
-    if(!User)
-      return;
-    if (new Date().getTime() <= User.time) {
-      userList.forEach((user) => {
-        if (user.email == User.email && user.password == User.password) {
-          Router.push("/");
-          return;
-        }
-      });
-    }
-  }, []);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const verifyUser = async () => {
-    var User = {
-      email: email,
-      password: password,
+  const { login } = useAuth();
+  const submitHandler = (event) => {
+    event.preventDefault();
+    let user = {
+      email: event.target.email.value,
+      password: event.target.password.value,
     };
-
-    let isExist = false;
-    userList.forEach((user) => {
-      if (user.email == User.email && user.password == User.password) {
-        isExist = true;
-        return;
-      }
-    });
-
-    if (isExist == false) {
-      toast("Username or Password is incorrect", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-      });
-    } else {
-      var User = {
-        email: email,
-        password: password,
-        time: new Date().getTime() + 300000,
-      };
-      User = JSON.stringify(User);
-      localStorage.setItem("user", User);
-      toast("Logged in Successfully", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-      });
-      Router.push("/");
-    }
+    login(user);
   };
   return (
     <>
@@ -90,7 +32,7 @@ export default function Login() {
             </Grid.Column>
 
             <Grid.Column width={8}>
-              <Form inverted>
+              <Form inverted onSubmit={submitHandler}>
                 <Grid>
                   <Grid.Row>
                     <Grid.Column width={11}>
@@ -98,11 +40,11 @@ export default function Login() {
                         transparent
                         required
                         inverted
-                        onChange={(event) => setEmail(event.target.value)}
+                        name="email"
                         placeholder="Email"
                         iconPosition="left"
                         icon="mail"
-                        className ="textcolor"
+                        className="textcolor"
                       />
                     </Grid.Column>
                   </Grid.Row>
@@ -116,23 +58,16 @@ export default function Login() {
                         type="password"
                         iconPosition="left"
                         placeholder="******"
-                        onChange={(event) => setPassword(event.target.value)}
+                        name="password"
                         icon="lock"
-                        className ="textcolor"
+                        className="textcolor"
                       />
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
                     <Grid.Column width={3}></Grid.Column>
                     <Grid.Column width={10}>
-          
-                      <Button
-                        type="submit"
-                        className="submitButton"
-                        onClick={verifyUser}
-                        fluid
-                        
-                     >
+                      <Button type="submit" className="submitButton" fluid>
                         Login
                       </Button>
                     </Grid.Column>

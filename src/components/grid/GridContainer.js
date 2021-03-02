@@ -22,7 +22,7 @@ export default function GridContainer(props) {
                   <div className="grid-header-item">
                     {props.content[innerIndex].header}
                   </div>
-                  <div className="grid-item">
+                  <div className={`grid-item ${props.content[innerIndex].showColor?(item>=0?'profit':'loss'):null}`}>
                     {props.content[innerIndex].icon
                       ? props.content[innerIndex].icon
                       : null}

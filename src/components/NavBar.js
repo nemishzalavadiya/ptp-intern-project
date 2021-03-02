@@ -34,7 +34,7 @@ const sidebar = [
 ];
 
 const NavBar = (props) => {
-  const [activeItem, setActiveItem] = useState("STOCK");
+  const [activeItem, setActiveItem] = useState(props.name);
   if(activeItem !== props.name){
     setActiveItem(props.name);
   }

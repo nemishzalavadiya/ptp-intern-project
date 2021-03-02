@@ -5,13 +5,11 @@ import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.entity.InvestmentType;
 import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
-import com.pirimidtech.ptp.entity.MutualFundPrice;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.Status;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
 import com.pirimidtech.ptp.repository.MutualFundOrderRepository;
-import com.pirimidtech.ptp.repository.MutualFundPriceRepository;
 import com.pirimidtech.ptp.repository.MutualFundStatisticRepository;
 import com.pirimidtech.ptp.service.position.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,35 +49,31 @@ public class SipScheduler {
         List<MutualFundOrder> mutualFundOrderListByYearDay = mutualFundOrderRepository.findAllByUserIdOrderByYearDay(yearDay);
 
         mutualFundOrderListByWeekDay.forEach(mutualFundOrder -> {
-            if(mutualFundOrder.getStatus()==Status.PENDING) {
+            if (mutualFundOrder.getStatus() == Status.PENDING) {
                 addToMutualFundOrder(mutualFundOrder);
-            }
-            else{
+            } else {
                 addToMutualFundOrderRepeat(mutualFundOrder);
             }
         });
         mutualFundOrderListByMonthDay.forEach(mutualFundOrder -> {
-            if(mutualFundOrder.getStatus()==Status.PENDING) {
-                addToMutualFundOrder(mutualFundOrder);
-            }
-            else{
-                addToMutualFundOrderRepeat(mutualFundOrder);
-            }
+                    if (mutualFundOrder.getStatus() == Status.PENDING) {
+                        addToMutualFundOrder(mutualFundOrder);
+                    } else {
+                        addToMutualFundOrderRepeat(mutualFundOrder);
+                    }
                 }
         );
         mutualFundOrderListByYearDay.forEach(mutualFundOrder -> {
-            if(mutualFundOrder.getStatus()==Status.PENDING) {
+            if (mutualFundOrder.getStatus() == Status.PENDING) {
                 addToMutualFundOrder(mutualFundOrder);
-            }
-            else{
+            } else {
                 addToMutualFundOrderRepeat(mutualFundOrder);
             }
         });
 
     }
 
-    void addToMutualFundOrder(MutualFundOrder mutualFundOrder)
-    {
+    void addToMutualFundOrder(MutualFundOrder mutualFundOrder) {
         mutualFundOrder.setStatus(Status.EXECUTED);
         MutualFundStatistic mutualFundStatistic = mutualFundStatisticRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get();
         mutualFundOrder.setNav(mutualFundStatistic.getNav());
@@ -91,8 +85,7 @@ public class SipScheduler {
 
     }
 
-    void addToMutualFundOrderRepeat(MutualFundOrder mutualFundOrder)
-    {
+    void addToMutualFundOrderRepeat(MutualFundOrder mutualFundOrder) {
         MutualFundStatistic mutualFundStatistic = mutualFundStatisticRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get();
         MutualFundOrder mutualFundOrderRepeat = mutualFundOrder;
         mutualFundOrderRepeat.setId(null);

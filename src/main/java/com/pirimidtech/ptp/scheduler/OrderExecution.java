@@ -4,7 +4,6 @@ import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.entity.InvestmentType;
 import com.pirimidtech.ptp.entity.MutualFundDetail;
-import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.Status;
@@ -60,7 +59,7 @@ public class OrderExecution {
 
         mutualFundOrderRepository.findAllByStatus(Status.PENDING).forEach(
                 mutualFundOrder -> {
-                    if(mutualFundOrder.getInvestmentType()== InvestmentType.ONE_TIME || mutualFundOrder.getInvestmentType()== InvestmentType.NONE) {
+                    if (mutualFundOrder.getInvestmentType() == InvestmentType.ONE_TIME || mutualFundOrder.getInvestmentType() == InvestmentType.NONE) {
                         mutualFundOrder.setStatus(Status.EXECUTED);
                         mutualFundOrderRepository.save(mutualFundOrder);
                         Optional<MutualFundDetail> mutualFundDetail = mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId());

@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class PositionServiceTest {
@@ -35,8 +37,8 @@ class PositionServiceTest {
         AssetDetail assetDetail = ObjectUtility.assetDetail;
         List<Position> positionList = new ArrayList<>();
         positionList.add(ObjectUtility.position);
-        when(positionRepository.findByUserIdAndAndAssetClass(user.getId(), AssetClass.STOCK ,PageRequest.of(0, 1))).thenReturn(new PageImpl<>(positionList));
-        assertEquals(1, positionService.getPositionByAssetClass(user.getId(), AssetClass.STOCK,0, 1).toList().size());
+        when(positionRepository.findByUserIdAndAndAssetClass(user.getId(), AssetClass.STOCK, PageRequest.of(0, 1))).thenReturn(new PageImpl<>(positionList));
+        assertEquals(1, positionService.getPositionByAssetClass(user.getId(), AssetClass.STOCK, 0, 1).toList().size());
     }
 
     @Test
@@ -58,7 +60,7 @@ class PositionServiceTest {
     void addStockToPosition() {
         AssetDetail assetDetail = ObjectUtility.assetDetail;
         Position position = ObjectUtility.position;
-        positionService.addStockToPosition(position,Action.BUY);
+        positionService.addStockToPosition(position, Action.BUY);
         verify(positionRepository, times(1)).save(position);
         verify(positionRepository, times(1)).save(position);
     }
@@ -68,7 +70,7 @@ class PositionServiceTest {
         AssetDetail assetDetail = ObjectUtility.assetDetail;
         List<Position> positionList = new ArrayList<>();
         positionList.add(ObjectUtility.position);
-        when(positionRepository.findByUserIdAndAndAssetClassAndAndAssetDetailNameContainingIgnoreCase(ObjectUtility.user.getId(),AssetClass.STOCK ,"a",PageRequest.of(0, 1))).thenReturn(new PageImpl<>(positionList));
-        assertEquals(1, positionService.searchByAssetClassAndAssetDetailName(ObjectUtility.user.getId(),"a",AssetClass.STOCK,0, 1).toList().size());
+        when(positionRepository.findByUserIdAndAndAssetClassAndAndAssetDetailNameContainingIgnoreCase(ObjectUtility.user.getId(), AssetClass.STOCK, "a", PageRequest.of(0, 1))).thenReturn(new PageImpl<>(positionList));
+        assertEquals(1, positionService.searchByAssetClassAndAssetDetailName(ObjectUtility.user.getId(), "a", AssetClass.STOCK, 0, 1).toList().size());
     }
 }

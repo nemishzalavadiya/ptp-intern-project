@@ -1,11 +1,10 @@
 package com.pirimidtech.ptp.DTO;
 
+import com.pirimidtech.ptp.entity.Position;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.pirimidtech.ptp.entity.Position;
 
 @Getter
 @Setter

@@ -14,5 +14,5 @@ public interface PositionRepository extends JpaRepository<Position, UUID> {
 
     Optional<Position> findAllByUserIdAndAssetDetailId(UUID userId, UUID assetDetailId);
 
-    Page<Position> findByUserIdAndAndAssetClassAndAndAssetDetailNameContainingIgnoreCase(UUID userId,AssetClass assetClass,String assetDetailName,Pageable pageable);
+    Page<Position> findByUserIdAndAndAssetClassAndAndAssetDetailNameContainingIgnoreCase(UUID userId, AssetClass assetClass, String assetDetailName, Pageable pageable);
 }

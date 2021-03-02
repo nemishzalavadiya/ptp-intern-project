@@ -33,6 +33,7 @@ class PositionControllerTest {
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andDo(print());
     }
+
     @Test
     void getMutualFundPositionByUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/position/assets/mutualFund/users/" + ObjectUtility.user.getId() + "?page=0&size=1")).
@@ -40,6 +41,7 @@ class PositionControllerTest {
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andDo(print());
     }
+
     @Test
     void searchInStockPosition() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/position/search/assets/stock/users/" + ObjectUtility.user.getId() + "?name=ptp&page=0&size=1")).
@@ -47,6 +49,7 @@ class PositionControllerTest {
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andDo(print());
     }
+
     @Test
     void searchInMutualFundPosition() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/position/search/assets/mutualFund/users/" + ObjectUtility.user.getId() + "?name=ptp&page=0&size=1")).

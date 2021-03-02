@@ -1,9 +1,7 @@
 import { useFetch } from "src/hooks/useFetch";
 
 function getAllWatchlistByUserId(userId) {
-  const [isComplete, data] = useFetch(
-    "/api/watchlist/users/" + userId
-  );
+  const [isComplete, data] = useFetch(`/api/watchlist/users/${userId}`);
   return [isComplete, data];
 }
 function getAllWatchlistEntryByWatchlistId(

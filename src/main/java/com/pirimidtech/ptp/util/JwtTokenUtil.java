@@ -18,9 +18,9 @@ import java.util.function.Function;
 public class JwtTokenUtil implements Serializable {
 
     @Value("${jwt.token.validity}")
-    public long JWT_TOKEN_VALIDITY;
+    private long JWT_TOKEN_VALIDITY;
     @Value("${jwt.secret}")
-    private String jwtSecret;
+    private String JWT_SECRET;
 
     //retrieve userId from jwt token
     public UUID getUserIdFromToken(String token) {
@@ -39,7 +39,7 @@ public class JwtTokenUtil implements Serializable {
 
     //extract any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
     }
 
     //check if the token has expired
@@ -57,9 +57,9 @@ public class JwtTokenUtil implements Serializable {
     //Generate Token
     private String doGenerateToken(Map<String, Object> claims, UUID subject) {
 
-        return Jwts.builder().setClaims(claims).setSubject(subject.toString()).setIssuedAt(new Date(System.currentTimeMillis()))
+        return Jwts.builder().setClaims(claims).setSubject(subject.toString()).setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET).compact();
     }
 
     //validate token

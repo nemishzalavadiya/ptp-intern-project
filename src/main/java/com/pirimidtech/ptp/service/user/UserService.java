@@ -13,8 +13,8 @@ public class UserService implements UserServiceInterface {
     @Autowired
     UserRepository userRepository;
 
-    public Optional<User> verifyUser(String email, String Password) {
-        return userRepository.findByEmailAndPassword(email, Password);
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public Optional<User> getUserById(UUID userId) {

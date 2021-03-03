@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,31 +49,27 @@ public class AuthenticationController {
             }
         }
         userId = jwtTokenUtil.getUserIdFromToken(jwtToken);
-        Optional<User> userDetail = userService.getUserById(userId);
-        if (userDetail.isPresent()) {
-            userId = userDetail.get().getId();
-            return ResponseEntity.ok(userId);
-        }
-        else {
-            return ResponseEntity.badRequest().build();
-        }
+        return ResponseEntity.ok(userId);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response) {
         log.info("login request from user {}", user.getEmail());
-        Optional<User> userDetail = userService.verifyUser(user.getEmail(), user.getPassword());
+        Optional<User> userDetail = userService.getUserByEmail(user.getEmail());
         if (userDetail.isPresent()) {
-            String token = jwtTokenUtil.generateToken(userDetail.get());
-            Cookie cookie = new Cookie(TOKEN, token);
-            cookie.setPath("/");
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(maxCookieAge);
-            response.addCookie(cookie);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            String ans = new BCryptPasswordEncoder().encode(user.getPassword());
+            boolean isValid = BCrypt.checkpw(user.getPassword(), userDetail.get().getPassword());
+            if (isValid) {
+                String token = jwtTokenUtil.generateToken(userDetail.get());
+                Cookie cookie = new Cookie(TOKEN, token);
+                cookie.setPath("/");
+                cookie.setHttpOnly(true);
+                cookie.setMaxAge(maxCookieAge);
+                response.addCookie(cookie);
+                return ResponseEntity.ok().build();
+            }
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @PostMapping("/logout")

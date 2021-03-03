@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserServiceInterface {
-    Optional<User> verifyUser(String email, String Password);
+    Optional<User> getUserByEmail(String email);
 
     Optional<User> getUserById(UUID userId);
 }

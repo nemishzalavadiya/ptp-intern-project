@@ -84,7 +84,11 @@ export const ProtectRoute = ({ children }) => {
     isLoading ||
     (!isAuthenticated && window.location.pathname !== "/login")
   ) {
-    return <Loader active>Loading</Loader>;
+    return (
+      <div className="site-background">
+        <Loader inverted active>Loading</Loader>
+      </div>
+    );
   }
   return children;
 };

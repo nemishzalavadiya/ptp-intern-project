@@ -67,12 +67,6 @@ export default function WatchlistView(props) {
       }
     </>
   ) : (
-    <Loader
-      active={
-        !(isSubscriptionCompleted && data.size === props.companyUuids.length)
-      }
-    >
-      Loading
-    </Loader>
+    <Loader active>Loading</Loader>
   );
 }

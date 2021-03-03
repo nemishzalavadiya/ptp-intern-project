@@ -1,8 +1,8 @@
 import { useFetch } from "src/hooks/useFetch";
 
-function getAllWatchlistByUserId(userId) {
-  const [isComplete, data] = useFetch(`/api/watchlist/users/${userId}`);
-  return [isComplete, data];
+function getAllWatchlistByUserId() {
+  const [isComplete, data, error] = useFetch(`/api/watchlist/user`);
+  return [isComplete, data, error];
 }
 function getAllWatchlistEntryByWatchlistId(
   watchlistId,
@@ -10,9 +10,9 @@ function getAllWatchlistEntryByWatchlistId(
   page,
   size
 ) {
-  const [isComplete, data] = useFetch(
+  const [isComplete, data, error] = useFetch(
     `/api/watchlist/searchWatchlist?assetName=${searchQuery}&watchlistID=${watchlistId}&page=${page}&size=${size}`
   );
-  return [isComplete, data];
+  return [isComplete, data, error];
 }
 export { getAllWatchlistByUserId, getAllWatchlistEntryByWatchlistId };

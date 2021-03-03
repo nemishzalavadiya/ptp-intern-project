@@ -11,14 +11,13 @@ export default function WatchlistContent(props) {
     watchlistId: props.watchlistId,
   });
   let companyUuids = [];
-  let [isCompleted, response] = [false,null];
-  [isCompleted, response] = getAllWatchlistEntryByWatchlistId(
+  let [isCompleted, response, error] = [false, null, false];
+  [isCompleted, response, error] = getAllWatchlistEntryByWatchlistId(
     props.watchlistId,
     searchQuery,
     page.pages,
     5
   );
-
   function handlePaginationChange(pageNo) {
     setPage({ pages: pageNo, watchlistId: page.watchlistId });
   }
@@ -49,7 +48,7 @@ export default function WatchlistContent(props) {
         handleSearchChange={handleSearchChange}
         placeholder={"Search In Watchlist..."}
       />
-      {isCompleted ? (
+      {isCompleted && !error ? (
         <WatchlistView
           content={props.content}
           companyUuids={companyUuids}
@@ -57,7 +56,15 @@ export default function WatchlistContent(props) {
           tabId={props.watchlistId}
         />
       ) : (
-        <Loader active>Loading</Loader>
+        <Loader active>
+          Loading
+          {!!error ? (
+            <>
+              <br />
+              Something Went Wrong, Try Refresing
+            </>
+          ) : null}
+        </Loader>
       )}
     </>
   );

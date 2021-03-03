@@ -16,7 +16,8 @@ public class UserService implements UserServiceInterface {
     public Optional<User> verifyUser(String email, String Password) {
         return userRepository.findByEmailAndPassword(email, Password);
     }
-    public Optional<User> getUserById(UUID userId){
+
+    public Optional<User> getUserById(UUID userId) {
         return userRepository.findById(userId);
     }
 }

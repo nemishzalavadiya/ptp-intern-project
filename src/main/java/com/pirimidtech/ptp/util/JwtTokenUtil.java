@@ -17,11 +17,10 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil implements Serializable {
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
-
     @Value("${jwt.token.validity}")
     public long JWT_TOKEN_VALIDITY;
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
     //retrieve userId from jwt token
     public UUID getUserIdFromToken(String token) {

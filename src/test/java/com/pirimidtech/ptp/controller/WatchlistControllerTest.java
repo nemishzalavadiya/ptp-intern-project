@@ -4,32 +4,39 @@ import com.pirimidtech.ptp.entity.Watchlist;
 import com.pirimidtech.ptp.entity.WatchlistEntry;
 import com.pirimidtech.ptp.service.watchlist.WatchlistEntryService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
+import com.pirimidtech.ptp.util.CustomRequest;
+import com.pirimidtech.ptp.util.JwtTokenUtil;
 import com.pirimidtech.ptp.util.TestDataStore;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.servlet.http.Cookie;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
 public class WatchlistControllerTest {
 
-    @InjectMocks
+    @Autowired
     WatchlistController watchlistController;
-    @Mock
+    @MockBean
     WatchlistService watchlistService;
-    @Mock
+    @MockBean
     WatchlistEntryService watchlistEntryService;
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
     private TestDataStore testDataStore;
 
     @Before
@@ -44,10 +51,13 @@ public class WatchlistControllerTest {
         when(watchlistService.getWatchlistDetailByUserId(testDataStore.userUuid2, testDataStore.pageable)).thenReturn(new PageImpl<>(new ArrayList<>()));
 
         //Asserts
-        ResponseEntity<Page<Watchlist>> pageResponseEntity = watchlistController.getAllWatchlistId(testDataStore.userUuid1, 0, 10);
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
+        testDataStore.httpServletRequest = new CustomRequest(cookie);
+        ResponseEntity<Page<Watchlist>> pageResponseEntity = watchlistController.getAllWatchlistId(testDataStore.httpServletRequest, 0, 10);
         assertEquals(Objects.requireNonNull(pageResponseEntity.getBody()).getContent(), testDataStore.watchlistList);
-
-        pageResponseEntity = watchlistController.getAllWatchlistId(testDataStore.userUuid2, 0, 10);
+        cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(1)));
+        testDataStore.httpServletRequest = new CustomRequest(cookie);
+        pageResponseEntity = watchlistController.getAllWatchlistId(testDataStore.httpServletRequest, 0, 10);
         assertEquals(Objects.requireNonNull(pageResponseEntity.getBody()).getContent(), new ArrayList<>());
     }
 
@@ -58,9 +68,12 @@ public class WatchlistControllerTest {
         when(watchlistEntryService.getAllWatchlistEntryByWatchlistId(testDataStore.watchlistList.get(1).getId(), testDataStore.pageable)).thenReturn(new PageImpl<>(new ArrayList<>()));
 
         //Asserts
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
+        testDataStore.httpServletRequest = new CustomRequest(cookie);
         ResponseEntity<Page<WatchlistEntry>> pageResponseEntity = watchlistController.getAllWatchlistEntry(testDataStore.watchlistList.get(0).getId(), 0, 10);
         assertEquals(Objects.requireNonNull(pageResponseEntity.getBody()).getContent(), testDataStore.watchlistEntryList);
-
+        cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(1)));
+        testDataStore.httpServletRequest = new CustomRequest(cookie);
         pageResponseEntity = watchlistController.getAllWatchlistEntry(testDataStore.watchlistList.get(1).getId(), 0, 10);
         assertEquals(Objects.requireNonNull(pageResponseEntity.getBody()).getContent(), new ArrayList<>());
     }

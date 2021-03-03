@@ -17,6 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,6 +31,8 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
 
+    private static final String TOKEN = "token";
+
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
@@ -37,10 +40,9 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         String jwtToken = null;
         final Cookie[] cookies = httpServletRequest.getCookies();
         if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    jwtToken = cookie.getValue();
-                }
+            Optional<Cookie> optionalCookie = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals(TOKEN)).findFirst();
+            if (optionalCookie.isPresent()) {
+                jwtToken = optionalCookie.get().getValue();
             }
         }
         if (jwtToken != null) {

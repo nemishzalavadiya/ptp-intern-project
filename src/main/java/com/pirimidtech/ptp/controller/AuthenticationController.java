@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,24 +33,28 @@ public class AuthenticationController {
     @Value("${cookie.maxAge}")
     private int maxCookieAge;
 
+    private static final String TOKEN = "token";
+
     @GetMapping("/user")
     public ResponseEntity<UUID> getUser(HttpServletRequest httpServletRequest) {
         String jwtToken = null;
         UUID userId = null;
         final Cookie[] cookies = httpServletRequest.getCookies();
         if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    jwtToken = cookie.getValue();
-                }
+            Optional<Cookie> optionalCookie = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals(TOKEN)).findFirst();
+            if (optionalCookie.isPresent()) {
+                jwtToken = optionalCookie.get().getValue();
             }
         }
         userId = jwtTokenUtil.getUserIdFromToken(jwtToken);
         Optional<User> userDetail = userService.getUserById(userId);
         if (userDetail.isPresent()) {
             userId = userDetail.get().getId();
+            return ResponseEntity.ok(userId);
         }
-        return ResponseEntity.ok(userId);
+        else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping("/login")
@@ -58,7 +63,7 @@ public class AuthenticationController {
         Optional<User> userDetail = userService.verifyUser(user.getEmail(), user.getPassword());
         if (userDetail.isPresent()) {
             String token = jwtTokenUtil.generateToken(userDetail.get());
-            Cookie cookie = new Cookie("token", token);
+            Cookie cookie = new Cookie(TOKEN, token);
             cookie.setPath("/");
             cookie.setHttpOnly(true);
             cookie.setMaxAge(maxCookieAge);
@@ -72,7 +77,7 @@ public class AuthenticationController {
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {
 
-        Cookie cookie = new Cookie("token", null);
+        Cookie cookie = new Cookie(TOKEN, null);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setMaxAge(0);

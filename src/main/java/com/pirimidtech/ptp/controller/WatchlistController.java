@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -57,10 +55,9 @@ public class WatchlistController {
         String jwtToken = null;
         final Cookie[] cookies = httpServletRequest.getCookies();
         if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    jwtToken = cookie.getValue();
-                }
+            Optional<Cookie> optionalCookie = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("token")).findFirst();
+            if (optionalCookie.isPresent()) {
+                jwtToken = optionalCookie.get().getValue();
             }
         }
         userId = jwtTokenUtil.getUserIdFromToken(jwtToken);

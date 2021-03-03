@@ -1,5 +1,8 @@
 package com.pirimidtech.ptp.controller;
 
+import com.pirimidtech.ptp.DTO.MutualFundFilterRequest;
+import com.pirimidtech.ptp.DTO.StocksFilterRequest;
+import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockStatistic;
 import com.pirimidtech.ptp.exception.NotFoundException;
@@ -57,5 +60,11 @@ public class StockDetailController {
         if (!stockStatistic.isPresent())
             throw new NotFoundException();
         return stockStatistic;
+    }
+
+    @PostMapping("/stocks/filters")
+    public Page<StockStatistic> fundsFilter(@RequestBody StocksFilterRequest stocksFilterRequest, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable paging = PageRequest.of(page, size);
+        return stockService.getStockFilterResults(stocksFilterRequest, paging);
     }
 }

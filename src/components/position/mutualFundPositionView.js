@@ -77,7 +77,7 @@ export default function MutualFundPosition({
         profit,
       } = element;
       positionList.push([
-        <Link href={`/details/${id}`}> {name} </Link>,
+        <Link href={`/details/${id}`}>{name}</Link>,
         volume,
         price,
         price / volume,

@@ -42,10 +42,11 @@ export default function GridContainer(props) {
         );
       })}
       <div>
-        <PaginationContainer
+        {props.pagination.totalPages>1?<PaginationContainer
           pagination={props.pagination}
           tabId={props.tabId}
-        />
+        />:null
+        }
       </div>
     </Grid>
   ) : (

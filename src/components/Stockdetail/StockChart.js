@@ -1,33 +1,33 @@
-import React from "react";
-import { Menu, Tab } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Menu } from "semantic-ui-react";
 import CandlestickChart from "src/components/Stockdetail/CandlestickChart";
 import LineChart from "src/components/Stockdetail/LineChart";
-const panes = [
+import Tab from "src/components/Tab";
+const tabs = [
   {
-    menuItem: (
-      <Menu.Item className="tab-item" key="candlestick">
-        <img src="/icons8-candlestick-chart-20.png" height="28px" />
-      </Menu.Item>
-    ),
-    render: () => <CandlestickChart />,
+    name: "candlestick",
   },
   {
-    menuItem: (
-      <Menu.Item className="tab-item" key="line">
-        <img src="/icons8-line-chart-201.png" height="28px" />
-      </Menu.Item>
-    ),
-    render: () => <LineChart />,
+    name: "line",
   },
 ];
 export default function StockChart(props) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  function handleTabChange(activeIndex) {
+    setActiveIndex(activeIndex);
+  }
   return (
     <div className="area">
       <Tab
-        className="tab-container"
-        menu={{ secondary: true, pointing: true, inverted: true }}
-        panes={panes}
+        content={tabs}
+        activeItem={activeIndex}
+        handleItemClick={handleTabChange}
       />
+      {activeIndex === 0 ? (
+        <CandlestickChart activeIndex={activeIndex} />
+      ) : (
+        <LineChart activeIndex={activeIndex} />
+      )}
     </div>
   );
 }

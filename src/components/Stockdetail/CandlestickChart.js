@@ -30,6 +30,8 @@ export default function CandlestickChart(props) {
   const [data, setData] = useState({ options: {} });
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    options.series[0].data=[];
+    options.series[1].data=[];
     const fetchData = async () => {
       setIsLoading(true);
       const fetchedData = mockData;
@@ -38,7 +40,7 @@ export default function CandlestickChart(props) {
       setIsLoading(false);
     };
     fetchData();
-  }, []);
+  }, [props.activeIndex]);
   return (
     <>
       {" "}

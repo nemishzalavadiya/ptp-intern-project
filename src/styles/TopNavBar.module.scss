@@ -4,7 +4,7 @@
 	align-items: center;
 	justify-content: space-between;
 	width: 95vw;
-	padding: 0 2rem;
+	padding: 0 2rem ;
 	img {
 		cursor: pointer;
 	}
@@ -16,6 +16,54 @@
 	height: 90px;
 }
 
-.userlogo{
-	float:'right'
+.ui.circular.image.usericon {
+	position: relative;
+	right:0px; 
+	top:-20px;
+	width:32px;
+	height:32px
+
+  }
+
+
+  .ui.circular.image.popupusericon {
+	position: relative;
+	top:-20px;
+	width:70%;
+	height:70%
+		
+  }  
+  
+.ui.segment.usercard {	
+	padding: 3%;
+	margin:30px;
+	background-color: #272727;
+	color:#272727 ;    
+  }
+  
+  .image-border {
+	max-width: 250px;
+	padding: 1rem;
+	position: relative;
+	background: linear-gradient(to right, red, purple);
+	padding: 3px;
+  }
+
+.ui.center.aligned.grid>.row{
+	padding: 1px;
 }
+
+.ui.bottom.right.popup.transition.visible{
+	padding: 10%;
+}
+
+.ui.center.aligned.grid>.row.cardbutton:hover{
+	background-color: #818181;
+	cursor: pointer;
+}
+.profilebox{
+padding-Left: 25%;
+vertical-Align: middle;
+color: white,
+}
+

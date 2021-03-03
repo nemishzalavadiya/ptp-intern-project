@@ -18,10 +18,6 @@ export default function Login() {
       email: "root@gmail.com",
       password: "root",
     },
-    {
-      email: "harshcerti@gmail.com",
-      password: "harsh1868",
-    },
   ];
 
   useEffect(() => {
@@ -72,7 +68,7 @@ export default function Login() {
       };
       User = JSON.stringify(User);
       localStorage.setItem("user", User);
-      toast("Login Successfully", {
+      toast("Logged in Successfully", {
         position: "bottom-right",
         autoClose: 2000,
         hideProgressBar: false,

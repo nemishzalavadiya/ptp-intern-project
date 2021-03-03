@@ -69,8 +69,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
-        Pattern pattern = Pattern.compile("/ptp.*");
-        Matcher matcher = pattern.matcher(path);
-        return "/login".equals(path) || matcher.find();
+        return "/login".equals(path) ;
     }
 }

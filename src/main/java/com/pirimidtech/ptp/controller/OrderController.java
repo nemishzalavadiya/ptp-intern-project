@@ -123,10 +123,23 @@ public class OrderController {
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 
-    @GetMapping("/mutualfund/sip-status/users/{id}")
-    public ResponseEntity<Page<MutualFundOrder>> getAllMutualFundSipStatusByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        Page<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundBySipStatus(userId, page, size);
+    @GetMapping("/mutualfund/sip-status/users")
+    public ResponseEntity<Page<MutualFundOrder>> getAllMutualFundSipStatusByUser(@RequestParam UUID userId,
+                                                                                 @RequestParam(defaultValue = "0") int page,
+                                                                                 @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundBySipStatus(userId, pageable);
         return ResponseEntity.ok().body(mutualFundOrderList);
+    }
+
+    @DeleteMapping("/mutualfund/delete-sip-status/users")
+    public ResponseEntity<UUID> deleteMutualFundSipStatusByUser(@RequestParam UUID userId,
+                                                                  @RequestParam UUID MutualFundId,
+                                                                  @RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        orderService.deleteMutualFundBySipStatus(userId, MutualFundId, pageable);
+        return ResponseEntity.ok().body(MutualFundId);
     }
 
     @GetMapping("/mutualfund/orders/{id}")

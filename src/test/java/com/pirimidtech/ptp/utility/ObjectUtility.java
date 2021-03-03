@@ -23,8 +23,8 @@ public class ObjectUtility {
     public static MutualFundStatistic mutualFundStatistic = new MutualFundStatistic(UUID.fromString("95d9a220-2579-4a13-b7e2-7ac628ed2e6f"), "Low", 0.0f, true, 0.0f, 0.0f, null, 0.0f, mutualFundDetail);
     public static Position position = new Position(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"), 100, 11.1f, AssetClass.STOCK, user, assetDetail);
     public static StockDetail stockDetail = new StockDetail(UUID.fromString("2ffedff5-70c5-45cd-9c35-b36c25d77361"), null, "XYZ", assetDetail);
-    public static StockTrade stockTrade1 = new StockTrade(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"), date1, 301, Action.BUY, StockExchangeType.BSE, PriceType.MARKET, OrderType.DELIVERY, mutualFundOrder1.getPrice(), Status.EXECUTED, user, stockDetail);
-    public static StockTrade stockTrade2 = new StockTrade(UUID.fromString("981a7cd2-feaf-4e29-8a77-f37ed75a6102"), date1, 207, Action.BUY, StockExchangeType.NSE, PriceType.MARKET, OrderType.DELIVERY, mutualFundOrder1.getPrice(), Status.PENDING, user, stockDetail);
+    public static StockTrade stockTrade1 = new StockTrade(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"), date1, 301, Action.BUY, OrderType.MARKET, ProductCode.CNC, mutualFundOrder1.getPrice(), Status.EXECUTED, user, stockDetail);
+    public static StockTrade stockTrade2 = new StockTrade(UUID.fromString("981a7cd2-feaf-4e29-8a77-f37ed75a6102"), date1, 207, Action.BUY, OrderType.MARKET, ProductCode.CNC, mutualFundOrder1.getPrice(), Status.PENDING, user, stockDetail);
     public static List<StockTrade> stockTradeList = new ArrayList<>();
     public static StockTradeHistory stockTradeHistory = new StockTradeHistory(UUID.randomUUID(), new Date(), Status.PENDING, stockTrade1);
     public static StockPrice stockPrice1 = new StockPrice(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"), mutualFundOrder1.getPrice(), date1, StockExchangeType.BSE, stockDetail);

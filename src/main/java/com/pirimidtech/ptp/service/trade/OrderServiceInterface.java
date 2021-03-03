@@ -22,7 +22,7 @@ public interface OrderServiceInterface {
 
     MutualFundOrder addToMutualFundOrder(MutualFundOrder mutualFundOrder);
 
-    Page<MutualFundOrder> getAllMutualFundBySipStatus(UUID userId, int pageNo, int pageSize);
+    Page<MutualFundOrder> getAllMutualFundBySipStatus(UUID userId, Pageable pageable);
 
     MutualFundOrder getMutualFundOrder(UUID orderId);
 

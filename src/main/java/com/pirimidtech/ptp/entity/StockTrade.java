@@ -39,16 +39,12 @@ public class StockTrade {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StockExchangeType stockExchange;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private PriceType priceType;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-
     private OrderType orderType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+
+    private ProductCode productCode;
 
     @Column(nullable = false)
     private float price;

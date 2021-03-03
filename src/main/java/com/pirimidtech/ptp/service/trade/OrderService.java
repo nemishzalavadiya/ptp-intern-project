@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.service.trade;
 
+import com.pirimidtech.ptp.entity.InvestmentType;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.SIPStatus;
 import com.pirimidtech.ptp.entity.StockTrade;
@@ -55,9 +56,8 @@ public class OrderService implements OrderServiceInterface {
     }
 
     @Override
-    public Page<MutualFundOrder> getAllMutualFundBySipStatus(UUID userId, int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<MutualFundOrder> pageResult = mutualFundOrderRepository.findAllBySipStatusNotAndUserIdOrderBySIPDateDesc( SIPStatus.DELETED ,userId,pageable);
+    public Page<MutualFundOrder> getAllMutualFundBySipStatus(UUID userId, Pageable pageable) {
+        Page<MutualFundOrder> pageResult = mutualFundOrderRepository.findAllBySipStatusNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc( SIPStatus.DELETED , InvestmentType.ONE_TIME,userId,pageable);
         return pageResult;
     }
 
@@ -113,5 +113,9 @@ public class OrderService implements OrderServiceInterface {
             eDate = cal.getTime();
         }
         return mutualFundOrderRepository.findAllByUserIdAndTimestampBetween(userId,sDate,eDate,pageable);
+    }
+
+    public void deleteMutualFundBySipStatus(UUID userId, UUID mutualFundId, Pageable pageable) {
+        mutualFundOrderRepository.deleteByUserIdAndMutualFundDetailId(userId,mutualFundId);
     }
 }

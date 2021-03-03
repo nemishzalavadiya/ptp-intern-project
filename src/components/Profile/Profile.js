@@ -46,8 +46,6 @@ export default function Profile() {
                         className="profileicon"
                         src="/user.jpg"
                         circular
-                        width="100px"
-                        height="100px"
                       />
                     </Grid.Column>
 

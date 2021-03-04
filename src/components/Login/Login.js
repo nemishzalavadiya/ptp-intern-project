@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Divider, Input, Image, Icon, Button, Form, Grid, Segment } from "semantic-ui-react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Router from "next/router";
 export default function Login() {
   const userList = [
@@ -17,10 +16,6 @@ export default function Login() {
     {
       email: "root@gmail.com",
       password: "root",
-    },
-    {
-      email: "harshcerti@gmail.com",
-      password: "harsh1868",
     },
   ];
 
@@ -72,7 +67,7 @@ export default function Login() {
       };
       User = JSON.stringify(User);
       localStorage.setItem("user", User);
-      toast("Login Successfully", {
+      toast("Logged in Successfully", {
         position: "bottom-right",
         autoClose: 2000,
         hideProgressBar: false,

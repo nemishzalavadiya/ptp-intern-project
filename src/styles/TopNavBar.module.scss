@@ -1,21 +1,58 @@
 @import "./variables";
 .headerTopNavBar {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 95vw;
-	padding: 0 2rem;
-	img {
-		cursor: pointer;
-	}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95vw;
+  padding: 0 2rem;
+  img {
+    cursor: pointer;
+  }
 }
 
 .logo {
-	margin: 1rem;
-	width: 120px;
-	height: 90px;
+  margin: 1rem;
+  width: 120px;
+  height: 90px;
 }
 
-.userlogo{
-	float:'right'
+.ui.circular.image.usericon {
+  position: relative;
+  right: 0px;
+  top: -20px;
+  width: 32px;
+  height: 32px;
+}
+
+.ui.circular.image.popupusericon {
+  position: relative;
+  top: -20px;
+  width: 80px;
+  height: 80px;
+}
+
+.image-border {
+  max-width: 250px;
+  padding: 1rem;
+  position: relative;
+  background: linear-gradient(to right, red, purple);
+  padding: 3px;
+}
+
+.ui.center.aligned.grid > .row {
+  padding: 1px;
+}
+
+.ui.bottom.right.popup.transition.visible {
+  padding: 10%;
+}
+
+.ui.center.aligned.grid > .row.cardbutton:hover {
+  background-color: #818181;
+  cursor: pointer;
+}
+.profilebox {
+  padding-left: 31%;
+  vertical-align: middle;
+  color: white;
 }

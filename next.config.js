@@ -9,6 +9,7 @@ module.exports = {
   },
   webpack(config) {
     config.resolve.modules.push(__dirname)
+    config.resolve.extensions.push('.ts','.tsx','.native.ts','.native.tsx')
     return config;
   },
 };

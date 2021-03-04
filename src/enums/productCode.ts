@@ -1,4 +1,4 @@
-export enum ProductCode{
+export enum ProductCode {
     CNC = "CNC",
     MIS = "MIS"
 }

@@ -3,7 +3,7 @@ import Head from "next/head";
 import FilterGroup from "src/components/filter/FilterGroup";
 import Layout from "src/components/Layout";
 import { stockFilters } from "src/components/filter/filterDetails";
-import { filterType } from "src/components/filter/filterType.ts";
+import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import useWebSocket from "src/hooks/useWebSocket";
 

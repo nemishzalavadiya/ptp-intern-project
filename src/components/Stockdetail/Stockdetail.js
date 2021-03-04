@@ -2,7 +2,7 @@ import StatisticStock from "src/components/Statistics/StatisticStock";
 import Chart from "src/components/Stockdetail/Chart";
 import { getStockByAssetId } from "src/services/assets";
 import { Header, Loader } from "semantic-ui-react";
-import StockTicket from "src/components/ticket/StockTicket"
+import StockTicket from "src/components/ticket/StockTicket.tsx"
 
 export default function Stockdetail(props) {
   const [isComplete, response] = getStockByAssetId(props.stockId);

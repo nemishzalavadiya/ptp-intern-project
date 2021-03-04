@@ -24,11 +24,8 @@ export default function GridContainer(props) {
                   </div>
                   <div
                     className={`grid-item ${
-                      props.content[innerIndex].showColor
-                        ? item >= 0
-                          ? "profit"
-                          : "loss"
-                        : null
+                      props.content[innerIndex].showColor &&
+                      (item >= 0 ? "profit" : "loss")
                     }`}
                   >
                     {props.content[innerIndex].icon
@@ -47,12 +44,12 @@ export default function GridContainer(props) {
         );
       })}
       <div>
-        {props.pagination.totalPages > 1 ? (
+        {props.pagination.totalPages > 1 && (
           <PaginationContainer
             pagination={props.pagination}
             tabId={props.tabId}
           />
-        ) : null}
+        )}
       </div>
     </Grid>
   ) : (

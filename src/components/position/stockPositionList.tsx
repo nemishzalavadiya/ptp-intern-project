@@ -1,10 +1,10 @@
 import React from "react";
-import { getPositionByuserAndAsset } from "src/services/position";
+import { getPositionByuserAndAsset } from "src/services/position.ts";
 import StockPosition from "src/components/position/stockPositionView";
 import { UserId } from "src/components/Objects";
 import Link from "next/link";
 import { Loader } from "semantic-ui-react";
-import { AssetClass } from "src/enums/assetClass";
+import { AssetClass } from "src/enums/assetClass.ts";
 
 export default function StockPositionList({
   value,
@@ -13,8 +13,8 @@ export default function StockPositionList({
 }) {
   let positionList = [];
   let companyUuids = [];
-  let [isCompleted, response] = [false];
-  [isCompleted, response] = getPositionByuserAndAsset(
+  let [isContentFetchingCompleted, response] = [false];
+  [isContentFetchingCompleted, response] = getPositionByuserAndAsset(
     UserId.userId,
     AssetClass.STOCK.toLowerCase(),
     value,
@@ -28,7 +28,7 @@ export default function StockPositionList({
     handlePaginationChange: handlePaginationChange,
   };
 
-  if (isCompleted) {
+  if (isContentFetchingCompleted) {
     response.content.forEach((element) => {
       companyUuids.push(element.assetDetail.id);
       positionList.push([
@@ -41,7 +41,7 @@ export default function StockPositionList({
       ]);
     });
   }
-  return !isCompleted ? (
+  return !isContentFetchingCompleted ? (
     <Loader active />
   ) : (
     <StockPosition

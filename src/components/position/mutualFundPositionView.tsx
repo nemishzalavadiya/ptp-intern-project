@@ -1,10 +1,8 @@
 import React from "react";
 import GridContainer from "src/components/grid/GridContainer";
-import { getPositionByuserAndAsset } from "src/services/position";
 import { Loader } from "semantic-ui-react";
 import { UserId } from "src/components/Objects";
-import Link from "next/link";
-import { AssetClass } from "src/enums/assetClass";
+import { getMutualFundPosition } from "src/hooks/mutualFundPosition.ts";
 
 const mutualFundHeaders = [
   {
@@ -48,14 +46,9 @@ export default function MutualFundPosition({
   page,
   handlePaginationChange,
 }) {
-  let positionList = [];
-  let [isCompleted, response] = [false];
-  let assetclass = (
-    AssetClass.MUTUAL_FUND.slice(0, 6) + AssetClass.MUTUAL_FUND.slice(7)
-  ).toLowerCase();
-  [isCompleted, response] = getPositionByuserAndAsset(
+  let [isContentFetchingCompleted, totalPage, response] = [false, 0];
+  [isContentFetchingCompleted, totalPage, response] = getMutualFundPosition(
     UserId.userId,
-    assetclass,
     value,
     page,
     5
@@ -63,43 +56,17 @@ export default function MutualFundPosition({
 
   const pagination = {
     activePage: page,
-    totalPages: response.totalPages,
+    totalPages: totalPage,
     handlePaginationChange: handlePaginationChange,
   };
 
-  if (isCompleted) {
-    response.content.forEach((element) => {
-      console.log(element);
-      const {
-        position: {
-          volume,
-          price,
-          assetDetail: { id, name },
-        },
-        nav,
-        netValue,
-        profit,
-      } = element;
-      positionList.push([
-        <Link href={`/details/${id}`}>{name}</Link>,
-        volume,
-        price,
-        price / volume,
-        nav,
-        netValue,
-        (profit * price) / 100,
-        profit,
-      ]);
-    });
-  }
-
-  return !isCompleted ? (
+  return !isContentFetchingCompleted ? (
     <Loader active />
   ) : (
     <GridContainer
       content={mutualFundHeaders}
       pagination={pagination}
-      data={positionList}
+      data={response}
     ></GridContainer>
   );
 }

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Layout from "src/components/Layout";
-import Position from 'src/components/position/position';
+import Position from 'src/components/position/position.tsx';
 
 
 export default function Home() {

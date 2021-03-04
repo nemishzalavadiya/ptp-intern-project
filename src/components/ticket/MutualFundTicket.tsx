@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState } from "react";
 import { Form, Button, Segment, Grid, Message, Icon, Dropdown, Select } from "semantic-ui-react";
-import { createMutualFundOrder } from 'src/services/mutualFundOrder';
+import { createMutualFundOrder } from 'src/services/mutualFundOrder.ts';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { InvestmentType } from 'src/enums/InvestmentType';
-import { Frequency } from 'src/enums/Frequency'
+import { InvestmentType } from 'src/enums/InvestmentType.ts';
+import { Frequency } from 'src/enums/Frequency.ts'
 import { UserId } from "src/components/Objects";
 
 export default function MutualFundTicket(props) {

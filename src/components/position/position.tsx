@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Tab from "src/components/Tab";
 import Search from "src/components/Search";
-import MutualFundPosition from "src/components/position/mutualFundPositionView";
-import StockPositionList from "src/components/position/stockPositionList";
-import { AssetClass } from "src/enums/assetClass";
+import MutualFundPosition from "src/components/position/mutualFundPositionView.tsx";
+import StockPositionList from "src/components/position/stockPositionList.tsx";
+import { AssetClass } from "src/enums/assetClass.ts";
 export default function Position() {
   const [value, setValue] = useState("");
   const [assetClass, setAssetClass] = useState(AssetClass.STOCK);

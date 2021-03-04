@@ -63,7 +63,6 @@ const mutualfunds = () => {
 			...selectedFilters.map((arr, index) => (filterIndex === index ? [...arr, checkboxIndex] : [...arr])),
 		]);
 	};
-
 	const removeFilter = (filterIndex, checkboxIndex) => {
 		setSelectedFilters([
 			...selectedFilters.map((arr, index) =>
@@ -83,7 +82,6 @@ const mutualfunds = () => {
 			...selectedFilters.map((item, index) => (index === filterIndex ? [minimum, maximum] : [...item])),
 		]);
 	};
-
 	return (
 		<Layout>
 			<Head>

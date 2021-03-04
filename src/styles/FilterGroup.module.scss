@@ -24,4 +24,11 @@
 }
 .ui.header.mainTitle {
 	color: white;
+	margin: 0;
+	height: fit-content;
+}
+.ui.vertical.accordion.ui.menu {
+	width: 100%;
+	color: $fontColor;
+	background-color: $cardGrey;
 }

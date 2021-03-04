@@ -8,7 +8,7 @@ import com.pirimidtech.ptp.repository.AssetDetailRepository;
 import com.pirimidtech.ptp.service.asset.AssetService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistEntryService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
-import com.pirimidtech.ptp.util.JwtTokenUtil;
+import com.pirimidtech.ptp.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,18 +16,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -43,7 +37,7 @@ public class WatchlistController {
     @Autowired
     private AssetService assetService;
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private RequestUtil requestUtil;
 
     @GetMapping("/{watchlistId}")
     public ResponseEntity<Page<WatchlistEntry>> getAllWatchlistEntry(@PathVariable UUID watchlistId,
@@ -58,16 +52,8 @@ public class WatchlistController {
     @GetMapping("/user")
     public ResponseEntity<Page<Watchlist>> getAllWatchlistId(HttpServletRequest httpServletRequest, @RequestParam(defaultValue = "0") int page,
                                                              @RequestParam(defaultValue = "10") int size) {
-        UUID userId = null;
-        String jwtToken = null;
-        final Cookie[] cookies = httpServletRequest.getCookies();
-        if (cookies != null) {
-            Optional<Cookie> optionalCookie = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("token")).findFirst();
-            if (optionalCookie.isPresent()) {
-                jwtToken = optionalCookie.get().getValue();
-            }
-        }
-        userId = jwtTokenUtil.getUserIdFromToken(jwtToken);
+        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         log.info("UserId {} requested all watchlist ids, page {} size {}", userId.toString(), page, size);
         Pageable pageable = PageRequest.of(page, size);
         Page<Watchlist> watchlistPage = watchlistService.getWatchlistDetailByUserId(userId, pageable);

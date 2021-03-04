@@ -5,7 +5,7 @@ import Stockdetail from "src/components/Stockdetail/Stockdetail";
 import MutualFundDetail from "src/components/Mutualfund/MutualfundDetail";
 import Layout from "src/components/Layout";
 import { Loader } from "semantic-ui-react";
-import { AssetClass } from "src/enums/assetClass.ts";
+import { AssetClass } from "src/enums/assetClass";
 
 export default function details() {
   const router = useRouter();

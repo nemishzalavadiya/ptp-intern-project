@@ -4,10 +4,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { createStockOrder } from "src/services/stockOrder.ts";
-import { ProductCode } from "src/enums/productCode.ts";
-import { OrderType } from "src/enums/orderType.ts";
-import { Action } from "src/enums/action.ts";
+import { createStockOrder } from "src/services/stockOrder";
+import { ProductCode } from "src/enums/productCode";
+import { OrderType } from "src/enums/orderType";
+import { Action } from "src/enums/action";
 import { WebSocketUrl, UserId } from "src/components/Objects";
 export default function StockTicket({ assetId, stockId }) {
   const [action, setAction] = useState(Action.BUY);

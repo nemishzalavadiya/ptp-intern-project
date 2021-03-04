@@ -1,13 +1,13 @@
 import React from "react";
-import { getPositionByuserAndAsset } from "src/services/position.ts";
+import { getPositionByuserAndAsset } from "src/services/position";
 import StockPosition from "src/components/position/stockPositionView";
 import { UserId } from "src/components/Objects";
 import Link from "next/link";
 import { Loader } from "semantic-ui-react";
-import { AssetClass } from "src/enums/assetClass.ts";
+import { AssetClass } from "src/enums/assetClass";
 
 export default function StockPositionList({
-  value,
+  searchString,
   page,
   handlePaginationChange,
 }) {
@@ -17,7 +17,7 @@ export default function StockPositionList({
   [isContentFetchingCompleted, response] = getPositionByuserAndAsset(
     UserId.userId,
     AssetClass.STOCK.toLowerCase(),
-    value,
+    searchString,
     page,
     5
   );

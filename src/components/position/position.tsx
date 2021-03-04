@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Tab from "src/components/Tab";
 import Search from "src/components/Search";
-import MutualFundPosition from "src/components/position/mutualFundPositionView.tsx";
-import StockPositionList from "src/components/position/stockPositionList.tsx";
-import { AssetClass } from "src/enums/assetClass.ts";
+import MutualFundPosition from "src/components/position/mutualFundPositionView";
+import StockPositionList from "src/components/position/stockPositionList";
+import { AssetClass } from "src/enums/assetClass";
 export default function Position() {
-  const [value, setValue] = useState("");
+  const [searchString, setSearchString] = useState("");
   const [assetClass, setAssetClass] = useState(AssetClass.STOCK);
   const [activeItem, setActiveItem] = useState(0);
   const [page, setPage] = useState(0);
@@ -30,7 +30,7 @@ export default function Position() {
   ];
 
   function handleSearchChange(e, data) {
-    setValue(data.value);
+    setSearchString(data.value);
     setPage(0);
   }
   return (
@@ -46,13 +46,13 @@ export default function Position() {
       />
       {activeItem === 0 ? (
         <StockPositionList
-          value={value}
+        searchString={searchString}
           page={page}
           handlePaginationChange={handlePaginationChange}
         ></StockPositionList>
       ) : (
         <MutualFundPosition
-          value={value}
+        searchString={searchString}
           page={page}
           handlePaginationChange={handlePaginationChange}
         />

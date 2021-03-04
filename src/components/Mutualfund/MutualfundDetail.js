@@ -2,7 +2,7 @@ import StatisticMf from "src/components/Statistics/StatisticMf";
 import { getMfByAssetId } from "src/services/assets";
 import { Header, Loader } from "semantic-ui-react";
 import Chart from "src/components/MutualFund/Chart";
-import MutualFundTicket from "src/components/ticket/mutualFundTicket.tsx";
+import MutualFundTicket from "src/components/ticket/mutualFundTicket";
 
 export default function MutualFundDetail(props) {
   const [isComplete, response] = getMfByAssetId(props.mfId) ;

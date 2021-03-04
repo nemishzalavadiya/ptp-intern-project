@@ -2,7 +2,7 @@ import React from "react";
 import GridContainer from "src/components/grid/GridContainer";
 import { Loader } from "semantic-ui-react";
 import { UserId } from "src/components/Objects";
-import { getMutualFundPosition } from "src/hooks/mutualFundPosition.ts";
+import { getMutualFundPosition } from "src/hooks/mutualFundPosition";
 
 const mutualFundHeaders = [
   {
@@ -42,14 +42,14 @@ const mutualFundHeaders = [
 ];
 
 export default function MutualFundPosition({
-  value,
+  searchString,
   page,
   handlePaginationChange,
 }) {
   let [isContentFetchingCompleted, totalPage, response] = [false, 0];
   [isContentFetchingCompleted, totalPage, response] = getMutualFundPosition(
     UserId.userId,
-    value,
+    searchString,
     page,
     5
   );

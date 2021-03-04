@@ -4,12 +4,15 @@ import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
+import com.pirimidtech.ptp.DTO.MutualFundFilterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,19 +48,9 @@ public class MutualFundDetailController {
         return mutualFundStatistic;
     }
 
-    @GetMapping("/mutualfunds/filter/risk")
-    public Page<MutualFundStatistic> filterRisk(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@RequestParam String risk){
+    @PostMapping("/mutualfunds/filters")
+    public Page<MutualFundStatistic> fundsFilter(@RequestBody MutualFundFilterRequest mutualFundFilterRequest, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Pageable paging = PageRequest.of(page, size);
-        return mutualFundService.getMutualFundsFilterByRisk(paging,risk);
-    }
-    @GetMapping("/mutualfunds/filter/sip")
-    public Page<MutualFundStatistic> filterSipAllowed(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@RequestParam boolean sipAllowed){
-        Pageable paging = PageRequest.of(page, size);
-        return mutualFundService.getMutualFundsFilterBySip(paging,sipAllowed);
-    }
-    @GetMapping("/mutualfunds/filter/fundsize")
-    public Page<MutualFundStatistic> filterFundSize(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@RequestParam float sizeOpen,@RequestParam float sizeClose){
-        Pageable paging = PageRequest.of(page, size);
-        return mutualFundService.getMutualFundsFilterByFundSize(paging,sizeOpen,sizeClose);
+        return mutualFundService.getMutualFundsFilterResults(mutualFundFilterRequest, paging);
     }
 }

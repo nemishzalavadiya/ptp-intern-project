@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.service.mutualfund;
 
+import com.pirimidtech.ptp.DTO.MutualFundFilterRequest;
 import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import org.springframework.data.domain.Page;
@@ -17,9 +18,5 @@ public interface MutualFundServiceInterface {
 
     Optional<MutualFundStatistic> getMutualFundStatisticByAssetId(UUID id);
 
-    Page<MutualFundStatistic> getMutualFundsFilterByRisk(Pageable paging, String risk);
-
-    Page<MutualFundStatistic> getMutualFundsFilterBySip(Pageable paging, boolean sipAllowed);
-
-    Page<MutualFundStatistic> getMutualFundsFilterByFundSize(Pageable paging, float sizeOpen,float sizeClose);
+    Page<MutualFundStatistic> getMutualFundsFilterResults(MutualFundFilterRequest mutualFundFilterRequest, Pageable paging);
 }

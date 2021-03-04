@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ public class DataGenerator {
     @Autowired
     private AssetService assetService;
 
-    public void setDistinctCompany() {
+    @PostConstruct
+    public void init() {
         companyIdList = new ArrayList<>();
         companyNameList = new ArrayList<>();
         stockList = new ArrayList<>();
@@ -38,6 +40,7 @@ public class DataGenerator {
         DecimalFormat df = new DecimalFormat("##.##");
         df.setRoundingMode(RoundingMode.DOWN);
         float Min = 20, Max = 10000;
+        stockList.clear();
         for (int i = 0; i < companyNameList.size(); i++) {
             Stock stock = new Stock();
             stock.setCompany_id(companyIdList.get(i));

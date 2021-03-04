@@ -1,6 +1,11 @@
 @import "src/styles/_variables.scss";
 
-.ui.vertical.accordion.ui.filter-collapse.menu.item.active.title {
-	color: $fontColor;
-	background-color: red;
+.ui.checkbox.check-box {
+	label,
+	input:focus ~ label {
+		color: $fontColor;
+	}
+	label:hover {
+		color: grey;
+	}
 }

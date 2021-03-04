@@ -10,7 +10,6 @@ const mutualfunds = () => {
 	const content = [
 		{ header: "Company_Id", icon: "" },
 		{ header: "Risk", icon: "" },
-		{ header: "SIP Allowed", icon: "" },
 		{ header: "Min Sip", icon: <i className="rupee sign icon small"></i> },
 		{ header: "Fund Size", icon: <i className="rupee sign icon small"></i> },
 	];
@@ -83,7 +82,7 @@ const mutualfunds = () => {
 		]);
 	};
 	return (
-		<Layout>
+		<Layout name="MUTUAL_FUND">
 			<Head>
 				<title>Pirimid Trading Platform</title>
 				<link rel="icon" href="/favicon.svg" />
@@ -103,7 +102,6 @@ const mutualfunds = () => {
 						data={results.map((item) => [
 							item.mutualFundDetail.assetDetail.name,
 							item.risk,
-							item.sipAllowed,
 							item.minSIP,
 							item.fundSize,
 						])}

@@ -8,6 +8,7 @@ const CheckboxFilter = (props) => {
 			{props.filterDetails.filterOptions.map((option, index) => (
 				<List.Item key={index}>
 					<Checkbox
+						className="check-box"
 						checked={props.selectedFilters[props.filterIndex].includes(index)}
 						onChange={(event, data) =>
 							data.checked
@@ -25,6 +26,7 @@ const CheckboxFilter = (props) => {
 			<Accordion as={Menu} className="filter-collapse" vertical>
 				<Menu.Item>
 					<Accordion.Title
+						className="acc"
 						content={props.filterDetails.title}
 						active={active}
 						onClick={() => setActive(!active)}

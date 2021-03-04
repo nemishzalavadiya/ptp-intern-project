@@ -1,6 +1,6 @@
 @import "src/styles/_variables.scss";
 .group-main {
-	// position: fixed;
+	position: fixed;
 	width: 20%;
 	padding-right: 2rem;
 	ul {
@@ -19,16 +19,5 @@
 }
 .ui.vertical.accordion.ui.menu {
 	width: 100%;
-	color: $fontColor;
-	background-color: $cardGrey;
-}
-.ui.header.mainTitle {
-	color: white;
-	margin: 0;
-	height: fit-content;
-}
-.ui.vertical.accordion.ui.menu {
-	width: 100%;
-	color: $fontColor;
 	background-color: $cardGrey;
 }

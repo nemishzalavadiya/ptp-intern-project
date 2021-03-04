@@ -5,10 +5,13 @@ import Layout from "src/components/Layout";
 import { stockFilters } from "src/components/filter/filterDetails";
 import { filterType } from "src/components/filter/filterType.ts";
 import GridContainer from "src/components/grid/GridContainer";
+import useWebSocket from "src/hooks/useWebSocket";
 
 const stocks = () => {
 	const content = [
 		{ header: "Company_Id", icon: "" },
+		{ header: "Market Price", icon: <i className="rupee sign icon small"></i> },
+		{ header: "Close Price", icon: <i className="rupee sign icon small"></i> },
 		{ header: "Market Cap (Cr)", icon: <i className="rupee sign icon small"></i> },
 	];
 
@@ -26,6 +29,9 @@ const stocks = () => {
 
 	const [activePage, setActivePage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
+
+	let isSubscriptionCompleted = false;
+	let subscriptionDataMap = new Map();
 
 	async function requestFiltered(url = "", data = {}) {
 		const response = await fetch(url, {
@@ -52,6 +58,16 @@ const stocks = () => {
 		});
 	}, [selectedFilters, activePage]);
 
+	useEffect(() => {
+		setSubscriptionIdList(results.map((item) => item.stockDetail.assetDetail.id));
+	}, [results]);
+
+	const [subscriptionIdList, setSubscriptionIdList] = useState(
+		results.map((item) => item.stockDetail.assetDetail.id)
+	);
+
+	[isSubscriptionCompleted, subscriptionDataMap] = useWebSocket(subscriptionIdList);
+
 	const addFilter = (filterIndex, checkboxIndex) => {
 		setSelectedFilters([
 			...selectedFilters.map((arr, index) => (filterIndex === index ? [...arr, checkboxIndex] : [...arr])),
@@ -77,13 +93,13 @@ const stocks = () => {
 			...selectedFilters.map((item, index) => (index === filterIndex ? [minimum, maximum] : [...item])),
 		]);
 	};
-
 	return (
-		<Layout>
+		<Layout name="STOCK">
 			<Head>
 				<title>Pirimid Trading Platform</title>
 				<link rel="icon" href="/favicon.svg" />
 			</Head>
+
 			<div className="filter-grid">
 				<FilterGroup
 					details={stockFilters}
@@ -96,7 +112,18 @@ const stocks = () => {
 				<div className="right-grid">
 					<GridContainer
 						content={content}
-						data={results.map((item) => [item.stockDetail.assetDetail.name, item.marketCap])}
+						data={results.map((item) => [
+							item.stockDetail.assetDetail.name,
+
+							subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
+								? ""
+								: subscriptionDataMap.get(item.stockDetail.assetDetail.id).marketPrice,
+
+							subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
+								? ""
+								: subscriptionDataMap.get(item.stockDetail.assetDetail.id).close,
+							item.marketCap,
+						])}
 						pagination={{
 							activePage,
 							totalPages,

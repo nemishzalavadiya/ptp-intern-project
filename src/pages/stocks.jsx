@@ -59,11 +59,11 @@ const stocks = () => {
 	}, [selectedFilters, activePage]);
 
 	useEffect(() => {
-		setSubscriptionIdList(results.map((item) => item.stockDetail.assetDetail.id));
+		setSubscriptionIdList(results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id));
 	}, [results]);
 
 	const [subscriptionIdList, setSubscriptionIdList] = useState(
-		results.map((item) => item.stockDetail.assetDetail.id)
+		results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id)
 	);
 
 	[isSubscriptionCompleted, subscriptionDataMap] = useWebSocket(subscriptionIdList);
@@ -112,18 +112,22 @@ const stocks = () => {
 				<div className="right-grid">
 					<GridContainer
 						content={content}
-						data={results.map((item) => [
-							item.stockDetail.assetDetail.name,
+						data={
+							results === undefined
+								? []
+								: results.map((item) => [
+										item.stockDetail.assetDetail.name,
 
-							subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
-								? ""
-								: subscriptionDataMap.get(item.stockDetail.assetDetail.id).marketPrice,
+										subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
+											? ""
+											: subscriptionDataMap.get(item.stockDetail.assetDetail.id).marketPrice,
 
-							subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
-								? ""
-								: subscriptionDataMap.get(item.stockDetail.assetDetail.id).close,
-							item.marketCap,
-						])}
+										subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
+											? ""
+											: subscriptionDataMap.get(item.stockDetail.assetDetail.id).close,
+										item.marketCap,
+								  ])
+						}
 						pagination={{
 							activePage,
 							totalPages,

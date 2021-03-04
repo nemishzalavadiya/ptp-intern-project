@@ -99,12 +99,16 @@ const mutualfunds = () => {
 				<div className="right-grid">
 					<GridContainer
 						content={content}
-						data={results.map((item) => [
-							item.mutualFundDetail.assetDetail.name,
-							item.risk,
-							item.minSIP,
-							item.fundSize,
-						])}
+						data={
+							results === undefined
+								? []
+								: results.map((item) => [
+										item.mutualFundDetail.assetDetail.name,
+										item.risk,
+										item.minSIP,
+										item.fundSize,
+								  ])
+						}
 						pagination={{
 							activePage,
 							totalPages,

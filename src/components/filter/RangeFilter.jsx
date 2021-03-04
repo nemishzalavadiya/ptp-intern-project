@@ -1,7 +1,7 @@
 import { Input, Label, Accordion, Menu, Header } from "semantic-ui-react";
 import { useState } from "react";
 import SliderView from "semantic-ui-react-slider";
-import styles from "src/styles/RangeFilter.module.scss";
+
 const RangeFilter = (props) => {
 	const [invalid, setInvalid] = useState(false);
 	const [active, setActive] = useState(true);
@@ -27,9 +27,7 @@ const RangeFilter = (props) => {
 							: props.selectedFilters[props.filterIndex][0]
 					}
 					onChange={(event, data) => {
-						if (data.value > props.selectedFilters[props.filterIndex][1] || data.value < 0)
-							setInvalid(true);
-						else setInvalid(false);
+						setInvalid(data.value < props.selectedFilters[props.filterIndex][1] || data.value < 0);
 						return props.changeRange(
 							props.filterIndex,
 							data.value == "" ? 0 : parseInt(data.value),
@@ -51,9 +49,7 @@ const RangeFilter = (props) => {
 							: props.selectedFilters[props.filterIndex][1]
 					}
 					onChange={(event, data) => {
-						if (data.value < props.selectedFilters[props.filterIndex][0] || data.value < 0)
-							setInvalid(true);
-						else setInvalid(false);
+						setInvalid(data.value < props.selectedFilters[props.filterIndex][0] || data.value < 0);
 						return props.changeRange(
 							props.filterIndex,
 							props.selectedFilters[props.filterIndex][0],

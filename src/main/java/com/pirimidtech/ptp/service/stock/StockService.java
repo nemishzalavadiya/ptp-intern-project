@@ -6,14 +6,18 @@ import com.pirimidtech.ptp.entity.StockStatistic;
 import com.pirimidtech.ptp.entity.QStockStatistic;
 import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.repository.StockStatisticRepository;
+import com.pirimidtech.ptp.service.datagenerator.DataGenerator;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class StockService implements StockServiceInterface {
@@ -21,6 +25,8 @@ public class StockService implements StockServiceInterface {
     private StockDetailRepository stockDetailRepository;
     @Autowired
     private StockStatisticRepository stockStatisticRepository;
+    @Autowired
+    private DataGenerator dataGenerator;
 
     @Override
     public Page<StockDetail> getAllStockDetails(Pageable paging) {
@@ -52,6 +58,21 @@ public class StockService implements StockServiceInterface {
         return stockStatisticRepository.findByStockDetail_AssetDetail_id(assetId);
     }
 
+    public Page<StockStatistic> filterClosePrice(BooleanBuilder booleanBuilder, StocksFilterRequest stocksFilterRequest, Pageable paging) {
+        List<StockStatistic> filteredList = stockStatisticRepository
+                .findAll(booleanBuilder, paging)
+                .getContent()
+                .stream()
+                .filter(stats -> {
+                    UUID companyId = stockDetailRepository.findById(stats.getId()).get().getAssetDetail().getId();
+                    return dataGenerator.getGeneratedStockList().stream()
+                            .anyMatch(item ->
+                                    (item.getCompany_id().equals(companyId)) && (item.getClose() >= stocksFilterRequest.getClosingPriceLowerLimit()) && (item.getClose() <= stocksFilterRequest.getClosingPriceUpperLimit())
+                            );
+                }).collect(Collectors.toList());
+        return new PageImpl<>(filteredList, paging, filteredList.size());
+    }
+
     public Page<StockStatistic> getStockFilterResults(StocksFilterRequest stocksFilterRequest, Pageable paging) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         QStockStatistic qStockStatistic = QStockStatistic.stockStatistic;
@@ -63,6 +84,6 @@ public class StockService implements StockServiceInterface {
                 booleanBuilder.and(qStockStatistic.marketCap.loe(stocksFilterRequest.getMarketCapUpperLimit()));
             }
         }
-        return stockStatisticRepository.findAll(booleanBuilder, paging);
+        return filterClosePrice(booleanBuilder, stocksFilterRequest, paging);
     }
 }

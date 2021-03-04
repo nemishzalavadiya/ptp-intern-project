@@ -4,6 +4,7 @@ import StockPosition from "src/components/position/stockPositionView";
 import { UserId } from "src/components/Objects";
 import Link from "next/link";
 import { Loader } from "semantic-ui-react";
+import { AssetClass } from "src/enums/assetClass";
 
 export default function StockPositionList({
   value,
@@ -15,7 +16,7 @@ export default function StockPositionList({
   let [isCompleted, response] = [false];
   [isCompleted, response] = getPositionByuserAndAsset(
     UserId.userId,
-    "stock",
+    AssetClass.STOCK.toLowerCase(),
     value,
     page,
     5
@@ -47,7 +48,6 @@ export default function StockPositionList({
       uuid={companyUuids}
       positionList={positionList}
       pagination={pagination}
-    >
-    </StockPosition>
+    ></StockPosition>
   );
 }

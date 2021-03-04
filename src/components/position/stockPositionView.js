@@ -29,13 +29,13 @@ const stockHeaders = [
     icon: <i className="rupee sign icon small"> </i>,
   },
   {
-    header: "Profit&Loss(%)",
-    icon: <i className="percent icon small"> </i>,
+    header: "Profit & Loss",
+    icon: <i className="rupee icon small"> </i>,
     showColor: true,
   },
   {
-    header: "Profit&Loss",
-    icon: <i className="rupee icon small"> </i>,
+    header: "Profit & Loss(%)",
+    icon: <i className="percent icon small"> </i>,
     showColor: true,
   },
 ];
@@ -49,9 +49,9 @@ export default function StockPosition({ uuid, positionList, pagination }) {
         positionList[index][4] = companyData[5];
         let netValue = companyData[5] * positionList[index][1];
         positionList[index][5] = netValue;
-        positionList[index][6] =
+        positionList[index][6] = netValue - positionList[index][3];
+        positionList[index][7] =
           ((netValue - positionList[index][3]) / positionList[index][3]) * 100;
-        positionList[index][7] = netValue - positionList[index][3];
       }
     });
   }
@@ -64,8 +64,7 @@ export default function StockPosition({ uuid, positionList, pagination }) {
         }
         pagination={pagination}
         data={positionList}
-      >
-      </GridContainer>
+      ></GridContainer>
     </div>
   );
 }

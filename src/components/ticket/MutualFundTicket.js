@@ -4,8 +4,8 @@ import { Form, Button, Segment, Grid, Message, Icon, Dropdown, Select } from "se
 import { createMutualFundOrder } from 'src/services/mutualFundOrder';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { InvestmentType } from 'src/enums/InvestmentType.ts';
-import { Frequency } from 'src/enums/Frequency.ts'
+import { InvestmentType } from 'src/enums/InvestmentType';
+import { Frequency } from 'src/enums/Frequency'
 import { UserId } from "src/components/Objects";
 
 export default function MutualFundTicket(props) {

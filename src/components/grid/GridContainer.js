@@ -22,7 +22,15 @@ export default function GridContainer(props) {
                   <div className="grid-header-item">
                     {props.content[innerIndex].header}
                   </div>
-                  <div className={`grid-item ${props.content[innerIndex].showColor?(item>=0?'profit':'loss'):null}`}>
+                  <div
+                    className={`grid-item ${
+                      props.content[innerIndex].showColor
+                        ? item >= 0
+                          ? "profit"
+                          : "loss"
+                        : null
+                    }`}
+                  >
                     {props.content[innerIndex].icon
                       ? props.content[innerIndex].icon
                       : null}
@@ -30,10 +38,7 @@ export default function GridContainer(props) {
                   </div>
                 </Grid.Column>
               ) : (
-                <Grid.Column 
-                  width="6"
-                  key={`${outerIndex} ${innerIndex}`}
-                >
+                <Grid.Column width="6" key={`${outerIndex} ${innerIndex}`}>
                   {item}
                 </Grid.Column>
               )
@@ -42,11 +47,12 @@ export default function GridContainer(props) {
         );
       })}
       <div>
-        {props.pagination.totalPages>1?<PaginationContainer
-          pagination={props.pagination}
-          tabId={props.tabId}
-        />:null
-        }
+        {props.pagination.totalPages > 1 ? (
+          <PaginationContainer
+            pagination={props.pagination}
+            tabId={props.tabId}
+          />
+        ) : null}
       </div>
     </Grid>
   ) : (

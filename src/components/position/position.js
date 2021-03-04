@@ -3,10 +3,10 @@ import Tab from "src/components/Tab";
 import Search from "src/components/Search";
 import MutualFundPosition from "src/components/position/mutualFundPositionView";
 import StockPositionList from "src/components/position/stockPositionList";
-
+import { AssetClass } from "src/enums/assetClass";
 export default function Position() {
   const [value, setValue] = useState("");
-  const [assetClass, setAssetClass] = useState("Stock");
+  const [assetClass, setAssetClass] = useState(AssetClass.STOCK);
   const [activeItem, setActiveItem] = useState(0);
   const [page, setPage] = useState(0);
 
@@ -17,7 +17,7 @@ export default function Position() {
   function handleItemClick(index) {
     setActiveItem(index);
     setPage(0);
-    setAssetClass(index === 0 ? "Stock" : "MutualFund");
+    setAssetClass(index === 0 ? AssetClass.STOCK : AssetClass.MUTUAL_FUND);
   }
 
   const tabs = [
@@ -39,19 +39,17 @@ export default function Position() {
         content={tabs}
         handleItemClick={handleItemClick}
         activeItem={activeItem}
-      >
-      </Tab>
+      ></Tab>
       <Search
         handleSearchChange={handleSearchChange}
-        placeholder={`Search In ${assetClass} Position`}
+        placeholder={`Search In ${tabs[activeItem].name} Position`}
       />
       {activeItem === 0 ? (
         <StockPositionList
           value={value}
           page={page}
           handlePaginationChange={handlePaginationChange}
-        >
-        </StockPositionList>
+        ></StockPositionList>
       ) : (
         <MutualFundPosition
           value={value}

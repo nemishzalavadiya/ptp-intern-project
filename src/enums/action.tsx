@@ -1,4 +1,4 @@
-export enum Action{
+export enum Action {
     BUY = "BUY",
     SELL = "SELL"
 }

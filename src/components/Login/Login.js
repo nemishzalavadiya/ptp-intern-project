@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Divider, Input, Image, Icon, Button, Form, Grid, Segment } from "semantic-ui-react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Router from "next/router";
 export default function Login() {
   const userList = [

@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Divider,
   Input,
@@ -8,11 +7,7 @@ import {
   Form,
   Grid,
   Segment,
-  Icon,
 } from "semantic-ui-react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Router from "next/router";
 
 export default function Profile() {
   useEffect(() => {
@@ -21,10 +16,10 @@ export default function Profile() {
     setKyc("KYC verified");
   }, []);
 
-  const [userName, setUserName] = useState("harsh1868");
+  const [userName, setUserName] = useState("user-name");
   const [dpID, setDpID] = useState("#123456");
   const [panCard, setPanCard] = useState("ABCDE7549613");
-  const [email, setEmail] = useState("hash@gmail.com");
+  const [email, setEmail] = useState("user@gmail.com");
   const [mobile, setMobile] = useState("+91 7016...");
   const [kyc, setKyc] = useState("Please Do KYC");
   const [bankName, setBankName] = useState("Axis");
@@ -41,12 +36,8 @@ export default function Profile() {
               <Form inverted>
                 <Grid>
                   <Grid.Row>
-                    <Grid.Column  width={8}>
-                      <Image
-                        className="profileicon"
-                        src="/user.jpg"
-                        circular
-                      />
+                    <Grid.Column width={8}>
+                      <Image className="profileicon" src="/user.jpg" circular />
                     </Grid.Column>
 
                     <Grid.Column width={8}>
@@ -240,7 +231,7 @@ export default function Profile() {
                       />
                     </Grid.Column>
                   </Grid.Row>
-                
+
                   <Grid.Row>
                     <Grid.Column width={8}>
                       <Input
@@ -284,7 +275,6 @@ export default function Profile() {
           </Grid.Row>
         </Grid>
       </Segment>
-      <ToastContainer></ToastContainer>
     </>
   );
 }

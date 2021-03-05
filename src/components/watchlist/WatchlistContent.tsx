@@ -5,35 +5,35 @@ import useGetWatchlistEntryByWatchlistId from "src/hooks/useGetWatchlistEntryByW
 import Search from "src/components/Search";
 
 export default function WatchlistContent(props) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState({
-    pages: 0,
-    watchlistId: props.watchlistId,
+  const [content, setContent] = useState({
+    pages:0,
+    searchQuery:"",
+    watchlistId:props.watchlistId
   });
   let companyUuids = [];
   let [isWatchlistEntryFetchingCompleted, response, error] = [false, null, false];
   [isWatchlistEntryFetchingCompleted, response, error] = useGetWatchlistEntryByWatchlistId(
     props.watchlistId,
-    searchQuery,
-    page.pages,
+    content.searchQuery,
+    content.pages,
     5
   );
   function handlePaginationChange(pageNo) {
-    setPage({ pages: pageNo, watchlistId: page.watchlistId });
+    setContent({ pages: pageNo, watchlistId: content.watchlistId, searchQuery: content.searchQuery });
   }
   const pagination = {
-    activePage: page.pages,
+    activePage: content.pages,
     totalPages: 2,
     handlePaginationChange: handlePaginationChange,
   };
 
-  if (page.watchlistId !== props.watchlistId) {
+  if (content.watchlistId !== props.watchlistId) {
     companyUuids.length = 0;
-    setPage({ pages: 0, watchlistId: props.watchlistId });
+    setContent({ pages: 0, watchlistId: props.watchlistId, searchQuery: "" });
   }
 
   function handleSearchChange(e, data) {
-    setSearchQuery(data.value);
+    setContent({ pages: 0, watchlistId: props.watchlistId, searchQuery: data.value });
   }
   if (isWatchlistEntryFetchingCompleted) {
     companyUuids.length = 0;

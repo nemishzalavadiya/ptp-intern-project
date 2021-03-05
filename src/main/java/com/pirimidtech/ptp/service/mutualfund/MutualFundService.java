@@ -7,6 +7,7 @@ import com.pirimidtech.ptp.entity.QMutualFundStatistic;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
 import com.pirimidtech.ptp.repository.MutualFundStatisticRepository;
 import com.querydsl.core.BooleanBuilder;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,10 +44,16 @@ public class MutualFundService implements MutualFundServiceInterface {
         QMutualFundStatistic qMutualFundStatistic = QMutualFundStatistic.mutualFundStatistic;
         if (mutualFundFilterRequest != null) {
             if (mutualFundFilterRequest.getRisk() != null) {
-                mutualFundFilterRequest.getRisk().forEach(risk -> booleanBuilder.or(qMutualFundStatistic.risk.eq(risk)));
+                BooleanBuilder bBuilder = new BooleanBuilder();
+                mutualFundFilterRequest.getRisk().forEach(risk -> bBuilder.or(qMutualFundStatistic.risk.eq(risk)));
+                booleanBuilder.and(bBuilder);
             }
             if (mutualFundFilterRequest.getSipAllowed() != null) {
-                booleanBuilder.and(qMutualFundStatistic.sipAllowed.eq(mutualFundFilterRequest.getSipAllowed()));
+                BooleanBuilder bBuilder = new BooleanBuilder();
+                mutualFundFilterRequest.getSipAllowed().forEach(item -> {
+                    bBuilder.or(qMutualFundStatistic.sipAllowed.eq(Boolean.parseBoolean(item)));
+                });
+                booleanBuilder.and(bBuilder);
             }
             if (mutualFundFilterRequest.getCloseSize() != null) {
                 booleanBuilder.and(qMutualFundStatistic.fundSize.loe(mutualFundFilterRequest.getCloseSize()));

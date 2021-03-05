@@ -4,10 +4,11 @@
 */
 import React from "react";
 import { Loader } from "semantic-ui-react";
-import { getAllWatchlistByUserId } from "src/services/watchlist";
+import { getAllWatchlistByUserId } from "src/services/watchlistService";
 import WatchlistContent from "src/components/watchlist/WatchlistContent";
 import { useState } from "react";
 import Tab from "src/components/Tab";
+
 const content = [
   { header: "Company_Id", icon: "" },
   { header: "Open", icon: <i className="rupee sign icon small"></i> },
@@ -41,14 +42,14 @@ export default function Watchlist() {
       />
     </>
   ) : (
-    <Loader active>
-      Loading
-      {!!error && (
-        <>
-          <br />
+      <Loader active>
+        Loading
+        {!!error && (
+          <>
+            <br />
           Something Went Wrong, Try Refresing
-        </>
-      )}
-    </Loader>
-  );
+          </>
+        )}
+      </Loader>
+    );
 }

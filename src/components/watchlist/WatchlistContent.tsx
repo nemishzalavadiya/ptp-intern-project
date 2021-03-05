@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Loader } from "semantic-ui-react";
 import WatchlistView from "src/components/watchlist/WatchlistView";
-import { getAllWatchlistEntryByWatchlistId } from "src/services/watchlist";
+import useGetWatchlistEntryByWatchlistId from "src/hooks/useGetWatchlistEntryByWatchlistId";
 import Search from "src/components/Search";
 
 export default function WatchlistContent(props) {
@@ -12,7 +12,7 @@ export default function WatchlistContent(props) {
   });
   let companyUuids = [];
   let [isWatchlistEntryFetchingCompleted, response, error] = [false, null, false];
-  [isWatchlistEntryFetchingCompleted, response, error] = getAllWatchlistEntryByWatchlistId(
+  [isWatchlistEntryFetchingCompleted, response, error] = useGetWatchlistEntryByWatchlistId(
     props.watchlistId,
     searchQuery,
     page.pages,
@@ -37,9 +37,7 @@ export default function WatchlistContent(props) {
   }
   if (isWatchlistEntryFetchingCompleted) {
     companyUuids.length = 0;
-    response.content.forEach((item) => {
-      companyUuids.push(item.assetDetail.id);
-    });
+    companyUuids = response.companyUuids;
     pagination.totalPages = response.totalPages;
   }
   return (
@@ -56,16 +54,16 @@ export default function WatchlistContent(props) {
           tabId={props.watchlistId}
         />
       ) : (
-        <Loader active>
-          Loading
-          {!!error && (
-            <>
-              <br />
+          <Loader active>
+            Loading
+            {!!error && (
+              <>
+                <br />
               Something Went Wrong, Try Refresing
-            </>
-          )}
-        </Loader>
-      )}
+              </>
+            )}
+          </Loader>
+        )}
     </>
   );
 }

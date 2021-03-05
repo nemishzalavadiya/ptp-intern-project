@@ -12,7 +12,7 @@ const content = [
   { header: "Company_Id", icon: "" },
   { header: "Open", icon: <i className="rupee sign icon small"></i> },
   { header: "Close", icon: <i className="rupee sign icon small"></i> },
-  { header: "last", icon: <i className="rupee sign icon small"></i> },
+  { header: "Last", icon: <i className="rupee sign icon small"></i> },
   { header: "High", icon: <i className="rupee sign icon small"></i> },
   { header: "Low", icon: <i className="rupee sign icon small"></i> },
   { header: "% CHG", icon: <i className="percent icon small"></i> },
@@ -27,14 +27,6 @@ export default function Watchlist() {
   ] = getAllWatchlistByUserId();
   function handleItemClick(index) {
     setActiveItem(index);
-  }
-  if (isWatchlistIdFetchingCompleted && error) {
-    return (
-      <Loader active>
-        Loading <br />
-        Something Went Wrong, Try Refresing
-      </Loader>
-    );
   }
   return isWatchlistIdFetchingCompleted && !error ? (
     <>

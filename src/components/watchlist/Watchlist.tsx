@@ -6,7 +6,6 @@ import React from "react";
 import { Loader } from "semantic-ui-react";
 import { getAllWatchlistByUserId } from "src/services/watchlist";
 import WatchlistContent from "src/components/watchlist/WatchlistContent";
-import { UserId } from "src/components/Objects";
 import { useState } from "react";
 import Tab from "src/components/Tab";
 const content = [
@@ -22,14 +21,14 @@ const content = [
 export default function Watchlist() {
   const [activeItem, setActiveItem] = useState(0);
   const [
-    isContentFetchingCompleted,
+    isWatchlistIdFetchingCompleted,
     response,
     error,
   ] = getAllWatchlistByUserId();
   function handleItemClick(index) {
     setActiveItem(index);
   }
-  if (isContentFetchingCompleted && error) {
+  if (isWatchlistIdFetchingCompleted && error) {
     return (
       <Loader active>
         Loading <br />
@@ -37,7 +36,7 @@ export default function Watchlist() {
       </Loader>
     );
   }
-  return isContentFetchingCompleted && !error ? (
+  return isWatchlistIdFetchingCompleted && !error ? (
     <>
       <Tab
         content={response.content}
@@ -52,12 +51,12 @@ export default function Watchlist() {
   ) : (
     <Loader active>
       Loading
-      {!!error ? (
+      {!!error && (
         <>
           <br />
           Something Went Wrong, Try Refresing
         </>
-      ) : null}
+      )}
     </Loader>
   );
 }

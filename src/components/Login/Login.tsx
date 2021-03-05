@@ -13,7 +13,7 @@ import useAuth from "src/components/contexts/useAuth";
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
-  const [show, setShow] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
 
   const submitHandler = (event) => {
@@ -25,7 +25,7 @@ export default function Login() {
     login(user);
   };
   const iconClickHandler = () => {
-    setShow(!show);
+    setShowPassword(!showPassword);
   };
   return (
     <>
@@ -61,13 +61,13 @@ export default function Login() {
                         required
                         inverted
                         transparent
-                        type={show ? "text" : "password"}
+                        type={showPassword ? "text" : "password"}
                         iconPosition="left"
                         placeholder="******"
                         name="password"
                         icon={
                           <Icon
-                            name={show ? "lock open" : "lock"}
+                            name={showPassword ? "lock open" : "lock"}
                             link
                             onClick={iconClickHandler}
                           />

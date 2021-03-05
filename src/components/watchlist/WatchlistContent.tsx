@@ -11,8 +11,8 @@ export default function WatchlistContent(props) {
     watchlistId: props.watchlistId,
   });
   let companyUuids = [];
-  let [isCompleted, response, error] = [false, null, false];
-  [isCompleted, response, error] = getAllWatchlistEntryByWatchlistId(
+  let [isWatchlistEntryFetchingCompleted, response, error] = [false, null, false];
+  [isWatchlistEntryFetchingCompleted, response, error] = getAllWatchlistEntryByWatchlistId(
     props.watchlistId,
     searchQuery,
     page.pages,
@@ -35,7 +35,7 @@ export default function WatchlistContent(props) {
   function handleSearchChange(e, data) {
     setSearchQuery(data.value);
   }
-  if (isCompleted) {
+  if (isWatchlistEntryFetchingCompleted) {
     companyUuids.length = 0;
     response.content.forEach((item) => {
       companyUuids.push(item.assetDetail.id);
@@ -48,7 +48,7 @@ export default function WatchlistContent(props) {
         handleSearchChange={handleSearchChange}
         placeholder={"Search In Watchlist..."}
       />
-      {isCompleted && !error ? (
+      {isWatchlistEntryFetchingCompleted && !error ? (
         <WatchlistView
           content={props.content}
           companyUuids={companyUuids}
@@ -58,12 +58,12 @@ export default function WatchlistContent(props) {
       ) : (
         <Loader active>
           Loading
-          {!!error ? (
+          {!!error && (
             <>
               <br />
               Something Went Wrong, Try Refresing
             </>
-          ) : null}
+          )}
         </Loader>
       )}
     </>

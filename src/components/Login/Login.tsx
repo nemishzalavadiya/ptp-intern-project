@@ -6,16 +6,15 @@ import {
   Form,
   Grid,
   Segment,
-  Icon
+  Icon,
 } from "semantic-ui-react";
 import { ToastContainer } from "react-toastify";
-import { useAuth } from "src/components/contexts/auth";
+import useAuth from "src/components/contexts/useAuth";
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
-  const [ show, setShow ] = useState(false);
+  const [show, setShow] = useState(false);
   const { login } = useAuth();
-
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -25,7 +24,7 @@ export default function Login() {
     };
     login(user);
   };
-  const iconClickHandler= () => {
+  const iconClickHandler = () => {
     setShow(!show);
   };
   return (
@@ -62,11 +61,17 @@ export default function Login() {
                         required
                         inverted
                         transparent
-                        type={show?"text":"password"}
+                        type={show ? "text" : "password"}
                         iconPosition="left"
                         placeholder="******"
                         name="password"
-                        icon={<Icon name={show?"lock open":"lock"} link onClick={iconClickHandler} />}                      
+                        icon={
+                          <Icon
+                            name={show ? "lock open" : "lock"}
+                            link
+                            onClick={iconClickHandler}
+                          />
+                        }
                         className="textcolor"
                       />
                     </Grid.Column>

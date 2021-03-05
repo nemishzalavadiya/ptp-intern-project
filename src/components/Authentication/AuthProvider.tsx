@@ -1,9 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import toastBody from "src/components/toast";
-const AuthContext = createContext({});
 import Router from "next/router";
-import { Loader } from "semantic-ui-react";
-export const AuthProvider = ({ children }) => {
+import AuthContext from "src/components/contexts/AuthContext";
+
+const AuthProvider = ({ children }) => {
   let toggle = true;
   const [user, setUser] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -75,20 +75,4 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);
-
-export const ProtectRoute = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth();
-  if (
-    isLoading ||
-    (!isAuthenticated && window.location.pathname !== "/login")
-  ) {
-    return (
-      <div className="site-background">
-        <Loader inverted active>Loading</Loader>
-      </div>
-    );
-  }
-  return children;
-};
+export default AuthProvider;

@@ -18,7 +18,9 @@ const mutualfunds = () => {
 		results: [],
 		selectedFilters: Array(
 			...mutualFundFilters.map((filter) =>
-				filter.type == filterType.RANGE ? [filter.lowerLimit, filter.upperLimit] : []
+				filter.type == filterType.RANGE
+					? { value: { min: filter.lowerLimit, max: filter.upperLimit } }
+					: { value: [] }
 			)
 		),
 	};
@@ -41,16 +43,16 @@ const mutualfunds = () => {
 	}
 
 	useEffect(() => {
-		let filterBody = {
-			risk: selectedFilters[0].map((i) => mutualFundFilters[0].filterOptions[i]),
-			closeSize: selectedFilters[2][1],
-			openSize: selectedFilters[2][0],
-		};
-		if (selectedFilters[1].length === 1)
-			filterBody = {
-				...filterBody,
-				sipAllowed: selectedFilters[1][0] === 0 ? false : true,
-			};
+		let filterBody = {};
+		selectedFilters.forEach((filter, index) => {
+			if (mutualFundFilters[index].type == filterType.RANGE) {
+				filterBody[mutualFundFilters[index].minField] = filter.value.min;
+				filterBody[mutualFundFilters[index].maxField] = filter.value.max;
+			}
+			if (mutualFundFilters[index].type == filterType.CHECKBOX) {
+				filterBody[mutualFundFilters[index].field] = filter.value;
+			}
+		});
 		requestFiltered(`/api/mutualfunds/filters?page=${activePage}`, filterBody).then((page) => {
 			setResults(page.content);
 			setTotalPages(page.totalPages);
@@ -59,26 +61,45 @@ const mutualfunds = () => {
 
 	const addFilter = (filterIndex, checkboxIndex) => {
 		setSelectedFilters([
-			...selectedFilters.map((arr, index) => (filterIndex === index ? [...arr, checkboxIndex] : [...arr])),
+			...selectedFilters.map((filter, index) =>
+				filterIndex === index
+					? {
+							value: [
+								...selectedFilters[filterIndex].value,
+								mutualFundFilters[filterIndex].params[checkboxIndex],
+							],
+					  }
+					: { ...filter }
+			),
 		]);
 	};
 	const removeFilter = (filterIndex, checkboxIndex) => {
 		setSelectedFilters([
-			...selectedFilters.map((arr, index) =>
-				filterIndex === index ? [...arr].filter((item, i) => item != checkboxIndex) : [...arr]
+			...selectedFilters.map((filter, index) =>
+				filterIndex === index
+					? {
+							value: [
+								...selectedFilters[filterIndex].value.filter(
+									(option) => option != mutualFundFilters[filterIndex].params[checkboxIndex]
+								),
+							],
+					  }
+					: { ...filter }
 			),
 		]);
 	};
 
 	const clearFilters = () => {
 		setResults(initialState.results);
-		setSelectedFilters(initialState.selectedFilters);
 		setActivePage(0);
+		setSelectedFilters(initialState.selectedFilters);
 	};
 
 	const changeRange = (filterIndex, minimum, maximum) => {
 		setSelectedFilters([
-			...selectedFilters.map((item, index) => (index === filterIndex ? [minimum, maximum] : [...item])),
+			...selectedFilters.map((filter, index) =>
+				filterIndex === index ? { value: { min: minimum, max: maximum } } : { ...filter }
+			),
 		]);
 	};
 	return (

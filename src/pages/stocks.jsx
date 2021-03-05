@@ -19,7 +19,9 @@ const stocks = () => {
 		results: [],
 		selectedFilters: Array(
 			...stockFilters.map((filter) =>
-				filter.type == filterType.RANGE ? [filter.lowerLimit, filter.upperLimit] : []
+				filter.type == filterType.RANGE
+					? { value: { min: filter.lowerLimit, max: filter.upperLimit } }
+					: { value: [] }
 			)
 		),
 	};
@@ -45,12 +47,16 @@ const stocks = () => {
 	}
 
 	useEffect(() => {
-		let filterBody = {
-			marketCapLowerLimit: selectedFilters[0][0],
-			marketCapUpperLimit: selectedFilters[0][1],
-			closingPriceLowerLimit: selectedFilters[1][0],
-			closingPriceUpperLimit: selectedFilters[1][1],
-		};
+		let filterBody = {};
+		selectedFilters.forEach((filter, index) => {
+			if (stockFilters[index].type == filterType.RANGE) {
+				filterBody[stockFilters[index].minField] = filter.value.min;
+				filterBody[stockFilters[index].maxField] = filter.value.max;
+			}
+			if (stockFilters[index].type == filterType.CHECKBOX) {
+				filterBody[stockFilters[index].field] = filter.value;
+			}
+		});
 
 		requestFiltered(`/api/stocks/filters?page=${activePage}`, filterBody).then((page) => {
 			setResults(page.content);
@@ -70,27 +76,45 @@ const stocks = () => {
 
 	const addFilter = (filterIndex, checkboxIndex) => {
 		setSelectedFilters([
-			...selectedFilters.map((arr, index) => (filterIndex === index ? [...arr, checkboxIndex] : [...arr])),
+			...selectedFilters.map((filter, index) =>
+				filterIndex === index
+					? {
+							value: [
+								...selectedFilters[filterIndex].value,
+								stockFilters[filterIndex].params[checkboxIndex],
+							],
+					  }
+					: { ...filter }
+			),
 		]);
 	};
-
 	const removeFilter = (filterIndex, checkboxIndex) => {
 		setSelectedFilters([
-			...selectedFilters.map((arr, index) =>
-				filterIndex === index ? [...arr].filter((item, i) => item != checkboxIndex) : [...arr]
+			...selectedFilters.map((filter, index) =>
+				filterIndex === index
+					? {
+							value: [
+								...selectedFilters[filterIndex].value.filter(
+									(option) => option != stockFilters[filterIndex].params[checkboxIndex]
+								),
+							],
+					  }
+					: { ...filter }
 			),
 		]);
 	};
 
 	const clearFilters = () => {
 		setResults(initialState.results);
-		setSelectedFilters(initialState.selectedFilters);
 		setActivePage(0);
+		setSelectedFilters(initialState.selectedFilters);
 	};
 
 	const changeRange = (filterIndex, minimum, maximum) => {
 		setSelectedFilters([
-			...selectedFilters.map((item, index) => (index === filterIndex ? [minimum, maximum] : [...item])),
+			...selectedFilters.map((filter, index) =>
+				filterIndex === index ? { value: { min: minimum, max: maximum } } : { ...filter }
+			),
 		]);
 	};
 	return (

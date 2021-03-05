@@ -13,8 +13,8 @@ const RangeFilter = (props) => {
 				onSliderValuesChange={(minValue, maxValue) => props.changeRange(props.filterIndex, minValue, maxValue)}
 				sliderMinValue={props.filterDetails.lowerLimit}
 				sliderMaxValue={props.filterDetails.upperLimit}
-				selectedMinValue={props.selectedFilters[props.filterIndex][0]}
-				selectedMaxValue={props.selectedFilters[props.filterIndex][1]}
+				selectedMinValue={props.selectedFilters[props.filterIndex].value.min}
+				selectedMaxValue={props.selectedFilters[props.filterIndex].value.max}
 			/>
 			<div className="input-to">
 				<Input
@@ -22,16 +22,16 @@ const RangeFilter = (props) => {
 					type="number"
 					placeholder={props.filterDetails.lowerLimit}
 					value={
-						props.selectedFilters[props.filterIndex][0] == 0
+						props.selectedFilters[props.filterIndex].value.min == 0
 							? ""
-							: props.selectedFilters[props.filterIndex][0]
+							: props.selectedFilters[props.filterIndex].value.min
 					}
 					onChange={(event, data) => {
 						setInvalid(data.value < props.selectedFilters[props.filterIndex][1] || data.value < 0);
 						return props.changeRange(
 							props.filterIndex,
 							data.value == "" ? 0 : parseInt(data.value),
-							props.selectedFilters[props.filterIndex][1]
+							props.selectedFilters[props.filterIndex].value.max
 						);
 					}}
 					size="mini"
@@ -44,15 +44,15 @@ const RangeFilter = (props) => {
 					type="number"
 					placeholder={props.filterDetails.upperLimit}
 					value={
-						props.selectedFilters[props.filterIndex][1] == 0
+						props.selectedFilters[props.filterIndex].value.max == 0
 							? ""
-							: props.selectedFilters[props.filterIndex][1]
+							: props.selectedFilters[props.filterIndex].value.max
 					}
 					onChange={(event, data) => {
-						setInvalid(data.value < props.selectedFilters[props.filterIndex][0] || data.value < 0);
+						setInvalid(data.value < props.selectedFilters[props.filterIndex].value.min || data.value < 0);
 						return props.changeRange(
 							props.filterIndex,
-							props.selectedFilters[props.filterIndex][0],
+							props.selectedFilters[props.filterIndex].value.min,
 							data.value == "" ? 0 : parseInt(data.value)
 						);
 					}}

@@ -2,25 +2,15 @@ import Highcharts from "highcharts/highstock";
 import React, { useState, useEffect } from "react";
 import HighchartsReact from "highcharts-react-official";
 import { Loader } from "semantic-ui-react";
-import mockData from "src/components/Stockdetail/StockData";
-import options from "src/components/Stockdetail/StockChartOptions";
+import mockData from "src/components/Mutualfund/MutualfundData";
+import options from "src/components/Mutualfund/MutualFundChartOptions";
 let mockOptions = options;
 const transformChartData = (options, array) => {
   const dataLength = array.length;
-
-  for (var i = 0; i < dataLength; i += 1) {
-    options.series[0].data.push([
-      array[i][0], //date
-      array[i][1], //open
-      array[i][2], //high
-      array[i][3], //low
-      array[i][4], //close
-    ]);
-
-    options.series[1].data.push([
-      array[i][0], //date
-      array[i][5], //volume
-    ]);
+  console.log(dataLength);
+  for (let i = 0; i < dataLength; i++) {
+    array[i].x = new Date(array[i].x).getTime();
+    options.series[0].data.push(array[i]);
   }
   return options;
 };
@@ -28,6 +18,7 @@ export default function Chart(props) {
   const [data, setData] = useState({ options: {} });
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    options.series[0].data = [];
     const fetchData = async () => {
       setIsLoading(true);
       const fetchedData = mockData;
@@ -43,11 +34,7 @@ export default function Chart(props) {
       {isLoading ? (
         <Loader active={!isLoading}></Loader>
       ) : (
-        <HighchartsReact
-          highcharts={Highcharts}
-          constructorType={"stockChart"}
-          options={data.options}
-        />
+        <HighchartsReact highcharts={Highcharts} options={data.options} />
       )}
     </div>
   );

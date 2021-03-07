@@ -2,8 +2,8 @@ import HighStock from "highcharts/highstock";
 import React, { useState, useEffect } from "react";
 import HighchartsReact from "highcharts-react-official";
 import { Menu, Loader, Popup } from "semantic-ui-react";
-import mockData from "src/components/Stockdetail/StockData";
-import options from "src/components/Stockdetail/StockChartOptions";
+import mockData from "src/components/Stockdetail/StockCandleStickData";
+import options from "src/components/Stockdetail/StockCandleStickChartOptions";
 
 let mockOptions = options;
 const transformChartData = (options, array) => {

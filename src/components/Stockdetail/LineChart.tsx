@@ -2,8 +2,8 @@ import Highcharts from "highcharts/highstock";
 import React, { useState, useEffect } from "react";
 import HighchartsReact from "highcharts-react-official";
 import { Loader } from "semantic-ui-react";
-import mockData from "src/components/Mutualfund/MutualfundData";
-import options from "src/components/Mutualfund/MutualFundChartOptions";
+import mockData from "src/components/Stockdetail/StockLineChartData";
+import options from "src/components/Stockdetail/StockLineChartOptions";
 let mockOptions = options;
 const transformChartData = (options, array) => {
   const dataLength = array.length;

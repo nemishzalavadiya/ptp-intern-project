@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Menu } from "semantic-ui-react";
 import CandlestickChart from "src/components/Stockdetail/CandlestickChart";
 import LineChart from "src/components/Stockdetail/LineChart";
-import Tab from "src/components/Tab";
+import { Menu } from "semantic-ui-react";
 const tabs = [
   {
     name: "candlestick",
+    imgSrc: "/icons8-candlestick-chart-20.png"
   },
   {
     name: "line",
+    imgSrc: "/icons8-line-chart-201.png"
   },
 ];
 export default function StockChart(props) {
@@ -18,11 +19,21 @@ export default function StockChart(props) {
   }
   return (
     <div className="area">
-      <Tab
-        content={tabs}
-        activeItem={activeIndex}
-        handleItemClick={handleTabChange}
-      />
+      <Menu pointing inverted secondary className="tab-menu">
+        {
+          tabs.map((item,index) => {
+            return (
+              <Menu.Item
+                key={index}
+                active={activeIndex === index}
+                onClick={() => handleTabChange(index)}
+              >
+                <img src={item.imgSrc} className="tab-toggle-image" />
+              </Menu.Item>
+            );
+          })
+        }
+      </Menu>
       {activeIndex === 0 ? (
         <CandlestickChart activeIndex={activeIndex} />
       ) : (

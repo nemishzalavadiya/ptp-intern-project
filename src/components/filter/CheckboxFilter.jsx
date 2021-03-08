@@ -1,6 +1,5 @@
 import { Checkbox, Accordion, Menu, List } from "semantic-ui-react";
 import { useState } from "react";
-import { mutualFundFilters } from "./filterDetails";
 const CheckboxFilter = (props) => {
 	const [active, setActive] = useState(true);
 
@@ -10,15 +9,15 @@ const CheckboxFilter = (props) => {
 				<List.Item key={index}>
 					<Checkbox
 						className="check-box"
-						checked={props.selectedFilters[props.filterIndex].value.includes(
-							mutualFundFilters[props.filterIndex].params[index]
+						checked={props.selectedFilters[props.filterIndex].includes(
+							props.filterDetails.filterOptions[index].parameter
 						)}
 						onChange={(event, data) =>
 							data.checked
 								? props.addFilter(props.filterIndex, index)
 								: props.removeFilter(props.filterIndex, index)
 						}
-						label={option}
+						label={option.value}
 					/>
 				</List.Item>
 			))}

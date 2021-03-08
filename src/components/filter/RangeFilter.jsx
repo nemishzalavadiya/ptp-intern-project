@@ -9,29 +9,28 @@ const RangeFilter = (props) => {
 	const RangeFilter = (
 		<div>
 			<SliderView
-				// sliderHandleStyle={{ backgroundColor: "#00ff00" }}
-				onSliderValuesChange={(minValue, maxValue) => props.changeRange(props.filterIndex, minValue, maxValue)}
-				sliderMinValue={props.filterDetails.lowerLimit}
-				sliderMaxValue={props.filterDetails.upperLimit}
-				selectedMinValue={props.selectedFilters[props.filterIndex].value.min}
-				selectedMaxValue={props.selectedFilters[props.filterIndex].value.max}
+				onSliderValuesChange={(minimum, maximum) => props.changeRange(props.filterIndex, minimum, maximum)}
+				sliderMinValue={props.filterDetails.minimum}
+				sliderMaxValue={props.filterDetails.maximum}
+				selectedMinValue={props.selectedFilters[props.filterIndex].minimum}
+				selectedMaxValue={props.selectedFilters[props.filterIndex].maximum}
 			/>
 			<div className="input-to">
 				<Input
 					focus
 					type="number"
-					placeholder={props.filterDetails.lowerLimit}
+					placeholder={props.filterDetails.minimum}
 					value={
-						props.selectedFilters[props.filterIndex].value.min == 0
+						props.selectedFilters[props.filterIndex].minimum == 0
 							? ""
-							: props.selectedFilters[props.filterIndex].value.min
+							: props.selectedFilters[props.filterIndex].minimum
 					}
 					onChange={(event, data) => {
-						setInvalid(data.value < props.selectedFilters[props.filterIndex][1] || data.value < 0);
+						setInvalid(data.value < props.selectedFilters[props.filterIndex].maximum || data.value < 0);
 						return props.changeRange(
 							props.filterIndex,
 							data.value == "" ? 0 : parseInt(data.value),
-							props.selectedFilters[props.filterIndex].value.max
+							props.selectedFilters[props.filterIndex].maximum
 						);
 					}}
 					size="mini"
@@ -42,17 +41,17 @@ const RangeFilter = (props) => {
 				<Input
 					focus
 					type="number"
-					placeholder={props.filterDetails.upperLimit}
+					placeholder={props.filterDetails.maximum}
 					value={
-						props.selectedFilters[props.filterIndex].value.max == 0
+						props.selectedFilters[props.filterIndex].maximum == 0
 							? ""
-							: props.selectedFilters[props.filterIndex].value.max
+							: props.selectedFilters[props.filterIndex].maximum
 					}
 					onChange={(event, data) => {
-						setInvalid(data.value < props.selectedFilters[props.filterIndex].value.min || data.value < 0);
+						setInvalid(data.value < props.selectedFilters[props.filterIndex].minimum || data.value < 0);
 						return props.changeRange(
 							props.filterIndex,
-							props.selectedFilters[props.filterIndex].value.min,
+							props.selectedFilters[props.filterIndex].minimum,
 							data.value == "" ? 0 : parseInt(data.value)
 						);
 					}}

@@ -18,9 +18,7 @@ const mutualfunds = () => {
 		results: [],
 		selectedFilters: Array(
 			...mutualFundFilters.map((filter) =>
-				filter.type == filterType.RANGE
-					? { value: { min: filter.lowerLimit, max: filter.upperLimit } }
-					: { value: [] }
+				filter.type == filterType.RANGE ? { minimum: filter.minimum, maximum: filter.maximum } : []
 			)
 		),
 	};
@@ -45,13 +43,7 @@ const mutualfunds = () => {
 	useEffect(() => {
 		let filterBody = {};
 		selectedFilters.forEach((filter, index) => {
-			if (mutualFundFilters[index].type == filterType.RANGE) {
-				filterBody[mutualFundFilters[index].minField] = filter.value.min;
-				filterBody[mutualFundFilters[index].maxField] = filter.value.max;
-			}
-			if (mutualFundFilters[index].type == filterType.CHECKBOX) {
-				filterBody[mutualFundFilters[index].field] = filter.value;
-			}
+			filterBody[mutualFundFilters[index].field] = filter;
 		});
 		requestFiltered(`/api/mutualfunds/filters?page=${activePage}`, filterBody).then((page) => {
 			setResults(page.content);
@@ -59,49 +51,14 @@ const mutualfunds = () => {
 		});
 	}, [selectedFilters, activePage]);
 
-	const addFilter = (filterIndex, checkboxIndex) => {
-		setSelectedFilters([
-			...selectedFilters.map((filter, index) =>
-				filterIndex === index
-					? {
-							value: [
-								...selectedFilters[filterIndex].value,
-								mutualFundFilters[filterIndex].params[checkboxIndex],
-							],
-					  }
-					: { ...filter }
-			),
-		]);
-	};
-	const removeFilter = (filterIndex, checkboxIndex) => {
-		setSelectedFilters([
-			...selectedFilters.map((filter, index) =>
-				filterIndex === index
-					? {
-							value: [
-								...selectedFilters[filterIndex].value.filter(
-									(option) => option != mutualFundFilters[filterIndex].params[checkboxIndex]
-								),
-							],
-					  }
-					: { ...filter }
-			),
-		]);
-	};
-
-	const clearFilters = () => {
-		setResults(initialState.results);
+	const pageReset = () => {
 		setActivePage(0);
-		setSelectedFilters(initialState.selectedFilters);
 	};
 
-	const changeRange = (filterIndex, minimum, maximum) => {
-		setSelectedFilters([
-			...selectedFilters.map((filter, index) =>
-				filterIndex === index ? { value: { min: minimum, max: maximum } } : { ...filter }
-			),
-		]);
+	const setSelectedState = (selectedGroupState) => {
+		setSelectedFilters(selectedGroupState);
 	};
+
 	return (
 		<Layout name="MUTUAL_FUND">
 			<Head>
@@ -111,11 +68,9 @@ const mutualfunds = () => {
 			<div className="filter-grid">
 				<FilterGroup
 					details={mutualFundFilters}
-					addFilter={addFilter}
-					removeFilter={removeFilter}
+					pageReset={pageReset}
 					selectedFilters={selectedFilters}
-					clearFilters={clearFilters}
-					changeRange={changeRange}
+					setSelectedState={setSelectedState}
 				/>
 				<div className="right-grid">
 					<GridContainer

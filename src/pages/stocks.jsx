@@ -19,9 +19,7 @@ const stocks = () => {
 		results: [],
 		selectedFilters: Array(
 			...stockFilters.map((filter) =>
-				filter.type == filterType.RANGE
-					? { value: { min: filter.lowerLimit, max: filter.upperLimit } }
-					: { value: [] }
+				filter.type == filterType.RANGE ? { minimum: filter.minimum, maximum: filter.maximum } : []
 			)
 		),
 	};
@@ -50,11 +48,7 @@ const stocks = () => {
 		let filterBody = {};
 		selectedFilters.forEach((filter, index) => {
 			if (stockFilters[index].type == filterType.RANGE) {
-				filterBody[stockFilters[index].minField] = filter.value.min;
-				filterBody[stockFilters[index].maxField] = filter.value.max;
-			}
-			if (stockFilters[index].type == filterType.CHECKBOX) {
-				filterBody[stockFilters[index].field] = filter.value;
+				filterBody[stockFilters[index].field] = filter;
 			}
 		});
 
@@ -74,49 +68,14 @@ const stocks = () => {
 
 	[isSubscriptionCompleted, subscriptionDataMap] = useWebSocket(subscriptionIdList);
 
-	const addFilter = (filterIndex, checkboxIndex) => {
-		setSelectedFilters([
-			...selectedFilters.map((filter, index) =>
-				filterIndex === index
-					? {
-							value: [
-								...selectedFilters[filterIndex].value,
-								stockFilters[filterIndex].params[checkboxIndex],
-							],
-					  }
-					: { ...filter }
-			),
-		]);
-	};
-	const removeFilter = (filterIndex, checkboxIndex) => {
-		setSelectedFilters([
-			...selectedFilters.map((filter, index) =>
-				filterIndex === index
-					? {
-							value: [
-								...selectedFilters[filterIndex].value.filter(
-									(option) => option != stockFilters[filterIndex].params[checkboxIndex]
-								),
-							],
-					  }
-					: { ...filter }
-			),
-		]);
-	};
-
-	const clearFilters = () => {
-		setResults(initialState.results);
+	const pageReset = () => {
 		setActivePage(0);
-		setSelectedFilters(initialState.selectedFilters);
 	};
 
-	const changeRange = (filterIndex, minimum, maximum) => {
-		setSelectedFilters([
-			...selectedFilters.map((filter, index) =>
-				filterIndex === index ? { value: { min: minimum, max: maximum } } : { ...filter }
-			),
-		]);
+	const setSelectedState = (selectedGroupState) => {
+		setSelectedFilters([...selectedGroupState]);
 	};
+
 	return (
 		<Layout name="STOCK">
 			<Head>
@@ -127,11 +86,9 @@ const stocks = () => {
 			<div className="filter-grid">
 				<FilterGroup
 					details={stockFilters}
-					addFilter={addFilter}
-					removeFilter={removeFilter}
 					selectedFilters={selectedFilters}
-					clearFilters={clearFilters}
-					changeRange={changeRange}
+					pageReset={pageReset}
+					setSelectedState={setSelectedState}
 				/>
 				<div className="right-grid">
 					<GridContainer

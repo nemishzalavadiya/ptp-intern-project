@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Login from "src/components/Login/Login.js"
+import Login from "src/components/Login/Login"
 
 export default function HomePage() {
   return (

@@ -1,0 +1,24 @@
+@import "src/styles/_variables.scss";
+.group-main {
+	// position: fixed;
+	width: 20%;
+	padding-right: 2rem;
+	ul {
+		list-style: none;
+	}
+}
+.filter-header {
+	display: flex;
+	justify-content: space-between;
+	align-content: center;
+}
+.ui.header.main-title {
+	color: white;
+	margin: 0;
+	height: fit-content;
+}
+.ui.vertical.accordion.ui.menu {
+	width: 100%;
+	color: $fontColor;
+	background-color: $cardGrey;
+}

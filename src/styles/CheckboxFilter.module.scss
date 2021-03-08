@@ -1,0 +1,5 @@
+@import "src/styles/_variables.scss";
+
+.ui.vertical.accordion.ui.filter-collapse.menu.item.active.title {
+	color: $fontColor;
+}

@@ -7,6 +7,7 @@ import com.pirimidtech.ptp.entity.QStockStatistic;
 import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.repository.StockStatisticRepository;
 import com.pirimidtech.ptp.service.datagenerator.DataGenerator;
+import com.pirimidtech.ptp.service.datagenerator.Stock;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -58,6 +59,11 @@ public class StockService implements StockServiceInterface {
         return stockStatisticRepository.findByStockDetail_AssetDetail_id(assetId);
     }
 
+    public boolean isClosePriceInRange(Stock item, SelectedStocksFilter selectedStocksFilter) {
+        return (item.getClose() >= selectedStocksFilter.getClosingRange().getMinimum())
+                && (item.getClose() <= selectedStocksFilter.getClosingRange().getMaximum());
+    }
+
     public Page<StockStatistic> filterClosePrice(BooleanBuilder booleanBuilder, SelectedStocksFilter selectedStocksFilter, Pageable paging) {
         List<StockStatistic> filteredList = stockStatisticRepository
                 .findAll(booleanBuilder, paging)
@@ -67,7 +73,7 @@ public class StockService implements StockServiceInterface {
                     UUID companyId = stockDetailRepository.findById(stats.getId()).get().getAssetDetail().getId();
                     return dataGenerator.getGeneratedStockList().stream()
                             .anyMatch(item ->
-                                    (item.getCompanyId().equals(companyId)) && (item.getClose() >= selectedStocksFilter.getClosingRange().getMinimum()) && (item.getClose() <= selectedStocksFilter.getClosingRange().getMaximum())
+                                    item.getCompanyId().equals(companyId) && isClosePriceInRange(item, selectedStocksFilter)
                             );
                 }).collect(Collectors.toList());
         return new PageImpl<>(filteredList, paging, filteredList.size());

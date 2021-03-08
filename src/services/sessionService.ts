@@ -1,5 +1,4 @@
 import showToast from "src/components/showToast";
-import Cookies from "js-cookie";
 
 interface IsessionService {
     login: (user: any) => Promise<string>;
@@ -10,12 +9,11 @@ interface IsessionService {
 let sessionService: IsessionService = {
     user: async () => {
         let response = await fetch("/api/user");
-        let userId = await response.text();
+        let userInfo = await response.json();
         if (response.ok) {
-            //will expire in half a day
-            Cookies.set("userId", userId, { expires: 0.5 });
+            return userInfo;
         }
-        return userId;
+        return null;
     },
     login: async (userDetail) => {
         let options = {
@@ -25,19 +23,18 @@ let sessionService: IsessionService = {
                 "Content-Type": "application/json",
             },
         };
-        let userId = null;
+        let userInfo = null;
         const response = await fetch("api/login", options);
         if (response.ok) {
-            userId = await sessionService.user();
+            userInfo = await sessionService.user();
             showToast("Logged in successfully");
         } else {
             showToast("Username or Password is incorrect");
         }
-        return userId;
+        return userInfo;
     },
 
     logout: async () => {
-        Cookies.remove("userId");
         let response = await fetch("/api/logout", { method: "POST" });
         if (response.ok) {
             showToast("Logged out successfully");

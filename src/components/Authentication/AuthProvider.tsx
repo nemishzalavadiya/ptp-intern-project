@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from "react";
 import AuthContext from "src/components/contexts/AuthContext";
 import sessionService from "src/services/sessionService";
-import Router from "next/router";
-import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const AuthProvider = ({ children }) => {
   let toggle = true;
   const [user, setUser] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const router = useRouter();
 
-  function loadUserTokenFromCookies() {
-    if (!user && Router.pathname !== "/login") {
-      let userId = Cookies.get("userId");
-      if (userId) {
-        setUser(userId);
+  async function loadUser() {
+    if (!user && router.pathname !== "/login") {
+      let userInfo = await sessionService.user();
+      if (userInfo) {
+        setUser(userInfo);
       } else {
         toggle = false;
-        Router.push({ pathname: "/login", query: { path: Router.asPath } });
+        router.push({ pathname: "/login", query: { path: router.asPath } });
       }
-    }
-    else if (Router.pathname === "/login") {
-      let userId = Cookies.get("userId");
-      if (userId) {
+    } else if (router.pathname === "/login") {
+      let userInfo = await sessionService.user();
+      if (userInfo) {
         toggle = false;
-        if (Router.query.path === undefined) {
-          Router.replace("/");
-        }
-        else {
-          Router.replace(Router.query.path.toString());
+        if (router.query.path === undefined) {
+          router.replace("/");
+        } else {
+          router.replace(router.query.path.toString());
         }
       }
     }
@@ -37,12 +35,12 @@ const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    loadUserTokenFromCookies();
+    loadUser();
   });
 
   const login = async (userDetail) => {
-    let userId = await sessionService.login(userDetail);
-    setUser(userId);
+    let userInfo = await sessionService.login(userDetail);
+    setUser(userInfo);
   }
   const logout = async () => {
     await sessionService.logout();

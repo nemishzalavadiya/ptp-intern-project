@@ -67,7 +67,7 @@ public class StockService implements StockServiceInterface {
                     UUID companyId = stockDetailRepository.findById(stats.getId()).get().getAssetDetail().getId();
                     return dataGenerator.getGeneratedStockList().stream()
                             .anyMatch(item ->
-                                    (item.getCompany_id().equals(companyId)) && (item.getClose() >= stocksFilterRequest.getClosingPriceLowerLimit()) && (item.getClose() <= stocksFilterRequest.getClosingPriceUpperLimit())
+                                    (item.getCompany_id().equals(companyId)) && (item.getClose() >= stocksFilterRequest.getClosingRange().getMinimum()) && (item.getClose() <= stocksFilterRequest.getClosingRange().getMaximum())
                             );
                 }).collect(Collectors.toList());
         return new PageImpl<>(filteredList, paging, filteredList.size());
@@ -77,11 +77,11 @@ public class StockService implements StockServiceInterface {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         QStockStatistic qStockStatistic = QStockStatistic.stockStatistic;
         if (stocksFilterRequest != null) {
-            if (stocksFilterRequest.getMarketCapLowerLimit() != null) {
-                booleanBuilder.and(qStockStatistic.marketCap.goe(stocksFilterRequest.getMarketCapLowerLimit()));
+            if (stocksFilterRequest.getMarketCapRange().getMinimum() != null) {
+                booleanBuilder.and(qStockStatistic.marketCap.goe(stocksFilterRequest.getMarketCapRange().getMinimum()));
             }
-            if (stocksFilterRequest.getMarketCapUpperLimit() != null) {
-                booleanBuilder.and(qStockStatistic.marketCap.loe(stocksFilterRequest.getMarketCapUpperLimit()));
+            if (stocksFilterRequest.getMarketCapRange().getMaximum() != null) {
+                booleanBuilder.and(qStockStatistic.marketCap.loe(stocksFilterRequest.getMarketCapRange().getMaximum()));
             }
         }
         return filterClosePrice(booleanBuilder, stocksFilterRequest, paging);

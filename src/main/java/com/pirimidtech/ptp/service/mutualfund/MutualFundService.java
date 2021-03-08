@@ -55,11 +55,11 @@ public class MutualFundService implements MutualFundServiceInterface {
                 });
                 booleanBuilder.and(bBuilder);
             }
-            if (mutualFundFilterRequest.getCloseSize() != null) {
-                booleanBuilder.and(qMutualFundStatistic.fundSize.loe(mutualFundFilterRequest.getCloseSize()));
+            if (mutualFundFilterRequest.getFundSizeRange().getMaximum() != null) {
+                booleanBuilder.and(qMutualFundStatistic.fundSize.loe(mutualFundFilterRequest.getFundSizeRange().getMaximum()));
             }
-            if (mutualFundFilterRequest.getOpenSize() != null) {
-                booleanBuilder.and(qMutualFundStatistic.fundSize.goe(mutualFundFilterRequest.getOpenSize()));
+            if (mutualFundFilterRequest.getFundSizeRange().getMinimum() != null) {
+                booleanBuilder.and(qMutualFundStatistic.fundSize.goe(mutualFundFilterRequest.getFundSizeRange().getMinimum()));
             }
         }
         return mutualFundStatisticRepository.findAll(booleanBuilder, paging);

@@ -1,0 +1,15 @@
+@import "src/styles/_variables.scss";
+.input-to {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.ui.accordion.menu .item .title.acc {
+	color: $fontColor;
+}
+
+.ui.list > .item .header.to {
+	color: $fontColor;
+	padding: 0.5rem;
+}

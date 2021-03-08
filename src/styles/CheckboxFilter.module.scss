@@ -1,0 +1,11 @@
+@import "src/styles/_variables.scss";
+
+.ui.checkbox.check-box {
+	label,
+	input:focus ~ label {
+		color: $fontColor;
+	}
+	label:hover {
+		color: grey;
+	}
+}

@@ -1,0 +1,9 @@
+@import "src/styles/_variables.scss";
+.filter-grid {
+	display: flex;
+	justify-content: space-between;
+}
+
+.right-grid {
+	padding-left: 22%;
+}

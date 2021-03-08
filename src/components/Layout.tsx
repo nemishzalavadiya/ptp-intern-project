@@ -10,13 +10,10 @@ const Layout = (props) => {
 			</div>
 			<div className="rightLayout">
 				<TopNavBar />
-				<div className="innerLayout">
-				{props.children}
-				</div>
+				<div className="innerLayout">{props.children}</div>
 			</div>
 		</div>
 	);
 };
-
 
 export default Layout;

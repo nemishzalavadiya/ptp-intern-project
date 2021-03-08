@@ -5,12 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StocksFilterRequest {
-    private RangeValues closingRange;
+public class SelectedMutualFundFilter {
+    private List<String> risk;
 
-    private RangeValues marketCapRange;
+    private List<String> sipAllowed;
+
+    private RangeValues fundSizeRange;
 }

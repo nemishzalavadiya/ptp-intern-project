@@ -1,6 +1,6 @@
 package com.pirimidtech.ptp.service.stock;
 
-import com.pirimidtech.ptp.DTO.StocksFilterRequest;
+import com.pirimidtech.ptp.DTO.SelectedStocksFilter;
 import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockStatistic;
 import com.pirimidtech.ptp.entity.QStockStatistic;
@@ -58,7 +58,7 @@ public class StockService implements StockServiceInterface {
         return stockStatisticRepository.findByStockDetail_AssetDetail_id(assetId);
     }
 
-    public Page<StockStatistic> filterClosePrice(BooleanBuilder booleanBuilder, StocksFilterRequest stocksFilterRequest, Pageable paging) {
+    public Page<StockStatistic> filterClosePrice(BooleanBuilder booleanBuilder, SelectedStocksFilter selectedStocksFilter, Pageable paging) {
         List<StockStatistic> filteredList = stockStatisticRepository
                 .findAll(booleanBuilder, paging)
                 .getContent()
@@ -67,23 +67,23 @@ public class StockService implements StockServiceInterface {
                     UUID companyId = stockDetailRepository.findById(stats.getId()).get().getAssetDetail().getId();
                     return dataGenerator.getGeneratedStockList().stream()
                             .anyMatch(item ->
-                                    (item.getCompany_id().equals(companyId)) && (item.getClose() >= stocksFilterRequest.getClosingRange().getMinimum()) && (item.getClose() <= stocksFilterRequest.getClosingRange().getMaximum())
+                                    (item.getCompany_id().equals(companyId)) && (item.getClose() >= selectedStocksFilter.getClosingRange().getMinimum()) && (item.getClose() <= selectedStocksFilter.getClosingRange().getMaximum())
                             );
                 }).collect(Collectors.toList());
         return new PageImpl<>(filteredList, paging, filteredList.size());
     }
 
-    public Page<StockStatistic> getStockFilterResults(StocksFilterRequest stocksFilterRequest, Pageable paging) {
+    public Page<StockStatistic> getStockFilterResults(SelectedStocksFilter selectedStocksFilter, Pageable paging) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         QStockStatistic qStockStatistic = QStockStatistic.stockStatistic;
-        if (stocksFilterRequest != null) {
-            if (stocksFilterRequest.getMarketCapRange().getMinimum() != null) {
-                booleanBuilder.and(qStockStatistic.marketCap.goe(stocksFilterRequest.getMarketCapRange().getMinimum()));
+        if (selectedStocksFilter != null) {
+            if (selectedStocksFilter.getMarketCapRange().getMinimum() != null) {
+                booleanBuilder.and(qStockStatistic.marketCap.goe(selectedStocksFilter.getMarketCapRange().getMinimum()));
             }
-            if (stocksFilterRequest.getMarketCapRange().getMaximum() != null) {
-                booleanBuilder.and(qStockStatistic.marketCap.loe(stocksFilterRequest.getMarketCapRange().getMaximum()));
+            if (selectedStocksFilter.getMarketCapRange().getMaximum() != null) {
+                booleanBuilder.and(qStockStatistic.marketCap.loe(selectedStocksFilter.getMarketCapRange().getMaximum()));
             }
         }
-        return filterClosePrice(booleanBuilder, stocksFilterRequest, paging);
+        return filterClosePrice(booleanBuilder, selectedStocksFilter, paging);
     }
 }

@@ -2,22 +2,23 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import FilterGroup from "src/components/filter/FilterGroup";
 import Layout from "src/components/Layout";
-import { mutualFundFilters } from "src/components/filter/filterDetails";
-import { filterType } from "src/components/filter/filterType.tsx";
+import { stockFilters } from "src/components/filter/filterDetails";
+import { filterType } from "src/components/filter/filterType.ts";
 import GridContainer from "src/components/grid/GridContainer";
+import useWebSocket from "src/hooks/useWebSocket";
 
-const mutualfunds = () => {
+const stocks = () => {
 	const content = [
 		{ header: "Company_Id", icon: "" },
-		{ header: "Risk", icon: "" },
-		{ header: "Min Sip", icon: <i className="rupee sign icon small"></i> },
-		{ header: "Fund Size", icon: <i className="rupee sign icon small"></i> },
+		{ header: "Market Price", icon: <i className="rupee sign icon small"></i> },
+		{ header: "Close Price", icon: <i className="rupee sign icon small"></i> },
+		{ header: "Market Cap (Cr)", icon: <i className="rupee sign icon small"></i> },
 	];
 
 	const initialState = {
 		results: [],
 		selectedFilters: Array(
-			...mutualFundFilters.map((filter) =>
+			...stockFilters.map((filter) =>
 				filter.type == filterType.RANGE ? [filter.lowerLimit, filter.upperLimit] : []
 			)
 		),
@@ -28,6 +29,9 @@ const mutualfunds = () => {
 
 	const [activePage, setActivePage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
+
+	let isSubscriptionCompleted = false;
+	let subscriptionDataMap = new Map();
 
 	async function requestFiltered(url = "", data = {}) {
 		const response = await fetch(url, {
@@ -42,26 +46,34 @@ const mutualfunds = () => {
 
 	useEffect(() => {
 		let filterBody = {
-			risk: selectedFilters[0].map((i) => mutualFundFilters[0].filterOptions[i]),
-			closeSize: selectedFilters[2][1],
-			openSize: selectedFilters[2][0],
+			marketCapLowerLimit: selectedFilters[0][0],
+			marketCapUpperLimit: selectedFilters[0][1],
+			closingPriceLowerLimit: selectedFilters[1][0],
+			closingPriceUpperLimit: selectedFilters[1][1],
 		};
-		if (selectedFilters[1].length === 1)
-			filterBody = {
-				...filterBody,
-				sipAllowed: selectedFilters[1][0] === 0 ? false : true,
-			};
-		requestFiltered(`/api/mutualfunds/filters?page=${activePage}`, filterBody).then((page) => {
+
+		requestFiltered(`/api/stocks/filters?page=${activePage}`, filterBody).then((page) => {
 			setResults(page.content);
 			setTotalPages(page.totalPages);
 		});
 	}, [selectedFilters, activePage]);
+
+	useEffect(() => {
+		setSubscriptionIdList(results.map((item) => item.stockDetail.assetDetail.id));
+	}, [results]);
+
+	const [subscriptionIdList, setSubscriptionIdList] = useState(
+		results.map((item) => item.stockDetail.assetDetail.id)
+	);
+
+	[isSubscriptionCompleted, subscriptionDataMap] = useWebSocket(subscriptionIdList);
 
 	const addFilter = (filterIndex, checkboxIndex) => {
 		setSelectedFilters([
 			...selectedFilters.map((arr, index) => (filterIndex === index ? [...arr, checkboxIndex] : [...arr])),
 		]);
 	};
+
 	const removeFilter = (filterIndex, checkboxIndex) => {
 		setSelectedFilters([
 			...selectedFilters.map((arr, index) =>
@@ -82,14 +94,15 @@ const mutualfunds = () => {
 		]);
 	};
 	return (
-		<Layout name="MUTUAL_FUND">
+		<Layout name="STOCK">
 			<Head>
 				<title>Pirimid Trading Platform</title>
 				<link rel="icon" href="/favicon.svg" />
 			</Head>
+
 			<div className="filter-grid">
 				<FilterGroup
-					details={mutualFundFilters}
+					details={stockFilters}
 					addFilter={addFilter}
 					removeFilter={removeFilter}
 					selectedFilters={selectedFilters}
@@ -100,10 +113,16 @@ const mutualfunds = () => {
 					<GridContainer
 						content={content}
 						data={results.map((item) => [
-							item.mutualFundDetail.assetDetail.name,
-							item.risk,
-							item.minSIP,
-							item.fundSize,
+							item.stockDetail.assetDetail.name,
+
+							subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
+								? ""
+								: subscriptionDataMap.get(item.stockDetail.assetDetail.id).marketPrice,
+
+							subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
+								? ""
+								: subscriptionDataMap.get(item.stockDetail.assetDetail.id).close,
+							item.marketCap,
 						])}
 						pagination={{
 							activePage,
@@ -117,4 +136,4 @@ const mutualfunds = () => {
 	);
 };
 
-export default mutualfunds;
+export default stocks;

@@ -1,4 +1,4 @@
-import { filterType } from "src/components/filter/filterType.ts";
+import { filterType } from "src/components/filter/filterType.tsx";
 export const mutualFundFilters = [
 	{
 		title: "Risk",

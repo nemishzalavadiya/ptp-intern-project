@@ -3,7 +3,7 @@ import Head from "next/head";
 import FilterGroup from "src/components/filter/FilterGroup";
 import Layout from "src/components/Layout";
 import { stockFilters } from "src/components/filter/filterDetails";
-import { filterType } from "src/components/filter/filterType.ts";
+import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import useWebSocket from "src/hooks/useWebSocket";
 
@@ -19,7 +19,7 @@ const stocks = () => {
 		results: [],
 		selectedFilters: Array(
 			...stockFilters.map((filter) =>
-				filter.type == filterType.RANGE ? [filter.lowerLimit, filter.upperLimit] : []
+				filter.type == filterType.RANGE ? { minimum: filter.minimum, maximum: filter.maximum } : []
 			)
 		),
 	};
@@ -45,12 +45,12 @@ const stocks = () => {
 	}
 
 	useEffect(() => {
-		let filterBody = {
-			marketCapLowerLimit: selectedFilters[0][0],
-			marketCapUpperLimit: selectedFilters[0][1],
-			closingPriceLowerLimit: selectedFilters[1][0],
-			closingPriceUpperLimit: selectedFilters[1][1],
-		};
+		let filterBody = {};
+		selectedFilters.forEach((filter, index) => {
+			if (stockFilters[index].type == filterType.RANGE) {
+				filterBody[stockFilters[index].field] = filter;
+			}
+		});
 
 		requestFiltered(`/api/stocks/filters?page=${activePage}`, filterBody).then((page) => {
 			setResults(page.content);
@@ -59,40 +59,23 @@ const stocks = () => {
 	}, [selectedFilters, activePage]);
 
 	useEffect(() => {
-		setSubscriptionIdList(results.map((item) => item.stockDetail.assetDetail.id));
+		setSubscriptionIdList(results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id));
 	}, [results]);
 
 	const [subscriptionIdList, setSubscriptionIdList] = useState(
-		results.map((item) => item.stockDetail.assetDetail.id)
+		results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id)
 	);
 
 	[isSubscriptionCompleted, subscriptionDataMap] = useWebSocket(subscriptionIdList);
 
-	const addFilter = (filterIndex, checkboxIndex) => {
-		setSelectedFilters([
-			...selectedFilters.map((arr, index) => (filterIndex === index ? [...arr, checkboxIndex] : [...arr])),
-		]);
-	};
-
-	const removeFilter = (filterIndex, checkboxIndex) => {
-		setSelectedFilters([
-			...selectedFilters.map((arr, index) =>
-				filterIndex === index ? [...arr].filter((item, i) => item != checkboxIndex) : [...arr]
-			),
-		]);
-	};
-
-	const clearFilters = () => {
-		setResults(initialState.results);
-		setSelectedFilters(initialState.selectedFilters);
+	const pageReset = () => {
 		setActivePage(0);
 	};
 
-	const changeRange = (filterIndex, minimum, maximum) => {
-		setSelectedFilters([
-			...selectedFilters.map((item, index) => (index === filterIndex ? [minimum, maximum] : [...item])),
-		]);
+	const setSelectedState = (selectedGroupState) => {
+		setSelectedFilters([...selectedGroupState]);
 	};
+
 	return (
 		<Layout name="STOCK">
 			<Head>
@@ -103,27 +86,29 @@ const stocks = () => {
 			<div className="filter-grid">
 				<FilterGroup
 					details={stockFilters}
-					addFilter={addFilter}
-					removeFilter={removeFilter}
 					selectedFilters={selectedFilters}
-					clearFilters={clearFilters}
-					changeRange={changeRange}
+					pageReset={pageReset}
+					setSelectedState={setSelectedState}
 				/>
 				<div className="right-grid">
 					<GridContainer
 						content={content}
-						data={results.map((item) => [
-							item.stockDetail.assetDetail.name,
+						data={
+							results === undefined
+								? []
+								: results.map((item) => [
+										item.stockDetail.assetDetail.name,
 
-							subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
-								? ""
-								: subscriptionDataMap.get(item.stockDetail.assetDetail.id).marketPrice,
+										subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
+											? ""
+											: subscriptionDataMap.get(item.stockDetail.assetDetail.id).marketPrice,
 
-							subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
-								? ""
-								: subscriptionDataMap.get(item.stockDetail.assetDetail.id).close,
-							item.marketCap,
-						])}
+										subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
+											? ""
+											: subscriptionDataMap.get(item.stockDetail.assetDetail.id).close,
+										item.marketCap,
+								  ])
+						}
 						pagination={{
 							activePage,
 							totalPages,

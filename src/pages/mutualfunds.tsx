@@ -18,7 +18,7 @@ const mutualfunds = () => {
 		results: [],
 		selectedFilters: Array(
 			...mutualFundFilters.map((filter) =>
-				filter.type == filterType.RANGE ? [filter.lowerLimit, filter.upperLimit] : []
+				filter.type == filterType.RANGE ? { minimum: filter.minimum, maximum: filter.maximum } : []
 			)
 		),
 	};
@@ -41,46 +41,24 @@ const mutualfunds = () => {
 	}
 
 	useEffect(() => {
-		let filterBody = {
-			risk: selectedFilters[0].map((i) => mutualFundFilters[0].filterOptions[i]),
-			closeSize: selectedFilters[2][1],
-			openSize: selectedFilters[2][0],
-		};
-		if (selectedFilters[1].length === 1)
-			filterBody = {
-				...filterBody,
-				sipAllowed: selectedFilters[1][0] === 0 ? false : true,
-			};
+		let filterBody = {};
+		selectedFilters.forEach((filter, index) => {
+			filterBody[mutualFundFilters[index].field] = filter;
+		});
 		requestFiltered(`/api/mutualfunds/filters?page=${activePage}`, filterBody).then((page) => {
 			setResults(page.content);
 			setTotalPages(page.totalPages);
 		});
 	}, [selectedFilters, activePage]);
 
-	const addFilter = (filterIndex, checkboxIndex) => {
-		setSelectedFilters([
-			...selectedFilters.map((arr, index) => (filterIndex === index ? [...arr, checkboxIndex] : [...arr])),
-		]);
-	};
-	const removeFilter = (filterIndex, checkboxIndex) => {
-		setSelectedFilters([
-			...selectedFilters.map((arr, index) =>
-				filterIndex === index ? [...arr].filter((item, i) => item != checkboxIndex) : [...arr]
-			),
-		]);
-	};
-
-	const clearFilters = () => {
-		setResults(initialState.results);
-		setSelectedFilters(initialState.selectedFilters);
+	const pageReset = () => {
 		setActivePage(0);
 	};
 
-	const changeRange = (filterIndex, minimum, maximum) => {
-		setSelectedFilters([
-			...selectedFilters.map((item, index) => (index === filterIndex ? [minimum, maximum] : [...item])),
-		]);
+	const setSelectedState = (selectedGroupState) => {
+		setSelectedFilters(selectedGroupState);
 	};
+
 	return (
 		<Layout name="MUTUAL_FUND">
 			<Head>
@@ -90,21 +68,23 @@ const mutualfunds = () => {
 			<div className="filter-grid">
 				<FilterGroup
 					details={mutualFundFilters}
-					addFilter={addFilter}
-					removeFilter={removeFilter}
+					pageReset={pageReset}
 					selectedFilters={selectedFilters}
-					clearFilters={clearFilters}
-					changeRange={changeRange}
+					setSelectedState={setSelectedState}
 				/>
 				<div className="right-grid">
 					<GridContainer
 						content={content}
-						data={results.map((item) => [
-							item.mutualFundDetail.assetDetail.name,
-							item.risk,
-							item.minSIP,
-							item.fundSize,
-						])}
+						data={
+							results === undefined
+								? []
+								: results.map((item) => [
+										item.mutualFundDetail.assetDetail.name,
+										item.risk,
+										item.minSIP,
+										item.fundSize,
+								  ])
+						}
 						pagination={{
 							activePage,
 							totalPages,

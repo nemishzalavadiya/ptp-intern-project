@@ -67,7 +67,7 @@ public class StockService implements StockServiceInterface {
                     UUID companyId = stockDetailRepository.findById(stats.getId()).get().getAssetDetail().getId();
                     return dataGenerator.getGeneratedStockList().stream()
                             .anyMatch(item ->
-                                    (item.getCompany_id().equals(companyId)) && (item.getClose() >= selectedStocksFilter.getClosingRange().getMinimum()) && (item.getClose() <= selectedStocksFilter.getClosingRange().getMaximum())
+                                    (item.getCompanyId().equals(companyId)) && (item.getClose() >= selectedStocksFilter.getClosingRange().getMinimum()) && (item.getClose() <= selectedStocksFilter.getClosingRange().getMaximum())
                             );
                 }).collect(Collectors.toList());
         return new PageImpl<>(filteredList, paging, filteredList.size());

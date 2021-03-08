@@ -21,7 +21,7 @@ public class WebSocketScheduler {
     public void trigger() {
         dataGenerator.setData();
         dataGenerator.getGeneratedStockList().forEach((companyData) -> {
-            this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.getCompany_id(), companyData);
+            this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.getCompanyId(), companyData);
         });
     }
 }

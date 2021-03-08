@@ -43,8 +43,8 @@ public class DataGenerator {
         stockList.clear();
         for (int i = 0; i < companyNameList.size(); i++) {
             Stock stock = new Stock();
-            stock.setCompany_id(companyIdList.get(i));
-            stock.setCompany_name(companyNameList.get(i));
+            stock.setCompanyId(companyIdList.get(i));
+            stock.setCompanyName(companyNameList.get(i));
             stock.setTimestamp(new Date());
             stock.setOpen(Float.parseFloat(df.format(Min + (Math.random() * ((Max - Min) + 1)))));
             stock.setClose(Float.parseFloat(df.format(Min + (Math.random() * ((Max - Min) + 1)))));

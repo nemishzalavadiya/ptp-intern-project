@@ -66,7 +66,10 @@ public class AuthenticationController {
                 cookie.setHttpOnly(true);
                 cookie.setMaxAge(maxCookieAge);
                 response.addCookie(cookie);
-                UserSessionDTO userSessionDTO = new UserSessionDTO(userDetail.get().getId(), userDetail.get().getName(), userDetail.get().getEmail());
+                UserSessionDTO userSessionDTO = new UserSessionDTO();
+                userSessionDTO.setUserId(userDetail.get().getId());
+                userSessionDTO.setName(userDetail.get().getName());
+                userSessionDTO.setEmail(userDetail.get().getEmail());
                 return ResponseEntity.ok(userSessionDTO);
             }
         }

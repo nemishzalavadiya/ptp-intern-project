@@ -33,7 +33,10 @@ public class StockService implements StockServiceInterface {
     public Page<StockDetail> getAllStockDetails(Pageable paging) {
         return stockDetailRepository.findAll(paging);
     }
-
+    @Override
+    public Page<StockStatistic> getAllStockStatistics(Pageable paging) {
+        return stockStatisticRepository.findAll(paging);
+    }
     @Override
     public void addStock(StockDetail stockDetail) {
         stockDetailRepository.save(stockDetail);

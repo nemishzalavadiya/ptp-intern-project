@@ -25,7 +25,9 @@ public class MutualFundService implements MutualFundServiceInterface {
     public Page<MutualFundDetail> getAllMutualFundsDetails(Pageable paging) {
         return mutualFundDetailRepository.findAll(paging);
     }
-
+    public Page<MutualFundStatistic> getAllMutualFundsStatistics(Pageable paging) {
+        return mutualFundStatisticRepository.findAll(paging);
+    }
     public Optional<MutualFundDetail> getMutualFundDetailsById(UUID id) {
         return mutualFundDetailRepository.findById(id);
     }

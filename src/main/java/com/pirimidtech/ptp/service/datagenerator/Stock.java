@@ -10,8 +10,8 @@ import java.util.UUID;
 @Setter
 public class Stock {
     private Date timestamp;
-    private UUID company_id;
-    private String company_name;
+    private UUID companyId;
+    private String companyName;
     private float open;
     private float close;
     private float marketPrice;

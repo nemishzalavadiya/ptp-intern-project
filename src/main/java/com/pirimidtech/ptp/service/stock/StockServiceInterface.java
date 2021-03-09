@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.service.stock;
 
+import com.pirimidtech.ptp.DTO.SelectedStocksFilter;
 import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockStatistic;
 import org.springframework.data.domain.Page;
@@ -20,4 +21,6 @@ public interface StockServiceInterface {
     void addStockStats(StockStatistic stockStatistic);
 
     Optional<StockStatistic> getStockStatisticByAssetId(UUID id);
+
+    Page<StockStatistic> getStockFilterResults(SelectedStocksFilter selectedStocksFilter, Pageable paging);
 }

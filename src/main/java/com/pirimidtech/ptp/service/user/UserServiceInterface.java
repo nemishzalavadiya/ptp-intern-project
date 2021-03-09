@@ -9,4 +9,6 @@ public interface UserServiceInterface {
     Optional<User> getUserByEmail(String email);
 
     Optional<User> getUserById(UUID userId);
+
+    User addUser(User user);
 }

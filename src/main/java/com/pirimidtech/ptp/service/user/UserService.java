@@ -20,4 +20,8 @@ public class UserService implements UserServiceInterface {
     public Optional<User> getUserById(UUID userId) {
         return userRepository.findById(userId);
     }
+
+    public User addUser(User user) {
+        return userRepository.save(user);
+    }
 }

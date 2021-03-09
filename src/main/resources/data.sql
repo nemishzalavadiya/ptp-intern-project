@@ -253,7 +253,7 @@ VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9
 /** User Data **/
 
 INSERT INTO public.user_detail(id,password, date_of_birth, dpurl, email, gender, mobile_no, pan_card, signature_url, name)
-VALUES ('00000000-0000-0000-0000-000000000000','$2a$10$DIRw4Sbpj7Ofk9iQ/StnHeYBOZkFr0mdoqF0wIkhIQUdf.6p6Z3wG', '23/10/1999', 'dpUrl', 'dummy1@gmail.com', 'MALE', '9876543211',
+VALUES ('00000000-0000-0000-0000-000000000000','$2a$10$DIRw4Sbpj7Ofk9iQ/StnHeYBOZkFr0mdoqF0wIkhIQUdf.6p6Z3wG', '1999-10-23', 'dpUrl', 'dummy1@gmail.com', 'MALE', '9876543211',
         'panCardNumber', 'signatureUrl', 'XYZ');
 
 INSERT INTO public.watchlist(id, user_id, name, description)

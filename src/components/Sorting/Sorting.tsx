@@ -7,10 +7,10 @@ export default function Sorting(props) {
         return (
           <div key={index} className="childSorting">
             <div
-              onClick={() => props.onclick(index, item)}
+              onClick={() => props.onclick(index, item.dbField)}
               className={props.pattern[index] == 0 ? "dropdown" : "triangle up"}
             >
-              {item}
+              {item.title}
               <Icon
                 className={
                   props.pattern[index] == 0 ? "dropdown" : "triangle up"

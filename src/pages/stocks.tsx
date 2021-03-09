@@ -8,7 +8,7 @@ import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import useWebSocket from "src/hooks/useWebSocket";
 import Sorting from "src/components/Sorting/Sorting";
-const content1 = ["marketCap"];
+import {StockSortingField} from "src/components/Sorting/sortingField";
 const stocks = () => {
 	const content = [
 		{ header: "Company_Id", icon: "" },
@@ -21,7 +21,7 @@ const stocks = () => {
   const [sortingField, setSortingField] = useState("");
   function changeArrow(index, fieldName) {
     let d = [];
-    let size = content1.length;
+    let size = StockSortingField.length;
     for (let i = 0; i < size; i++) {
       d.push(0);
     }
@@ -112,7 +112,7 @@ const stocks = () => {
 					setSelectedState={setSelectedState}
 				/>
 				<div className="right-grid">
-        <Sorting content={content1} pattern={pattern} onclick={changeArrow} />
+        <Sorting content={StockSortingField} pattern={pattern} onclick={changeArrow} />
 					<GridContainer
 						content={content}
 						data={

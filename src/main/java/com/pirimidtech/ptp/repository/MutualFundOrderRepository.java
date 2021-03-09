@@ -1,6 +1,9 @@
 package com.pirimidtech.ptp.repository;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.InvestmentType;
+import com.pirimidtech.ptp.entity.MutualFundOrder;
+import com.pirimidtech.ptp.entity.SIPStatus;
+import com.pirimidtech.ptp.entity.Status;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,6 +30,6 @@ public interface MutualFundOrderRepository extends JpaRepository<MutualFundOrder
 
     Page<MutualFundOrder> findAllByUserIdAndTimestampBetween(UUID userId, Date startDate, Date endDate, Pageable pageable);
 
-    Page<MutualFundOrder> findAllBySipStatusNotAndInvestmentTypeNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc(SIPStatus deleted, InvestmentType oneTime,InvestmentType none, UUID userId, Pageable pageable);
+    Page<MutualFundOrder> findAllBySipStatusNotAndInvestmentTypeNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc(SIPStatus deleted, InvestmentType oneTime, InvestmentType none, UUID userId, Pageable pageable);
 
 }

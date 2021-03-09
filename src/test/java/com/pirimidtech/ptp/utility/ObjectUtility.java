@@ -1,6 +1,26 @@
 package com.pirimidtech.ptp.utility;
 
-import com.pirimidtech.ptp.entity.*;
+import com.pirimidtech.ptp.entity.Action;
+import com.pirimidtech.ptp.entity.AssetClass;
+import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.entity.Gender;
+import com.pirimidtech.ptp.entity.InvestmentType;
+import com.pirimidtech.ptp.entity.MutualFundDetail;
+import com.pirimidtech.ptp.entity.MutualFundOrder;
+import com.pirimidtech.ptp.entity.MutualFundPrice;
+import com.pirimidtech.ptp.entity.MutualFundStatistic;
+import com.pirimidtech.ptp.entity.OrderType;
+import com.pirimidtech.ptp.entity.Position;
+import com.pirimidtech.ptp.entity.ProductCode;
+import com.pirimidtech.ptp.entity.SIPStatus;
+import com.pirimidtech.ptp.entity.Status;
+import com.pirimidtech.ptp.entity.StockDetail;
+import com.pirimidtech.ptp.entity.StockExchangeType;
+import com.pirimidtech.ptp.entity.StockPrice;
+import com.pirimidtech.ptp.entity.StockStatistic;
+import com.pirimidtech.ptp.entity.StockTrade;
+import com.pirimidtech.ptp.entity.StockTradeHistory;
+import com.pirimidtech.ptp.entity.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +37,7 @@ public class ObjectUtility {
     public static AssetDetail assetDetail1 = new AssetDetail(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b185"), "name", "logo_url", AssetClass.MUTUAL_FUND, "about", "XYZ", "org");
     public static MutualFundDetail mutualFundDetail = new MutualFundDetail(UUID.fromString("51381618-1bc9-4c19-aab9-000000000001"), date1, "ABC", assetDetail1);
     public static MutualFundOrder mutualFundOrder1 = new MutualFundOrder(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"),new Date(), SIPStatus.ACTIVE,date1,0, 100f,Status.PENDING, InvestmentType.MONTHLY_SIP, mutualFundDetail, user);
-    public static MutualFundOrder mutualFundOrder2 = new MutualFundOrder(UUID.fromString("f0108f8a-0d7c-4235-bce3-5deda9a3e151"), new Date(),SIPStatus.ACTIVE,date1,0, 105f,Status.PENDING, InvestmentType.MONTHLY_SIP, mutualFundDetail, user);
+    public static MutualFundOrder mutualFundOrder2 = new MutualFundOrder(UUID.fromString("f0108f8a-0d7c-4235-bce3-5deda9a3e151"), new Date(), SIPStatus.ACTIVE,date1,0, 105f,Status.PENDING, InvestmentType.MONTHLY_SIP, mutualFundDetail, user);
     public static List<MutualFundOrder> mutualFundOrderList = new ArrayList<>();
     public static MutualFundPrice mutualFundPrice1 = new MutualFundPrice(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"), 101.5F, date1, mutualFundDetail);
     public static MutualFundStatistic mutualFundStatistic = new MutualFundStatistic(UUID.fromString("95d9a220-2579-4a13-b7e2-7ac628ed2e6f"), "Low", 0.0f, true, 0.0f, 0.0f, null, 0.0f, mutualFundDetail);

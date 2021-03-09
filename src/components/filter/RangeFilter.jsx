@@ -1,15 +1,24 @@
 import { Input, Label, Accordion, Menu, Header } from "semantic-ui-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SliderView from "semantic-ui-react-slider";
 
 const RangeFilter = (props) => {
 	const [invalid, setInvalid] = useState(false);
 	const [active, setActive] = useState(true);
+	const [minimum, setMinimum] = useState(props.filterDetails.minimum);
+	const [maximum, setMaximum] = useState(props.filterDetails.maximum);
+
+	useEffect(() => {
+		props.changeRange(props.filterIndex, minimum, maximum);
+	}, [minimum, maximum]);
 
 	const RangeFilter = (
 		<div>
 			<SliderView
-				onSliderValuesChange={(minimum, maximum) => props.changeRange(props.filterIndex, minimum, maximum)}
+				onSliderValuesChange={(min, max) => {
+					setMaximum(max);
+					setMinimum(min);
+				}}
 				sliderMinValue={props.filterDetails.minimum}
 				sliderMaxValue={props.filterDetails.maximum}
 				selectedMinValue={props.selectedFilters[props.filterIndex].minimum}
@@ -26,12 +35,8 @@ const RangeFilter = (props) => {
 							: props.selectedFilters[props.filterIndex].minimum
 					}
 					onChange={(event, data) => {
-						setInvalid(data.value < props.selectedFilters[props.filterIndex].maximum || data.value < 0);
-						return props.changeRange(
-							props.filterIndex,
-							data.value == "" ? 0 : parseInt(data.value),
-							props.selectedFilters[props.filterIndex].maximum
-						);
+						setInvalid(data.value > props.selectedFilters[props.filterIndex].maximum || data.value < 0);
+						setMinimum(data.value == "" ? 0 : parseInt(data.value));
 					}}
 					size="mini"
 				/>
@@ -49,11 +54,7 @@ const RangeFilter = (props) => {
 					}
 					onChange={(event, data) => {
 						setInvalid(data.value < props.selectedFilters[props.filterIndex].minimum || data.value < 0);
-						return props.changeRange(
-							props.filterIndex,
-							props.selectedFilters[props.filterIndex].minimum,
-							data.value == "" ? 0 : parseInt(data.value)
-						);
+						setMaximum(data.value == "" ? 0 : parseInt(data.value));
 					}}
 					size="mini"
 				/>

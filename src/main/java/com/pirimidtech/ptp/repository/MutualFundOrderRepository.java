@@ -14,20 +14,19 @@ public interface MutualFundOrderRepository extends JpaRepository<MutualFundOrder
 
     Page<MutualFundOrder> findAllByUserIdOrderBySIPDateDesc(UUID userId, Pageable pageable);
 
-    @Query(value = "SELECT * FROM MUTUAL_FUND_ORDER m WHERE EXTRACT (Day from m.sipdate)= ?1 and m.investment_type='MONTHLY_SIP' and sipStatus='ACTIVE'", nativeQuery = true)
+    @Query(value = "SELECT * FROM MUTUAL_FUND_ORDER m WHERE EXTRACT (Day from m.sipdate)= ?1 and m.investment_type='MONTHLY_SIP' and m.sip_status='ACTIVE'", nativeQuery = true)
     List<MutualFundOrder> findAllByUserIdOrderByDay(int day);
 
-    @Query(value = "SELECT * FROM MUTUAL_FUND_ORDER m WHERE EXTRACT (DOW FROM m.sipdate)= ?1 and m.investment_type='WEEKLY_SIP' and sipStatus='ACTIVE'", nativeQuery = true)
+    @Query(value = "SELECT * FROM MUTUAL_FUND_ORDER m WHERE EXTRACT (DOW FROM m.sipdate)= ?1 and m.investment_type='WEEKLY_SIP' and m.sip_status='ACTIVE'", nativeQuery = true)
     List<MutualFundOrder> findAllByUserIdOrderByWeekDay(int weekDay);
 
-    @Query(value = "SELECT * FROM MUTUAL_FUND_ORDER m WHERE EXTRACT (DOY FROM m.sipdate)= ?1 and m.investment_type='YEARLY_SIP' and sipStatus='ACTIVE'", nativeQuery = true)
+    @Query(value = "SELECT * FROM MUTUAL_FUND_ORDER m WHERE EXTRACT (DOY FROM m.sipdate)= ?1 and m.investment_type='YEARLY_SIP' and m.sip_status='ACTIVE'", nativeQuery = true)
     List<MutualFundOrder> findAllByUserIdOrderByYearDay(int yearDay);
 
     List<MutualFundOrder> findAllByStatus(Status status);
 
     Page<MutualFundOrder> findAllByUserIdAndTimestampBetween(UUID userId, Date startDate, Date endDate, Pageable pageable);
 
-    void deleteByUserIdAndMutualFundDetailId(UUID userId, UUID mutualFundId);
+    Page<MutualFundOrder> findAllBySipStatusNotAndInvestmentTypeNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc(SIPStatus deleted, InvestmentType oneTime,InvestmentType none, UUID userId, Pageable pageable);
 
-    Page<MutualFundOrder> findAllBySipStatusNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc(SIPStatus deleted, InvestmentType oneTime, UUID userId, Pageable pageable);
 }

@@ -133,13 +133,9 @@ public class OrderController {
     }
 
     @DeleteMapping("/mutualfund/delete-sip-status/users")
-    public ResponseEntity<UUID> deleteMutualFundSipStatusByUser(@RequestParam UUID userId,
-                                                                  @RequestParam UUID MutualFundId,
-                                                                  @RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        orderService.deleteMutualFundBySipStatus(userId, MutualFundId, pageable);
-        return ResponseEntity.ok().body(MutualFundId);
+    public ResponseEntity<UUID> deleteMutualFundSipStatusByUser(@RequestParam UUID mutualFundOrderId) {
+        orderService.deleteMutualFundBySipStatus(mutualFundOrderId);
+        return ResponseEntity.ok().body(mutualFundOrderId);
     }
 
     @GetMapping("/mutualfund/orders/{id}")

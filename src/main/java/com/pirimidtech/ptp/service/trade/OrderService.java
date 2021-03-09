@@ -57,7 +57,7 @@ public class OrderService implements OrderServiceInterface {
 
     @Override
     public Page<MutualFundOrder> getAllMutualFundBySipStatus(UUID userId, Pageable pageable) {
-        Page<MutualFundOrder> pageResult = mutualFundOrderRepository.findAllBySipStatusNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc( SIPStatus.DELETED , InvestmentType.ONE_TIME,userId,pageable);
+        Page<MutualFundOrder> pageResult = mutualFundOrderRepository.findAllBySipStatusNotAndInvestmentTypeNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc( SIPStatus.DELETED , InvestmentType.ONE_TIME,InvestmentType.NONE,userId,pageable);
         return pageResult;
     }
 
@@ -115,7 +115,7 @@ public class OrderService implements OrderServiceInterface {
         return mutualFundOrderRepository.findAllByUserIdAndTimestampBetween(userId,sDate,eDate,pageable);
     }
 
-    public void deleteMutualFundBySipStatus(UUID userId, UUID mutualFundId, Pageable pageable) {
-        mutualFundOrderRepository.deleteByUserIdAndMutualFundDetailId(userId,mutualFundId);
+    public void deleteMutualFundBySipStatus(UUID mutualFundOrderId) {
+        mutualFundOrderRepository.deleteById(mutualFundOrderId);
     }
 }

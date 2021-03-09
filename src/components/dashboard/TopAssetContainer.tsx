@@ -1,7 +1,6 @@
 import { Card, Grid, Segment } from "semantic-ui-react";
 import Link from 'next/link';
 const TopAssetContainer = (props) => {
-    console.log(props)
     return <div className="dashboard-grid">
         <Grid inverted>
             <Grid.Row className="dashboard-container">
@@ -15,7 +14,7 @@ const TopAssetContainer = (props) => {
             <Grid.Row columns="equal" className="dashboard-container">
                 {
                     props.content.data.map((item, index) => {
-                        return <Grid.Column>
+                        return <Grid.Column key={index}>
                             <Segment key={index} inverted color="grey" className="dashboard-asset-container">
                                 <div className="dashboard dashboard-company-icon">{item.companyIcon}</div>
                                 <div className="dashboard dashboard-company-name">{item.name}</div>

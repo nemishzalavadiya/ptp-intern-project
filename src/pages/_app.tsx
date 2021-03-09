@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthProvider from "src/components/Authentication/AuthProvider";
 import ProtectRoute from "src/components/Authentication/ProtectRoute";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {  
   return (
     <div className="component-background">
       <AuthProvider>

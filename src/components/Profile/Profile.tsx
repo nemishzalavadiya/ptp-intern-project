@@ -37,52 +37,36 @@ export default function Profile() {
   const [user, setUser] = useState({});
   useEffect(async () => {
     const user = await getUserById("00000000-0000-0000-0000-000000000000");
+    console.log(user)
     setOldUser(user);
     setUser(user);
-    console.log("prev user" , user);
-    prevEmail = email;
-    // setUser(user)
-    // setEmail(user.email)
-    // setGender(user.gender)
-    // setUserName(user.userName)
-    // setDpID(user.dpID)
-    // setPanCard(user.panCard)
-    // setKyc(user.kyc)  
-    // setDob(Moment(user.dateOfBirth).format("YYYY-MM-DD"))
-    // setMobile(user.mobileNo)
-    
   }, [isUpdate]);
 
   const revertChanges = ()=>{
-    setUser(oldUser);
     setIsUpdate(false);
   }
   const saveChanges = () => {
     if (isUpdate == false) {
-      console.log(user)
       setIsUpdate(true);
       return;
     }
-    console.log(user);
-    var oldUser = user;
-    // oldUser.email = email;
-    // oldUser.dateOfBirth = dob;
-    console.log(oldUser);
-    userEdit(oldUser)
+    userEdit(user)
       .then((res) => {
-        console.log(res);
-        setEmail(oldUser.email);
-        prevEmail = email;
+        setIsUpdate(false);
+        toast("your profile updated successfully", {
+          position: "bottom-right",
+          autoClose: 1500,
+        });
       })
       .catch((err) => {
-        setEmail(prevEmail);
+        setIsUpdate(false);
+        setUser(oldUser)
         toast.error(err.message, {
           position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
+          autoClose: 1500,
         });
       });
-    setIsUpdate(false);
+    
   };
 
   return (
@@ -101,26 +85,28 @@ export default function Profile() {
 
                     <Grid.Column width={8}>
                       <Input
-                        readOnly={true}
+                        readOnly={!isUpdate}
                         transparent
                         required
                         inverted
                         placeholder="username"
                         value={user.userName}
                         className="username"
+                        onChange = {(event)=>setUser({...user,userName:event.target.value})}
                       />
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
                     <Grid.Column width={8}>
                       <Input
-                        readOnly={true}
+                        readOnly={!isUpdate}
                         inverted
                         transparent
                         iconPosition="left"
                         placeholder="DP ID"
                         icon="lock"
                         className="textcolor"
+                       
                       />
                     </Grid.Column>
                     <Grid.Column width={8}>
@@ -233,9 +219,9 @@ export default function Profile() {
                         inverted
                         type="date"
                         transparent
-                        value={dob}
+                        value={user.dateOfBirth}
                         placeholder="DOB"
-                        onChange={(event) => setDob(event.target.value)}
+                        onChange={(event) => setUser({...user,dateOfBirth:Moment(event.target.value).format("YYYY-MM-DD")})}
                         className="textcolor"
                       />
                     </Grid.Column>
@@ -261,7 +247,7 @@ export default function Profile() {
                         transparent
                         value={user.mobileNo}
                         placeholder="+91 7016..."
-                        onChange={(event) => setMobile(event.target.value)}
+                        onChange={(event) => setUser({...user,mobileNo:event.target.value})}
                         className="textcolor"
                       />
                     </Grid.Column>
@@ -284,7 +270,6 @@ export default function Profile() {
                       <Icon name="check circle">
                        </Icon>
                        </>:  
-                    
                       <Button>
                         Please Do kyc</Button>
                         }

@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     loadUser();
-  });
+  },[user,router.asPath]);
 
   const login = async (userDetail) => {
     let userInfo = await sessionService.login(userDetail);

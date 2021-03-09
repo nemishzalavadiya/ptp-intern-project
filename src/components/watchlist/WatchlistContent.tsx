@@ -1,47 +1,43 @@
 import { useState } from "react";
 import { Loader } from "semantic-ui-react";
 import WatchlistView from "src/components/watchlist/WatchlistView";
-import { getAllWatchlistEntryByWatchlistId } from "src/services/watchlist";
+import useGetWatchlistEntryByWatchlistId from "src/hooks/useGetWatchlistEntryByWatchlistId";
 import Search from "src/components/Search";
 
 export default function WatchlistContent(props) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState({
-    pages: 0,
-    watchlistId: props.watchlistId,
+  const [content, setContent] = useState({
+    pages:0,
+    searchQuery:"",
+    watchlistId:props.watchlistId
   });
   let companyUuids = [];
-  let [isCompleted, response] = [false];
-
-  [isCompleted, response] = getAllWatchlistEntryByWatchlistId(
+  let [isWatchlistEntryFetchingCompleted, response, error] = [false, null, false];
+  [isWatchlistEntryFetchingCompleted, response, error] = useGetWatchlistEntryByWatchlistId(
     props.watchlistId,
-    searchQuery,
-    page.pages,
+    content.searchQuery,
+    content.pages,
     5
   );
-
   function handlePaginationChange(pageNo) {
-    setPage({ pages: pageNo, watchlistId: page.watchlistId });
+    setContent({ pages: pageNo, watchlistId: content.watchlistId, searchQuery: content.searchQuery });
   }
   const pagination = {
-    activePage: page.pages,
+    activePage: content.pages,
     totalPages: 2,
     handlePaginationChange: handlePaginationChange,
   };
 
-  if (page.watchlistId !== props.watchlistId) {
+  if (content.watchlistId !== props.watchlistId) {
     companyUuids.length = 0;
-    setPage({ pages: 0, watchlistId: props.watchlistId });
+    setContent({ pages: 0, watchlistId: props.watchlistId, searchQuery: "" });
   }
 
   function handleSearchChange(e, data) {
-    setSearchQuery(data.value);
+    setContent({ pages: 0, watchlistId: props.watchlistId, searchQuery: data.value });
   }
-  if (isCompleted) {
+  if (isWatchlistEntryFetchingCompleted) {
     companyUuids.length = 0;
-    response.content.forEach((item) => {
-      companyUuids.push(item.assetDetail.id);
-    });
+    companyUuids = response.companyUuids;
     pagination.totalPages = response.totalPages;
   }
   return (
@@ -50,7 +46,7 @@ export default function WatchlistContent(props) {
         handleSearchChange={handleSearchChange}
         placeholder={"Search In Watchlist..."}
       />
-      {isCompleted ? (
+      {isWatchlistEntryFetchingCompleted && !error ? (
         <WatchlistView
           content={props.content}
           companyUuids={companyUuids}
@@ -58,8 +54,16 @@ export default function WatchlistContent(props) {
           tabId={props.watchlistId}
         />
       ) : (
-        <Loader active>Loading</Loader>
-      )}
+          <Loader active>
+            Loading
+            {!!error && (
+              <>
+                <br />
+              Something Went Wrong, Try Refresing
+              </>
+            )}
+          </Loader>
+        )}
     </>
   );
 }

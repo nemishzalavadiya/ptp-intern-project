@@ -1,83 +1,39 @@
-import React, { useEffect } from "react";
+import {
+  Divider,
+  Input,
+  Image,
+  Button,
+  Form,
+  Grid,
+  Segment,
+  Icon,
+} from "semantic-ui-react";
+import { ToastContainer } from "react-toastify";
+import useAuth from "src/components/contexts/useAuth";
 import { useState } from "react";
-import { Divider, Input, Image, Icon, Button, Form, Grid, Segment } from "semantic-ui-react";
-import { ToastContainer, toast } from "react-toastify";
-import Router from "next/router";
+import { useRouter } from "next/router";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
-  const userList = [
-    {
-      email: "user@gmail.com",
-      password: "password",
-    },
-    {
-      email: "dummy@gmail.com",
-      password: "dummy",
-    },
-    {
-      email: "root@gmail.com",
-      password: "root",
-    },
-  ];
-
-  useEffect(() => {
-    var User = JSON.parse(localStorage.getItem("user"));
-    if(!User)
-      return;
-    if (new Date().getTime() <= User.time) {
-      userList.forEach((user) => {
-        if (user.email == User.email && user.password == User.password) {
-          Router.push("/");
-          return;
-        }
-      });
-    }
-  }, []);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const verifyUser = async () => {
-    var User = {
-      email: email,
-      password: password,
+  const [showPassword, setShowPassword] = useState(false);
+  const { login } = useAuth();
+  const router = useRouter();
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    let user = {
+      email: event.target.email.value,
+      password: event.target.password.value,
     };
-
-    let isExist = false;
-    userList.forEach((user) => {
-      if (user.email == User.email && user.password == User.password) {
-        isExist = true;
-        return;
+    let userInfo = await login(user);
+    if (userInfo) {
+      if (router.query.path === undefined) {
+        router.replace("/");
+      } else {
+        router.replace(router.query.path.toString());
       }
-    });
-
-    if (isExist == false) {
-      toast("Username or Password is incorrect", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-      });
-    } else {
-      var User = {
-        email: email,
-        password: password,
-        time: new Date().getTime() + 300000,
-      };
-      User = JSON.stringify(User);
-      localStorage.setItem("user", User);
-      toast("Logged in Successfully", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-      });
-      Router.push("/");
     }
+  };
+  const iconClickHandler = () => {
+    setShowPassword(!showPassword);
   };
   return (
     <>
@@ -90,7 +46,7 @@ export default function Login() {
             </Grid.Column>
 
             <Grid.Column width={8}>
-              <Form inverted>
+              <Form inverted onSubmit={submitHandler}>
                 <Grid>
                   <Grid.Row>
                     <Grid.Column width={11}>
@@ -98,11 +54,11 @@ export default function Login() {
                         transparent
                         required
                         inverted
-                        onChange={(event) => setEmail(event.target.value)}
+                        name="email"
                         placeholder="Email"
                         iconPosition="left"
                         icon="mail"
-                        className ="textcolor"
+                        className="textcolor"
                       />
                     </Grid.Column>
                   </Grid.Row>
@@ -113,26 +69,25 @@ export default function Login() {
                         required
                         inverted
                         transparent
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         iconPosition="left"
                         placeholder="******"
-                        onChange={(event) => setPassword(event.target.value)}
-                        icon="lock"
-                        className ="textcolor"
+                        name="password"
+                        icon={
+                          <Icon
+                            name={showPassword ? "lock open" : "lock"}
+                            link
+                            onClick={iconClickHandler}
+                          />
+                        }
+                        className="textcolor"
                       />
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
                     <Grid.Column width={3}></Grid.Column>
                     <Grid.Column width={10}>
-          
-                      <Button
-                        type="submit"
-                        className="submitButton"
-                        onClick={verifyUser}
-                        fluid
-                        
-                     >
+                      <Button type="submit" className="submitButton" fluid>
                         Login
                       </Button>
                     </Grid.Column>

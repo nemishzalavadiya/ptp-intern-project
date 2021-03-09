@@ -7,7 +7,8 @@ import { stockFilters } from "src/components/filter/filterDetails";
 import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import useWebSocket from "src/hooks/useWebSocket";
-
+import Sorting from "src/components/Sorting/Sorting";
+const content1 = ["marketCap"];
 const stocks = () => {
 	const content = [
 		{ header: "Company_Id", icon: "" },
@@ -15,7 +16,25 @@ const stocks = () => {
 		{ header: "Close Price", icon: <i className="rupee sign icon small"></i> },
 		{ header: "Market Cap (Cr)", icon: <i className="rupee sign icon small"></i> },
 	];
-
+  const [pattern, setPattern] = useState([0]);
+  const [orderBy, setOrderBy] = useState("");
+  const [sortingField, setSortingField] = useState("");
+  function changeArrow(index, fieldName) {
+    let d = [];
+    let size = content1.length;
+    for (let i = 0; i < size; i++) {
+      d.push(0);
+    }
+    d[index] = 1 - pattern[index];
+    setPattern(d);
+    if (d[index] == 1) {
+      setOrderBy("DESC");
+    } else {
+      setOrderBy("ASC");
+    }
+    setSortingField(fieldName);
+    console.log(fieldName);
+  }
 	const initialState = {
 		results: [],
 		selectedFilters: Array(
@@ -93,6 +112,7 @@ const stocks = () => {
 					setSelectedState={setSelectedState}
 				/>
 				<div className="right-grid">
+        <Sorting content={content1} pattern={pattern} onclick={changeArrow} />
 					<GridContainer
 						content={content}
 						data={

@@ -32,11 +32,11 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     loadUser();
-  },[]);
+  }, []);
 
   const login = async (userDetail) => {
     let userInfo = await sessionService.login(userDetail);
-    if(userInfo){
+    if (userInfo) {
       setUser(userInfo);
     }
     return userInfo;

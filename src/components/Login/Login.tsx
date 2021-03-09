@@ -17,7 +17,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
-  const submitHandler = async(event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     let user = {
       email: event.target.email.value,

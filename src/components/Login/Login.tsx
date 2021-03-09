@@ -17,13 +17,13 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
-  const submitHandler = (event) => {
+  const submitHandler = async(event) => {
     event.preventDefault();
     let user = {
       email: event.target.email.value,
       password: event.target.password.value,
     };
-    let userInfo = login(user);
+    let userInfo = await login(user);
     if (userInfo) {
       if (router.query.path === undefined) {
         router.replace("/");

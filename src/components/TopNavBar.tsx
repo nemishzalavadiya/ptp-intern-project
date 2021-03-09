@@ -9,7 +9,7 @@ const TopNavBar = () => {
   const router = useRouter();
   const userLogout=async()=>{
     await logout();
-    router.push("/login");
+    router.push({ pathname: "/login", query: { path: router.asPath } });
   }
   return (
     <div className="headerTopNavBar">

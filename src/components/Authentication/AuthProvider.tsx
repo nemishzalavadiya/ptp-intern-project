@@ -4,7 +4,6 @@ import sessionService from "src/services/sessionService";
 import { useRouter } from "next/router";
 
 const AuthProvider = ({ children }) => {
-  let toggle = true;
   const [user, setUser] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const router = useRouter();
@@ -15,13 +14,12 @@ const AuthProvider = ({ children }) => {
       if (userInfo) {
         setUser(userInfo);
       } else {
-        toggle = false;
         router.push({ pathname: "/login", query: { path: router.asPath } });
       }
     } else if (router.pathname === "/login") {
       let userInfo = await sessionService.user();
       if (userInfo) {
-        toggle = false;
+        setUser(userInfo)
         if (router.query.path === undefined) {
           router.replace("/");
         } else {
@@ -29,22 +27,19 @@ const AuthProvider = ({ children }) => {
         }
       }
     }
-    if (toggle) {
-      setLoading(false);
-    }
+    setLoading(false);
   }
 
   useEffect(() => {
     loadUser();
-  },[user,router.asPath]);
+  },[]);
 
   const login = async (userDetail) => {
     let userInfo = await sessionService.login(userDetail);
-    setUser(userInfo);
+    return userInfo;
   }
   const logout = async () => {
     await sessionService.logout();
-    setUser(null);
   }
 
   return (

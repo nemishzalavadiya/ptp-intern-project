@@ -1,11 +1,16 @@
 import { useState } from "react";
-import Router from "next/router"
+import { useRouter } from "next/router";
 import { Image, Popup, Grid } from "semantic-ui-react";
 import Link from "next/link";
 import useAuth from "src/components/contexts/useAuth";
 const TopNavBar = () => {
   const [userEmail, setUserEmail] = useState("");
   let { logout } = useAuth();
+  const router = useRouter();
+  const userLogout=async()=>{
+    await logout();
+    router.push("/login");
+  }
   return (
     <div className="headerTopNavBar">
       <Link href="/">
@@ -32,12 +37,12 @@ const TopNavBar = () => {
               <Grid.Row
                 className="cardbutton"
                 onClick={() => {
-                  Router.push("/profile");
+                  router.push("/profile");
                 }}
               >
                 Profile
               </Grid.Row>
-              <Grid.Row className="cardbutton" onClick={logout}>
+              <Grid.Row className="cardbutton" onClick={userLogout}>
                 Logout
               </Grid.Row>
             </Grid>

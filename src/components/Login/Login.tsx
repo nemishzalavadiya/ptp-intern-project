@@ -11,18 +11,26 @@ import {
 import { ToastContainer } from "react-toastify";
 import useAuth from "src/components/contexts/useAuth";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
-
+  const router = useRouter();
   const submitHandler = (event) => {
     event.preventDefault();
     let user = {
       email: event.target.email.value,
       password: event.target.password.value,
     };
-    login(user);
+    let userInfo = login(user);
+    if (userInfo) {
+      if (router.query.path === undefined) {
+        router.replace("/");
+      } else {
+        router.replace(router.query.path.toString());
+      }
+    }
   };
   const iconClickHandler = () => {
     setShowPassword(!showPassword);

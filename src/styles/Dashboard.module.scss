@@ -1,0 +1,47 @@
+.ui.grey.inverted.dashboard-asset-container {
+  margin: 0 1%;
+  margin-top: 2%;
+  width: 150px;
+  height: 135px;
+  box-sizing: border-box;
+}
+.top-asset{
+
+}
+.position{
+    background-color: red;
+}
+.right.floated.five.wide.dashboard-assetlist-link{
+    position:absolute;
+    right: 0;
+    text-align: right;
+}
+.dashboard-secondary-data{
+    color: rgba($color: white, $alpha: 0.6);
+}
+.ui.grid > .row.dashboard-container {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+.ui.grid > .row.equal.dashboard-container {
+    margin-top: 2%;
+  }
+.dashboard-grid {
+  margin-top: 5%;
+}
+.ui.grey.segment {
+  margin: 0 2%;
+}
+.dashboard {
+}
+.dashboard-company-icon {
+}
+.dashboard-company-name {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.dashboard-description {
+  position: absolute;
+  bottom: 5%;
+}

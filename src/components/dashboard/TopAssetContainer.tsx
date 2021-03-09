@@ -1,7 +1,9 @@
-import { Card, Grid, Segment } from "semantic-ui-react";
+import { Card, Grid, Popup, Segment } from "semantic-ui-react";
 import Link from 'next/link';
 const TopAssetContainer = (props) => {
-    console.log(props)
+    String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
     return <div className="dashboard-grid">
         <Grid inverted>
             <Grid.Row className="dashboard-container">
@@ -19,7 +21,16 @@ const TopAssetContainer = (props) => {
                             <Segment key={index} inverted color="grey" className="dashboard-asset-container">
                                 <div className="dashboard dashboard-company-icon">{props.header.data.companyIcon}</div>
                                 <div className="dashboard dashboard-company-name">{item.name}</div>
-                                <div className="dashboard dashboard-description"><span>{item[props.header.data.sortBy]}</span><span>{props.header.data.sign}</span>{" "}<span className="dashboard-secondary-data">{props.header.data.secondaryData}</span></div>
+                                <div className="dashboard dashboard-description">
+                                    <span>
+                                        <Popup content={props.header.data.sortBy.capitalize()}
+                                            trigger={<span>{item[props.header.data.sortBy]}</span>}
+                                            position="bottom center"
+                                            size="tiny"
+                                        >
+                                        </Popup>
+                                    </span>
+                                    <span>{props.header.data.sign}</span>{" "}<span className="dashboard-secondary-data">{props.header.data.secondaryData}</span></div>
                             </Segment>
                         </Grid.Column>
                     })

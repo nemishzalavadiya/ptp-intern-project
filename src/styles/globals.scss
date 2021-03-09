@@ -22,6 +22,8 @@
 @import "src/styles/Register.module.scss";
 @import "src/styles/Dashboard.module.scss";
 @import "src/styles/KYC.module.scss";
+
+@import "src/styles/Sorting.module.scss";
 html,
 body {
 	padding: 0;
@@ -54,12 +56,4 @@ body {
 }
 .six.wide a {
 	color: white;
-}
-i.icon.triangle.up{
-	color: green;
-	cursor: pointer;
-}
-i.icon.dropdown{
-	color: honeydew;
-	cursor: pointer;
 }

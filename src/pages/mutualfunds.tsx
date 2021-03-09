@@ -8,6 +8,8 @@ import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import { useRouter } from "next/router";
 import Sorting from "src/components/Sorting/Sorting";
+import { Card, Grid, Icon, Loader } from "semantic-ui-react";
+const content1 = ["risk", "minSIP", "fundSize"];
 const mutualfunds = () => {
   const router = useRouter();
   const content = [

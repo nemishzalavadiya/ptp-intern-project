@@ -3,6 +3,7 @@
   background-color: #272727;
   margin-left: 18%;
   width: 60%;
+  min-width: 60%;
 }
 
 .ui.inverted.transparent.left.icon.input.textcolor > input {
@@ -28,4 +29,20 @@
   margin-left: 15%;
   width: 100px;
   height: 100px;
+}
+
+
+.editbutton{
+  position: relative;
+  top:-110px;
+  right:-60%;
+}
+.ui.label.editbutton{
+  position: relative;
+  top:-110px;
+  right:-80%;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }

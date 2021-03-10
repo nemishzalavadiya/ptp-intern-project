@@ -20,74 +20,86 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setError] = useState("");
-  const [userName,setUserName] = useState("");
-  
-  useEffect(() => {
-    if (password != confirmPassword) {
-      setError("Password and Confirm Password are not same");
-      return;
-    } else {
-      setError("");
-    }
-  }, [confirmPassword]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
-  const checkPassword = () =>{
-        const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-        const isOk = re.test(password);
-        if(isOk)setPassword(password)
-        else
-          setPassword("");
-
-     }
-
+  const checkPassword = () => {
+    const re = new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+    );
+    const isOk = re.test(password);
+    if (isOk)
+      return true;
+    else 
+      return false;
+  };
   const register = (event) => {
-
-        checkPassword(password);
-
-    if (password==confirmPassword && password!="") {
-      {
-        event.preventDefault();
-        let data = {
-          email: email,
-          password: password,
-          userName:userName
-        };
-        userRegistration(data)
-          .then(() => {
-            toast("User Registered successfully", {
-              position: "bottom-right",
-              autoClose: 1000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: false,
-              draggable: false,
-              progress: undefined,
-            });
-            Router.push("/login");
-          })
-          .catch((err) => {
-            toast(err.message, {
-              position: "bottom-right",
-              autoClose: 1000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: false,
-              draggable: false,
-              progress: undefined,
-            });
+    if (
+      firstName.length >= 3 &&
+      lastName.length >= 3 &&
+      password == confirmPassword &&
+      checkPassword(password)
+    ) {
+      event.preventDefault();
+      let data = {
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+      };
+      userRegistration(data)
+        .then(() => {
+          toast("Registration successful", {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
           });
-      }
-    
-    }
-    else{
-      toast("Please verify password", {
+          Router.push("/login");
+        })
+        .catch((err) => {
+          toast(err.message, {
+            position: "bottom-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+          });
+        });
+    } else if (password != confirmPassword) {
+      toast("Passwords don't match", {
         position: "bottom-right",
         autoClose: 1500,
         closeOnClick: true,
         pauseOnHover: false,
         draggable: false,
         progress: undefined,
-      }); 
+      });
+    }
+    else if(password.length>=8 && !checkPassword(password)){
+      toast("Please add strong password", {
+        position: "bottom-right",
+        autoClose: 1500,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });          
+    }
+     else {
+      toast("Please fill out all fields", {
+        position: "bottom-right",
+        autoClose: 1500,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
     }
   };
 
@@ -104,14 +116,13 @@ export default function Register() {
             <Grid.Column width={8}>
               <Form inverted>
                 <Grid>
-                <Grid.Row>
+                  <Grid.Row>
                     <Grid.Column width={11}>
                       <Input
                         transparent
-                        required
                         inverted
-                        onChange={(event) => setUserName(event.target.value)}
-                        placeholder="Username"
+                        onChange={(event) => setFirstName(event.target.value)}
+                        placeholder="Firstname"
                         iconPosition="left"
                         icon="user"
                         className="textcolor"
@@ -122,13 +133,11 @@ export default function Register() {
                     <Grid.Column width={11}>
                       <Input
                         transparent
-                        required
                         inverted
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        placeholder="Email"
+                        onChange={(event) => setLastName(event.target.value)}
+                        placeholder="Lastname"
                         iconPosition="left"
-                        icon="mail"
+                        icon="user"
                         className="textcolor"
                       />
                     </Grid.Column>
@@ -137,14 +146,31 @@ export default function Register() {
                   <Grid.Row>
                     <Grid.Column width={11}>
                       <Input
-                        required
+                        transparent
+                        inverted
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        placeholder="Email"
+                        iconPosition="left"
+                        icon="mail"
+                        type="email"
+                        className="textcolor"
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+
+                  <Grid.Row>
+                    <Grid.Column width={11}>
+                      <Input
                         inverted
                         transparent
                         type="password"
                         iconPosition="left"
                         placeholder="******"
                         value={password}
-                        onChange={(event) => {setPassword(event.target.value)}}
+                        onChange={(event) => {
+                          setPassword(event.target.value);
+                        }}
                         icon="lock"
                         className="textcolor"
                       />
@@ -153,7 +179,6 @@ export default function Register() {
                   <Grid.Row>
                     <Grid.Column width={11}>
                       <Input
-                        required
                         inverted
                         transparent
                         type="password"
@@ -188,10 +213,8 @@ export default function Register() {
                   </Grid.Row>
                   <Grid.Row>
                     <Grid.Column width={3}></Grid.Column>
-                    <Grid.Column width={10} >
-                      <Link href="/login">                        Already have an account ! Want to Login ?
-                      </Link>
-
+                    <Grid.Column width={10}>
+                      <Link href="/login">Already Registered? Login</Link>
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>

@@ -96,7 +96,7 @@ export default function Login() {
                   <Grid.Row>
                     <Grid.Column width={3}></Grid.Column>
                     <Grid.Column width={10} >
-                      <Link href="/register">                        New User! Want to sign up ?
+                      <Link href="/register">                     Not Registered?   Create Account
                       </Link>
 
                     </Grid.Column>

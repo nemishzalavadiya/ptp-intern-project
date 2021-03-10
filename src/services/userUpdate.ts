@@ -1,4 +1,4 @@
-async function userEdit(user) {
+async function editUserDetails(user) {
   const response = await fetch("/api/users", {
     method: "PUT",
     headers: {
@@ -14,7 +14,7 @@ async function userEdit(user) {
   }
 }
 
-async function getUserById() {
+async function getUser() {
   const response = await fetch(`/api/users/profile`, {
     method: "GET",
     headers: {
@@ -25,8 +25,8 @@ async function getUserById() {
   if (response.ok) {
     return body;
   } else {
-    // throw new Error(body.message);
+    throw new Error(body.message);
   }
 }
 
-export { getUserById, userEdit };
+export { getUser, editUserDetails };

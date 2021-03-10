@@ -8,7 +8,7 @@ import { createStockOrder } from "src/services/stockOrder";
 import { ProductCode } from "src/enums/productCode";
 import { OrderType } from "src/enums/orderType";
 import { Action } from "src/enums/action";
-import { WebSocketUrl, UserId } from "src/components/Objects";
+import { WebSocketUrl} from "src/components/Objects";
 export default function StockTicket({ assetId, stockId }) {
   const [action, setAction] = useState(Action.BUY);
   const [productCode, setProductCode] = useState(ProductCode.CNC);
@@ -45,9 +45,6 @@ export default function StockTicket({ assetId, stockId }) {
       orderType: orderType,
       productCode: productCode,
       price: orderType === OrderType.MARKET ? currentPrice : price,
-      user: {
-        id: UserId.userId,
-      },
       stockDetail: {
         id: stockId,
       },
@@ -78,8 +75,8 @@ export default function StockTicket({ assetId, stockId }) {
             <Grid.Column width={6}>
               <label> Product Code </label>
             </Grid.Column>
-            <Grid.Column width={8}>
-              <Button.Group name="productCode">
+            <Grid.Column width={10}>
+              <Button.Group name="productCode" fluid>
                 <Button
                   color="grey"
                   positive={productCode === ProductCode.CNC}
@@ -101,8 +98,8 @@ export default function StockTicket({ assetId, stockId }) {
             <Grid.Column width={6}>
               <label> OrderType </label>
             </Grid.Column>
-            <Grid.Column width={8}>
-              <Button.Group name="orderType">
+            <Grid.Column width={10}>
+              <Button.Group name="orderType" fluid>
                 <Button
                   color="grey"
                   positive={orderType === OrderType.MARKET}
@@ -122,10 +119,10 @@ export default function StockTicket({ assetId, stockId }) {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={6}>
-              <label> Action </label>
+              <label> Side </label>
             </Grid.Column>
-            <Grid.Column width={8}>
-              <Button.Group name="action">
+            <Grid.Column width={10}>
+              <Button.Group name="action" fluid>
                 <Button
                   color="grey"
                   positive={action === Action.SELL}
@@ -147,7 +144,7 @@ export default function StockTicket({ assetId, stockId }) {
             <Grid.Column width={6}>
               <label>Price</label>
             </Grid.Column>
-            <Grid.Column width={8}>
+            <Grid.Column width={10}>
               <Form.Input
                 size="mini"
                 type="number"
@@ -162,9 +159,9 @@ export default function StockTicket({ assetId, stockId }) {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={6}>
-              <label>Volume</label>
+              <label>Quantity</label>
             </Grid.Column>
-            <Grid.Column width={8}>
+            <Grid.Column width={10}>
               <Form.Input
                 size="mini"
                 onChange={(event) => setVolume(event.target.value)}

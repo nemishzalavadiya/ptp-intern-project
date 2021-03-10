@@ -2,7 +2,7 @@ import { Grid, Icon } from "semantic-ui-react";
 export default function GridHeader(props) {
   return (
     <Grid columns="equal" className="grid-container">
-      <Grid.Row className="ui segment grid-row ">
+      <Grid.Row className="ui segment grid-row-sorting-header">
         {props.content.map((item, index) => {
           return index == 0 ? (
             <Grid.Column width="6">

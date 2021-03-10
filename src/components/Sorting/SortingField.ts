@@ -20,7 +20,7 @@ export const StockSortingField = [
     title: "Market Price"
   },
   {
-    title: "Close price0"
+    title: "Close Price"
   },
   {
     title: "Market Cap"

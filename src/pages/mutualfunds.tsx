@@ -8,7 +8,7 @@ import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import { useRouter } from "next/router";
 import Sorting from "src/components/Sorting/Sorting";
-import {MutualFundSortingField} from "src/components/Sorting/sortingField";
+import { MutualFundSortingField } from "src/components/Sorting/sortingField";
 import { Card, Grid, Icon, Loader } from "semantic-ui-react";
 
 const mutualfunds = () => {
@@ -19,7 +19,7 @@ const mutualfunds = () => {
     { header: "Min Sip", icon: <i className="rupee sign icon small"></i> },
     { header: "Fund Size", icon: <i className="rupee sign icon small"></i> },
   ];
-  const [pattern, setPattern] = useState([0, 0, 0,0]);
+  const [pattern, setPattern] = useState([0, 0, 0, 0]);
   const [orderBy, setOrderBy] = useState("");
   const [sortingField, setSortingField] = useState("");
   function changeArrow(index, fieldName) {

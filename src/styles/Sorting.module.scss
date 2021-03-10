@@ -6,33 +6,6 @@ i.icon.dropdown {
   color: honeydew;
   cursor: pointer;
 }
-.sorting-area {
-  margin: 10px 0px;
-  justify-content: center;
-  min-width: 800px;
-}
-.sorting {
-  display: flex;
-  width: 100%;
-  border-radius: 7px;
-  align-items: center;
-  justify-content: flex-end;
-  margin: 0 auto;
-  position: relative;
-}
-.childSorting {
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
-  width: 20.5%;
-  align-self: right;
-  justify-content: flex-end;
-  border-radius: 19px;
-}
-.sortItem {
-  cursor: pointer;
-  color: green;
-}
 div.dropdown {
   color: honeydew;
   cursor: pointer;
@@ -45,4 +18,13 @@ div.triangle.up {
   font-size: 0.8rem;
   min-width: 90px;
   text-align: right;
+}
+.row.ui.segment.grid-row-sorting-header {
+  padding: 2vh;
+  background-color: #121212;
+  color: $white;
+  cursor: pointer;
+  margin:2px 0px;
+  border: 1px solid white;
+  border-radius: 7px;
 }

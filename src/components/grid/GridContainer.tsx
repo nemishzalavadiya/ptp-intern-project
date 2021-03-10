@@ -19,9 +19,11 @@ export default function GridContainer(props) {
             {row.map((item, innerIndex) =>
               innerIndex != 0 ? (
                 <Grid.Column key={`${outerIndex} ${innerIndex}`}>
-                  <div className="grid-header-item">
-                    {props.content[innerIndex].header}
-                  </div>
+                  {props.showHeaderGrid !== "disallow" ? (
+                    <div className="grid-header-item">
+                      {props.content[innerIndex].header}
+                    </div>
+                  ) : null}
                   <div
                     className={`grid-item ${props.content[innerIndex].showColor &&
                       (item >= 0 ? "profit" : "loss")

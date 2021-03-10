@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-function getMutualFundPosition(userId, searchText, page, size,dashboard) {
+function getMutualFundPosition(userId, searchText, page, size, dashboard) {
   const [isContentFetchingCompleted, setStatus] = useState(false);
   const [position, setPosition] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
@@ -12,7 +12,8 @@ function getMutualFundPosition(userId, searchText, page, size,dashboard) {
     const data = await response.json();
     const content = await data.content;
     setTotalPage(data.totalPages);
-    await content.forEach((element) => {
+    //processing
+    content.forEach((element) => {
       const {
         position: {
           volume,
@@ -23,13 +24,13 @@ function getMutualFundPosition(userId, searchText, page, size,dashboard) {
         netValue,
         profit,
       } = element;
-      if(dashboard){
+      if (dashboard) {
         positionList.push([
           <Link href={`/details/${id}`}>{name}</Link>,
           nav,
           netValue
         ]);
-      }else{
+      } else {
         positionList.push([
           <Link href={`/details/${id}`}>{name}</Link>,
           volume,
@@ -42,6 +43,9 @@ function getMutualFundPosition(userId, searchText, page, size,dashboard) {
         ]);
       }
     });
+    if (dashboard) {
+      positionList.sort((positionA, positionB) => positionB[1] - positionA[1])
+    }
     setPosition(positionList);
     setStatus(true);
   }

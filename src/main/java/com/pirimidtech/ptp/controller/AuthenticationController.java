@@ -25,19 +25,15 @@ import java.util.UUID;
 @Slf4j
 public class AuthenticationController {
 
+    private static final String TOKEN = "token";
     @Autowired
     private UserService userService;
-
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
     @Autowired
     private RequestUtil requestUtil;
-
     @Value("${cookie.maxAge}")
     private int maxCookieAge;
-
-    private static final String TOKEN = "token";
 
     @GetMapping("/user")
     public ResponseEntity<UserSessionDTO> getUser(HttpServletRequest httpServletRequest) {
@@ -48,7 +44,7 @@ public class AuthenticationController {
         if (userDetail.isPresent()) {
             userSessionDTO.setUserId(userDetail.get().getId());
             userSessionDTO.setEmail(userDetail.get().getEmail());
-            userSessionDTO.setName(userDetail.get().getFirstName()+" "+userDetail.get().getLastName());
+            userSessionDTO.setName(userDetail.get().getFirstName() + " " + userDetail.get().getLastName());
         }
         return ResponseEntity.ok(userSessionDTO);
     }
@@ -68,7 +64,7 @@ public class AuthenticationController {
                 response.addCookie(cookie);
                 UserSessionDTO userSessionDTO = new UserSessionDTO();
                 userSessionDTO.setUserId(userDetail.get().getId());
-                userSessionDTO.setName(userDetail.get().getFirstName()+" "+userDetail.get().getLastName());
+                userSessionDTO.setName(userDetail.get().getFirstName() + " " + userDetail.get().getLastName());
                 userSessionDTO.setEmail(userDetail.get().getEmail());
                 return ResponseEntity.ok(userSessionDTO);
             }

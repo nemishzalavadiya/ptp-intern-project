@@ -45,7 +45,7 @@ public class User {
     private boolean isKycVerified;
 
     @Enumerated(EnumType.STRING)
-    private Gender gender;  
+    private Gender gender;
 
     private String dpURL;
 }

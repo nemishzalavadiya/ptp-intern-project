@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class WatchlistServiceMockTest {
 
@@ -52,7 +53,7 @@ public class WatchlistServiceMockTest {
         AssetDetail assetDetail = new AssetDetail();
         assetDetail.setId(UUID.randomUUID());
         Watchlist watchlist = new Watchlist(UUID.randomUUID(),
-                new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"),"1234567812345678", "userName1","userl","encryptedPassword", "email", "panCard", "mobileNo", "signature", "dataOfBirth",false, Gender.MALE, "dpUrl"),"","");
+                new User(UUID.fromString("e6747fcc-1351-44f8-99ea-e5be3de8464e"), "1234567812345678", "userName1", "userl", "encryptedPassword", "email", "panCard", "mobileNo", "signature", "dataOfBirth", false, Gender.MALE, "dpUrl"), "", "");
         watchlistService.add(watchlist);
         verify(watchlistRepository, times(1)).save(watchlist);
     }

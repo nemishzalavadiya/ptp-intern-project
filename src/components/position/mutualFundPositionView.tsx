@@ -40,20 +40,21 @@ const mutualFundHeaders = [
     showColor: true,
   },
 ];
-
+const dashboardPosition = [mutualFundHeaders[0],mutualFundHeaders[4],mutualFundHeaders[5]]
 export default function MutualFundPosition({
   searchString,
   page,
   handlePaginationChange,
+  dashboard
 }) {
   let [isContentFetchingCompleted, totalPage, response] = [false, 0];
   [isContentFetchingCompleted, totalPage, response] = getMutualFundPosition(
     UserId.userId,
     searchString,
     page,
-    5
+    5,
+    dashboard
   );
-
   const pagination = {
     activePage: page,
     totalPages: totalPage,
@@ -64,7 +65,8 @@ export default function MutualFundPosition({
     <Loader active />
   ) : (
     <GridContainer
-      content={mutualFundHeaders}
+      dashboard={dashboard}
+      content={dashboard? dashboardPosition : mutualFundHeaders}
       pagination={pagination}
       data={response}
     ></GridContainer>

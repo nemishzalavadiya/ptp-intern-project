@@ -42,8 +42,8 @@ const stockHeaders = [
 let dashboardHeader = [];
 let dashboardPositionList = [];
 export default function StockPosition({ uuid, positionList, pagination, dashboard }) {
-  if(dashboard){
-    dashboardHeader.length=0
+  if (dashboard) {
+    dashboardHeader.length = 0
     dashboardHeader.push(stockHeaders[0]);
     dashboardHeader.push(stockHeaders[4]);
     dashboardHeader.push(stockHeaders[5]);
@@ -51,22 +51,24 @@ export default function StockPosition({ uuid, positionList, pagination, dashboar
   const [isSubscriptionCompleted, myMap] = useWebSocket(uuid);
 
   if (isSubscriptionCompleted) {
-    dashboardPositionList.length=0
+    dashboardPositionList.length = 0
     Array.from(myMap.values()).forEach((row, index) => {
       if (positionList[index] != undefined) {
         let companyData = Object.values(row);
-        positionList[index][4] = companyData[5];
         let netValue = companyData[5] * positionList[index][1];
-        positionList[index][5] = netValue;
-        positionList[index][6] = netValue - positionList[index][3];
-        positionList[index][7] =
-          ((netValue - positionList[index][3]) / positionList[index][3]) * 100;
-        if(dashboard){
-          let headerPositionList=[];
+        if (dashboard) {
+          let headerPositionList = [];
           headerPositionList.push(positionList[index][0]);
-          headerPositionList.push(positionList[index][4]);
-          headerPositionList.push(positionList[index][5]);
+          headerPositionList.push(companyData[5]);
+          headerPositionList.push(netValue);
           dashboardPositionList.push(headerPositionList);
+        }
+        else {
+          positionList[index][4] = companyData[5];
+          positionList[index][5] = netValue;
+          positionList[index][6] = netValue - positionList[index][3];
+          positionList[index][7] =
+            ((netValue - positionList[index][3]) / positionList[index][3]) * 100;
         }
       }
     });

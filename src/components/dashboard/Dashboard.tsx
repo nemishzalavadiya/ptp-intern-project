@@ -12,10 +12,10 @@ const Dashboard = () => {
             sortBy: "peRatio",
             companyIcon: <Icon name="envelope open" />,
             sign: <Icon size="small" name="percent"></Icon>,
-            secondaryData: "(3Y)"
+            secondaryData: "(P/E)"
         }
     }, {
-        title: "Popular MutualFunds",
+        title: "Popular Funds",
         link: "/mutualfunds",
         linkTitle: "SEE ALL MUTUAL FUNDS",
         data: {

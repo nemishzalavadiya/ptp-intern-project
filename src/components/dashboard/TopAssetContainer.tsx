@@ -18,7 +18,7 @@ const TopAssetContainer = (props) => {
                 {
                     props.data.map((item, index) => {
                         return <Grid.Column key={index}>
-                            <Segment key={index} inverted color="grey" className="dashboard-asset-container">
+                            <Segment key={index} inverted className="dashboard-asset-container">
                                 <div className="dashboard dashboard-company-icon">{props.header.data.companyIcon}</div>
                                 <div className="dashboard dashboard-company-name">{item.name}</div>
                                 <div className="dashboard dashboard-description">

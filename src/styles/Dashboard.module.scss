@@ -1,10 +1,13 @@
-.ui.grey.inverted.dashboard-asset-container {
+@import "_variables";
+
+.ui.inverted.segment.dashboard-asset-container {
   margin: 0 1%;
   margin-top: 2%;
   text-overflow: ellipsis;
   width: 160px;
   height: 135px;
   box-sizing: border-box;
+  background-color: #505053;//#505053
 }
 .dashboard-position-title{
   margin-left: 3%;
@@ -34,10 +37,12 @@
 .dashboard-right{
   margin-bottom: 100px;
 }
+.ui.inverted.segment.dashboard-asset-container ,.ui.segment.dashboard-position{
+  background-color: $cardGrey;
+  //background-color:#505053
+}
 .ui.segment.dashboard-position{
-  background-color: #505053;
   min-height: 550px;
-  overflow-y: scroll;
 }
 
 .dashboard-right{

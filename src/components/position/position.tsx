@@ -4,7 +4,7 @@ import Search from "src/components/Search";
 import MutualFundPosition from "src/components/position/mutualFundPositionView";
 import StockPositionList from "src/components/position/stockPositionList";
 import { AssetClass } from "src/enums/assetClass";
-export default function Position() {
+export default function Position(props) {
   const [searchString, setSearchString] = useState("");
   const [assetClass, setAssetClass] = useState(AssetClass.STOCK);
   const [activeItem, setActiveItem] = useState(0);
@@ -40,19 +40,23 @@ export default function Position() {
         handleItemClick={handleItemClick}
         activeItem={activeItem}
       ></Tab>
-      <Search
-        handleSearchChange={handleSearchChange}
-        placeholder={`Search In ${tabs[activeItem].name} Position`}
-      />
+      {
+        !props.dashboard && <Search
+          handleSearchChange={handleSearchChange}
+          placeholder={`Search In ${tabs[activeItem].name} Position`}
+        />
+      }
       {activeItem === 0 ? (
         <StockPositionList
-        searchString={searchString}
+          searchString={searchString}
           page={page}
+          dashboard={props.dashboard}
           handlePaginationChange={handlePaginationChange}
         ></StockPositionList>
       ) : (
         <MutualFundPosition
-        searchString={searchString}
+          searchString={searchString}
+          dashboard={props.dashboard}
           page={page}
           handlePaginationChange={handlePaginationChange}
         />

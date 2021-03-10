@@ -39,10 +39,19 @@ const stockHeaders = [
     showColor: true,
   },
 ];
-export default function StockPosition({ uuid, positionList, pagination }) {
+let dashboardHeader = [];
+let dashboardPositionList = [];
+export default function StockPosition({ uuid, positionList, pagination, dashboard }) {
+  if(dashboard){
+    dashboardHeader.length=0
+    dashboardHeader.push(stockHeaders[0]);
+    dashboardHeader.push(stockHeaders[4]);
+    dashboardHeader.push(stockHeaders[5]);
+  }
   const [isSubscriptionCompleted, myMap] = useWebSocket(uuid);
 
   if (isSubscriptionCompleted) {
+    dashboardPositionList.length=0
     Array.from(myMap.values()).forEach((row, index) => {
       if (positionList[index] != undefined) {
         let companyData = Object.values(row);
@@ -52,6 +61,13 @@ export default function StockPosition({ uuid, positionList, pagination }) {
         positionList[index][6] = netValue - positionList[index][3];
         positionList[index][7] =
           ((netValue - positionList[index][3]) / positionList[index][3]) * 100;
+        if(dashboard){
+          let headerPositionList=[];
+          headerPositionList.push(positionList[index][0]);
+          headerPositionList.push(positionList[index][4]);
+          headerPositionList.push(positionList[index][5]);
+          dashboardPositionList.push(headerPositionList);
+        }
       }
     });
   }
@@ -59,11 +75,12 @@ export default function StockPosition({ uuid, positionList, pagination }) {
     <div>
       <div> {!isSubscriptionCompleted ? <Loader active /> : null} </div>
       <GridContainer
+        dashboard={dashboard}
         content={
-          isSubscriptionCompleted ? stockHeaders : stockHeaders.slice(0, 4)
+          isSubscriptionCompleted ? dashboard ? dashboardHeader : stockHeaders : stockHeaders.slice(0, 4)
         }
         pagination={pagination}
-        data={positionList}
+        data={dashboard ? dashboardPositionList : positionList}
       ></GridContainer>
     </div>
   );

@@ -1,13 +1,15 @@
-import { Grid, Icon, Loader } from "semantic-ui-react";
+import { Grid, Icon, Loader, Segment } from "semantic-ui-react";
+import Link from "next/link";
 import getTopStocksAndMutualFunds from "src/services/dashboard";
 import TopAssetContainer from "src/components/dashboard/TopAssetContainer";
+import Position from "src/components/position/position"
 const Dashboard = () => {
     let header = [{
         title: "Popular Stocks",
         link: "/stocks",
-        linkTitle: "SEE All Stocks",
+        linkTitle: "SEE ALL STOCKS",
         data: {
-            sortBy:"peRatio",
+            sortBy: "peRatio",
             companyIcon: <Icon name="envelope open" />,
             sign: <Icon size="small" name="percent"></Icon>,
             secondaryData: "(3Y)"
@@ -15,9 +17,9 @@ const Dashboard = () => {
     }, {
         title: "Popular MutualFunds",
         link: "/mutualfunds",
-        linkTitle: "SEE All MutualFunds",
+        linkTitle: "SEE ALL MUTUAL FUNDS",
         data: {
-            sortBy:"risk",
+            sortBy: "risk",
             companyIcon: <Icon name="envelope open" />,
             sign: "",
             secondaryData: ""
@@ -36,8 +38,16 @@ const Dashboard = () => {
                     </Grid.Column>
                     <Grid.Column width="6" className="position">
                         <div className="dashboard-right">
-                            Position
-                </div>
+                            <Segment className="dashboard-position">
+                                <div className="dashboard-position-title">
+                                    <h3>Your Investments</h3>
+                                </div>
+                                <Position dashboard={true} />
+                                <div className="dashboard-position-link">
+                                    <Link href="/position"><span className="dashboard-position-link-title">VIEW ALL INVESTMENT</span></Link>
+                                </div>
+                            </Segment>
+                        </div>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

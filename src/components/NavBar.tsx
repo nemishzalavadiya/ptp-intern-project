@@ -29,7 +29,7 @@ const sidebar = [
     imgLink: "/round_add_shopping_cart_white_48dp.png",
     imgAlter: "Positions",
     content: "POSITIONS",
-    link: "/",
+    link: "/position",
   },
   {
     item: "ORDERS",

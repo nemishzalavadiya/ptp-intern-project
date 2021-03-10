@@ -12,7 +12,7 @@ import PaginationContainer from "src/components/grid/PaginationContainer";
 import { Grid, Icon } from "semantic-ui-react";
 export default function GridContainer(props) {
   return props.data.length !== 0 ? (
-    <Grid columns="equal" className="grid-container">
+    <Grid columns="equal" className={props.dashboard?"dashboard-grid-container":"grid-container"}>
       {props.data.map((row, outerIndex) => {
         return (
           <Grid.Row key={outerIndex} className="ui segment grid-row ">
@@ -23,10 +23,9 @@ export default function GridContainer(props) {
                     {props.content[innerIndex].header}
                   </div>
                   <div
-                    className={`grid-item ${
-                      props.content[innerIndex].showColor &&
+                    className={`grid-item ${props.content[innerIndex].showColor &&
                       (item >= 0 ? "profit" : "loss")
-                    }`}
+                      }`}
                   >
                     {props.content[innerIndex].icon
                       ? props.content[innerIndex].icon
@@ -35,7 +34,7 @@ export default function GridContainer(props) {
                   </div>
                 </Grid.Column>
               ) : (
-                <Grid.Column width="6" key={`${outerIndex} ${innerIndex}`}>
+                <Grid.Column width="6" key={`${outerIndex} ${innerIndex}`} className={props.dashboard && "dashboard-companyName"}>
                   {item}
                 </Grid.Column>
               )
@@ -44,7 +43,7 @@ export default function GridContainer(props) {
         );
       })}
       <div>
-        {props.pagination.totalPages > 1 && (
+        { !props.dashboard && props.pagination.totalPages > 1 && (
           <PaginationContainer
             pagination={props.pagination}
             tabId={props.tabId}

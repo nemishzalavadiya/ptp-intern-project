@@ -1,7 +1,7 @@
 import { Card, Grid, Popup, Segment } from "semantic-ui-react";
 import Link from 'next/link';
 const TopAssetContainer = (props) => {
-    String.prototype.capitalize = function() {
+    String.prototype.capitalize = function () {
         return this.charAt(0).toUpperCase() + this.slice(1);
     }
     return <div className="dashboard-grid">
@@ -11,7 +11,7 @@ const TopAssetContainer = (props) => {
                     <h3>{props.header.title}</h3>
                 </Grid.Column>
                 <Grid.Column floated='right' width={5} className="dashboard-assetlist-link">
-                    <Link href={props.header.link}>{props.header.linkTitle}</Link>
+                    <Link href={props.header.link}><div className="dashboard-populer-assets-link">{props.header.linkTitle}</div></Link>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row columns="equal" className="dashboard-container">

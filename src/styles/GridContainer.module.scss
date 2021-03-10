@@ -4,7 +4,15 @@
   justify-content: center;
   min-width: 800px;
 }
-
+.ui.grid.dashboard-grid-container{
+  margin: 10px 0px;
+  justify-content: center;
+  min-width: 300px;
+}
+.dashboard-companyName{
+  font-size: small;
+  overflow: hidden;
+}
 .row.ui.segment.grid-row {
   padding: 2vh;
   background-color: $cardGrey;

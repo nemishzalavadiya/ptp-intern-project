@@ -14,6 +14,8 @@ public class MutualFundPositionDTO {
     private Position position;
     private float nav;
     private float netValue;
+    private float profitPercentage;
+    private float avgNav;
     private float profit;
 
 }

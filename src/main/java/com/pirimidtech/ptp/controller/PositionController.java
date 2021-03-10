@@ -54,8 +54,9 @@ public class PositionController {
                 MutualFundStatistic mutualFundStatistic = mutualFundStatisticOptional.get();
                 float nav = mutualFundStatistic.getNav();
                 float netValue = position.getVolume() * nav;
-                float profit = ((netValue - position.getPrice()) / position.getPrice()) * 100;
-                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position, nav, netValue, profit);
+                float profitPercentage = ((netValue - position.getPrice()) / (position.getPrice())) * 100;
+                float avgNav=position.getPrice()/position.getVolume();
+                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position, nav, netValue, profitPercentage,avgNav,netValue-position.getPrice());
                 mutualFundPositionDTOList.add(mutualFundPositionDTO);
             }
         });
@@ -85,8 +86,9 @@ public class PositionController {
                 MutualFundStatistic mutualFundStatistic = mutualFundStatisticOptional.get();
                 float nav = mutualFundStatistic.getNav();
                 float netValue = position.getVolume() * nav;
-                float profit = ((netValue - position.getPrice()) / (position.getPrice())) * 100;
-                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position, nav, netValue, profit);
+                float profitPercentage = ((netValue - position.getPrice()) / (position.getPrice())) * 100;
+                float avgNav=position.getPrice()/position.getVolume();
+                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position, nav, netValue, profitPercentage,avgNav,netValue-position.getPrice());
                 mutualFundPositionDTOList.add(mutualFundPositionDTO);
             }
         });

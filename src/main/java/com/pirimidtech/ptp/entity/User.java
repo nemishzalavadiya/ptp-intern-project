@@ -26,11 +26,11 @@ public class User {
 
     private String dpId;
 
-    private String userName;
+    private String firstName;
+
+    private String lastName;
 
     private String password;
-
-    private String name;
 
     private String email;
 
@@ -42,8 +42,10 @@ public class User {
 
     private String dateOfBirth;
 
+    private boolean isKycVerified;
+
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private Gender gender;  
 
     private String dpURL;
 }

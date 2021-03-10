@@ -48,7 +48,7 @@ public class AuthenticationController {
         if (userDetail.isPresent()) {
             userSessionDTO.setUserId(userDetail.get().getId());
             userSessionDTO.setEmail(userDetail.get().getEmail());
-            userSessionDTO.setName(userDetail.get().getName());
+            userSessionDTO.setName(userDetail.get().getFirstName()+" "+userDetail.get().getLastName());
         }
         return ResponseEntity.ok(userSessionDTO);
     }
@@ -68,7 +68,7 @@ public class AuthenticationController {
                 response.addCookie(cookie);
                 UserSessionDTO userSessionDTO = new UserSessionDTO();
                 userSessionDTO.setUserId(userDetail.get().getId());
-                userSessionDTO.setName(userDetail.get().getName());
+                userSessionDTO.setName(userDetail.get().getFirstName()+" "+userDetail.get().getLastName());
                 userSessionDTO.setEmail(userDetail.get().getEmail());
                 return ResponseEntity.ok(userSessionDTO);
             }

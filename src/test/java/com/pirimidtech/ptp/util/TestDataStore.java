@@ -28,8 +28,8 @@ public class TestDataStore {
         userUuid2 = UUID.fromString("00000000-0000-0000-0000-999999999999");
         assetUuid1 = UUID.fromString("00000000-0000-0000-0000-000000000001");
         assetUuid2 = UUID.fromString("00000000-0000-0000-0000-000000000002");
-        userList.add(new User(userUuid1,"1234567812345678", "userName1","encryptedPassword","Nemish", "email", "panCard", "mobileNo", "signature", "dataOfBirth", Gender.MALE, "dpUrl"));
-        userList.add(new User(userUuid2, "1234567812345678","userName2","encryptedPassword", "Nemish", "email", "panCard", "mobileNo", "signature", "dataOfBirth", Gender.MALE, "dpUrl"));
+        userList.add(new User(userUuid1,"1234567812345678", "userName1","userl","encryptedPassword", "email", "panCard", "mobileNo", "signature", "dataOfBirth",false, Gender.MALE, "dpUrl"));
+        userList.add(new User(userUuid2, "1234567812345678","userName2","userl","encryptedPassword", "email", "panCard", "mobileNo", "signature", "dataOfBirth",true, Gender.MALE, "dpUrl"));
         pageable = PageRequest.of(0, 10);
         assetDetailList.add(new AssetDetail(assetUuid1, "name", "logo_url", AssetClass.STOCK, "about", "nemish", "org"));
         assetDetailList.add(new AssetDetail(assetUuid2, "name", "logo_url", AssetClass.MUTUAL_FUND, "about", "mohit", "org"));

@@ -58,7 +58,7 @@ class UserControllerTest {
     void userProfileUpdate() throws Exception {
         User user = ObjectUtility.user;
         User newUser = user;
-        newUser.setUserName("dummy");
+        newUser.setFirstName("dummy");
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();

@@ -4,7 +4,7 @@ import Position from "src/components/position/position";
 
 export default function Home() {
   return (
-    <Layout name="DASHBOARD">
+    <Layout name="POSITION">
       <Head>
         <title>My Position</title>
         <link rel="icon" href="/favicon.svg" />

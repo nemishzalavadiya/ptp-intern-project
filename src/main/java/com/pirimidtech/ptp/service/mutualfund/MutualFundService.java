@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -64,15 +66,19 @@ public class MutualFundService implements MutualFundServiceInterface {
             }
         }
         String asc="ASC",desc="DESC";
+        Map<String, String> sortingFieldMap = new HashMap<String, String>();
+        sortingFieldMap.put("Company", "mutualFundDetail.assetDetail.name");
+        sortingFieldMap.put("Risk","risk");
+        sortingFieldMap.put("Minimum SIP","minSIP");
+        sortingFieldMap.put("Fund Size","fundSize");
         if(orderBy.equals(asc) && sortingField.length()>0) {
-            return mutualFundStatisticRepository.findAll(booleanBuilder.getValue(), PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(Sort.Direction.ASC, sortingField)));
+            return mutualFundStatisticRepository.findAll(booleanBuilder.getValue(), PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(Sort.Direction.ASC, sortingFieldMap.get(sortingField))));
         }
         else if(orderBy.equals(desc) && sortingField.length()>0){
-            return mutualFundStatisticRepository.findAll(booleanBuilder.getValue(), PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(Sort.Direction.DESC, sortingField)));
+            return mutualFundStatisticRepository.findAll(booleanBuilder.getValue(), PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(Sort.Direction.DESC, sortingFieldMap.get(sortingField))));
         }
-        else{
-            return mutualFundStatisticRepository.findAll(booleanBuilder,paging);
+        else {
+            return mutualFundStatisticRepository.findAll(booleanBuilder, paging);
         }
-        //return mutualFundStatisticRepository.findAll(booleanBuilder, paging);
     }
 }

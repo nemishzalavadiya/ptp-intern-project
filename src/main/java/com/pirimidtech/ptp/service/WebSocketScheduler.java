@@ -17,7 +17,7 @@ public class WebSocketScheduler {
     @Autowired
     private DataGenerator dataGenerator;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 3000)
     public void trigger() {
         dataGenerator.setData();
         dataGenerator.getGeneratedStockList().forEach((companyData) -> {

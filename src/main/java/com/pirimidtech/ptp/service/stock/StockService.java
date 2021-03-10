@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,9 +63,12 @@ public class StockService implements StockServiceInterface {
     public Page<StockStatistic> filterClosePrice(BooleanBuilder booleanBuilder, SelectedStocksFilter selectedStocksFilter, Pageable paging, String sortingField, String orderBy) {
         String asc="ASC",desc="DESC";
         Sort.Direction direction = (orderBy.equals(asc)) ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Map<String,String> sortingFieldMap = new HashMap<String,String>();
+        sortingFieldMap.put("Company","stockDetail.assetDetail.name");
+        sortingFieldMap.put("Market Cap", "marketCap");
         if(sortingField.length()>0) {
             List<StockStatistic> filteredList = stockStatisticRepository
-                    .findAll(booleanBuilder.getValue(), PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(direction, sortingField)))
+                    .findAll(booleanBuilder.getValue(), PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(direction, sortingFieldMap.get(sortingField))))
                     .getContent()
                     .stream()
                     .filter(stats -> {

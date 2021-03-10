@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Register from "src/components/Register/Register.js"
+import Register from "src/components/Register/Register"
 
 export default function HomePage() {
   return (

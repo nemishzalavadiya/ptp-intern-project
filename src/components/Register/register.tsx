@@ -11,6 +11,7 @@ import {
   Grid,
   Segment,
 } from "semantic-ui-react";
+import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import Router from "next/router";
 import { userRegistration } from "../../services/userRegistration";
@@ -20,6 +21,7 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setError] = useState("");
   const [userName,setUserName] = useState("");
+  
   useEffect(() => {
     if (password != confirmPassword) {
       setError("Password and Confirm Password are not same");
@@ -29,8 +31,20 @@ export default function Register() {
     }
   }, [confirmPassword]);
 
+  const checkPassword = () =>{
+        const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+        const isOk = re.test(password);
+        if(isOk)setPassword(password)
+        else
+          setPassword("");
+
+     }
+
   const register = (event) => {
-    if (errors == "") {
+
+        checkPassword(password);
+
+    if (password==confirmPassword && password!="") {
       {
         event.preventDefault();
         let data = {
@@ -63,6 +77,17 @@ export default function Register() {
             });
           });
       }
+    
+    }
+    else{
+      toast("Please verify password", {
+        position: "bottom-right",
+        autoClose: 1500,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      }); 
     }
   };
 
@@ -85,7 +110,7 @@ export default function Register() {
                         transparent
                         required
                         inverted
-                        onChange={(event) => setEmail(event.target.value)}
+                        onChange={(event) => setUserName(event.target.value)}
                         placeholder="Username"
                         iconPosition="left"
                         icon="user"
@@ -99,6 +124,7 @@ export default function Register() {
                         transparent
                         required
                         inverted
+                        value={email}
                         onChange={(event) => setEmail(event.target.value)}
                         placeholder="Email"
                         iconPosition="left"
@@ -117,7 +143,8 @@ export default function Register() {
                         type="password"
                         iconPosition="left"
                         placeholder="******"
-                        onChange={(event) => setPassword(event.target.value)}
+                        value={password}
+                        onChange={(event) => {setPassword(event.target.value)}}
                         icon="lock"
                         className="textcolor"
                       />
@@ -132,6 +159,7 @@ export default function Register() {
                         type="password"
                         iconPosition="left"
                         placeholder="******"
+                        value={confirmPassword}
                         onChange={(event) =>
                           setConfirmPassword(event.target.value)
                         }
@@ -156,6 +184,14 @@ export default function Register() {
                       >
                         Register
                       </Button>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column width={3}></Grid.Column>
+                    <Grid.Column width={10} >
+                      <Link href="/login">                        Already have an account ! Want to Login ?
+                      </Link>
+
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>

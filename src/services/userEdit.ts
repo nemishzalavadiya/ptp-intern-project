@@ -14,8 +14,8 @@ async function userEdit(user) {
   }
 }
 
-async function getUserById(userId) {
-  const response = await fetch(`/api/users/${userId}`, {
+async function getUserById() {
+  const response = await fetch(`/api/users/profile`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +25,7 @@ async function getUserById(userId) {
   if (response.ok) {
     return body;
   } else {
-    throw new Error(body.message);
+    // throw new Error(body.message);
   }
 }
 

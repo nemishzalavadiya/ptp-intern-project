@@ -45,7 +45,10 @@
 
 .ui.bottom.right.popup.transition.visible {
   padding: 10%;
+  width:140px;
+  height: 170px;
 }
+
 
 .ui.center.aligned.grid > .row.cardbutton:hover {
   background-color: #818181;
@@ -53,7 +56,8 @@
 }
 
 .profilebox {
-  padding-left: 31%;
-  vertical-align: middle;
+  padding-top: 11%;
+  padding-left: 14%;
+  // vertical-align: middle;
   color: white;
 }

@@ -9,14 +9,15 @@ const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   async function loadUser() {
-    if (!user && router.pathname !== "/login") {
+
+    if (!user && router.pathname !== "/login" && router.pathname !=="/register") {
       let userInfo = await sessionService.user();
       if (userInfo) {
         setUser(userInfo);
       } else {
         router.push({ pathname: "/login", query: { path: router.asPath } });
       }
-    } else if (router.pathname === "/login") {
+    } else if (router.pathname === "/login" || router.pathname==="/register") {
       let userInfo = await sessionService.user();
       if (userInfo) {
         setUser(userInfo)

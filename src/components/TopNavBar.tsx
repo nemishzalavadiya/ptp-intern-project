@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Image, Popup, Grid } from "semantic-ui-react";
 import Link from "next/link";
 import useAuth from "src/components/contexts/useAuth";
+import { userEdit, getUserById } from "src/services/userEdit";
 const TopNavBar = () => {
-  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
   let { logout } = useAuth();
   const router = useRouter();
+  // useEffect(async()=>{
+  //     const user = await getUserById();
+  //     setUserName(user.userName)
+
+  // })
   const userLogout=async()=>{
     await logout();
     router.push({ pathname: "/login", query: { path: router.asPath } });
@@ -18,6 +24,7 @@ const TopNavBar = () => {
       </Link>
 
       <Popup
+        position='bottom right'
         trigger={<Image src="/user.jpg" className="usericon" circular />}
         content={
           <>
@@ -31,9 +38,7 @@ const TopNavBar = () => {
             </div>
 
             <Grid textAlign="center">
-              <Grid.Row>user-name</Grid.Row>
-              <Grid.Row>{userEmail}</Grid.Row>
-
+              <Grid.Row>{userName}</Grid.Row>
               <Grid.Row
                 className="cardbutton"
                 onClick={() => {

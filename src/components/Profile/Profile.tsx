@@ -34,13 +34,13 @@ export default function Profile() {
   let prevEmail = email;
   const genderOption = [ { key: 'MALE', value: 'MALE', text: 'MALE' },
   { key: 'FEMALE', value: 'FEMALE', text: 'FEMALE' },]
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({userName:"u",email:""});
   useEffect(async () => {
-    const user = await getUserById("00000000-0000-0000-0000-000000000000");
+    const user = await getUserById();
     console.log(user)
     setOldUser(user);
     setUser(user);
-  }, [isUpdate]);
+  }, []);
 
   const revertChanges = ()=>{
     setIsUpdate(false);
@@ -99,6 +99,33 @@ export default function Profile() {
                   <Grid.Row>
                     <Grid.Column width={8}>
                       <Input
+                        readOnly={true}
+                        inverted
+                        transparent
+                        iconPosition="left"
+                        placeholder="Name"
+                        icon="user"
+                        className="textcolor"
+                       
+                      />
+                    </Grid.Column>
+                    <Grid.Column width={8}>
+                      <Input
+                        readOnly={!isUpdate}
+                        required
+                        inverted
+                        transparent
+                        value={user.name}
+                        onChange={(event) => setUser({...user,name:event.target.value})}
+                        placeholder="PTP user"
+                        className="textcolor"
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+
+                  <Grid.Row>
+                    <Grid.Column width={8}>
+                      <Input
                         readOnly={!isUpdate}
                         inverted
                         transparent
@@ -115,7 +142,7 @@ export default function Profile() {
                         required
                         inverted
                         transparent
-                        value={user.dpID}
+                        value={user.dpId}
                         placeholder="DP ID"
                         className="textcolor"
                       />

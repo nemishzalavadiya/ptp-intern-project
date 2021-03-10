@@ -1,7 +1,6 @@
 import React from "react";
 import GridContainer from "src/components/grid/GridContainer";
 import { Loader } from "semantic-ui-react";
-import { UserId } from "src/components/Objects";
 import { getMutualFundPosition } from "src/hooks/mutualFundPosition";
 
 const mutualFundHeaders = [
@@ -49,7 +48,6 @@ export default function MutualFundPosition({
 }) {
   let [isContentFetchingCompleted, totalPage, response] = [false, 0];
   [isContentFetchingCompleted, totalPage, response] = getMutualFundPosition(
-    UserId.userId,
     searchString,
     page,
     5,

@@ -9,18 +9,24 @@ const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   async function loadUser() {
-
-    if (!user && router.pathname !== "/login" && router.pathname !=="/register") {
+    if (
+      !user &&
+      router.pathname !== "/login" &&
+      router.pathname !== "/register"
+    ) {
       let userInfo = await sessionService.user();
       if (userInfo) {
         setUser(userInfo);
       } else {
         router.push({ pathname: "/login", query: { path: router.asPath } });
       }
-    } else if (router.pathname === "/login" || router.pathname==="/register") {
+    } else if (
+      router.pathname === "/login" ||
+      router.pathname === "/register"
+    ) {
       let userInfo = await sessionService.user();
       if (userInfo) {
-        setUser(userInfo)
+        setUser(userInfo);
         if (router.query.path === undefined) {
           router.replace("/");
         } else {
@@ -41,10 +47,10 @@ const AuthProvider = ({ children }) => {
       setUser(userInfo);
     }
     return userInfo;
-  }
+  };
   const logout = async () => {
     await sessionService.logout();
-  }
+  };
 
   return (
     <AuthContext.Provider

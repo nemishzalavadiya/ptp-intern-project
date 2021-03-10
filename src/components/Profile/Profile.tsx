@@ -41,7 +41,7 @@ export default function Profile() {
     kycVerified: "",
   });
   const [isComp, setIsComp] = useState(false);
-  useEffect( async () => {
+  useEffect(async () => {
     const user = await getUser();
     setIsComp(true);
     setOldUser(user);
@@ -304,12 +304,11 @@ export default function Profile() {
                       <Grid.Column width={8}>
                         {user.kycVerified ? (
                           <>
-                            {" "}
                             You are KYC verified
                             <Icon name="check circle"></Icon>
                           </>
                         ) : (
-                          <Button>Please Do kyc</Button>
+                          <Button>KYC Verification</Button>
                         )}
                       </Grid.Column>
                     </Grid.Row>
@@ -320,7 +319,6 @@ export default function Profile() {
               <Grid.Column width={8}>
                 {isUpdate == true ? (
                   <div className="editbutton">
-                    {" "}
                     <Label onClick={saveChanges}>
                       <Icon name="edit" />
                       Save

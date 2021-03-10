@@ -19,7 +19,7 @@ const mutualfunds = () => {
     { header: "Min Sip", icon: <i className="rupee sign icon small"></i> },
     { header: "Fund Size", icon: <i className="rupee sign icon small"></i> },
   ];
-  const [pattern, setPattern] = useState([0, 0, 0]);
+  const [pattern, setPattern] = useState([0, 0, 0,0]);
   const [orderBy, setOrderBy] = useState("");
   const [sortingField, setSortingField] = useState("");
   function changeArrow(index, fieldName) {

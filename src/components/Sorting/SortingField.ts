@@ -1,20 +1,28 @@
 export const MutualFundSortingField = [
   {
+    title: "Company",
+  }
+  ,{
     title: "Risk",
-    dbField: "risk",
   },
   {
     title: "Minimum SIP",
-    dbField: "minSIP",
   },
   {
     title: "Fund Size",
-    dbField: "fundSize",
   },
 ];
 export const StockSortingField = [
   {
-    title: "Market Cap",
-    dbField: "marketCap",
+    title: "Company",
   },
+  {
+    title: "Market Price"
+  },
+  {
+    title: "Close price0"
+  },
+  {
+    title: "Market Cap"
+  }
 ];

@@ -1,8 +1,9 @@
+import { useState, useEffect } from "react";
 import React from "react";
 import GridContainer from "src/components/grid/GridContainer";
 import { Loader } from "semantic-ui-react";
 import { getMutualFundPosition } from "src/hooks/mutualFundPosition";
-
+import Sorting from "src/components/Sorting/Sorting";
 const mutualFundHeaders = [
   {
     header: "CompanyName",
@@ -53,6 +54,28 @@ export default function MutualFundPosition({
     5,
     dashboard
   );
+  let intialPatternState = [];
+  for(let i=0;i<mutualFundHeaders.length;i++){
+    intialPatternState.push(0);
+  }
+  const [pattern, setPattern] = useState(intialPatternState);
+  const [orderBy, setOrderBy] = useState("");
+  const [sortingField, setSortingField] = useState("");
+  function changeArrow(index, fieldName) {
+    let d = [];
+    let size = mutualFundHeaders.length;
+    for (let i = 0; i < size; i++) {
+      d.push(0);
+    }
+    d[index] = 1 - pattern[index];
+    setPattern(d);
+    if (d[index] == 1) {
+      setOrderBy("DESC");
+    } else {
+      setOrderBy("ASC");
+    }
+    setSortingField(fieldName);
+  }
   const pagination = {
     activePage: page,
     totalPages: totalPage,
@@ -62,11 +85,24 @@ export default function MutualFundPosition({
   return !isContentFetchingCompleted ? (
     <Loader active />
   ) : (
-    <GridContainer
-      dashboard={dashboard}
-      content={dashboard? dashboardPosition : mutualFundHeaders}
-      pagination={pagination}
-      data={response}
-    ></GridContainer>
+    // <GridContainer
+    //   dashboard={dashboard}
+    //   content={dashboard? dashboardPosition : mutualFundHeaders}
+    //   pagination={pagination}
+    //   data={response}
+    // ></GridContainer>
+    <>
+      <Sorting
+        content={mutualFundHeaders}
+        pattern={pattern}
+        onclick={changeArrow}
+      />
+      <GridContainer
+        content={mutualFundHeaders}
+        pagination={pagination}
+        data={response}
+        showHeaderGrid="disallow"
+      ></GridContainer>
+    </>
   );
 }

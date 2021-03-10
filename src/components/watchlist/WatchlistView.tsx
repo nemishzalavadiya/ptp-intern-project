@@ -13,6 +13,8 @@ import { Loader } from "semantic-ui-react";
 import { useState } from "react";
 import Link from "next/link";
 import useWebSocket from "src/hooks/useWebSocket";
+import Sorting from "src/components/Sorting/Sorting";
+import { WatchlistSortingField } from "src/components/Sorting/SortingField";
 export default function WatchlistView(props) {
   const [companyUuids, setCompanyUuids] = useState([]);
   let data = new Map();
@@ -55,15 +57,46 @@ export default function WatchlistView(props) {
     subscriptionDataMap.clear();
   }
 
+  let intialPatternState = [];
+  for (let i = 0; i < WatchlistSortingField.length; i++) {
+    intialPatternState.push(0);
+  }
+  const [pattern, setPattern] = useState(intialPatternState);
+  const [orderBy, setOrderBy] = useState("");
+  const [sortingField, setSortingField] = useState("");
+  function changeArrow(index, fieldName) {
+    let d = [];
+    let size = WatchlistSortingField.length;
+    for (let i = 0; i < size; i++) {
+      d.push(0);
+    }
+    d[index] = 1 - pattern[index];
+    setPattern(d);
+    if (d[index] == 1) {
+      setOrderBy("DESC");
+    } else {
+      setOrderBy("ASC");
+    }
+    setSortingField(fieldName);
+  }
+
   return isSubscriptionCompleted && data.size === companyUuids.length ? (
     <>
       {
-        <GridContainer
-          content={props.content}
-          pagination={props.pagination}
-          data={Array.from(data.values())}
-          tabId={props.tabId}
-        />
+        <>
+          <Sorting
+            content={WatchlistSortingField}
+            pattern={pattern}
+            onclick={changeArrow}
+          />
+          <GridContainer
+            content={props.content}
+            pagination={props.pagination}
+            data={Array.from(data.values())}
+            tabId={props.tabId}
+            showHeaderGrid="disallow"
+          />
+        </>
       }
     </>
   ) : (

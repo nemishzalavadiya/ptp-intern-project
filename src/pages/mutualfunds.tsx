@@ -9,7 +9,6 @@ import GridContainer from "src/components/grid/GridContainer";
 import { useRouter } from "next/router";
 import Sorting from "src/components/Sorting/Sorting";
 import { MutualFundSortingField } from "src/components/Sorting/sortingField";
-import { Card, Grid, Icon, Loader } from "semantic-ui-react";
 
 const mutualfunds = () => {
   const router = useRouter();

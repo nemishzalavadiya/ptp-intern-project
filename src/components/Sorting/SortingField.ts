@@ -12,6 +12,7 @@ export const MutualFundSortingField = [
     title: "Fund Size",
   },
 ];
+
 export const StockSortingField = [
   {
     title: "Company",
@@ -19,4 +20,55 @@ export const StockSortingField = [
   {
     title: "Market Cap"
   }
+];
+
+export const MutualFundPositionSortingField = [
+  {
+    title: "Company",
+  }
+  ,{
+    title: "Quantity",
+  },
+  {
+    title: "Total Amount",
+  },
+  {
+    title: "Average NAV",
+  },
+  {
+    title: "current NAV",
+  },
+  {
+    title: "Current Value",
+  },
+  {
+    title: "Profit/Loss",
+  },
+  {
+    title: "Profit/Loss(%)"
+  }
+];
+
+export const WatchlistSortingField = [
+  {
+    title: "Company",
+  }
+  ,{
+    title: "Open",
+  },
+  {
+    title: "Close",
+  },
+  {
+    title: "Last",
+  },
+  {
+    title: "High",
+  },
+  {
+    title: "Low",
+  },
+  {
+    title: "%CHG",
+  },
 ];

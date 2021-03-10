@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 public class PositionController {
@@ -46,8 +43,9 @@ public class PositionController {
                 MutualFundStatistic mutualFundStatistic = mutualFundStatisticOptional.get();
                 float nav = mutualFundStatistic.getNav();
                 float netValue = position.getVolume() * nav;
-                float profit = ((netValue - position.getPrice()) / position.getPrice()) * 100;
-                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position, nav, netValue, profit);
+                float profitPercentage = ((netValue - position.getPrice()) / (position.getPrice())) * 100;
+                float avgNav=position.getPrice()/position.getVolume();
+                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position.getAssetDetail().getName(), position.getAssetDetail().getId(),position.getVolume(),position.getPrice(),nav, netValue, profitPercentage,avgNav,netValue-position.getPrice());
                 mutualFundPositionDTOList.add(mutualFundPositionDTO);
             }
         });
@@ -62,7 +60,7 @@ public class PositionController {
     }
 
     @GetMapping("/mutualfund/position/search/users/{id}")
-    public ResponseEntity<Page<MutualFundPositionDTO>> searchInMutualFundPosition(@PathVariable("id") UUID userId, @RequestParam("name") String name, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<Page<MutualFundPositionDTO>> searchInMutualFundPosition(@PathVariable("id") UUID userId, @RequestParam("name") String name, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,  @RequestParam(defaultValue = "") String sortingField, @RequestParam(defaultValue = "") String orderBy) {
 
         List<MutualFundPositionDTO> mutualFundPositionDTOList = new ArrayList<>();
         Page<Position> positionList = positionService.searchByAssetClassAndAssetDetailName(userId, name, AssetClass.MUTUAL_FUND, page, size);
@@ -73,11 +71,60 @@ public class PositionController {
                 MutualFundStatistic mutualFundStatistic = mutualFundStatisticOptional.get();
                 float nav = mutualFundStatistic.getNav();
                 float netValue = position.getVolume() * nav;
-                float profit = ((netValue - position.getPrice()) / (position.getPrice())) * 100;
-                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position, nav, netValue, profit);
+                float profitPercentage = ((netValue - position.getPrice()) / (position.getPrice())) * 100;
+                float avgNav=position.getPrice()/position.getVolume();
+                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position.getAssetDetail().getName(), position.getAssetDetail().getId(),position.getVolume(),position.getPrice(),nav, netValue, profitPercentage,avgNav,netValue-position.getPrice());
                 mutualFundPositionDTOList.add(mutualFundPositionDTO);
             }
         });
+        if(orderBy.equals("ASC") && sortingField.equals("Current Value")) {
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getNetValue));
+        }
+        else if(orderBy.equals("DESC") && sortingField.equals("Current Value")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getNetValue).reversed());
+        }
+        else if(orderBy.equals("ASC") && sortingField.equals("current NAV")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getNav));
+        }
+        else if(orderBy.equals("DESC") && sortingField.equals("current NAV")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getNav).reversed());
+        }
+        else if(orderBy.equals("ASC") && sortingField.equals("Average NAV")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getAvgNav));
+        }
+        else if(orderBy.equals("DESC") && sortingField.equals("Average NAV")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getAvgNav).reversed());
+        }
+        else if(orderBy.equals("ASC") && sortingField.equals("Profit & Loss")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getProfit));
+        }
+        else if(orderBy.equals("DESC") && sortingField.equals("Profit & Loss")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getProfit).reversed());
+        }
+        else if(orderBy.equals("ASC") && sortingField.equals("Company")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getAssetName));
+        }
+        else if(orderBy.equals("DESC") && sortingField.equals("Company")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getAssetName).reversed());
+        }
+        else if(orderBy.equals("ASC") && sortingField.equals("Quantity")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getQuantity));
+        }
+        else if(orderBy.equals("DESC") && sortingField.equals("Quantity")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getQuantity).reversed());
+        }
+        else if(orderBy.equals("ASC") && sortingField.equals("Total Amount")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getTotalAmount));
+        }
+        else if(orderBy.equals("DESC") && sortingField.equals("Total Amount")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getTotalAmount).reversed());
+        }
+        else if(orderBy.equals("ASC") && sortingField.equals("Profit & Loss(%)")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getProfitPercentage));
+        }
+        else if(orderBy.equals("DESC") && sortingField.equals("Profit & Loss(%)")){
+            mutualFundPositionDTOList.sort(Comparator.comparing(MutualFundPositionDTO::getProfitPercentage).reversed());
+        }
         Pageable pageable = positionList.getPageable();
         int contentSize = positionList.toList().size();
         long total = pageable.getOffset() + contentSize + (contentSize == size ? size : 0);

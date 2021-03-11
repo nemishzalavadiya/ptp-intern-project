@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import FilterGroup from "src/components/filter/FilterGroup";
 import Layout from "src/components/Layout";
 import { stockFilters } from "src/components/filter/filterDetails";
@@ -59,6 +60,7 @@ const stocks = () => {
 	}, [selectedFilters, activePage]);
 
 	useEffect(() => {
+		subscriptionDataMap.clear();
 		setSubscriptionIdList(results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id));
 	}, [results]);
 
@@ -97,12 +99,12 @@ const stocks = () => {
 							results === undefined
 								? []
 								: results.map((item) => [
-										item.stockDetail.assetDetail.name,
-
+										<Link href={`/details/${item.stockDetail.assetDetail.id}`}>
+											{item.stockDetail.assetDetail.name}
+										</Link>,
 										subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
 											? ""
 											: subscriptionDataMap.get(item.stockDetail.assetDetail.id).marketPrice,
-
 										subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
 											? ""
 											: subscriptionDataMap.get(item.stockDetail.assetDetail.id).close,

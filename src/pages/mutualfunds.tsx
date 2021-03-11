@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import FilterGroup from "src/components/filter/FilterGroup";
 import Layout from "src/components/Layout";
 import { mutualFundFilters } from "src/components/filter/filterDetails";
@@ -79,7 +80,9 @@ const mutualfunds = () => {
 							results === undefined
 								? []
 								: results.map((item) => [
-										item.mutualFundDetail.assetDetail.name,
+										<Link href={`/details/${item.mutualFundDetail.assetDetail.id}`}>
+											{item.mutualFundDetail.assetDetail.name}
+										</Link>,
 										item.risk,
 										item.minSIP,
 										item.fundSize,

@@ -23,6 +23,8 @@ const RangeFilter = (props) => {
 				sliderMaxValue={props.filterDetails.maximum}
 				selectedMinValue={props.selectedFilters[props.filterIndex].minimum}
 				selectedMaxValue={props.selectedFilters[props.filterIndex].maximum}
+				sliderHandleStyle={{ color: "#00000000", backgroundColor: "#01C609" }}
+				sliderTrackStyle={{ backgroundColor: "#01C609" }}
 			/>
 			<div className="input-to">
 				<Input

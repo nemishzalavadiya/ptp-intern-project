@@ -27,11 +27,7 @@ export default function Register() {
     const re = new RegExp(
       "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
     );
-    const isOk = re.test(password);
-    if (isOk)
-      return true;
-    else 
-      return false;
+    return re.test(password);
   };
   const register = (event) => {
     if (

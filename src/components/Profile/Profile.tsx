@@ -9,20 +9,18 @@ import {
   Segment,
   Label,
   Icon,
-  Select,
   Dropdown,
   Loader,
 } from "semantic-ui-react";
-import { editUserDetails, getUser } from "../../services/userUpdate";
+import { updateUserDetails, getUser } from "src/services/userUpdate";
 import { ToastContainer, toast } from "react-toastify";
 import Moment from "moment";
 
 export default function Profile() {
   const [bankName, setBankName] = useState("Axis");
-  const [accountNumber, setAccountNumber] = useState("109");
+  const [accountNumber, setAccountNumber] = useState("10111245XXX");
   const [availableCash, setAvailableCash] = useState("40000");
   const [isUpdate, setIsUpdate] = useState(false);
-  const [oldUser, setOldUser] = useState({});
   const genderOption = [
     { key: "MALE", value: "MALE", text: "MALE" },
     { key: "FEMALE", value: "FEMALE", text: "FEMALE" },
@@ -44,7 +42,6 @@ export default function Profile() {
   useEffect(async () => {
     const user = await getUser();
     setIsComp(true);
-    setOldUser(user);
     setUser(user);
   }, [isUpdate]);
 
@@ -56,7 +53,7 @@ export default function Profile() {
       setIsUpdate(true);
       return;
     }
-    editUserDetails(user)
+    updateUserDetails(user)
       .then((res) => {
         setIsUpdate(false);
         toast("Profile updated successfully", {
@@ -66,7 +63,6 @@ export default function Profile() {
       })
       .catch((err) => {
         setIsUpdate(false);
-        setUser(oldUser);
         toast.error(err.message, {
           position: "bottom-right",
           autoClose: 1500,
@@ -201,20 +197,10 @@ export default function Profile() {
                       </Grid.Column>
 
                       <Grid.Column width={8}>
-                        {isUpdate == false ? (
-                          <Input
-                            readOnly={!isUpdate}
-                            required
-                            inverted
-                            type="text"
-                            transparent
+                      <Dropdown
                             value={user.gender}
-                            placeholder="Select your gender"
-                            className="textcolor"
-                          />
-                        ) : (
-                          <Dropdown
-                            value={user.gender}
+                            disabled = {!isUpdate}
+                            className="profiledropdown"
                             placeholder="Select your gender"
                             options={genderOption}
                             onChange={(event) => {
@@ -224,7 +210,6 @@ export default function Profile() {
                               });
                             }}
                           ></Dropdown>
-                        )}
                       </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>

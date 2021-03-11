@@ -1,5 +1,6 @@
-.email,.password{
-  color: white
+.email,
+.password {
+  color: white;
 }
 
 .ui.segment.userlogin {
@@ -9,30 +10,29 @@
   padding-top: 5%;
   min-width: 600px;
   background-color: #272727;
-  color:#272727 ;    
 }
 
-.loginBox{
- margin: 5% 27% 5% 27% 
+.loginBox {
+  margin: 5% 27% 5% 27%;
 }
 
-.ui.fluid.button.submitButton{
+.ui.fluid.button.submitButton {
   background-color: yellowgreen;
 }
 
-.ui.inverted.transparent.left.icon.input.textcolor>input{
-  color: white
+.ui.inverted.transparent.left.icon.input.textcolor > input {
+  color: white;
 }
 
 .mainLayout {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	min-height: 100vh;
-  background:black
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 100vh;
+  background: black;
 }
 
-.ui.image.ptpimage{
+.ui.image.ptpimage {
   position: relative;
   padding-top: 6%;
   width: 100%;

@@ -1,4 +1,4 @@
-async function editUserDetails(user) {
+async function updateUserDetails(user) {
   const response = await fetch("/api/users", {
     method: "PUT",
     headers: {
@@ -29,4 +29,4 @@ async function getUser() {
   }
 }
 
-export { getUser, editUserDetails };
+export { getUser, updateUserDetails };

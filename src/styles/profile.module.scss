@@ -46,3 +46,11 @@
 ::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
+
+.ui.disabled.dropdown.profiledropdown{
+  opacity: 1;
+}
+
+.ui.disabled.dropdown.profiledropdown>.dropdown.icon{
+  opacity: 0;
+}

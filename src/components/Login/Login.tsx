@@ -8,13 +8,14 @@ import {
   Segment,
   Icon,
 } from "semantic-ui-react";
+import Link from "next/link";
 import { ToastContainer } from "react-toastify";
 import useAuth from "src/components/contexts/useAuth";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);  
   const { login } = useAuth();
   const router = useRouter();
   const submitHandler = async (event) => {
@@ -90,6 +91,14 @@ export default function Login() {
                       <Button type="submit" className="submitButton" fluid>
                         Login
                       </Button>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column width={3}></Grid.Column>
+                    <Grid.Column width={10} >
+                      <Link href="/register">                     Not Registered?   Create Account
+                      </Link>
+
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>

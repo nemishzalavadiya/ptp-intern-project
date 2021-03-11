@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Image, Popup, Grid } from "semantic-ui-react";
+import { Image, Popup, Grid, Icon } from "semantic-ui-react";
 import Link from "next/link";
 import useAuth from "src/components/contexts/useAuth";
+import { getUser } from "src/services/userUpdate";
 const TopNavBar = () => {
-  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [dpUrl, setDpUrl] = useState("");
   let { logout } = useAuth();
   const router = useRouter();
-  const userLogout=async()=>{
+  useEffect(async () => {
+    const user = await getUser();
+    setUserName(user.firstName);
+    setDpUrl(user.dpURL);
+  }, []);
+  const userLogout = async () => {
     await logout();
     router.push({ pathname: "/login", query: { path: router.asPath } });
-  }
+  };
   return (
     <div className="headerTopNavBar">
       <Link href="/">
@@ -18,22 +25,41 @@ const TopNavBar = () => {
       </Link>
 
       <Popup
-        trigger={<Image src="/user.jpg" className="usericon" circular />}
+        position="bottom right"
+        trigger={
+          <div>
+            {dpUrl ? (
+              <Image src="/user.jpg" className="usericon" circular />
+            ) : (
+              <Icon name="user" size="big"></Icon>
+            )}
+          </div>
+        }
         content={
           <>
-            <div className="profilebox">
-              <Image
-                src="/user.jpg"
-                className="popupusericon image-border"
-                circular
-                bordered
-              />
-            </div>
+            {dpUrl ? (
+              <div className="profilebox">
+                <Image
+                  src="/user.jpg"
+                  className="popupusericon"
+                  circular
+                  bordered
+                />
+              </div>
+            ) : (
+              <div className="emptyprofilebox">
+                <Icon
+                  name="user"
+                  className="popusericon"
+                  size={"big"}
+                  color="black"
+                  circular
+                ></Icon>
+              </div>
+            )}
 
             <Grid textAlign="center">
-              <Grid.Row>user-name</Grid.Row>
-              <Grid.Row>{userEmail}</Grid.Row>
-
+              <Grid.Row>{userName}</Grid.Row>
               <Grid.Row
                 className="cardbutton"
                 onClick={() => {

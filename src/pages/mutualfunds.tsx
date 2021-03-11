@@ -8,7 +8,7 @@ import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import { useRouter } from "next/router";
 import Sorting from "src/components/Sorting/Sorting";
-import { MutualFundSortingField } from "src/components/Sorting/sortingField";
+import { MutualfundSortingfield } from "src/components/Sorting/sortingField";
 
 const mutualfunds = () => {
   const router = useRouter();
@@ -18,16 +18,16 @@ const mutualfunds = () => {
     { header: "Min Sip", icon: <i className="rupee sign icon small"></i> },
     { header: "Fund Size", icon: <i className="rupee sign icon small"></i> },
   ];
-  const [pattern, setPattern] = useState([0, 0, 0, 0]);
+  let initailPattern=[];
+  for(let i=0;i<MutualfundSortingfield.length;i++){
+    initailPattern.push(0);
+  }
+  const [pattern, setPattern] = useState(initailPattern);
   const [orderBy, setOrderBy] = useState("");
   const [sortingField, setSortingField] = useState("");
   function changeArrow(index, fieldName) {
     let d = [];
-<<<<<<< HEAD
     let size = content.length;
-=======
-    let size = MutualFundSortingField.length;
->>>>>>> 5f80132... sorting style
     for (let i = 0; i < size; i++) {
       d.push(0);
     }

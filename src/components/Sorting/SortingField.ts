@@ -1,4 +1,4 @@
-export const MutualFundSortingField = [
+export const MutualfundSortingfield = [
   {
     title: "Company",
   }
@@ -13,7 +13,7 @@ export const MutualFundSortingField = [
   },
 ];
 
-export const StockSortingField = [
+export const StockSortingfield = [
   {
     title: "Company",
   },
@@ -22,7 +22,7 @@ export const StockSortingField = [
   }
 ];
 
-export const MutualFundPositionSortingField = [
+export const MutualfundpositionSortingfield = [
   {
     title: "Company",
   }
@@ -49,7 +49,7 @@ export const MutualFundPositionSortingField = [
   }
 ];
 
-export const WatchlistSortingField = [
+export const WatchlistSortingfield = [
   {
     title: "Company",
   }

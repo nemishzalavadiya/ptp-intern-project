@@ -1,9 +1,12 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { getPositionByuserAndAsset } from "src/services/position";
 import StockPosition from "src/components/position/stockPositionView";
 import Link from "next/link";
 import { Loader } from "semantic-ui-react";
 import { AssetClass } from "src/enums/assetClass";
+import {StockpositionField} from "src/components/Sorting/SortingField";
+import Sorting from "src/components/Sorting/Sorting";
 
 export default function StockPositionList({
   searchString,
@@ -11,6 +14,28 @@ export default function StockPositionList({
   handlePaginationChange,
   dashboard
 }) {
+  let intialPatternState = [];
+  for (let i = 0; i < StockpositionField.length; i++) {
+    intialPatternState.push(0);
+  }
+  const [pattern, setPattern] = useState(intialPatternState);
+  const [orderBy, setOrderBy] = useState("");
+  const [sortingField, setSortingField] = useState("");
+  function changeArrow(index, fieldName) {
+    let d = [];
+    let size = StockpositionField.length;
+    for (let i = 0; i < size; i++) {
+      d.push(0);
+    }
+    d[index] = 1 - pattern[index];
+    setPattern(d);
+    if (d[index] == 1) {
+      setOrderBy("DESC");
+    } else {
+      setOrderBy("ASC");
+    }
+    setSortingField(fieldName);
+  }
   let positionList = [];
   let companyUuids = [];
   let [isContentFetchingCompleted, response] = [false];
@@ -43,11 +68,21 @@ export default function StockPositionList({
   return !isContentFetchingCompleted ? (
     <Loader active />
   ) : (
+    <>
+    {positionList.length !== 0 ? (
+        <Sorting
+          content={StockpositionField}
+          pattern={pattern}
+          onclick={changeArrow}
+        />
+      ) : null}
     <StockPosition
       uuid={companyUuids}
       positionList={positionList}
       pagination={pagination}
       dashboard={dashboard}
+      showHeaderGrid="disallow"
     ></StockPosition>
+    </>
   );
 }

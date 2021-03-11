@@ -48,7 +48,32 @@ export const MutualfundpositionSortingfield = [
     title: "Profit/Loss(%)"
   }
 ];
-
+export const StockpositionField = [
+  {
+    title: "Company",
+  }
+  ,{
+    title: "Quantity",
+  },
+  {
+    title: "Average price",
+  },
+  {
+    title: "Cost",
+  },
+  {
+    title: "Current price",
+  },
+  {
+    title: "Current Value",
+  },
+  {
+    title: "Profit/Loss",
+  },
+  {
+    title: "Profit/Loss(%)"
+  }
+]
 export const WatchlistSortingfield = [
   {
     title: "Company",

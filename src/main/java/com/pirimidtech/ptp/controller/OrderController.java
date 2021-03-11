@@ -2,7 +2,9 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.Action;
 import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
+import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.SIPStatus;
 import com.pirimidtech.ptp.entity.Status;
@@ -119,12 +121,14 @@ public class OrderController {
         mutualFundOrder.setStatus(Status.PENDING);
         mutualFundOrder.setSipStatus(SIPStatus.ACTIVE);
         mutualFundOrder.setTimestamp(new Date());
+        MutualFundStatistic mutualFundStatistic = mutualFundStatisticRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get();
+        mutualFundOrder.setNav(mutualFundStatistic.getNav());
         mutualFundOrder = orderService.addToMutualFundOrder(mutualFundOrder);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 
     @PutMapping("/mutualfund/{id}")
-    public ResponseEntity<MutualFundOrder> updateMutualFund(@PathVariable UUID id,
+    public ResponseEntity<MutualFundOrder> updateMutualFundOrder(@PathVariable UUID id,
                                                             @RequestBody MutualFundOrder newMutualFundOrder){
         MutualFundOrder mutualFundOrder = orderService.updateMutualFundOrder(id,newMutualFundOrder);
         return ResponseEntity.ok().body(mutualFundOrder);

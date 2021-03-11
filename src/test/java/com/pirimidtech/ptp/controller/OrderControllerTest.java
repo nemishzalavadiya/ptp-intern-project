@@ -8,7 +8,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.pirimidtech.ptp.PtpApplication;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.StockTrade;
+import com.pirimidtech.ptp.util.JwtTokenUtil;
+import com.pirimidtech.ptp.util.TestDataStore;
 import com.pirimidtech.ptp.utility.ObjectUtility;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -23,6 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import javax.servlet.http.Cookie;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -45,16 +49,27 @@ class OrderControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    private TestDataStore testDataStore;
+
+    @BeforeEach
+    public void setUp() {
+        testDataStore = new TestDataStore();
+    }
+
     @Test
     @Order(1)
     void addToStockOrder() throws Exception {
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
         StockTrade stockTrade = ObjectUtility.stockTrade1;
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 
         String requestJson = ow.writeValueAsString(stockTrade);
-        MvcResult mvcResult = mockMvc.perform(post("/stock/orders").
+        MvcResult mvcResult = mockMvc.perform(post("/stock/orders").cookie(cookie).
                 contentType(MediaType.APPLICATION_JSON).
                 content(requestJson)).
                 andExpect(status().isOk()).
@@ -70,7 +85,8 @@ class OrderControllerTest {
     @Test
     @Order(2)
     void getAllStockOrderByUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/users/" + ObjectUtility.user.getId() + "?page=0&size=4")).
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
+        mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders?page=0&size=4").cookie(cookie)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andExpect(jsonPath("$.content[0].user.id").value(ObjectUtility.user.getId().toString())).
@@ -80,7 +96,8 @@ class OrderControllerTest {
     @Test
     @Order(3)
     void getStockOrder() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/" + stockOrderId)).
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
+        mockMvc.perform(MockMvcRequestBuilders.get("/stock/orders/" + stockOrderId).cookie(cookie)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andDo(print()).
@@ -90,13 +107,14 @@ class OrderControllerTest {
     @Test
     @Order(5)
     void addToMutualFundOrder() throws Exception {
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
         MutualFundOrder mutualFundOrder = ObjectUtility.mutualFundOrder1;
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 
         String requestJson = ow.writeValueAsString(mutualFundOrder);
-        MvcResult mvcResult = mockMvc.perform(post("/mutualfund/orders").
+        MvcResult mvcResult = mockMvc.perform(post("/mutualfund/orders").cookie(cookie).
                 contentType(MediaType.APPLICATION_JSON).
                 content(requestJson)).
                 andExpect(status().isOk()).
@@ -110,7 +128,8 @@ class OrderControllerTest {
     @Test
     @Order(6)
     void getAllMutualFundOrderByUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/users/" + ObjectUtility.user.getId() + "?page=0&size=3")).
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
+        mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders?page=0&size=3").cookie(cookie)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andExpect(jsonPath("$.content.[0].user.id").value(ObjectUtility.user.getId().toString())).
@@ -120,7 +139,8 @@ class OrderControllerTest {
     @Test
     @Order(7)
     void getMutualFundOrder() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/" + mutualFundOrderId)).
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
+        mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders/" + mutualFundOrderId).cookie(cookie)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andDo(print()).

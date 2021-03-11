@@ -88,8 +88,10 @@ public class OrderController {
         return ResponseEntity.ok().body(stockTrade);
     }
 
-    @GetMapping("/stock/orders/users/{id}")
-    public ResponseEntity<Page<StockTrade>> getAllStockOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+    @GetMapping("/stock/orders")
+    public ResponseEntity<Page<StockTrade>> getAllStockOrderByUser(HttpServletRequest httpServletRequest,@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Page<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
         return ResponseEntity.ok().body(stockTradeList);
     }
@@ -141,7 +143,6 @@ public class OrderController {
         mutualFundOrder = orderService.addToMutualFundOrder(mutualFundOrder);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
-
     @PutMapping("/mutualfund/{id}")
     public ResponseEntity<MutualFundOrder> updateMutualFundOrder(@PathVariable UUID id,
                                                                  @RequestBody MutualFundOrder newMutualFundOrder) {

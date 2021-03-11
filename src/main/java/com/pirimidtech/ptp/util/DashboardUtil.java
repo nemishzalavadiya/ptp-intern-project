@@ -51,6 +51,7 @@ public class DashboardUtil {
         dashboardStockDTO.setPeRatio(stockStatistic.getPeRatio());
         dashboardStockDTO.setName(stockStatistic.getStockDetail().getAssetDetail().getName());
         dashboardStockDTO.setIconUrl(stockStatistic.getStockDetail().getAssetDetail().getLogoUrl());
+        dashboardStockDTO.setAssetDetailId(stockStatistic.getStockDetail().getAssetDetail().getId());
         return dashboardStockDTO;
     }
 
@@ -59,6 +60,7 @@ public class DashboardUtil {
         dashboardMutualFundDTO.setRisk(mutualFundStatistic.getRisk());
         dashboardMutualFundDTO.setName(mutualFundStatistic.getMutualFundDetail().getAssetDetail().getName());
         dashboardMutualFundDTO.setIconUrl(mutualFundStatistic.getMutualFundDetail().getAssetDetail().getLogoUrl());
+        dashboardMutualFundDTO.setAssetDetailId(mutualFundStatistic.getMutualFundDetail().getAssetDetail().getId());
         return dashboardMutualFundDTO;
     }
 }

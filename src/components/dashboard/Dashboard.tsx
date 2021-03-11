@@ -1,30 +1,10 @@
-import { Grid, Icon, Loader, Segment } from "semantic-ui-react";
+import { Grid, Loader, Segment } from "semantic-ui-react";
 import Link from "next/link";
 import getTopStocksAndMutualFunds from "src/services/dashboard";
 import TopAssetContainer from "src/components/dashboard/TopAssetContainer";
-import Position from "src/components/position/position"
+import Position from "src/components/position/position";
+import CardHeader from "src/components/dashboard/DashboardCardDetails"
 const Dashboard = () => {
-    let header = [{
-        title: "Popular Stocks",
-        link: "/stocks",
-        linkTitle: "SEE ALL STOCKS",
-        data: {
-            sortBy: "peRatio",
-            companyIcon: <Icon name="envelope open" />,
-            sign: <Icon size="small" name="percent"></Icon>,
-            secondaryData: "(P/E)"
-        }
-    }, {
-        title: "Popular Funds",
-        link: "/mutualfunds",
-        linkTitle: "SEE ALL MUTUAL FUNDS",
-        data: {
-            sortBy: "risk",
-            companyIcon: <Icon name="envelope open" />,
-            sign: "",
-            secondaryData: ""
-        }
-    }]
     const [isCompleted, response] = getTopStocksAndMutualFunds();
     return isCompleted ?
         <>
@@ -32,8 +12,9 @@ const Dashboard = () => {
                 <Grid.Row>
                     <Grid.Column width="10" className="top-asset">
                         <div className="dashboard-left">
-                            <TopAssetContainer header={header[0]} data={response.dashboardStockDTOList} />
-                            <TopAssetContainer header={header[1]} data={response.dashboardMutualFundDTOList} />
+                            <TopAssetContainer header={CardHeader[0]} data={response.dashboardStockDTOList} />
+                            <TopAssetContainer header={CardHeader[1]} data={response.dashboardMutualFundDTOList} />
+                            <TopAssetContainer header={CardHeader[2]} filter={true} data={response.dashboardMutualFundDTOList} />
                         </div>
                     </Grid.Column>
                     <Grid.Column width="6" className="position">

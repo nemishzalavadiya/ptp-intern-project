@@ -15,7 +15,7 @@ export default function GridContainer(props) {
     <Grid columns="equal" className={props.dashboard?"dashboard-grid-container":"grid-container"}>
       {props.data.map((row, outerIndex) => {
         return (
-          <Grid.Row key={outerIndex} className="ui segment grid-row ">
+          <Grid.Row key={outerIndex} className={props.dashboard?"ui segment dashboard-grid-row":"ui segment grid-row"}>
             {row.map((item, innerIndex) =>
               innerIndex != 0 ? (
                 <Grid.Column key={`${outerIndex} ${innerIndex}`}>

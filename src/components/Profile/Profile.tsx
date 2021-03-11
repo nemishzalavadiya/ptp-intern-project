@@ -15,8 +15,10 @@ import {
 import { updateUserDetails, getUser } from "src/services/userUpdate";
 import { ToastContainer, toast } from "react-toastify";
 import Moment from "moment";
+import { useRouter } from "next/router";
 
 export default function Profile() {
+  const router = useRouter();
   const [bankName, setBankName] = useState("Axis");
   const [accountNumber, setAccountNumber] = useState("10111245XXX");
   const [availableCash, setAvailableCash] = useState("40000");
@@ -197,19 +199,19 @@ export default function Profile() {
                       </Grid.Column>
 
                       <Grid.Column width={8}>
-                      <Dropdown
-                            value={user.gender}
-                            disabled = {!isUpdate}
-                            className="profiledropdown"
-                            placeholder="Select your gender"
-                            options={genderOption}
-                            onChange={(event) => {
-                              setUser({
-                                ...user,
-                                gender: event.target.innerText,
-                              });
-                            }}
-                          ></Dropdown>
+                        <Dropdown
+                          value={user.gender}
+                          disabled={!isUpdate}
+                          className="profiledropdown"
+                          placeholder="Select your gender"
+                          options={genderOption}
+                          onChange={(event) => {
+                            setUser({
+                              ...user,
+                              gender: event.target.innerText,
+                            });
+                          }}
+                        ></Dropdown>
                       </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -293,7 +295,13 @@ export default function Profile() {
                             <Icon name="check circle"></Icon>
                           </>
                         ) : (
-                          <Button>KYC Verification</Button>
+                          <Button
+                            onClick={() => {
+                              router.push("/kyc");
+                            }}
+                          >
+                            KYC Verification
+                          </Button>
                         )}
                       </Grid.Column>
                     </Grid.Row>

@@ -1,72 +1,54 @@
-.ui.input.kycinput>input,.ui.input.kycinput>input:focus
-{
+.ui.input.kycinput > input,
+.ui.input.kycinput > input:focus {
   border: 2px solid white;
   background: transparent;
   color: white;
   text-align: center;
-  margin-top: 30px;
-  width: 200px; 
+  margin-top:10%;
+  width: 50%;
 }
 
-.ui.button.kycbutton
-{
-    background-color: greenyellow;
+.ui.button.kycbutton {
+  background-color: greenyellow;
 }
 
-.rightSide
-{
-  padding-top: 50px;
+.rightSide {
+  padding-top: 4%;
 }
 
-.verified
-{
-  margin: auto auto;
-  text-align: center;
-  border:2px solid red;
+.ui.button.getStart {
+  background-color: greenyellow;
+  width: 50%;
+  height: 5%;
+  margin-top: 10%;
+  border-radius: 10px;
+}
+.buttonGrid {
+  margin-top: 10%;
 }
 
-.verified>.ui.image
-{
-  width: 30%;
-  height: 30%;
-}
-
-
-.ui.button.getStart
-{
-    background-color: greenyellow;
-    width: 50%;
-    height: 5%;
-    margin-top: 10%;
-    border-radius: 10px;
-}
-
-
-
-.ui.placeholder.segment.fileupload
-{
+.ui.placeholder.segment.fileupload {
   background: transparent;
-  width:100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.ui.placeholder.segment.fileupload,.ui.placeholder.segment.signature>.ui.segment
-{
+.ui.placeholder.segment.fileupload,
+.ui.placeholder.segment.signature > .ui.segment {
   background: transparent;
   margin: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;  
+  justify-content: flex-end;
 }
 
-.ui.placeholder.segment.signature
-{
+.ui.placeholder.segment.signature {
   background: transparent;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;  
+  justify-content: space-around;
   margin-bottom: 0px;
 }
 
@@ -74,16 +56,15 @@ input[type="file"] {
   display: none;
 }
 
-.ui.segment>.ui.icon.header
-{
-  color:white;
+.ui.segment > .ui.icon.header {
+  color: white;
 }
 
 .custom-file-upload {
   display: inline-block;
-  width:100px;
+  width: 100px;
   padding: 8px 12px;
-  color:black;
+  color: black;
   margin-left: auto;
   margin-right: auto;
   font-weight: bold;
@@ -92,40 +73,32 @@ input[type="file"] {
   background-color: greenyellow;
 }
 
-
-.kycTicket
-{
-    padding: 0px 20%;
-    
+.kycTicket {
+  padding: 0px 20%;
 }
 
-.header
-{
+.header {
   display: flex;
   justify-content: space-between;
 }
 
-.kycdiv
-{
+.kycdiv {
   background-color: #272727;
   margin-top: 2%;
   border-radius: 25px;
 }
 
-.kycProfile
-{
+.kycProfile {
   text-align: center;
   display: flex;
   justify-content: space-around;
 }
 
-.ui.center.aligned.grid.profile
-{
+.ui.center.aligned.grid.profile {
   margin-top: 5%;
 }
 
-
-.ui.small.circular.image
+.ui.small.circular.image.profilePicture
 {
   width:100px;
   height:100px;

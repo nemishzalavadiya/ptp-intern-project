@@ -21,9 +21,10 @@ export default function KYC(props) {
 const router = useRouter();
 const [isContentFetchingCompleted,changeFetchStatus]=useState(false);
 const [page,setPage]=useState(0);
-const [isValid,setValid]=useState(true);
+const [isValid,setValid]=useState(false);
 
 useEffect(() => {
+  changeFetchStatus(true);
   const data=isKycVerified().then(res=>{
     if(res)
     {
@@ -97,12 +98,12 @@ const validatePan=()=>{
   var patt = new RegExp("[A-Z]{5}[0-9]{4}[A-Z]{1}");
   if(!patt.test(panDetails.panNumber))
   {
+    setValid(false);
     toast.error("Enter Valid PAN Number", {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,
     });
-    setValid(false);
  }
  if(panDetails.panFile===null)
  {
@@ -146,7 +147,6 @@ const upload=async ()=> {
   validatePersonalDetails();
   validateLeagleInfo();
   if(isValid){
-  console.log("hello");
     await addKYCDetails(createFormData()).then(()=>{
       toast.success("Verification Done", {
         position: "bottom-right",
@@ -156,7 +156,6 @@ const upload=async ()=> {
       nextClick();
     
   }).catch((err)=>{
-    console.log("catch");
     toast.error(err.message, {
       position: "bottom-right",
       autoClose: 2000,

@@ -16,7 +16,7 @@ export default function StockTicket({ assetId, stockId }) {
   const [price, setPrice] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
   const [volume, setVolume] = useState(0);
-  const [isOrderExecuting, setOrdrStatus] = useState(false);
+  const [isOrderExecuting, setOrderStatus] = useState(false);
   useEffect(() => {
     const webSocket = new SockJS(WebSocketUrl.url);
     const stompClient = Stomp.over(webSocket);
@@ -37,7 +37,7 @@ export default function StockTicket({ assetId, stockId }) {
     };
   }, []);
   const createOrder = async (event) => {
-    setOrdrStatus(true);
+    setOrderStatus(true);
     event.preventDefault();
     let data = {
       tradeVolume: volume,
@@ -51,7 +51,7 @@ export default function StockTicket({ assetId, stockId }) {
     };
     createStockOrder(data)
       .then((res) => {
-        setOrdrStatus(false);
+        setOrderStatus(false);
         toast("Order Executed Successfully!", {
           position: "bottom-right",
           autoClose: 2000,
@@ -59,7 +59,7 @@ export default function StockTicket({ assetId, stockId }) {
         });
       })
       .catch((err) => {
-        setOrdrStatus(false);
+        setOrderStatus(false);
         toast.error(err.message, {
           position: "bottom-right",
           autoClose: 2000,

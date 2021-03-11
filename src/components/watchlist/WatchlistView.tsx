@@ -79,22 +79,22 @@ export default function WatchlistView(props) {
     }
     setSortingField(fieldName);
   }
-
   return isSubscriptionCompleted && data.size === companyUuids.length ? (
     <>
       {
         <>
-          <Sorting
-            content={WatchlistSortingField}
-            pattern={pattern}
-            onclick={changeArrow}
-          />
+          {props.content.length !== 0 ? (
+            <Sorting
+              content={WatchlistSortingField}
+              pattern={pattern}
+              onclick={changeArrow}
+            />
+          ) : null}
           <GridContainer
             content={props.content}
             pagination={props.pagination}
             data={Array.from(data.values())}
             tabId={props.tabId}
-            showHeaderGrid="disallow"
           />
         </>
       }

@@ -25,6 +25,9 @@ import java.text.SimpleDateFormat;
 @Service
 public class OrderService implements OrderServiceInterface {
 
+    String dateFormat = "yyyy-MM-dd";
+    String dateFormatWithTime = "E MMM dd HH:mm:ss Z yyyy";
+
     @Autowired
     private StockTradeRepository stockTradeRepository;
 
@@ -69,8 +72,8 @@ public class OrderService implements OrderServiceInterface {
 
     public Page<StockTrade> getStockOrderFilteredOnDate(UUID userId, String startDate, String endDate, Pageable pageable) throws Exception {
 
-        DateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat targetFormat = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+        DateFormat originalFormat = new SimpleDateFormat(dateFormat);
+        DateFormat targetFormat = new SimpleDateFormat(dateFormatWithTime);
         Date sDate = originalFormat.parse(startDate);
         startDate = targetFormat.format(sDate);
         Date eDate = originalFormat.parse(endDate);
@@ -98,8 +101,8 @@ public class OrderService implements OrderServiceInterface {
     }
 
     public Page<MutualFundOrder> getMutualFundOrderFilteredOnDate(UUID userId, String startDate, String endDate, Pageable pageable) throws ParseException {
-        DateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat targetFormat = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+        DateFormat originalFormat = new SimpleDateFormat(dateFormat);
+        DateFormat targetFormat = new SimpleDateFormat(dateFormatWithTime);
         Date sDate = originalFormat.parse(startDate);
         startDate = targetFormat.format(sDate);
         Date eDate = originalFormat.parse(endDate);

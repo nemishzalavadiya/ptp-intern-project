@@ -94,25 +94,26 @@ public class OrderController {
         return ResponseEntity.ok().body(stockTrade);
 
     }
+
     @GetMapping("/stock/orders/filter-by-date")
     public ResponseEntity<Page<StockTrade>> getStockOrderBasedOnDate(@RequestParam UUID userId,
                                                                      @RequestParam String startDate,
                                                                      @RequestParam String endDate,
                                                                      @RequestParam(defaultValue = "0") int page,
-                                                                     @RequestParam(defaultValue = "10") int size) throws Exception{
+                                                                     @RequestParam(defaultValue = "10") int size) throws Exception {
         Pageable pageable = PageRequest.of(page, size);
-        Page<StockTrade> stockTradeBasedOnDate = orderService.getStockOrderFilteredOnDate(userId,startDate,endDate,pageable);
+        Page<StockTrade> stockTradeBasedOnDate = orderService.getStockOrderFilteredOnDate(userId, startDate, endDate, pageable);
         return ResponseEntity.ok().body(stockTradeBasedOnDate);
     }
 
     @GetMapping("/mutualfund/orders/filter-by-date")
     public ResponseEntity<Page<MutualFundOrder>> getMutualFundOrderBasedOnDate(@RequestParam UUID userId,
-                                                                     @RequestParam String startDate,
-                                                                     @RequestParam String endDate,
-                                                                     @RequestParam(defaultValue = "0") int page,
-                                                                     @RequestParam(defaultValue = "10") int size) throws Exception{
+                                                                               @RequestParam String startDate,
+                                                                               @RequestParam String endDate,
+                                                                               @RequestParam(defaultValue = "0") int page,
+                                                                               @RequestParam(defaultValue = "10") int size) throws Exception {
         Pageable pageable = PageRequest.of(page, size);
-        Page<MutualFundOrder> MutualFundTradeBasedOnDate = orderService.getMutualFundOrderFilteredOnDate(userId,startDate,endDate,pageable);
+        Page<MutualFundOrder> MutualFundTradeBasedOnDate = orderService.getMutualFundOrderFilteredOnDate(userId, startDate, endDate, pageable);
         return ResponseEntity.ok().body(MutualFundTradeBasedOnDate);
     }
 
@@ -129,8 +130,8 @@ public class OrderController {
 
     @PutMapping("/mutualfund/{id}")
     public ResponseEntity<MutualFundOrder> updateMutualFundOrder(@PathVariable UUID id,
-                                                            @RequestBody MutualFundOrder newMutualFundOrder){
-        MutualFundOrder mutualFundOrder = orderService.updateMutualFundOrder(id,newMutualFundOrder);
+                                                                 @RequestBody MutualFundOrder newMutualFundOrder) {
+        MutualFundOrder mutualFundOrder = orderService.updateMutualFundOrder(id, newMutualFundOrder);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 

@@ -60,7 +60,7 @@ export default function Signature({ leagleInfo, setLeagleInfo, upload }) {
         </Segment>
         <Segment>
           <Header icon>
-            <Icon name="pdf file outline" />
+            <Icon name="images file outline" />
             {leagleInfo.profile === null
               ? "Upload Profile Picture"
               : leagleInfo.profile.name}

@@ -32,7 +32,7 @@ export default function PanDetail({ panDetails, setPanDetails }) {
       />
       <Segment placeholder className="fileupload">
         <Header icon>
-          <Icon name="pdf file outline" />
+          <Icon name="images file outline" />
           {panDetails.panFile === null ? "Upload PAN" : panDetails.panFile.name}
         </Header>
         <label className="custom-file-upload">

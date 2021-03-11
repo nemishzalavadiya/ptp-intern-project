@@ -27,7 +27,7 @@ public class KYCController {
     ResponseEntity<String> uploadKYC(HttpServletRequest httpServletRequest, KYCDetailDTO kycDetail) throws IOException {
         String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
-        kycService.uploadKYCDetail(kycDetail,userId);
+        kycService.uploadKYCDetail(kycDetail, userId);
         return ResponseEntity.ok("Kyc varified");
     }
 
@@ -35,7 +35,7 @@ public class KYCController {
     ResponseEntity<Boolean> getKyc(HttpServletRequest httpServletRequest) throws IOException {
         String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
-        boolean isKycVerified=kycService.isKycVerified(userId);
+        boolean isKycVerified = kycService.isKycVerified(userId);
         return ResponseEntity.ok().body(isKycVerified);
     }
 

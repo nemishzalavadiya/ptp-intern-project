@@ -70,7 +70,7 @@ public class OrderController {
     public ResponseEntity<StockTrade> addToStockOrder(HttpServletRequest httpServletRequest, @RequestBody StockTrade stockTrade) {
         String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
-        User user=new User();
+        User user = new User();
         user.setId(userId);
         stockTrade.setUser(user);
         if (stockTrade.getAction().equals(Action.SELL)) {
@@ -89,7 +89,7 @@ public class OrderController {
     }
 
     @GetMapping("/stock/orders")
-    public ResponseEntity<Page<StockTrade>> getAllStockOrderByUser(HttpServletRequest httpServletRequest,@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+    public ResponseEntity<Page<StockTrade>> getAllStockOrderByUser(HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
         String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Page<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
@@ -129,10 +129,10 @@ public class OrderController {
     }
 
     @PostMapping("/mutualfund/orders")
-    public ResponseEntity<MutualFundOrder> addToMutualFundOrder(HttpServletRequest httpServletRequest,@RequestBody MutualFundOrder mutualFundOrder) {
+    public ResponseEntity<MutualFundOrder> addToMutualFundOrder(HttpServletRequest httpServletRequest, @RequestBody MutualFundOrder mutualFundOrder) {
         String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
-        User user=new User();
+        User user = new User();
         user.setId(userId);
         mutualFundOrder.setUser(user);
         mutualFundOrder.setStatus(Status.PENDING);

@@ -38,7 +38,7 @@ public class PositionController {
     public ResponseEntity<Page<Position>> getStockPositionByUser(HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
         String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
-       Page<Position> positionList = positionService.getPositionByAssetClass(userId, AssetClass.STOCK, page, size);
+        Page<Position> positionList = positionService.getPositionByAssetClass(userId, AssetClass.STOCK, page, size);
         return ResponseEntity.ok().body(positionList);
     }
 
@@ -55,8 +55,8 @@ public class PositionController {
                 float nav = mutualFundStatistic.getNav();
                 float netValue = position.getVolume() * nav;
                 float profitPercentage = ((netValue - position.getPrice()) / (position.getPrice())) * 100;
-                float avgNav=position.getPrice()/position.getVolume();
-                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position.getAssetDetail().getName(), position.getAssetDetail().getId(),position.getVolume(),position.getPrice(),nav, netValue, profitPercentage,avgNav,netValue-position.getPrice());
+                float avgNav = position.getPrice() / position.getVolume();
+                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position.getAssetDetail().getName(), position.getAssetDetail().getId(), position.getVolume(), position.getPrice(), nav, netValue, profitPercentage, avgNav, netValue - position.getPrice());
                 mutualFundPositionDTOList.add(mutualFundPositionDTO);
             }
         });
@@ -87,15 +87,15 @@ public class PositionController {
                 float nav = mutualFundStatistic.getNav();
                 float netValue = position.getVolume() * nav;
                 float profitPercentage = ((netValue - position.getPrice()) / (position.getPrice())) * 100;
-                float avgNav=position.getPrice()/position.getVolume();
-                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position.getAssetDetail().getName(), position.getAssetDetail().getId(),position.getVolume(),position.getPrice(),nav, netValue, profitPercentage,avgNav,netValue-position.getPrice());
+                float avgNav = position.getPrice() / position.getVolume();
+                MutualFundPositionDTO mutualFundPositionDTO = new MutualFundPositionDTO(position.getAssetDetail().getName(), position.getAssetDetail().getId(), position.getVolume(), position.getPrice(), nav, netValue, profitPercentage, avgNav, netValue - position.getPrice());
                 mutualFundPositionDTOList.add(mutualFundPositionDTO);
             }
         });
         Pageable pageable = positionList.getPageable();
         int contentSize = positionList.toList().size();
         long total = pageable.getOffset() + contentSize + (contentSize == size ? size : 0);
-        Page<MutualFundPositionDTO> result = new PageImpl<MutualFundPositionDTO>(mutualFundPositionDTOList, positionList.getPageable(),total);
+        Page<MutualFundPositionDTO> result = new PageImpl<MutualFundPositionDTO>(mutualFundPositionDTOList, positionList.getPageable(), total);
         return ResponseEntity.ok().body(result);
     }
 

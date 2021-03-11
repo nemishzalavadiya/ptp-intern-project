@@ -13,3 +13,13 @@ export async function createMutualFundOrder(order) {
     throw new Error(body.message);
   }
 }
+export async function updateMutualFundOrder(id,order) {
+  const response = await fetch("/api/mutualfund/" + id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(order),
+  });
+  const body = await response.json();
+}

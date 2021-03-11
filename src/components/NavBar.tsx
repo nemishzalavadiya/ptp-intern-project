@@ -1,39 +1,39 @@
 import Link from "next/link";
 import { Popup } from "semantic-ui-react";
-import { Menu } from "semantic-ui-react";
+import { Menu, Icon } from "semantic-ui-react";
 import { useState } from "react";
 const sidebar = [
   {
     item: "STOCK",
-    imgLink: "/icons8-stocks-481.png",
+    imgLink: "/icons8-stocks-481.PNG",
     imgAlter: "Stocks",
     content: "Stocks",
     link: "/stocks",
   },
   {
     item: "MUTUAL_FUND",
-    imgLink: "/icons8-coin-in-hand-48.png",
+    imgLink: "/round_request_page_white_48dp.PNG",
     imgAlter: "Mutual Funds",
     content: "Mutual Funds",
     link: "/mutualfunds",
   },
   {
     item: "WATCHLIST",
-    imgLink: "/icons8-eye-unchecked-48.png",
+    imgLink: "/icons8-eye-unchecked-48.PNG",
     imgAlter: "Watchlist",
     content: "Watchlist",
     link: "/watchlist",
   },
   {
     item: "POSITION",
-    imgLink: "/round_add_shopping_cart_white_48dp.png",
+    imgLink: "/round_add_shopping_cart_white_48dp.PNG",
     imgAlter: "Positions",
     content: "Positions",
     link: "/position",
   },
   {
     item: "ORDERS",
-    imgLink: "/icons8-purchase-order-48.png",
+    imgLink: "/icons8-purchase-order-48.PNG",
     imgAlter: "Orders",
     content: "Orders",
     link: "/Order",

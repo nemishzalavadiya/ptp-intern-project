@@ -1,0 +1,148 @@
+import React from "react";
+import { Loader, Grid, Button, Icon, Modal } from "semantic-ui-react";
+import { useState, useEffect } from "react";
+import Router from "next/router";
+import { UserId } from "src/components/Objects";
+import GridContainer from "src/components/grid/GridContainer";
+import {
+  getMutualFundOrdersBySipStatus,
+  deleteSIPStatus,
+} from "src/services/sipstatus";
+import "semantic-ui-css/semantic.min.css";
+import styles from "src/styles/Layout.module.scss";
+import MutualFundTicket from "src/components/ticket/MutualFundTicket";
+import { getMfByAssetId } from "src/services/assets";
+import Moment from "moment";
+
+export default function MutualFundOrder(props) {
+  let [isDataFetchingCompleted, SetIsDataFetchingCompleted] = useState(false);
+  var results = [];
+  const [open, setOpen] = useState(false);
+  let [MFEdit, setMFEdit] = useState({});
+  let [mutualFundId, setMutualFundId] = useState("");
+  let [mutualFundOrderId, setMutualFundOrderId] = useState("");
+  let [ticketDetail, setTicketDetail] = useState({});
+  let [dataResponse, setDataResponse] = useState([]);
+  let [isUpdate,setIsUpdate] = useState(false);
+  const header = [
+    { header: "Company Name", icon: "" },
+    { header: "Amount", icon: <i className="rupee sign icon small"></i> },
+    { header: "Order Date", icon: "" },
+    { header: "Frequency", icon: "" },
+    { header: "Scheduled On", icon: "" },
+    { header: "SIP Status", icon: "" },
+    { header: "Action", icon: "" },
+  ];
+
+  const [page, setPage] = useState({
+    pages: 0,
+  });
+  useEffect(() => {
+    getMutualFundOrdersBySipStatus(UserId.userId, page.pages, 5).then((res) => {
+      console.log(res)
+      setDataResponse(res);
+      SetIsDataFetchingCompleted(true);
+    });
+  }, [isUpdate,page]);
+  function handlePaginationChange(pageNo) {
+    setPage({ pages: pageNo, userId: UserId.userId });
+  }
+
+  const pagination = {
+    activePage: page.pages,
+    totalPages: 2,
+    handlePaginationChange: handlePaginationChange,
+  };
+
+  function handleItemClick(index) {
+    setActiveItem(index);
+  }
+
+  function deleteSIP(mutualFundOrderId) {
+    deleteSIPStatus(mutualFundOrderId);
+    setIsUpdate(!isUpdate);
+  }
+  const [isMFFetchingComplete, MFResponse] = getMfByAssetId(mutualFundId);
+  function editSIP(mfAssetId, mfOrderId, frequency, amount, date) {
+    setIsUpdate(!isUpdate)
+    setMutualFundId(mfAssetId);
+    setMutualFundOrderId(mfOrderId);
+    setTicketDetail({
+      frequency: frequency,
+      amount: amount,
+      date: date,
+    });
+    setOpen(true);
+  }
+  useEffect(() => {
+    setMFEdit({
+      mutualFundDetail: {
+        id: MFResponse.id,
+      },
+      minSIP: MFResponse?.minSIP,
+    });
+  }, [MFResponse]);
+  pagination.totalPages = dataResponse.totalPages;
+  if (isDataFetchingCompleted) {
+    console.log(dataResponse);
+    dataResponse.content.map((item) => {
+      results.push([
+        item.mutualFundDetail.assetDetail.name,
+        item.price,
+        item.timestamp.substr(0, 10),
+        item.investmentType,
+        item.sipdate.substring(0, 10),
+        item.sipStatus,
+        <Button.Group icon transparent>
+          <Button
+            onClick={() =>
+              editSIP(
+                item.mutualFundDetail.assetDetail.id,
+                item.id,
+                item.investmentType,
+                item.price,
+                Moment(item.sipdate).format("yyyy-MM-DD")
+              )
+            }
+          >
+            <Icon name="pencil alternate" />
+          </Button>
+          <Button>
+            <Icon name="play" color="green" />
+          </Button>
+          <Button onClick={() => deleteSIP(item.id)}>
+            <Icon name="trash" color="red" />
+          </Button>
+        </Button.Group>,
+      ]);
+    });
+  }
+  return (
+    <div>
+      <GridContainer content={header} data={results} pagination={pagination} />
+      <Modal
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        open={open}
+        basic
+        
+        size="large"
+      >
+        <Modal.Content>
+          {
+            <div align="center">
+              <MutualFundTicket
+                ticketDetail={ticketDetail}
+                mfOrderId={mutualFundOrderId}
+                isUpdate={true}
+                isUpdateFlag={isUpdate}
+                setIsUpdate={setIsUpdate}
+                mfDetail={MFEdit}
+              />
+            </div>
+          }
+        </Modal.Content>
+      </Modal>
+    </div>
+  );
+}

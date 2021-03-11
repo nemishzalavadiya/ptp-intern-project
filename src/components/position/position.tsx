@@ -1,5 +1,7 @@
 import { useState } from "react";
+import Router from "next/router";
 import Tab from "src/components/Tab";
+import { Button } from "semantic-ui-react";
 import Search from "src/components/Search";
 import MutualFundPosition from "src/components/position/mutualFundPositionView";
 import StockPositionList from "src/components/position/stockPositionList";
@@ -40,12 +42,22 @@ export default function Position(props) {
         handleItemClick={handleItemClick}
         activeItem={activeItem}
       ></Tab>
-      {
-        !props.dashboard && <Search
-          handleSearchChange={handleSearchChange}
-          placeholder={`Search In ${tabs[activeItem].name} Position...`}
-        />
-      }
+      <Search
+        handleSearchChange={handleSearchChange}
+        placeholder={`Search In ${tabs[activeItem].name} Position...`}
+      />
+      {assetClass === AssetClass.MUTUAL_FUND ? (
+        <Button
+          inverted
+          color="green"
+          size="large"
+          onClick={() => Router.push("/sipstatus")}
+        >
+          My SIPs...
+        </Button>
+      ) : (
+        ""
+      )}
       {activeItem === 0 ? (
         <StockPositionList
           searchString={searchString}

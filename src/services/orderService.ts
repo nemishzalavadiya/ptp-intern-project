@@ -39,6 +39,7 @@ function getOrdersByDate(
           item.mutualFundDetail.assetDetail.name,
           item.mutualFundDetail.assetDetail.assetClass,
           item.price,
+          item.price/item.nav,
           item.timestamp.substr(0, 10),
           item.investmentType,
           item.sipStatus,

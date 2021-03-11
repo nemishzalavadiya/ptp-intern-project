@@ -17,10 +17,9 @@ import java.util.UUID;
 @Slf4j
 public class RequestUtil {
 
+    private static final String TOKEN = "token";
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
-    private static final String TOKEN = "token";
 
     public String getTokenFromCookies(HttpServletRequest httpServletRequest) {
         String jwtToken = null;
@@ -33,7 +32,8 @@ public class RequestUtil {
         }
         return jwtToken;
     }
-    public UUID getUserIdFromToken(String jwtToken){
+
+    public UUID getUserIdFromToken(String jwtToken) {
         UUID userId = null;
         try {
             userId = jwtTokenUtil.getUserIdFromToken(jwtToken);

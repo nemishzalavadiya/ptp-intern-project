@@ -24,9 +24,13 @@ public class User {
     @GeneratedValue
     private UUID id;
 
-    private String password;
+    private String dpId;
 
-    private String name;
+    private String firstName;
+
+    private String lastName;
+
+    private String password;
 
     private String email;
 
@@ -37,6 +41,8 @@ public class User {
     private String signatureUrl;
 
     private String dateOfBirth;
+
+    private boolean isKycVerified;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;

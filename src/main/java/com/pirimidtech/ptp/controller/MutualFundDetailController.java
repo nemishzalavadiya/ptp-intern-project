@@ -1,10 +1,10 @@
 package com.pirimidtech.ptp.controller;
 
+import com.pirimidtech.ptp.DTO.SelectedMutualFundFilter;
 import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
-import com.pirimidtech.ptp.DTO.SelectedMutualFundFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

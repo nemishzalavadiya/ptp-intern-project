@@ -21,16 +21,13 @@ import java.util.UUID;
 @Slf4j
 public class AuthorizationFilter extends OncePerRequestFilter {
 
+    private static final String TOKEN = "token";
     @Autowired
     private RequestUtil requestUtil;
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
-    private static final String TOKEN = "token";
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
@@ -50,6 +47,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
-        return "/login".equals(path);
+        return "/login".equals(path) || "/signup".equals(path) || "/register".equals(path);
     }
 }

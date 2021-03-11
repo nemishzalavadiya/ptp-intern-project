@@ -1,9 +1,9 @@
 package com.pirimidtech.ptp.service.stock;
 
 import com.pirimidtech.ptp.DTO.SelectedStocksFilter;
+import com.pirimidtech.ptp.entity.QStockStatistic;
 import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockStatistic;
-import com.pirimidtech.ptp.entity.QStockStatistic;
 import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.repository.StockStatisticRepository;
 import com.pirimidtech.ptp.service.datagenerator.DataGenerator;

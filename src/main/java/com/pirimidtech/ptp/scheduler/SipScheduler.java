@@ -9,8 +9,6 @@ import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.entity.Position;
 import com.pirimidtech.ptp.entity.Status;
-
-
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
 import com.pirimidtech.ptp.repository.MutualFundOrderRepository;
 import com.pirimidtech.ptp.repository.MutualFundStatisticRepository;

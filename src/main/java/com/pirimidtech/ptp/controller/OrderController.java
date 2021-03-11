@@ -2,7 +2,6 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.Action;
 import com.pirimidtech.ptp.entity.AssetDetail;
-import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.entity.Position;
@@ -23,10 +22,8 @@ import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
 import com.pirimidtech.ptp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +33,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Optional;
@@ -143,6 +141,7 @@ public class OrderController {
         mutualFundOrder = orderService.addToMutualFundOrder(mutualFundOrder);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
+
     @PutMapping("/mutualfund/{id}")
     public ResponseEntity<MutualFundOrder> updateMutualFundOrder(@PathVariable UUID id,
                                                                  @RequestBody MutualFundOrder newMutualFundOrder) {

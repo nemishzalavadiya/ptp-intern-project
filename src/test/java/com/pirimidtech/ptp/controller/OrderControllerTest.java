@@ -126,17 +126,6 @@ class OrderControllerTest {
     }
 
     @Test
-    @Order(6)
-    void getAllMutualFundOrderByUser() throws Exception {
-        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
-        mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/orders?page=0&size=3").cookie(cookie)).
-                andExpect(status().isOk()).
-                andExpect(content().contentType(MediaType.APPLICATION_JSON)).
-                andExpect(jsonPath("$.content.[0].user.id").value(ObjectUtility.user.getId().toString())).
-                andDo(print());
-    }
-
-    @Test
     @Order(7)
     void getMutualFundOrder() throws Exception {
         Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));

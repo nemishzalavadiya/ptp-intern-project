@@ -12,14 +12,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 
 
 @Service
@@ -60,7 +59,7 @@ public class OrderService implements OrderServiceInterface {
 
     @Override
     public Page<MutualFundOrder> getAllMutualFundBySipStatus(UUID userId, Pageable pageable) {
-        Page<MutualFundOrder> pageResult = mutualFundOrderRepository.findAllBySipStatusNotAndInvestmentTypeNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc( SIPStatus.DELETED , InvestmentType.ONE_TIME,InvestmentType.NONE,userId,pageable);
+        Page<MutualFundOrder> pageResult = mutualFundOrderRepository.findAllBySipStatusNotAndInvestmentTypeNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc(SIPStatus.DELETED, InvestmentType.ONE_TIME, InvestmentType.NONE, userId, pageable);
         return pageResult;
     }
 
@@ -80,16 +79,16 @@ public class OrderService implements OrderServiceInterface {
         endDate = targetFormat.format(eDate);
         sDate = targetFormat.parse(startDate);
         eDate = targetFormat.parse(endDate);
-        if(sDate.compareTo(eDate) <= 1){
+        if (sDate.compareTo(eDate) <= 1) {
             Calendar cal = Calendar.getInstance();
             cal.setTime(eDate);
             cal.add(Calendar.DATE, 1);
             eDate = cal.getTime();
         }
-        return stockTradeRepository.findAllByUserIdAndTimestampBetween(userId,sDate,eDate,pageable);
+        return stockTradeRepository.findAllByUserIdAndTimestampBetween(userId, sDate, eDate, pageable);
     }
 
-    public MutualFundOrder updateMutualFundOrder(UUID id,MutualFundOrder newMutualFundOrder) {
+    public MutualFundOrder updateMutualFundOrder(UUID id, MutualFundOrder newMutualFundOrder) {
         Optional<MutualFundOrder> isMutualFundOrder = mutualFundOrderRepository.findById(id);
         MutualFundOrder oldMutualFundOrder = isMutualFundOrder.get();
         oldMutualFundOrder.setPrice(newMutualFundOrder.getPrice());
@@ -109,13 +108,13 @@ public class OrderService implements OrderServiceInterface {
         endDate = targetFormat.format(eDate);
         sDate = targetFormat.parse(startDate);
         eDate = targetFormat.parse(endDate);
-        if(sDate.compareTo(eDate) <= 1){
+        if (sDate.compareTo(eDate) <= 1) {
             Calendar cal = Calendar.getInstance();
             cal.setTime(eDate);
             cal.add(Calendar.DATE, 1);
             eDate = cal.getTime();
         }
-        return mutualFundOrderRepository.findAllByUserIdAndTimestampBetween(userId,sDate,eDate,pageable);
+        return mutualFundOrderRepository.findAllByUserIdAndTimestampBetween(userId, sDate, eDate, pageable);
     }
 
     public void deleteMutualFundBySipStatus(UUID mutualFundOrderId) {

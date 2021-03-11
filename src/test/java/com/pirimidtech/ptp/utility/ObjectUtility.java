@@ -36,8 +36,8 @@ public class ObjectUtility {
     public static AssetDetail assetDetail = new AssetDetail(UUID.fromString("2dde9b84-f692-4ceb-9686-1268bb771360"), "name", "logo_url", AssetClass.STOCK, "about", "XYZ", "org");
     public static AssetDetail assetDetail1 = new AssetDetail(UUID.fromString("51381618-1bc9-4c19-aab9-44994433b185"), "name", "logo_url", AssetClass.MUTUAL_FUND, "about", "XYZ", "org");
     public static MutualFundDetail mutualFundDetail = new MutualFundDetail(UUID.fromString("51381618-1bc9-4c19-aab9-000000000001"), date1, "ABC", assetDetail1);
-    public static MutualFundOrder mutualFundOrder1 = new MutualFundOrder(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"),new Date(), SIPStatus.ACTIVE,date1,0, 100f,Status.PENDING, InvestmentType.MONTHLY_SIP, mutualFundDetail, user);
-    public static MutualFundOrder mutualFundOrder2 = new MutualFundOrder(UUID.fromString("f0108f8a-0d7c-4235-bce3-5deda9a3e151"), new Date(), SIPStatus.ACTIVE,date1,0, 105f,Status.PENDING, InvestmentType.MONTHLY_SIP, mutualFundDetail, user);
+    public static MutualFundOrder mutualFundOrder1 = new MutualFundOrder(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"), new Date(), SIPStatus.ACTIVE, date1, 0, 100f, Status.PENDING, InvestmentType.MONTHLY_SIP, mutualFundDetail, user);
+    public static MutualFundOrder mutualFundOrder2 = new MutualFundOrder(UUID.fromString("f0108f8a-0d7c-4235-bce3-5deda9a3e151"), new Date(), SIPStatus.ACTIVE, date1, 0, 105f, Status.PENDING, InvestmentType.MONTHLY_SIP, mutualFundDetail, user);
     public static List<MutualFundOrder> mutualFundOrderList = new ArrayList<>();
     public static MutualFundPrice mutualFundPrice1 = new MutualFundPrice(UUID.fromString("06f51c63-14f3-4c34-be12-ec1abd26c957"), 101.5F, date1, mutualFundDetail);
     public static MutualFundStatistic mutualFundStatistic = new MutualFundStatistic(UUID.fromString("95d9a220-2579-4a13-b7e2-7ac628ed2e6f"), "Low", 0.0f, true, 0.0f, 0.0f, null, 0.0f, mutualFundDetail);

@@ -28,6 +28,11 @@ public class MutualFundOrder {
     @GeneratedValue
     private UUID id;
 
+    private Date timestamp;
+
+    @Enumerated(EnumType.STRING)
+    private SIPStatus sipStatus;
+
     private Date SIPDate;
 
     @Column(nullable = false)

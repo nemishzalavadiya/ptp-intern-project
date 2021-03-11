@@ -1,100 +1,81 @@
 /** asset Data **/
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b181', 'about', 'STOCK', 'logo_url', 'nemish',
-        'China Petroleum & Chemical Corp. (SNP)', 'org1');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b181', 'Adani Green Energy Limited is an India-based renewable energy company. The Company develops, builds, owns, operates and maintains utility-scale grid connected solar power, wind power, hybrid projects and solar parks. It owns a project portfolio of approximately 13,990 megawatts (MW).', 'STOCK', 'logo_url', 'Gautam adani', 'Adani green Energy', 'org1');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b182', 'about', 'STOCK', 'logo_url', 'harsh', 'Royal Dutch Shell PLC (RDS. A)',
-        'org2');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b182', 'The Royal Dutch Shell plc is a company based in the Netherlands that explores for crude oil and natural gas around the world, both in conventional fields and from sources, such as tight rock, shale and coal formations. Its segments include Integrated Gas, Upstream, Downstream and Corporate.', 'STOCK', 'logo_url', 'Ben van Beurden', 'Royal Dutch Shell PLC (RDS. A)', 'org2');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b183', 'about', 'STOCK', 'logo_url', 'harsh', 'Bharat Sanchar Nigam Limited',
-        'org3');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b183', 'Bharat Sanchar Nigam Limited d/b/a BSNL is an Indian government owned telecommunications company, headquartered in New Delhi, Delhi, India. It was incorporated by Department of Telecommunications, Ministry of Communications, Government of India on 1 October 2000.', 'STOCK', 'logo_url', 'Pravin Kumar Purwar', 'Bharat Sanchar Nigam Limited', 'org3');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b184', 'about', 'STOCK', 'logo_url', 'Mohit',
-        'Berkshire Hathaway Inc. (BRK.A)', 'org4');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b184', 'Berkshire is manufacturing is largest source of earnings before taxes. Berkshire Hathaway Inc. (BRK. A; BRK.B) is a diversified holding company whose subsidiaries engage in insurance, freight rail transportation, energy generation and distribution, manufacturing, and retailing.', 'STOCK', 'logo_url', 'Warren Buffett', 'Berkshire Hathaway Inc. (BRK.A)', 'org4');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b185', 'about', 'MUTUAL_FUND', 'logo_url', 'devesh', 'Toyota Motor Corp. (TM)',
-        'org5');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b185', 'TOYOTA MOTOR CORPORATION is a Japan-based company engaged in the automobile business, finance business and other businesses. The Automobile segment is engaged in the design, manufacture and sale of sedans, minivans, 2box, sports utility vehicles, trucks and related vehicles, as well as related parts and products.', 'MUTUAL_FUND', 'logo_url', 'Akio Toyoda ', 'Toyota Motor Corp. (TM)', 'org5');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b186', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
-        'Oil and Natural Gas Corporation', 'org6');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b186', 'Oil and Natural Gas Corporation is an Indian public sector multinational crude oil and gas company. Its registered office is in New Delhi. It is owned by the Government of India, under the administrative control of the Ministry of Petroleum and Natural Gas.', 'MUTUAL_FUND', 'logo_url', 'Shashi Shanker', 'Oil and Natural Gas Corporation', 'org6');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b187', 'about', 'MUTUAL_FUND', 'logo_url', 'devesh', 'CVS Health Corp. (CVS)',
-        'org7');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b187', 'CVS Health is an American healthcare company that owns CVS Pharmacy, a retail pharmacy chain; CVS Caremark, a pharmacy benefits manager; Aetna, a health insurance provider, among many other brands. The company headquarters is in Woonsocket, Rhode Island', 'MUTUAL_FUND', 'logo_url', 'Karen S. Lynch', 'CVS Health Corp. (CVS)', 'org7');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b188', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Bonn Group of Industries',
-        'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b188', 'Bonn group of Industries is food company based in Ludhiana Punjab, India. Founded in 1985, it produces a variety of food products including breads, biscuits, cakes and cookies. These products are sold in both Indian and International markets.', 'MUTUAL_FUND', 'logo_url', 'Manjit Singh', 'Bonn Group of Industries', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b189', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
-        'Cathay Pacific Airways Ltd. (CPA)', 'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b189', 'Cathay Pacific Airways is Hong Kongs flag carrier, offering passenger and cargo services to around 200 cities in Asia, Europe, North America, Africa and Australia. It has a workforce of around 23,000. The company was established in 1946 by Roy Farrell, an American, and Sydney de Kantzow, an Australian.', 'MUTUAL_FUND', 'logo_url', 'Augustus Tang Kin Wing', 'Cathay Pacific Airways Ltd. (CPA)', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b190', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
-        'LOCUS INTERNATIONAL CENTRE FOR ENTREPRENEURSHIP DEVELOPMENT AND INCUBATION SERVICES LIMITED', 'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b190', 'Axis Bluechip Fund is an open-ended equity scheme, which predominantly invests in large-cap stocks. Investors who are looking for capital appreciation over time and portfolio diversification with equity and equity-related instruments of large-cap firms can choose this fund.', 'MUTUAL_FUND', 'logo_url', 'Chandresh Kumar Nigam', 'Axis Bluechip', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b191', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'British Airways', 'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b191', 'British Airways is the flag carrier airline of the United Kingdom. It is headquartered in London, England, near its main hub at Heathrow Airport. The airline is the second largest UK based carrier, based on fleet size and passengers carried, behind easyJet.', 'MUTUAL_FUND', 'logo_url', 'Sean Doyle', 'British Airways', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b192', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
-        'Indian Private Corporation', 'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b192', 'A Private Limited Company offers Limited Liability or Legal Protection for its Shareholders. A Private Limited Company lies between a partnership and widely owned public company. A Private Limited Company is identified by the company name, number of members, formation, directors, meetings, shares, etc.', 'MUTUAL_FUND', 'logo_url', 'Schauna Chauhan', 'Indian Private Corporation', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b193', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Bharat Oil Fund Risers',
-        'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b193', 'Bharat Oil & Waste Management Ltd (BOWML) provides Complete Solutions in Waste Testing, Tracking and Management via its products and services since 1978. BOWML is committed to protecting mother-nature by providing safest Hazardous Waste Management Service, Electrical & Electronic Waste Management Service, Recycling/Re-refining Used Lube Oil, Laboratory Testing, Waste Management & Tracking Enterprise Software (WTS ®) and Technology Solutions.', 'MUTUAL_FUND', 'logo_url', 'K Padmakar', 'Bharat Oil Fund Risers', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b194', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
-        'Gujarat Solid Corporation', 'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b194', 'The Tata group has consistently contributed to nation building by creating enterprises that laid the foundation of India growth. ... Driven by this pioneering spirit, the Tata group has set up Tata Digital to build digital businesses that will address the needs of Indian consumers as well as businesses.', 'MUTUAL_FUND', 'logo_url', 'Sailesh jain', 'Tata Digital India Fund', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b195', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
-        'Pirimid Software TechGiant', 'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b195', 'Pirimid Fintech provides cutting edge software development services with highest quality, robust software systems and workflows. We have expertise in capital markets across various asset classes building execution', 'MUTUAL_FUND', 'logo_url', 'Jon snow', 'Pirimid Software TechGiant', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b196', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Aoba Chorasi Technology',
-        'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b196', 'Motilal Oswal Financial Services Limited is an Indian diversified financial services firm offering a range of financial products and services. The company was founded by Motilal Oswal and Raamdeo Agarwal in 1987.', 'MUTUAL_FUND', 'logo_url', 'Ashish Agarwal', 'Motilal Oswal Nasdaq ', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b197', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit', 'Motorola Tech Pharma',
-        'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b197', 'Franklin U.S. Opportunities Fund aims to invest in leading growth companies across industries and market-capitalizations,This fund gives Indian investors an opportunity to invest in US companies through Franklin U.S. Opportunities Fund', 'MUTUAL_FUND', 'logo_url', 'Pyari Menon', 'Franklin India Feeder', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b198', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
-        'Sivaji Private Corporations', 'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b198', 'The investment objective of the scheme is to seek long term capital appreciation by investing at least 80% of its net assets in equity/equity related instruments of companies in the Information Technology (IT) sector in Indiaviz: Software.', 'MUTUAL_FUND', 'logo_url', 'Pratik Pal', 'Tata digital india', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b199', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
-        'Nadani Private Organization', 'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b199', 'The scheme seeks to generate capital appreciation by investing predominantly in units of Mirae Asset China Sector Leader Equity Fund and/or units of other mutual fund schemes, units of exchange traded schemes that focus on investing in.', 'MUTUAL_FUND', 'logo_url', 'Ragnar Lothbrok', 'Mirae asset China Advantage', 'org8');
 
-INSERT INTO public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
-VALUES ('51381618-1bc9-4c19-aab9-44994433b200', 'about', 'MUTUAL_FUND', 'logo_url', 'Mohit',
-        'World Wide Private Library Fund Raiser', 'org8');
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+VALUES ('51381618-1bc9-4c19-aab9-44994433b200', 'Baroda Large & Mid Cap Fund Direct Growth is a Equity mutual fund scheme launched by. Baroda Large & Mid Cap Fund Direct Growth is rated very high risk. Min sip investmetn is set to 500', 'MUTUAL_FUND', 'logo_url', 'Sanjay Chawla', 'Baroda Large & Mid Cap Fund Direct Growth', 'org8');
 
 /** Stock Data **/
 
-INSERT INTO public.stock_detail(id, managing_director, year_founded, asset_detail_id)
-VALUES ('2ffedff5-70c5-45cd-9c35-b36c25d77361', 'dirij', '2019-01-21T05:47:08.644',
+insert into public.stock_detail(id, managing_director, year_founded, asset_detail_id)
+VALUES ('2ffedff5-70c5-45cd-9c35-b36c25d77361', 'Gautam adani', '2019-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b181');
 
-INSERT INTO public.stock_detail(id, managing_director, year_founded, asset_detail_id)
-VALUES ('2ffedff5-70c5-45cd-9c35-b36c25d77362', 'nemish', '2020-01-21T05:47:08.644',
+insert into public.stock_detail(id, managing_director, year_founded, asset_detail_id)
+VALUES ('2ffedff5-70c5-45cd-9c35-b36c25d77362', 'Ben van Beurden', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b182');
 
-INSERT INTO public.stock_detail(id, managing_director, year_founded, asset_detail_id)
-VALUES ('2ffedff5-70c5-45cd-9c35-b36c25d77363', 'Darshan', '2020-01-21T05:47:08.644',
+insert into public.stock_detail(id, managing_director, year_founded, asset_detail_id)
+VALUES ('2ffedff5-70c5-45cd-9c35-b36c25d77363', 'Pravin Kumar Purwar', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b183');
 
-INSERT INTO public.stock_detail(id, managing_director, year_founded, asset_detail_id)
-VALUES ('2ffedff5-70c5-45cd-9c35-b36c25d77364', 'Harsh', '2020-01-21T05:47:08.644',
+insert into public.stock_detail(id, managing_director, year_founded, asset_detail_id)
+VALUES ('2ffedff5-70c5-45cd-9c35-b36c25d77364', 'Warren Buffett', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b184');
 
 
@@ -102,7 +83,7 @@ VALUES ('2ffedff5-70c5-45cd-9c35-b36c25d77364', 'Harsh', '2020-01-21T05:47:08.64
 
 INSERT INTO public.stock_statistic(book_value, div_yield, earning_per_sharettm, industrype, market_cap,
                                    number_of_stack_holders, pb_ratio, pe_ratio, return_on_equity, stock_detail_id)
-VALUES (1.1, 2.2, 3.3, 4.4, 1000.1, 5, 0.5, 1.5, 50.4, '2ffedff5-70c5-45cd-9c35-b36c25d77361');
+VALUES (1.1, 2.2, 3.3, 4.4, 600.1, 5, 0.5, 1.5, 50.4, '2ffedff5-70c5-45cd-9c35-b36c25d77361');
 
 
 INSERT INTO public.stock_statistic(book_value, div_yield, earning_per_sharettm, industrype, market_cap,
@@ -112,146 +93,145 @@ VALUES (1.1, 2.2, 3.3, 4.4, 1000.1, 5, 0.5, 1.5, 50.4, '2ffedff5-70c5-45cd-9c35-
 
 INSERT INTO public.stock_statistic(book_value, div_yield, earning_per_sharettm, industrype, market_cap,
                                    number_of_stack_holders, pb_ratio, pe_ratio, return_on_equity, stock_detail_id)
-VALUES (1.1, 2.2, 3.3, 4.4, 1000.1, 5, 0.5, 1.5, 50.4, '2ffedff5-70c5-45cd-9c35-b36c25d77363');
+VALUES (1.1, 2.2, 3.3, 4.4, 400.12, 5, 0.5, 1.5, 50.4, '2ffedff5-70c5-45cd-9c35-b36c25d77363');
 
 INSERT INTO public.stock_statistic(book_value, div_yield, earning_per_sharettm, industrype, market_cap,
                                    number_of_stack_holders, pb_ratio, pe_ratio, return_on_equity, stock_detail_id)
-VALUES (1.1, 2.2, 3.3, 4.4, 1000.1, 5, 0.5, 1.5, 50.4, '2ffedff5-70c5-45cd-9c35-b36c25d77364');
+VALUES (1.1, 2.2, 3.3, 4.4, 800.45, 5, 0.5, 1.5, 50.4, '2ffedff5-70c5-45cd-9c35-b36c25d77364');
 
 
 /** Mutual fund details **/
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000001', 'Harsh', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000001', 'Akio Toyoda', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b185');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000002', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000002', 'Shashi Sanker', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b186');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000003', 'Nemish', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000003', 'Karen S. Lynch', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b187');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000004', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000004', 'Manjit singh', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b188');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000005', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000005', 'Augustus Tang Kin Wing', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b189');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000006', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000006', 'Chandresh Kumar Nigam', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b190');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000007', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000007', 'Sean Doyle', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b191');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000008', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000008', 'Schauna Chauhan', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b192');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000009', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000009', 'K padamkar', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b193');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000010', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000010', 'Sailesh jain', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b194');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000011', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000011', 'Jon Snow', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b195');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000012', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000012', 'Ashish Agarwal', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b196');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000013', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000013', 'Pyari Menon', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b197');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000014', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000014', 'Pratik Pal', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b198');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000015', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000015', 'Ragnar Lothbrok', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b199');
 
-INSERT INTO public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
-VALUES ('51381618-1bc9-4c19-aab9-000000000016', 'Mohit', '2020-01-21T05:47:08.644',
+insert into public.mutual_fund_detail(id, fund_manager, launch_date, asset_detail_id)
+VALUES ('51381618-1bc9-4c19-aab9-000000000016', 'Sanjay Chawla', '2020-01-21T05:47:08.644',
         '51381618-1bc9-4c19-aab9-44994433b200');
 /** Mutual Fund Statistics **/
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000001');
+VALUES (0.0, 14, '2020-01-21T05:47:08.644', 10, 25, 'Low', true, '51381618-1bc9-4c19-aab9-000000000001');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000002');
+VALUES (0.0, 12, '2020-01-21T05:47:08.644', 50, 40, 'High', true, '51381618-1bc9-4c19-aab9-000000000002');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000003');
+VALUES (0.0, 85, '2020-01-21T05:47:08.644', 22, 18, 'High', true, '51381618-1bc9-4c19-aab9-000000000003');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000004');
+VALUES (0.0, 54, '2020-01-21T05:47:08.644', 225, 500, 'Low', true, '51381618-1bc9-4c19-aab9-000000000004');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000005');
+VALUES (0.0, 59, '2020-01-21T05:47:08.644', 17, 37, 'Low', true, '51381618-1bc9-4c19-aab9-000000000005');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000006');
+VALUES (0.0, 34, '2020-01-21T05:47:08.644', 65, 95, 'High', true, '51381618-1bc9-4c19-aab9-000000000006');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000007');
+VALUES (0.0, 61, '2020-01-21T05:47:08.644', 69, 67, 'High', true, '51381618-1bc9-4c19-aab9-000000000007');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000008');
+VALUES (0.0, 72, '2020-01-21T05:47:08.644', 83, 112, 'Low', true, '51381618-1bc9-4c19-aab9-000000000008');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000009');
+VALUES (0.0, 44, '2020-01-21T05:47:08.644', 34, 73, 'Low', true, '51381618-1bc9-4c19-aab9-000000000009');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000010');
+VALUES (0.0, 29, '2020-01-21T05:47:08.644', 61, 41, 'High', true, '51381618-1bc9-4c19-aab9-000000000010');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000011');
+VALUES (0.0, 79, '2020-01-21T05:47:08.644', 17, 31, 'High', true, '51381618-1bc9-4c19-aab9-000000000011');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000012');
+VALUES (0.0, 111, '2020-01-21T05:47:08.644', 38, 19, 'Low', true, '51381618-1bc9-4c19-aab9-000000000012');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000013');
+VALUES (0.0, 100, '2020-01-21T05:47:08.644', 109, 69, 'Low', true, '51381618-1bc9-4c19-aab9-000000000013');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000014');
+VALUES (0.0, 85, '2020-01-21T05:47:08.644', 164, 21, 'High', true, '51381618-1bc9-4c19-aab9-000000000014');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'High', true, '51381618-1bc9-4c19-aab9-000000000015');
+VALUES (0.0, 65, '2020-01-21T05:47:08.644', 324, 68, 'High', true, '51381618-1bc9-4c19-aab9-000000000015');
 
 INSERT INTO public.mutual_fund_statistic(expense_ratio, fund_size, fund_started, minsip, nav, risk, sip_allowed,
                                          mutual_fund_detail_id)
-VALUES (0.0, 10, '2020-01-21T05:47:08.644', 100, 50, 'Low', true, '51381618-1bc9-4c19-aab9-000000000016');
+VALUES (0.0, 95, '2020-01-21T05:47:08.644', 46, 38, 'Low', true, '51381618-1bc9-4c19-aab9-000000000016');
 
 /** User Data **/
-
 INSERT INTO public.user_detail(id, first_name, last_name, password, date_of_birth, dpurl, email, gender, mobile_no,
                                pan_card, is_kyc_verified, signature_url)
 VALUES ('00000000-0000-0000-0000-000000000000', 'userf', 'userl',
@@ -265,6 +245,7 @@ VALUES ('00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-0000000
 INSERT INTO public.watchlist(id, user_id, name, description)
 VALUES ('00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000', 'Mutual Fund',
         'MutualFunds Investment Companies');
+
 
 INSERT INTO public.stock_price(id, price, stock_exchange, timestamp, stock_detail_id)
 VALUES ('00000000-0000-0000-1000-000000000000', 100, 'BSE', '2020-01-21T05:47:08.644',

@@ -2,8 +2,11 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.Action;
 import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
+import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.entity.Position;
+import com.pirimidtech.ptp.entity.SIPStatus;
 import com.pirimidtech.ptp.entity.Status;
 import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockTrade;
@@ -18,17 +21,25 @@ import com.pirimidtech.ptp.service.trade.OrderService;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
+
 
 @RestController
 public class OrderController {
@@ -84,17 +95,59 @@ public class OrderController {
 
     }
 
+    @GetMapping("/stock/orders/filter-by-date")
+    public ResponseEntity<Page<StockTrade>> getStockOrderBasedOnDate(@RequestParam UUID userId,
+                                                                     @RequestParam String startDate,
+                                                                     @RequestParam String endDate,
+                                                                     @RequestParam(defaultValue = "0") int page,
+                                                                     @RequestParam(defaultValue = "10") int size) throws Exception {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<StockTrade> stockTradeBasedOnDate = orderService.getStockOrderFilteredOnDate(userId, startDate, endDate, pageable);
+        return ResponseEntity.ok().body(stockTradeBasedOnDate);
+    }
+
+    @GetMapping("/mutualfund/orders/filter-by-date")
+    public ResponseEntity<Page<MutualFundOrder>> getMutualFundOrderBasedOnDate(@RequestParam UUID userId,
+                                                                               @RequestParam String startDate,
+                                                                               @RequestParam String endDate,
+                                                                               @RequestParam(defaultValue = "0") int page,
+                                                                               @RequestParam(defaultValue = "10") int size) throws Exception {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MutualFundOrder> MutualFundTradeBasedOnDate = orderService.getMutualFundOrderFilteredOnDate(userId, startDate, endDate, pageable);
+        return ResponseEntity.ok().body(MutualFundTradeBasedOnDate);
+    }
+
     @PostMapping("/mutualfund/orders")
     public ResponseEntity<MutualFundOrder> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
         mutualFundOrder.setStatus(Status.PENDING);
+        mutualFundOrder.setSipStatus(SIPStatus.ACTIVE);
+        mutualFundOrder.setTimestamp(new Date());
+        MutualFundStatistic mutualFundStatistic = mutualFundStatisticRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get();
+        mutualFundOrder.setNav(mutualFundStatistic.getNav());
         mutualFundOrder = orderService.addToMutualFundOrder(mutualFundOrder);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 
-    @GetMapping("/mutualfund/orders/users/{id}")
-    public ResponseEntity<Page<MutualFundOrder>> getAllMutualFundOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        Page<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundOrder(userId, page, size);
+    @PutMapping("/mutualfund/{id}")
+    public ResponseEntity<MutualFundOrder> updateMutualFundOrder(@PathVariable UUID id,
+                                                                 @RequestBody MutualFundOrder newMutualFundOrder) {
+        MutualFundOrder mutualFundOrder = orderService.updateMutualFundOrder(id, newMutualFundOrder);
+        return ResponseEntity.ok().body(mutualFundOrder);
+    }
+
+    @GetMapping("/mutualfund/sip-status/users")
+    public ResponseEntity<Page<MutualFundOrder>> getAllMutualFundSipStatusByUser(@RequestParam UUID userId,
+                                                                                 @RequestParam(defaultValue = "0") int page,
+                                                                                 @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundBySipStatus(userId, pageable);
         return ResponseEntity.ok().body(mutualFundOrderList);
+    }
+
+    @DeleteMapping("/mutualfund/delete-sip-status/users")
+    public ResponseEntity<UUID> deleteMutualFundSipStatusByUser(@RequestParam UUID mutualFundOrderId) {
+        orderService.deleteMutualFundBySipStatus(mutualFundOrderId);
+        return ResponseEntity.ok().body(mutualFundOrderId);
     }
 
     @GetMapping("/mutualfund/orders/{id}")

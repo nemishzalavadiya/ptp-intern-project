@@ -118,4 +118,5 @@ public class WatchlistController {
         watchlistEntryService.remove(watchlistEntryId);
         return ResponseEntity.ok().body(watchlistEntryId);
     }
+
 }

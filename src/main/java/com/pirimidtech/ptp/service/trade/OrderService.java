@@ -1,6 +1,8 @@
 package com.pirimidtech.ptp.service.trade;
 
+import com.pirimidtech.ptp.entity.InvestmentType;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
+import com.pirimidtech.ptp.entity.SIPStatus;
 import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.repository.MutualFundOrderRepository;
 import com.pirimidtech.ptp.repository.StockTradeRepository;
@@ -10,13 +12,21 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 
 
 @Service
 public class OrderService implements OrderServiceInterface {
+
+    private final String DATE_FORMAT = "yyyy-MM-dd";
+    private final String DATE_FORMAT_WITH_TIME = "E MMM dd HH:mm:ss Z yyyy";
 
     @Autowired
     private StockTradeRepository stockTradeRepository;
@@ -49,9 +59,8 @@ public class OrderService implements OrderServiceInterface {
     }
 
     @Override
-    public Page<MutualFundOrder> getAllMutualFundOrder(UUID userId, int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<MutualFundOrder> pageResult = mutualFundOrderRepository.findAllByUserIdOrderBySIPDateDesc(userId, pageable);
+    public Page<MutualFundOrder> getAllMutualFundBySipStatus(UUID userId, Pageable pageable) {
+        Page<MutualFundOrder> pageResult = mutualFundOrderRepository.findAllBySipStatusNotAndInvestmentTypeNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc( SIPStatus.DELETED , InvestmentType.ONE_TIME,InvestmentType.NONE,userId,pageable);
         return pageResult;
     }
 
@@ -59,5 +68,57 @@ public class OrderService implements OrderServiceInterface {
     public MutualFundOrder getMutualFundOrder(UUID orderId) {
         Optional<MutualFundOrder> mutualFundOrder = mutualFundOrderRepository.findById(orderId);
         return mutualFundOrder.isPresent() ? mutualFundOrder.get() : null;
+    }
+
+    public Page<StockTrade> getStockOrderFilteredOnDate(UUID userId, String startDate, String endDate, Pageable pageable) throws Exception {
+
+        DateFormat originalFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateFormat targetFormat = new SimpleDateFormat(DATE_FORMAT_WITH_TIME);
+        Date sDate = originalFormat.parse(startDate);
+        startDate = targetFormat.format(sDate);
+        Date eDate = originalFormat.parse(endDate);
+        endDate = targetFormat.format(eDate);
+        sDate = targetFormat.parse(startDate);
+        eDate = targetFormat.parse(endDate);
+        if(sDate.compareTo(eDate) <= 1){
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(eDate);
+            cal.add(Calendar.DATE, 1);
+            eDate = cal.getTime();
+        }
+        return stockTradeRepository.findAllByUserIdAndTimestampBetween(userId,sDate,eDate,pageable);
+    }
+
+    public MutualFundOrder updateMutualFundOrder(UUID id,MutualFundOrder newMutualFundOrder) {
+        Optional<MutualFundOrder> isMutualFundOrder = mutualFundOrderRepository.findById(id);
+        MutualFundOrder oldMutualFundOrder = isMutualFundOrder.get();
+        oldMutualFundOrder.setPrice(newMutualFundOrder.getPrice());
+        oldMutualFundOrder.setSipStatus(newMutualFundOrder.getSipStatus());
+        oldMutualFundOrder.setSIPDate(newMutualFundOrder.getSIPDate());
+        oldMutualFundOrder.setInvestmentType(newMutualFundOrder.getInvestmentType());
+        mutualFundOrderRepository.save(oldMutualFundOrder);
+        return oldMutualFundOrder;
+    }
+
+    public Page<MutualFundOrder> getMutualFundOrderFilteredOnDate(UUID userId, String startDate, String endDate, Pageable pageable) throws ParseException {
+        DateFormat originalFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateFormat targetFormat = new SimpleDateFormat(DATE_FORMAT_WITH_TIME);
+        Date sDate = originalFormat.parse(startDate);
+        startDate = targetFormat.format(sDate);
+        Date eDate = originalFormat.parse(endDate);
+        endDate = targetFormat.format(eDate);
+        sDate = targetFormat.parse(startDate);
+        eDate = targetFormat.parse(endDate);
+        if(sDate.compareTo(eDate) <= 1){
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(eDate);
+            cal.add(Calendar.DATE, 1);
+            eDate = cal.getTime();
+        }
+        return mutualFundOrderRepository.findAllByUserIdAndTimestampBetween(userId,sDate,eDate,pageable);
+    }
+
+    public void deleteMutualFundBySipStatus(UUID mutualFundOrderId) {
+        mutualFundOrderRepository.deleteById(mutualFundOrderId);
     }
 }

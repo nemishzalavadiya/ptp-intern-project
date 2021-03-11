@@ -30,4 +30,5 @@ public class WatchlistEntryService implements WatchlistEntryServiceInterface {
     public void add(WatchlistEntry watchlistEntry) {
         watchlistEntryRepository.save(watchlistEntry);
     }
+
 }

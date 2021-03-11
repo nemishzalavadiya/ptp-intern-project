@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.scheduler;
 
+
 import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.AssetDetail;
 import com.pirimidtech.ptp.entity.InvestmentType;
@@ -61,10 +62,10 @@ public class OrderExecution {
                 mutualFundOrder -> {
                     if (mutualFundOrder.getInvestmentType() == InvestmentType.ONE_TIME || mutualFundOrder.getInvestmentType() == InvestmentType.NONE) {
                         mutualFundOrder.setStatus(Status.EXECUTED);
-                        mutualFundOrderRepository.save(mutualFundOrder);
                         Optional<MutualFundDetail> mutualFundDetail = mutualFundDetailRepository.findById(mutualFundOrder.getMutualFundDetail().getId());
                         AssetDetail assetDetail = mutualFundDetail.get().getAssetDetail();
                         MutualFundStatistic mutualFundStatistic = mutualFundStatisticRepository.findById(mutualFundOrder.getMutualFundDetail().getId()).get();
+                        mutualFundOrderRepository.save(mutualFundOrder);
                         Position position = new Position(null, mutualFundOrder.getPrice() / mutualFundStatistic.getNav(), mutualFundOrder.getPrice(), AssetClass.MUTUAL_FUND, mutualFundOrder.getUser(), assetDetail);
                         positionService.addMutualFundToPosition(position);
                     }

@@ -49,8 +49,8 @@ public class MutualFundDetailController {
     }
 
     @PostMapping("/mutualfunds/filters")
-    public Page<MutualFundStatistic> fundsFilter(@RequestBody SelectedMutualFundFilter selectedMutualFundFilter, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public Page<MutualFundStatistic> fundsFilter(@RequestBody SelectedMutualFundFilter selectedMutualFundFilter, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "") String sortingField, @RequestParam(defaultValue = "") String orderBy) {
         Pageable paging = PageRequest.of(page, size);
-        return mutualFundService.getMutualFundsFilterResults(selectedMutualFundFilter, paging);
+        return mutualFundService.getMutualFundsFilterResults(selectedMutualFundFilter, paging, sortingField, orderBy);
     }
 }

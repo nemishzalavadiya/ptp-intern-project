@@ -61,8 +61,8 @@ public class StockDetailController {
     }
 
     @PostMapping("/stocks/filters")
-    public Page<StockStatistic> fundsFilter(@RequestBody SelectedStocksFilter selectedStocksFilter, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public Page<StockStatistic> fundsFilter(@RequestBody SelectedStocksFilter selectedStocksFilter, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "") String sortingField, @RequestParam(defaultValue = "") String orderBy) {
         Pageable paging = PageRequest.of(page, size);
-        return stockService.getStockFilterResults(selectedStocksFilter, paging);
+        return stockService.getStockFilterResults(selectedStocksFilter, paging, sortingField, orderBy);
     }
 }

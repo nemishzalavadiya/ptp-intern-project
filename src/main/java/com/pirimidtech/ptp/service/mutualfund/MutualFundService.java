@@ -9,9 +9,13 @@ import com.pirimidtech.ptp.repository.MutualFundStatisticRepository;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,7 +42,7 @@ public class MutualFundService implements MutualFundServiceInterface {
         return mutualFundStatisticRepository.findByMutualFundDetail_AssetDetail_id(assetId);
     }
 
-    public Page<MutualFundStatistic> getMutualFundsFilterResults(SelectedMutualFundFilter selectedMutualFundFilter, Pageable paging) {
+    public Page<MutualFundStatistic> getMutualFundsFilterResults(SelectedMutualFundFilter selectedMutualFundFilter, Pageable paging, String sortingField, String orderBy) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         QMutualFundStatistic qMutualFundStatistic = QMutualFundStatistic.mutualFundStatistic;
         if (selectedMutualFundFilter != null) {
@@ -61,6 +65,16 @@ public class MutualFundService implements MutualFundServiceInterface {
                 booleanBuilder.and(qMutualFundStatistic.fundSize.goe(selectedMutualFundFilter.getFundSizeRange().getMinimum()));
             }
         }
-        return mutualFundStatisticRepository.findAll(booleanBuilder, paging);
+        String asc = "ASC", desc = "DESC";
+        Map<String, String> sortingFieldMap = new HashMap<String, String>();
+        sortingFieldMap.put("Company", "mutualFundDetail.assetDetail.name");
+        sortingFieldMap.put("Risk", "risk");
+        sortingFieldMap.put("Minimum SIP", "minSIP");
+        sortingFieldMap.put("Fund Size", "fundSize");
+        if ((orderBy.equals(asc) || orderBy.equals(desc)) && sortingField.length() > 0) {
+            return mutualFundStatisticRepository.findAll(booleanBuilder.getValue(), PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(orderBy.equals(asc) ? Sort.Direction.ASC : Sort.Direction.DESC, sortingFieldMap.get(sortingField))));
+        } else {
+            return mutualFundStatisticRepository.findAll(booleanBuilder, paging);
+        }
     }
 }

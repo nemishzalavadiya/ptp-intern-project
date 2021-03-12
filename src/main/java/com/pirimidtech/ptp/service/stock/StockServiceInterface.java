@@ -22,5 +22,5 @@ public interface StockServiceInterface {
 
     Optional<StockStatistic> getStockStatisticByAssetId(UUID id);
 
-    Page<StockStatistic> getStockFilterResults(SelectedStocksFilter selectedStocksFilter, Pageable paging);
+    Page<StockStatistic> getStockFilterResults(SelectedStocksFilter selectedStocksFilter, Pageable paging, String sortingField, String orderBY);
 }

@@ -12,12 +12,12 @@ import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,9 +64,14 @@ public class StockService implements StockServiceInterface {
                 && (item.getClose() <= selectedStocksFilter.getClosingRange().getMaximum());
     }
 
-    public Page<StockStatistic> filterClosePrice(BooleanBuilder booleanBuilder, SelectedStocksFilter selectedStocksFilter, Pageable paging) {
+    public Page<StockStatistic> filterClosePrice(BooleanBuilder booleanBuilder, SelectedStocksFilter selectedStocksFilter, Pageable paging, String sortingField, String orderBy) {
+        String asc = "ASC", desc = "DESC";
+        Sort.Direction direction = (orderBy.equals(asc)) ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Map<String, String> sortingFieldMap = new HashMap<String, String>();
+        sortingFieldMap.put("Company", "stockDetail.assetDetail.name");
+        sortingFieldMap.put("Market Cap", "marketCap");
         List<StockStatistic> filteredList = stockStatisticRepository
-                .findAll(booleanBuilder, paging)
+                .findAll(booleanBuilder.getValue(), (sortingField.length() > 0 && sortingFieldMap.get(sortingField) != null) ? PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(direction, sortingFieldMap.get(sortingField))) : paging)
                 .getContent()
                 .stream()
                 .filter(stats -> {
@@ -79,7 +84,7 @@ public class StockService implements StockServiceInterface {
         return new PageImpl<>(filteredList, paging, filteredList.size());
     }
 
-    public Page<StockStatistic> getStockFilterResults(SelectedStocksFilter selectedStocksFilter, Pageable paging) {
+    public Page<StockStatistic> getStockFilterResults(SelectedStocksFilter selectedStocksFilter, Pageable paging, String sortingField, String orderBy) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         QStockStatistic qStockStatistic = QStockStatistic.stockStatistic;
         if (selectedStocksFilter != null) {
@@ -90,6 +95,6 @@ public class StockService implements StockServiceInterface {
                 booleanBuilder.and(qStockStatistic.marketCap.loe(selectedStocksFilter.getMarketCapRange().getMaximum()));
             }
         }
-        return filterClosePrice(booleanBuilder, selectedStocksFilter, paging);
+        return filterClosePrice(booleanBuilder, selectedStocksFilter, paging, sortingField, orderBy);
     }
 }

@@ -4,14 +4,11 @@
   background: transparent;
   color: white;
   text-align: center;
- 
 }
 
-.midSection
-{
+.midSection {
   padding-top: 5%;
-  height: 300px;
-
+  min-height: 300px;
 }
 
 .ui.button.kycbutton {
@@ -19,8 +16,8 @@
 }
 
 .top.aligned.seven.wide.column.rightSide {
-  padding: 0px 7%;
-  padding-top: 4%;
+  padding: 0px 5%;
+  padding-top: 2%;
   height: 100%;
 }
 
@@ -35,21 +32,18 @@
   margin-top: 10%;
 }
 
-.fileupload
-{
+.fileupload {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding-top: 5%;
 }
 
-
 .signature {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
-
 
 input[type="file"] {
   display: none;
@@ -93,21 +87,19 @@ input[type="file"] {
   margin-top: 5%;
 }
 
-.ui.small.circular.image.profilePicture
-{
-  width:100px;
-  height:100px;
+.ui.small.circular.image.profilePicture {
+  width: 100px;
+  height: 100px;
 }
-.cut-text { 
+.cut-text {
   text-overflow: ellipsis;
-  overflow: hidden; 
-  width: 160px; 
-  height: 1.2em; 
+  overflow: hidden;
+  max-width: 160px;
+  height: 1.2em;
   white-space: nowrap;
 }
 
-.ui.button.uploadnow
-{
-  margin-top:15%;
+.ui.button.uploadnow {
+  margin-top: 15%;
   background-color: greenyellow;
 }

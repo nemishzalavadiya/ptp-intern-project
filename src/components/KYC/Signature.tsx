@@ -49,9 +49,11 @@ export default function Signature({ leagleInfo, setLeagleInfo, upload }) {
         <div className="fileupload">
           <Header icon>
             <Icon name="images file outline" />
-            <div className="cut-text">{leagleInfo.sign === null
-              ? "Upload Signature"
-              : leagleInfo.sign.name}</div>
+            <div className="cut-text">
+              {leagleInfo.sign === null
+                ? "Upload Signature"
+                : leagleInfo.sign.name}
+            </div>
           </Header>
           <label className="custom-file-upload">
             <input type="file" onChange={onSignatureChange} />
@@ -61,9 +63,11 @@ export default function Signature({ leagleInfo, setLeagleInfo, upload }) {
         <div className="fileupload">
           <Header icon>
             <Icon name="images file outline" />
-            <div className="cut-text">{leagleInfo.profile === null
-              ? "Upload Picture"
-              : leagleInfo.profile.name}</div>
+            <div className="cut-text">
+              {leagleInfo.profile === null
+                ? "Upload Picture"
+                : leagleInfo.profile.name}
+            </div>
           </Header>
           <label className="custom-file-upload">
             <input type="file" onChange={onProfileChange} />

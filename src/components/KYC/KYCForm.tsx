@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { addKYCDetails, isKycVerified } from "src/services/KYCService";
-import { Grid, Button, Icon, Divider, Image, Loader } from "semantic-ui-react";
+import {
+  Grid,
+  Button,
+  Icon,
+  Divider,
+  Image,
+  Loader,
+  Step,
+} from "semantic-ui-react";
 import PanDetail from "src/components/KYC/PanDetail";
 import PersonalDetail from "src/components/KYC/PersonalDetail";
 import Signature from "src/components/KYC/Signature";
@@ -168,7 +176,6 @@ export default function KYC(props) {
             nextClick={nextClick}
           />
         );
-      
     }
   }
 
@@ -183,15 +190,46 @@ export default function KYC(props) {
             </Grid.Column>
             <Grid.Column width={7} verticalAlign="top" className="rightSide">
               <div>
+                <Step.Group size="mini" fluid>
+                  <Step active={page == 0} onClick={() => setPage(0)}>
+                    <Step.Content>
+                      <Step.Title>Personal Details</Step.Title>
+                    </Step.Content>
+                  </Step>
+
+                  <Step active={page == 1} onClick={() => setPage(1)}>
+                    <Step.Content>
+                      <Step.Title>Pan Detail</Step.Title>
+                    </Step.Content>
+                  </Step>
+
+                  <Step active={page == 2} onClick={() => setPage(2)}>
+                    <Step.Content>
+                      <Step.Title>Documents</Step.Title>
+                    </Step.Content>
+                  </Step>
+                </Step.Group>
                 <h3>{headers[page].header}</h3>
                 <Divider></Divider>
                 {renderSwitch()}
                 <div className="backnext">
-                  <Button icon labelPosition="left" className="kycbutton" disabled={page===0} onClick={prevClick}>
+                  <Button
+                    icon
+                    labelPosition="left"
+                    className="kycbutton"
+                    disabled={page === 0}
+                    onClick={prevClick}
+                  >
                     Back
                     <Icon name="left arrow" />
                   </Button>
-                  <Button icon labelPosition="right" className="kycbutton" disabled={page===2} onClick={nextClick }>
+                  <Button
+                    icon
+                    labelPosition="right"
+                    className="kycbutton"
+                    disabled={page === 2}
+                    onClick={nextClick}
+                  >
                     Next
                     <Icon name="right arrow" />
                   </Button>

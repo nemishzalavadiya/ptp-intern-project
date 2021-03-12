@@ -1,33 +1,29 @@
 @import "./variables";
-.ticket
-{
-    display: flex;
-    justify-content: space-between;
+.ticket {
+  display: flex;
+  justify-content: space-between;
 }
 
-.ui.segment.stockTicket{
-width: 30%;
-padding: 3%;
-background-color:$cardGrey;
-margin-right: 7%;
-border-radius: 15px;
+.ui.segment.stockTicket {
+  width: 30%;
+  padding: 3%;
+  background-color: $cardGrey;
+  margin-right: 7%;
+  border-radius: 15px;
 }
 
-.ui.buttons>.ui.grey.positive{
-    background: yellowgreen;
+.ui.buttons > .ui.grey.positive {
+  background: yellowgreen;
 }
 
-.ui.fluid.button
-{
-    background-color: yellowgreen;  
+.ui.fluid.button {
+  background-color: yellowgreen;
 }
 
-
-.ui.segment.mutualFundTicket{
-    width: 30%;
-    padding: 3%;
-    background-color:$cardGrey;
-    margin-right: 7%;
-    border-radius: 15px;
+.ui.segment.mutualFundTicket {
+  width: 30%;
+  padding: 3%;
+  background-color: $cardGrey;
+  margin-right: 7%;
+  border-radius: 15px;
 }
-

@@ -6,11 +6,9 @@ const options = {
     style: {
       color: "#fffdfd",
     },
-    animation: {
-      duration: 1500,
-    },
     zoomType: "x",
-    height: (9 / 16) * 100 + "%",
+    height: 450,
+    marginTop: 35,
     events: { load: function () {}, redraw: function () {} },
   },
   legend: {

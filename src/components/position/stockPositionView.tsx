@@ -49,7 +49,7 @@ export default function StockPosition({ uuid, positionList, pagination, dashboar
     Array.from(myMap.values()).forEach((row, index) => {
       if (positionList[index] != undefined) {
         let companyData = Object.values(row);
-        let netValue = companyData[5] * positionList[index][1];
+        let netValue = (companyData[5] * positionList[index][1]).toFixed(2);
         if (dashboard) {
           let headerPositionList = [];
           headerPositionList.push(positionList[index][0]);
@@ -58,11 +58,11 @@ export default function StockPosition({ uuid, positionList, pagination, dashboar
           dashboardPositionList.push(headerPositionList);
         }
         else {
-          positionList[index][4] = companyData[5];
+          positionList[index][4] = companyData[5].toFixed(2);
           positionList[index][5] = netValue;
-          positionList[index][6] = netValue - positionList[index][3];
+          positionList[index][6] = (netValue - positionList[index][3]).toFixed(2);
           positionList[index][7] =
-            ((netValue - positionList[index][3]) / positionList[index][3]) * 100;
+            (((netValue - positionList[index][3]) / positionList[index][3]) * 100).toFixed(2);
         }
       }
     });

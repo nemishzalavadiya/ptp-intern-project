@@ -34,13 +34,13 @@ function getMutualFundPosition(searchText, page, size,dashboard) {
       else{
       positionList.push([
         <Link href={`/details/${assetId}`}>{assetName}</Link>,
-        quantity,
+        quantity.toFixed(2),
         totalAmount,
-        avgNav,
+        avgNav.toFixed(2),
         nav,
-        netValue,
-        profit,
-        profitPercentage,
+        netValue.toFixed(2),
+        profit.toFixed(2),
+        profitPercentage.toFixed(2),
       ]);
     }
     });

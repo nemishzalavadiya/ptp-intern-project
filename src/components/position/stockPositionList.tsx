@@ -35,8 +35,8 @@ export default function StockPositionList({
           {element.assetDetail.name}
         </Link>,
         element.volume,
-        element.price,
-        element.price * element.volume,
+        element.price.toFixed(2),
+        (element.price * element.volume).toFixed(2),
       ]);
     });
   }

@@ -10,6 +10,8 @@ import com.pirimidtech.ptp.repository.KYCDetailRepository;
 import com.pirimidtech.ptp.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -41,6 +43,13 @@ public class KYCService implements KYCServiceInterface {
     private UserService userService;
     @Value("${UPLOADED_FOLDER}")
     private String UPLOADED_FOLDER;
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
 
     private void createDirectories() {
         File root = new File(UPLOADED_FOLDER);
@@ -85,7 +94,6 @@ public class KYCService implements KYCServiceInterface {
 
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         FileSystemResource pan = new FileSystemResource(panFile);

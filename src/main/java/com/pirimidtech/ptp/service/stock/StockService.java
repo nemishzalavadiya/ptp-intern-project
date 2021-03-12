@@ -65,39 +65,23 @@ public class StockService implements StockServiceInterface {
     }
 
     public Page<StockStatistic> filterClosePrice(BooleanBuilder booleanBuilder, SelectedStocksFilter selectedStocksFilter, Pageable paging, String sortingField, String orderBy) {
-        String asc="ASC",desc="DESC";
+        String asc = "ASC", desc = "DESC";
         Sort.Direction direction = (orderBy.equals(asc)) ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Map<String,String> sortingFieldMap = new HashMap<String,String>();
-        sortingFieldMap.put("Company","stockDetail.assetDetail.name");
+        Map<String, String> sortingFieldMap = new HashMap<String, String>();
+        sortingFieldMap.put("Company", "stockDetail.assetDetail.name");
         sortingFieldMap.put("Market Cap", "marketCap");
-        if(sortingField.length()>0 && sortingFieldMap.get(sortingField)!=null) {
-            List<StockStatistic> filteredList = stockStatisticRepository
-                    .findAll(booleanBuilder.getValue(), PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(direction, sortingFieldMap.get(sortingField))))
-                    .getContent()
-                    .stream()
-                    .filter(stats -> {
-                        UUID companyId = stockDetailRepository.findById(stats.getId()).get().getAssetDetail().getId();
-                        return dataGenerator.getGeneratedStockList().stream()
-                                .anyMatch(item ->
-                                        item.getCompanyId().equals(companyId) && isClosePriceInRange(item, selectedStocksFilter)
-                                );
-                    }).collect(Collectors.toList());
-            return new PageImpl<>(filteredList, paging, filteredList.size());
-        }
-        else{
-            List<StockStatistic> filteredList = stockStatisticRepository
-                    .findAll(booleanBuilder,paging)
-                    .getContent()
-                    .stream()
-                    .filter(stats -> {
-                        UUID companyId = stockDetailRepository.findById(stats.getId()).get().getAssetDetail().getId();
-                        return dataGenerator.getGeneratedStockList().stream()
-                                .anyMatch(item ->
-                                        item.getCompanyId().equals(companyId) && isClosePriceInRange(item, selectedStocksFilter)
-                                );
-                    }).collect(Collectors.toList());
-            return new PageImpl<>(filteredList, paging, filteredList.size());
-        }
+        List<StockStatistic> filteredList = stockStatisticRepository
+                .findAll(booleanBuilder.getValue(), (sortingField.length() > 0 && sortingFieldMap.get(sortingField) != null) ? PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(direction, sortingFieldMap.get(sortingField))) : paging)
+                .getContent()
+                .stream()
+                .filter(stats -> {
+                    UUID companyId = stockDetailRepository.findById(stats.getId()).get().getAssetDetail().getId();
+                    return dataGenerator.getGeneratedStockList().stream()
+                            .anyMatch(item ->
+                                    item.getCompanyId().equals(companyId) && isClosePriceInRange(item, selectedStocksFilter)
+                            );
+                }).collect(Collectors.toList());
+        return new PageImpl<>(filteredList, paging, filteredList.size());
     }
 
     public Page<StockStatistic> getStockFilterResults(SelectedStocksFilter selectedStocksFilter, Pageable paging, String sortingField, String orderBy) {

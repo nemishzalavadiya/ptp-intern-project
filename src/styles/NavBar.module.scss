@@ -16,8 +16,9 @@
 	}
 }
 .list-container{
-	position: fixed;
-	top: 25%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
 	background-color: $cardGrey;
 }
 .list-container > .list-item {

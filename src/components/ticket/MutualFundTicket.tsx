@@ -99,7 +99,7 @@ export default function MutualFundTicket(props) {
               <label>Investment Type</label>
             </Grid.Column>
             <Grid.Column width={11}>
-              <Button.Group name="orderType">
+              <Button.Group name="orderType" widths="2" fluid>
                 <Button
                   color="grey"
                   positive={investmentType === InvestmentType.SIP}
@@ -118,7 +118,7 @@ export default function MutualFundTicket(props) {
                     setAmountTag("Lumpsum Ammount");
                   }}
                 >
-                  LUMPSUM
+                  Lumpsum
                 </Button>
               </Button.Group>
             </Grid.Column>
@@ -171,6 +171,7 @@ export default function MutualFundTicket(props) {
             </Grid.Column>
           </Grid.Row>
           <Button
+            className="invest"
             type="submit"
             onClick={createOrder}
             fluid

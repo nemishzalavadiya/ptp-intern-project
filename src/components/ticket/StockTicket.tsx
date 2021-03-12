@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Segment, Grid } from "semantic-ui-react";
+import { Form, Button, Segment, Grid, Label } from "semantic-ui-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SockJS from "sockjs-client";
@@ -26,7 +26,7 @@ export default function StockTicket({ assetId, stockId }) {
         "/topic/" + assetId,
         function (data) {
           let contentBody = JSON.parse(data.body);
-          setCurrentPrice(contentBody.marketPrice);
+          setCurrentPrice((contentBody.marketPrice).toFixed(2));
         },
         { id: assetId }
       );
@@ -76,7 +76,7 @@ export default function StockTicket({ assetId, stockId }) {
               <label> Product Code </label>
             </Grid.Column>
             <Grid.Column width={10}>
-              <Button.Group name="productCode" fluid>
+              <Button.Group name="productCode" fluid widths="2">
                 <Button
                   color="grey"
                   positive={productCode === ProductCode.CNC}
@@ -99,7 +99,7 @@ export default function StockTicket({ assetId, stockId }) {
               <label> OrderType </label>
             </Grid.Column>
             <Grid.Column width={10}>
-              <Button.Group name="orderType" fluid>
+              <Button.Group name="orderType" fluid widths="2">
                 <Button
                   color="grey"
                   positive={orderType === OrderType.MARKET}
@@ -122,7 +122,7 @@ export default function StockTicket({ assetId, stockId }) {
               <label> Side </label>
             </Grid.Column>
             <Grid.Column width={10}>
-              <Button.Group name="action" fluid>
+              <Button.Group name="action" fluid widths="2">
                 <Button
                   color="grey"
                   positive={action === Action.SELL}
@@ -149,7 +149,7 @@ export default function StockTicket({ assetId, stockId }) {
                 size="mini"
                 type="number"
                 onChange={(event) => setPrice(event.target.value)}
-                readOnly={orderType === OrderType.MARKET}
+                disabled={orderType === OrderType.MARKET}
                 fluid
                 value={orderType === OrderType.MARKET ? currentPrice : price}
                 iconPosition="left"
@@ -171,7 +171,16 @@ export default function StockTicket({ assetId, stockId }) {
               />
             </Grid.Column>
           </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={6}>
+              <label>Total Amount</label>
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <label>{(orderType === OrderType.MARKET?volume*currentPrice:volume*price).toFixed(2)}</label>
+            </Grid.Column>
+          </Grid.Row>
           <Button
+            className="invest"
             type="submit"
             onClick={createOrder}
             fluid
@@ -181,7 +190,7 @@ export default function StockTicket({ assetId, stockId }) {
               isOrderExecuting
             }
           >
-            Invest Now
+            {action==Action.BUY?`Invest Now`:`Sell`}
           </Button>
           <ToastContainer />
         </Grid>

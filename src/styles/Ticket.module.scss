@@ -7,6 +7,7 @@
 .ui.segment.stockTicket {
   width: 30%;
   padding: 3%;
+  padding-bottom: 2%;
   background-color: $cardGrey;
   margin-right: 7%;
   border-radius: 15px;
@@ -16,13 +17,15 @@
   background: yellowgreen;
 }
 
-.ui.fluid.button {
+.ui.fluid.button.invest{
+  margin-top: 5%;
   background-color: yellowgreen;
 }
 
 .ui.segment.mutualFundTicket {
   width: 30%;
   padding: 3%;
+  padding-bottom: 0px;
   background-color: $cardGrey;
   margin-right: 7%;
   border-radius: 15px;

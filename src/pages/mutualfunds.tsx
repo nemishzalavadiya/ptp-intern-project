@@ -6,8 +6,10 @@ import Layout from "src/components/Layout";
 import { mutualFundFilters } from "src/components/filter/filterDetails";
 import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
+import { useRouter } from "next/router";
 
 const mutualfunds = () => {
+	const router = useRouter();
 	const content = [
 		{ header: "Company_Id", icon: "" },
 		{ header: "Risk", icon: "" },
@@ -29,7 +31,20 @@ const mutualfunds = () => {
 
 	const [activePage, setActivePage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
-
+	//adding dashboard filters
+	let routeKeys = Object.keys(router.query);
+	if (routeKeys.length !== 0) {
+		routeKeys.forEach((item) => {
+			if (item === "risk") {
+				initialState.selectedFilters[0].push(router.query[item]);
+			} else if (item === "sip") {
+				initialState.selectedFilters[1].push("true");
+			} else if (item === "fundSizeRange") {
+				initialState.selectedFilters[2].minimum = router.query[item];
+			}
+		})
+		router.replace("/mutualfunds", undefined, { shallow: true });
+	}
 	async function requestFiltered(url = "", data = {}) {
 		const response = await fetch(url, {
 			method: "POST",
@@ -46,6 +61,7 @@ const mutualfunds = () => {
 		selectedFilters.forEach((filter, index) => {
 			filterBody[mutualFundFilters[index].field] = filter;
 		});
+		console.log(selectedFilters, filterBody)
 		requestFiltered(`/api/mutualfunds/filters?page=${activePage}`, filterBody).then((page) => {
 			setResults(page.content);
 			setTotalPages(page.totalPages);
@@ -80,13 +96,13 @@ const mutualfunds = () => {
 							results === undefined
 								? []
 								: results.map((item) => [
-										<Link href={`/details/${item.mutualFundDetail.assetDetail.id}`}>
-											{item.mutualFundDetail.assetDetail.name}
-										</Link>,
-										item.risk,
-										item.minSIP,
-										item.fundSize,
-								  ])
+									<Link href={`/details/${item.mutualFundDetail.assetDetail.id}`}>
+										{item.mutualFundDetail.assetDetail.name}
+									</Link>,
+									item.risk,
+									item.minSIP,
+									item.fundSize,
+								])
 						}
 						pagination={{
 							activePage,

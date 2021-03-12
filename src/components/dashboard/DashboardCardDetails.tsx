@@ -1,4 +1,4 @@
-import { Icon } from "semantic-ui-react";
+import { Icon, Image } from "semantic-ui-react";
 
 const CardHeader = [{
     title: "Popular Stocks",
@@ -7,7 +7,6 @@ const CardHeader = [{
     data: {
         id: "assetDetailId",
         sortBy: "peRatio",
-        companyIcon: <Icon name="envelope open" />,
         sign: <Icon size="small" name="percent"></Icon>,
         secondaryData: "(P/E)"
     }
@@ -22,8 +21,28 @@ const CardHeader = [{
         sign: "",
         secondaryData: ""
     }
-},{
-    title: "Handpicked Collections"
+}, {
+    title: "Handpicked Collections",
+    data: [
+        {
+            icon: <img src="/risk/icons8-low-risk-48.png" alt="Low Risk" />,
+            message: "Low Risk",
+            link: "/mutualfunds?risk=Low"
+        },
+        {
+            icon: <img src="/sip/icons8-sip-48.png" alt="SIP" />,
+            message: "SIP Only",
+            link: "/mutualfunds?sip=true"
+        }, {
+            icon: <img src="/mf/icons8-mf-48.png" alt="Top MutualFunds" />,
+            message: "Top Funds",
+            link: "/mutualfunds?fundSizeRange=100"
+        }, {
+            icon: <img src="/risk/icons8-high-risk-48.png" alt="High Risk" />,
+            message: "High Risk",
+            link: "/mutualfunds?risk=High"
+        }
+    ]
 }];
 
 export default CardHeader;

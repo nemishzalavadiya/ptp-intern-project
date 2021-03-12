@@ -5,62 +5,67 @@
   margin-top: 2%;
   text-overflow: ellipsis;
   width: 160px;
-  height: 135px;
+  height: 160px;
   box-sizing: border-box;
   background-color: #505053;
 }
-.dashboard-position-title{
+.dashboard-position-title {
   margin-left: 3%;
   margin-bottom: 3%;
 }
-.dashboard-position-link{
+.dashboard-position-link {
   position: absolute;
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   font-size: medium;
 }
-.ui.grid .dashboard-position-link-title,.dashboard-assetlist-link .dashboard-populer-assets-link{
+.ui.grid .dashboard-position-link-title,
+.dashboard-assetlist-link .dashboard-populer-assets-link {
   color: #4183c4;
   text-decoration: none;
 }
-.ui.grid .dashboard-position-link-title:hover,.dashboard-assetlist-link .dashboard-populer-assets-link:hover{
+.ui.grid .dashboard-position-link-title:hover,
+.dashboard-assetlist-link .dashboard-populer-assets-link:hover {
   color: #5ea0e2;
   text-decoration: none;
   cursor: pointer;
 }
-.dashboard-company-card{
+.ui.inverted.segment.dashboard-asset-container:hover {
   cursor: pointer;
 }
-.dashboard-right{
+.dashboard-filter-icon {
+  cursor: pointer;
+}
+.dashboard-right {
   margin-bottom: 100px;
 }
-.ui.inverted.segment.dashboard-asset-container ,.ui.segment.dashboard-position{
+.ui.inverted.segment.dashboard-asset-container,
+.ui.segment.dashboard-position {
   background-color: $cardGrey;
-  //background-color:#505053
 }
-.ui.segment.dashboard-position{
+.ui.segment.dashboard-position {
   min-height: 550px;
 }
 
-.dashboard-right{
+.dashboard-right {
   min-height: 550px;
 }
-.right.floated.five.wide.dashboard-assetlist-link{
-    position:absolute;
-    right: 0;
-    text-align: right;
+.right.floated.five.wide.dashboard-assetlist-link {
+  position: absolute;
+  right: 0;
+  text-align: right;
 }
-.dashboard-secondary-data{
-    color: rgba($color: white, $alpha: 0.6);
+.dashboard-secondary-data {
+  color: rgba($color: white, $alpha: 0.6);
 }
 .ui.grid > .row.dashboard-container {
   padding-bottom: 0;
   padding-top: 0;
 }
 .ui.grid > .row.equal.dashboard-container {
-    margin-top: 2%;
-  }
+  margin-top: 2%;
+}
 .dashboard-grid {
   margin-top: 5%;
 }
@@ -68,7 +73,6 @@
   margin: 0 2%;
 }
 .dashboard-company-name {
-  
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -76,4 +80,21 @@
 .dashboard-description {
   position: absolute;
   bottom: 5%;
+}
+.dashboard-filter-container {
+  margin-top: 80px;
+}
+.dashboard-filter-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  transform: translateY(-50%);
+}
+.dashboard-filter-description {
+  font-size: small;
+  bottom: 5%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

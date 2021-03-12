@@ -14,7 +14,7 @@ const Dashboard = () => {
                         <div className="dashboard-left">
                             <TopAssetContainer header={CardHeader[0]} data={response.dashboardStockDTOList} />
                             <TopAssetContainer header={CardHeader[1]} data={response.dashboardMutualFundDTOList} />
-                            <TopAssetContainer header={CardHeader[2]} filter={true} data={response.dashboardMutualFundDTOList} />
+                            <TopAssetContainer header={CardHeader[2]} filter={true} data={CardHeader[2].data} />
                         </div>
                     </Grid.Column>
                     <Grid.Column width="6" className="position">

@@ -1,6 +1,18 @@
-import { Card, Grid, Popup, Segment } from "semantic-ui-react";
+import { Image, Grid, Popup, Segment } from "semantic-ui-react";
 import Link from 'next/link';
 const TopAssetContainer = (props) => {
+
+    const imageProvider = (firstLowerCharacter) => {
+        let charCode = firstLowerCharacter.charCodeAt();
+        //"m" ascii 109 [ img available from a-m ]
+        if (charCode > 109) {
+            return String.fromCharCode(charCode - 12);
+        }else if(charCode < 97){
+            // 49 means remove "0" and add "a" to get in range [a-m]
+            return String.fromCharCode(charCode + 49 );
+        }
+        return firstLowerCharacter;
+    }
     String.prototype.capitalize = function () {
         return this.charAt(0).toUpperCase() + this.slice(1);
     }
@@ -20,30 +32,45 @@ const TopAssetContainer = (props) => {
                 {
                     props.data.map((item, index) => {
                         return <Grid.Column key={index} className="dashboard-company-card">
-                            <Link href={!props.filter ? `/details/${item[props.header.data.id]}` : ''}>
-                                <Segment key={index} inverted className="dashboard-asset-container">
-                                    {!props.filter && <div className="dashboard dashboard-company-icon">{props.header.data.companyIcon}</div>}
-                                    <div className="dashboard dashboard-company-name">{item.name}</div>
-                                    <div className="dashboard dashboard-description">
-                                        {!props.filter &&
-                                            <>
-                                                <span>
-                                                    <Popup content={props.header.data.sortBy.capitalize()}
-                                                        trigger={<span>{item[props.header.data.sortBy]}</span>}
-                                                        position="bottom center"
-                                                        size="tiny"
-                                                    >
-                                                    </Popup>
-                                                </span>
-                                                <span>{props.header.data.sign}</span>{" "}
-                                                <span className="dashboard-secondary-data">
-                                                    {props.header.data.secondaryData}
-                                                </span>
-                                            </>
-                                        }
-                                    </div>
-                                </Segment>
-                            </Link>
+                            {
+                                !props.filter && <Link href={`/details/${item[props.header.data.id]}`}>
+                                    <Segment key={index} inverted className="dashboard-asset-container">
+                                        <div className="dashboard dashboard-company-icon">
+                                            <Image width="30px" height="30px" src={`/company/${imageProvider(item.name[0].toLowerCase())}.png`} />
+                                        </div>
+                                        <div className="dashboard dashboard-company-name">
+                                            {item.name}
+                                        </div>
+                                        <div className="dashboard dashboard-description">
+                                            <span>
+                                                <Popup content={props.header.data.sortBy.capitalize()}
+                                                    trigger={<span>{item[props.header.data.sortBy]}</span>}
+                                                    position="bottom center"
+                                                    size="tiny"
+                                                >
+                                                </Popup>
+                                            </span>
+                                            <span>{props.header.data.sign}</span>{" "}
+                                            <span className="dashboard-secondary-data">
+                                                {props.header.data.secondaryData}
+                                            </span>
+                                        </div>
+                                    </Segment>
+                                </Link>
+                            }
+                            {
+                                props.filter &&
+                                <div className="dashboard-filter-container">
+                                    <Link href={item.link}>
+                                        <div className="dashboard-filter-icon">
+                                            {item.icon}
+                                            <div className="dashboard-filter-description">
+                                                {item.message}
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                            }
                         </Grid.Column>
                     })
                 }

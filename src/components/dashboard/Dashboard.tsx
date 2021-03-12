@@ -7,7 +7,6 @@ import CardHeader from "src/components/dashboard/DashboardCardDetails"
 const Dashboard = () => {
     const [isCompleted, response] = getTopStocksAndMutualFunds();
     return isCompleted ?
-        <>
             <Grid>
                 <Grid.Row>
                     <Grid.Column width="10" className="top-asset">
@@ -32,7 +31,6 @@ const Dashboard = () => {
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
-        </>
         : <Loader active>Loading</Loader>;
 }
 export default Dashboard;

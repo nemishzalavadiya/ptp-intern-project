@@ -10,7 +10,11 @@ import com.pirimidtech.ptp.service.datagenerator.DataGenerator;
 import com.pirimidtech.ptp.service.datagenerator.Stock;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -66,7 +70,7 @@ public class StockService implements StockServiceInterface {
         Map<String,String> sortingFieldMap = new HashMap<String,String>();
         sortingFieldMap.put("Company","stockDetail.assetDetail.name");
         sortingFieldMap.put("Market Cap", "marketCap");
-        if(sortingField.length()>0) {
+        if(sortingField.length()>0 && sortingFieldMap.get(sortingField)!=null) {
             List<StockStatistic> filteredList = stockStatisticRepository
                     .findAll(booleanBuilder.getValue(), PageRequest.of(paging.getPageNumber(), paging.getPageSize(), Sort.by(direction, sortingFieldMap.get(sortingField))))
                     .getContent()

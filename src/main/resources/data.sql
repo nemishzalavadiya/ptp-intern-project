@@ -245,9 +245,6 @@ VALUES ('00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-0000000
 INSERT INTO public.watchlist(id, user_id, name, description)
 VALUES ('00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000', 'Mutual Fund',
         'MutualFunds Investment Companies');
-INSERT INTO public.watchlist(id, user_id, name, description)
-VALUES ('00000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000000', 'Both',
-        'Stock & MutualFunds Together');
 
 
 INSERT INTO public.stock_price(id, price, stock_exchange, timestamp, stock_detail_id)

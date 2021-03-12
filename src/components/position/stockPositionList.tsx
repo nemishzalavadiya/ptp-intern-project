@@ -5,7 +5,7 @@ import StockPosition from "src/components/position/stockPositionView";
 import Link from "next/link";
 import { Loader } from "semantic-ui-react";
 import { AssetClass } from "src/enums/assetClass";
-import {StockpositionField} from "src/components/Sorting/SortingField";
+import {StockpositionField} from "src/components/Sorting/fields";
 import Sorting from "src/components/Sorting/Sorting";
 
 export default function StockPositionList({

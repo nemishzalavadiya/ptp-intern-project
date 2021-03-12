@@ -1,3 +1,4 @@
+@import "src/styles/_variables.scss";
 i.icon.triangle.up {
   color: green;
   cursor: pointer;
@@ -21,10 +22,11 @@ div.triangle.up {
 }
 .row.ui.segment.grid-row-sorting-header {
   padding: 2vh;
-  background-color: #121212;
+  background-color: $backgroundGrey;
   color: $white;
   cursor: pointer;
   margin:2px 0px;
-  border: 1px solid white;
+  border: 1px solid $backgroundGrey;
   border-radius: 7px;
+  padding-bottom: 0%;
 }

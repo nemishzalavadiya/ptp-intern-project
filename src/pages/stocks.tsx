@@ -8,7 +8,7 @@ import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import useWebSocket from "src/hooks/useWebSocket";
 import Sorting from "src/components/Sorting/Sorting";
-import {StockSortingfield} from "src/components/Sorting/SortingField";
+import {StockSortingfield} from "src/components/Sorting/fields";
 const stocks = () => {
 	const content = [
 		{ header: "Company_Id", icon: "" },
@@ -117,7 +117,7 @@ const stocks = () => {
 					setSelectedState={setSelectedState}
 				/>
 				<div className="right-grid">
-        <Sorting content={StockSortingfield} pattern={pattern} onclick={changeArrow} />
+        			<Sorting content={StockSortingfield} pattern={pattern} onclick={changeArrow} />
 					<GridContainer
 						content={content}
 						data={
@@ -141,7 +141,7 @@ const stocks = () => {
 							totalPages,
 							handlePaginationChange: setActivePage,
 						}}
-						showHeaderGrid="disallow"
+						showHeaderGrid="disable"
 					/>
 				</div>
 			</div>

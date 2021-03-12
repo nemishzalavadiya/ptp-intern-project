@@ -14,7 +14,7 @@ import { useState } from "react";
 import Link from "next/link";
 import useWebSocket from "src/hooks/useWebSocket";
 import Sorting from "src/components/Sorting/Sorting";
-import { WatchlistSortingfield } from "src/components/Sorting/SortingField";
+import { WatchlistSortingfield } from "src/components/Sorting/fields";
 export default function WatchlistView(props) {
   const [companyUuids, setCompanyUuids] = useState([]);
   let data = new Map();
@@ -95,7 +95,7 @@ export default function WatchlistView(props) {
             pagination={props.pagination}
             data={Array.from(data.values())}
             tabId={props.tabId}
-            showHeaderGrid="disallow"
+            showHeaderGrid="disable"
           />
         </>
       }

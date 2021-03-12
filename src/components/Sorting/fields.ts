@@ -18,8 +18,14 @@ export const StockSortingfield = [
     title: "Company",
   },
   {
-    title: "Market Cap"
-  }
+    title: "Market Price"
+  },
+  {
+    title: "Close price",
+  },
+  {
+    title: "Market Cap",
+  },
 ];
 
 export const MutualfundpositionSortingfield = [
@@ -96,4 +102,51 @@ export const WatchlistSortingfield = [
   {
     title: "%CHG",
   },
+];
+
+export const stockOrders = [
+  {
+    title: "Company"
+  },
+  {
+    title: "Asset Class"
+  },
+  {
+    title: "Price"
+  },
+  {
+    title: "Date"
+  },
+  {
+    title: "Time"
+  },
+  {
+    title: "Order Type"
+  },
+  {
+    title: "Price Type"
+  },
+  {
+    title: "status"
+  }
+];
+export const mfOrders = [
+  {
+    title: "Company"
+  },
+  {
+    title: "Asset Class"
+  },
+  {
+    title: "Amount"
+  },
+  {
+    title: "Start Date"
+  },
+  {
+    title: "Frequency"
+  },
+  {
+    title: "SIP status"
+  }
 ];

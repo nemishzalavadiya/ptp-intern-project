@@ -4,16 +4,24 @@
   background: transparent;
   color: white;
   text-align: center;
-  margin-top:10%;
-  width: 50%;
+ 
+}
+
+.midSection
+{
+  padding-top: 5%;
+  height: 300px;
+
 }
 
 .ui.button.kycbutton {
   background-color: greenyellow;
 }
 
-.rightSide {
+.top.aligned.seven.wide.column.rightSide {
+  padding: 0px 7%;
   padding-top: 4%;
+  height: 100%;
 }
 
 .ui.button.getStart {
@@ -27,36 +35,27 @@
   margin-top: 10%;
 }
 
-.ui.placeholder.segment.fileupload {
-  background: transparent;
-  width: 100%;
+.fileupload
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 5%;
+}
+
+
+.signature {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.ui.placeholder.segment.fileupload,
-.ui.placeholder.segment.signature > .ui.segment {
-  background: transparent;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.ui.placeholder.segment.signature {
-  background: transparent;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-bottom: 0px;
-}
 
 input[type="file"] {
   display: none;
 }
 
-.ui.segment > .ui.icon.header {
+.fileupload > .ui.icon.header {
   color: white;
 }
 
@@ -73,11 +72,7 @@ input[type="file"] {
   background-color: greenyellow;
 }
 
-.kycTicket {
-  padding: 0px 20%;
-}
-
-.header {
+.backnext {
   display: flex;
   justify-content: space-between;
 }
@@ -102,4 +97,17 @@ input[type="file"] {
 {
   width:100px;
   height:100px;
+}
+.cut-text { 
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  width: 160px; 
+  height: 1.2em; 
+  white-space: nowrap;
+}
+
+.ui.button.uploadnow
+{
+  margin-top:15%;
+  background-color: greenyellow;
 }

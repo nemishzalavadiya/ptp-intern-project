@@ -1,13 +1,6 @@
 import React from "react";
 import {
-  Segment,
-  Step,
   Grid,
-  Form,
-  Icon,
-  Button,
-  Divider,
-  Image,
   Input,
 } from "semantic-ui-react";
 
@@ -16,8 +9,11 @@ export default function PersonalDetail({
   setPersonalDetails,
 }) {
   return (
-    <div>
-      <Input
+    <div className="midSection">
+    <Grid>
+      <Grid.Row>
+        <Grid.Column width={5}><label>Occupation</label></Grid.Column>
+        <Grid.Column width={11}><Input
         placeholder="Enter Occupation"
         value={personalDetails.occupation}
         className="kycinput"
@@ -27,9 +23,11 @@ export default function PersonalDetail({
             occupation: event.target.value,
           });
         }}
-      />
-      <br />
-      <Input
+      /></Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Column width={5}><label>Annual Income</label></Grid.Column>
+        <Grid.Column width={11}><Input
         placeholder="Enter Youe Annual Income"
         type="number"
         value={personalDetails.annualIncome}
@@ -40,9 +38,11 @@ export default function PersonalDetail({
           });
         }}
         className="kycinput"
-      />
-      <br />
-      <Input
+      /></Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Column width={5}><label>Mother Name</label></Grid.Column>
+        <Grid.Column width={11}><Input
         placeholder="Enter Your Mother's Name"
         value={personalDetails.motherName}
         onChange={(event) => {
@@ -52,9 +52,11 @@ export default function PersonalDetail({
           });
         }}
         className="kycinput"
-      />
-      <br />
-      <Input
+      /></Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Column width={5}><label>Father Name</label></Grid.Column>
+        <Grid.Column width={11}><Input
         placeholder="Enter Your Father's Name"
         value={personalDetails.fatherName}
         onChange={(event) => {
@@ -64,8 +66,10 @@ export default function PersonalDetail({
           });
         }}
         className="kycinput"
-      />
-      <br />
+      /></Grid.Column>
+      </Grid.Row>
+
+    </Grid>
     </div>
   );
 }

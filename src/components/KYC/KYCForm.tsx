@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { addKYCDetails, isKycVerified } from "src/services/KYCService";
-import { Grid, Icon, Divider, Image, Loader } from "semantic-ui-react";
+import { Grid, Button, Icon, Divider, Image, Loader } from "semantic-ui-react";
 import PanDetail from "src/components/KYC/PanDetail";
 import PersonalDetail from "src/components/KYC/PersonalDetail";
 import Signature from "src/components/KYC/Signature";
@@ -44,16 +44,13 @@ export default function KYC(props) {
 
   const headers = [
     {
-      header: "Enter Your PAN Details",
-      subHeader: "",
+      header: "Enter Your Personal Details",
     },
     {
-      header: "Enter Your Personal Details",
-      subHeader: "",
+      header: "Enter Your PAN Details",
     },
     {
       header: "Upload Your Signature and Profile",
-      subHeader: "Your signature is required to open stock demat account",
     },
   ];
 
@@ -129,7 +126,7 @@ export default function KYC(props) {
   };
 
   const upload = async () => {
-    if (validatePan() && validatePersonalDetails() && validateLeagleInfo()) {
+    if (validatePersonalDetails() && validatePan() && validateLeagleInfo()) {
       await addKYCDetails(createFormData())
         .then(() => {
           toast.success("Verification Done", {
@@ -153,16 +150,16 @@ export default function KYC(props) {
     switch (page) {
       case 0:
         return (
-          <PanDetail panDetails={panDetails} setPanDetails={setPanDetails} />
-        );
-      case 1:
-        return (
           <PersonalDetail
             personalDetails={personalDetails}
             setPersonalDetails={setPersonalDetails}
           />
         );
-      case 2:
+      case 1:
+        return (
+          <PanDetail panDetails={panDetails} setPanDetails={setPanDetails} />
+        );
+      default:
         return (
           <Signature
             leagleInfo={leagleInfo}
@@ -171,8 +168,7 @@ export default function KYC(props) {
             nextClick={nextClick}
           />
         );
-      default:
-        return "foo";
+      
     }
   }
 
@@ -186,29 +182,20 @@ export default function KYC(props) {
               <Image src="/kyc.png"></Image>
             </Grid.Column>
             <Grid.Column width={7} verticalAlign="top" className="rightSide">
-              <div className="kycTicket">
-                <div className="header">
-                  <div>
-                    <Icon
-                      name="angle double left"
-                      disabled={page == 0}
-                      onClick={prevClick}
-                    />
-                    Back
-                  </div>
-                  <div>
-                    Next
-                    <Icon
-                      name="angle double right"
-                      disabled={page == 2}
-                      onClick={nextClick}
-                    />
-                  </div>
-                </div>
+              <div>
                 <h3>{headers[page].header}</h3>
-                <h5>{headers[page].subHeader}</h5>
                 <Divider></Divider>
-                <div>{renderSwitch()}</div>
+                {renderSwitch()}
+                <div className="backnext">
+                  <Button icon labelPosition="left" className="kycbutton" disabled={page===0} onClick={prevClick}>
+                    Back
+                    <Icon name="left arrow" />
+                  </Button>
+                  <Button icon labelPosition="right" className="kycbutton" disabled={page===2} onClick={nextClick }>
+                    Next
+                    <Icon name="right arrow" />
+                  </Button>
+                </div>
               </div>
             </Grid.Column>
           </Grid.Row>

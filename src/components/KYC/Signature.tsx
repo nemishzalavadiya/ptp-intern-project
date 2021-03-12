@@ -41,38 +41,38 @@ export default function Signature({ leagleInfo, setLeagleInfo, upload }) {
     }
   };
   return (
-    <div>
+    <div className="midSection">
       <Loader inverted active={isExecuting}>
         Verifing
       </Loader>
-      <Segment placeholder className="signature">
-        <Segment>
+      <div className="signature">
+        <div className="fileupload">
           <Header icon>
             <Icon name="images file outline" />
-            {leagleInfo.sign === null
+            <div className="cut-text">{leagleInfo.sign === null
               ? "Upload Signature"
-              : leagleInfo.sign.name}
+              : leagleInfo.sign.name}</div>
           </Header>
           <label className="custom-file-upload">
             <input type="file" onChange={onSignatureChange} />
             Upload
           </label>
-        </Segment>
-        <Segment>
+        </div>
+        <div className="fileupload">
           <Header icon>
             <Icon name="images file outline" />
-            {leagleInfo.profile === null
-              ? "Upload Profile Picture"
-              : leagleInfo.profile.name}
+            <div className="cut-text">{leagleInfo.profile === null
+              ? "Upload Picture"
+              : leagleInfo.profile.name}</div>
           </Header>
           <label className="custom-file-upload">
             <input type="file" onChange={onProfileChange} />
             Upload
           </label>
-        </Segment>
-      </Segment>
+        </div>
+      </div>
       <Button
-        className="kycbutton"
+        className="uploadnow"
         onClick={uploadKYCDetails}
         disabled={isExecuting}
       >

@@ -21,7 +21,7 @@ export default function PanDetail({ panDetails, setPanDetails }) {
   };
 
   return (
-    <div>
+    <div className="midSection">
       <Input
         placeholder="Enter PAN"
         value={panDetails.panNumber}
@@ -30,7 +30,7 @@ export default function PanDetail({ panDetails, setPanDetails }) {
         }
         className="kycinput"
       />
-      <Segment placeholder className="fileupload">
+      <div className="fileupload">
         <Header icon>
           <Icon name="images file outline" />
           {panDetails.panFile === null ? "Upload PAN" : panDetails.panFile.name}
@@ -39,7 +39,7 @@ export default function PanDetail({ panDetails, setPanDetails }) {
           <input type="file" onChange={onFileChange} />
           Upload
         </label>
-      </Segment>
+      </div>
       <br />
     </div>
   );

@@ -61,7 +61,6 @@ const mutualfunds = () => {
 		selectedFilters.forEach((filter, index) => {
 			filterBody[mutualFundFilters[index].field] = filter;
 		});
-		console.log(selectedFilters, filterBody)
 		requestFiltered(`/api/mutualfunds/filters?page=${activePage}`, filterBody).then((page) => {
 			setResults(page.content);
 			setTotalPages(page.totalPages);

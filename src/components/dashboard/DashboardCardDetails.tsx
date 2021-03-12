@@ -17,7 +17,6 @@ const CardHeader = [{
     data: {
         id: "assetDetailId",
         sortBy: "risk",
-        companyIcon: <Icon name="envelope open" />,
         sign: "",
         secondaryData: ""
     }

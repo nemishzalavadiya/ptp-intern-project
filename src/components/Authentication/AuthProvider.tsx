@@ -18,8 +18,7 @@ const AuthProvider = ({ children }) => {
       if (userInfo) {
         setUser(userInfo);
       } else {
-        window.location.href = "/login?path=" + router.asPath
-        //router.push({ pathname: "/login", query: { path: router.asPath } });
+        router.push({ pathname: "/login", query: { path: router.asPath } });
       }
     } else if (
       router.pathname === "/login" ||
@@ -29,11 +28,9 @@ const AuthProvider = ({ children }) => {
       if (userInfo) {
         setUser(userInfo);
         if (router.query.path === undefined) {
-          window.location.href = "/"
-          //router.replace("/");
+          router.replace("/");
         } else {
-          window.location.href = router.query.path.toString()
-          //router.replace(router.query.path.toString());
+          router.replace(router.query.path.toString());
         }
       }
     }

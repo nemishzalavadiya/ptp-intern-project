@@ -16,8 +16,7 @@ const TopNavBar = () => {
   }, []);
   const userLogout = async () => {
     await logout();
-    window.location.href="/login?path="+router.asPath
-    //router.push({ pathname: "/login", query: { path: router.asPath } });
+    router.push({ pathname: "/login", query: { path: router.asPath } });
   }
   return (
     <div className="headerTopNavBar">

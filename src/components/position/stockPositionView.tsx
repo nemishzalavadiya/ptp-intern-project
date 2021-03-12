@@ -40,14 +40,8 @@ const stockHeaders = [
   },
 ];
 let dashboardHeader = [];
-let dashboardPositionList = [];
+let dashboardPositionList = [stockHeaders[0], stockHeaders[4], stockHeaders[5]];
 export default function StockPosition({ uuid, positionList, pagination, dashboard }) {
-  if (dashboard) {
-    dashboardHeader.length = 0
-    dashboardHeader.push(stockHeaders[0]);
-    dashboardHeader.push(stockHeaders[4]);
-    dashboardHeader.push(stockHeaders[5]);
-  }
   const [isSubscriptionCompleted, myMap] = useWebSocket(uuid);
 
   if (isSubscriptionCompleted) {

@@ -28,7 +28,7 @@ public class KYCController {
         String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         kycService.uploadKYCDetail(kycDetail, userId);
-        return ResponseEntity.ok("Kyc varified");
+        return ResponseEntity.ok("Kyc verified");
     }
 
     @GetMapping(value = "/kyc")

@@ -18,6 +18,10 @@ import java.util.List;
 @Component
 public class DashboardUtil {
 
+    private static final String PE_RATION = "peRatio";
+
+    private static final String RISK = "risk";
+
     @Autowired
     private StockService stockService;
 
@@ -25,7 +29,7 @@ public class DashboardUtil {
     private MutualFundService mutualFundService;
 
     public List<DashboardStockDTO> getTopStocksByPeRatio() {
-        Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC,"peRatio"));
+        Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, PE_RATION));
         List<DashboardStockDTO> dashboardStockDTOList = new ArrayList<>();
         List<StockStatistic> stockStatisticList = stockService.getAllStockStatistics(pageable).toList();
         stockStatisticList.forEach((item) -> {
@@ -36,7 +40,7 @@ public class DashboardUtil {
     }
 
     public List<DashboardMutualFundDTO> getTopMutualFundsByRisk() {
-        Pageable pageable = PageRequest.of(0, 4);
+        Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, RISK));
         List<DashboardMutualFundDTO> dashboardMutualFundDTOList = new ArrayList<>();
         List<MutualFundStatistic> mutualFundStatisticList = mutualFundService.getAllMutualFundsStatistics(pageable).toList();
         mutualFundStatisticList.forEach((item) -> {

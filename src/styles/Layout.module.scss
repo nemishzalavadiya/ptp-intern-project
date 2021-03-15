@@ -1,24 +1,15 @@
-@import "./variables";
+@import './variables';
 .mainLayout {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	min-height: 100vh;
-  }
-  
-  .rightLayout {
-	position: absolute;
-	background-color: #121212;
-	color: white;
-	min-height: 100vh;
-	left: 6rem;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #121212;
 }
-  
-  .barLayout {
-	position: fixed;
-  }
-  .innerLayout{
-	margin-right:4%;
-	margin-left: 3%;
+
+.rightLayout {
+  min-width: 100vw;
+  color: white;
 }
-  /*# sourceMappingURL=Layout.module.css.map */
+.innerLayout {
+  margin: 0 4rem;
+}
+/*# sourceMappingURL=Layout.module.css.map */

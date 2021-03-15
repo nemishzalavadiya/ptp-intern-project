@@ -13,7 +13,6 @@ const Dashboard = () => {
                     <div className="dashboard-left">
                         {
                             CardHeader.map((item, index) => {
-                                console.log(item)
                                 return item.type === 'asset' ? <TopAssetContainer key={index} header={item} data={response[item.data.objectField]} /> :
                                     <TopAssetContainer key={index} filter={true} header={item} data={item.iconList} />
                             })

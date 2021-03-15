@@ -308,7 +308,7 @@ export default function Profile() {
                         />
                       </Grid.Column>
                       <Grid.Column width={8}>
-                        <Input id="userdob"
+                        <Input id="user-DOB"
                           readOnly={!isUpdate}
                           required
                           inverted

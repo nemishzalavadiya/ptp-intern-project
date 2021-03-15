@@ -86,11 +86,6 @@ const stocks = () => {
 		});
 	}, [selectedFilters, activePage, orderBy, sortingField]);
 
-	// useEffect(() => {
-	// 	subscriptionDataMap.clear();
-	// 	setSubscriptionIdList(results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id));
-	// }, [results]);
-
 	const [subscriptionIdList, setSubscriptionIdList] = useState(
 		results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id)
 	);

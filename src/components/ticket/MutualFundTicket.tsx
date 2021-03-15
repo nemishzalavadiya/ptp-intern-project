@@ -68,7 +68,6 @@ export default function MutualFundTicket(props) {
           id: mfId,
         },
       };
-      console.log(props.mfOrderId);
       await updateMutualFundOrder(props.mfOrderId, data);
       props.setIsUpdate(!props.isUpdateFlag)
     } else {
@@ -116,7 +115,6 @@ export default function MutualFundTicket(props) {
         });
     }
   };
-  console.log(props.ticketDetail);
   return (
     <Segment className="mutualFundTicket">
       <Form inverted>

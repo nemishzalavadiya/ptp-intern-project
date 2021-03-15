@@ -43,7 +43,7 @@ export default function Position(props) {
       {
         !props.dashboard && <Search
           handleSearchChange={handleSearchChange}
-          placeholder={`Search In ${tabs[activeItem].name} Position`}
+          placeholder={`Search In ${tabs[activeItem].name} Position...`}
         />
       }
       {activeItem === 0 ? (

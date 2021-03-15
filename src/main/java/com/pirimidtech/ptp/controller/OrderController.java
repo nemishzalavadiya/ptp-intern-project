@@ -2,7 +2,6 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.Action;
 import com.pirimidtech.ptp.entity.AssetDetail;
-import com.pirimidtech.ptp.entity.MutualFundDetail;
 import com.pirimidtech.ptp.entity.MutualFundOrder;
 import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.entity.Position;
@@ -11,6 +10,7 @@ import com.pirimidtech.ptp.entity.Status;
 import com.pirimidtech.ptp.entity.StockDetail;
 import com.pirimidtech.ptp.entity.StockTrade;
 import com.pirimidtech.ptp.entity.StockTradeHistory;
+import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.exception.InsufficientStockException;
 import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.repository.MutualFundDetailRepository;
@@ -19,12 +19,11 @@ import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.service.position.PositionService;
 import com.pirimidtech.ptp.service.trade.OrderService;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
+import com.pirimidtech.ptp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -62,8 +61,16 @@ public class OrderController {
     @Autowired
     private StockDetailRepository stockDetailRepository;
 
+    @Autowired
+    private RequestUtil requestUtil;
+
     @PostMapping("/stock/orders")
-    public ResponseEntity<StockTrade> addToStockOrder(@RequestBody StockTrade stockTrade) {
+    public ResponseEntity<StockTrade> addToStockOrder(HttpServletRequest httpServletRequest, @RequestBody StockTrade stockTrade) {
+        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
+        User user = new User();
+        user.setId(userId);
+        stockTrade.setUser(user);
         if (stockTrade.getAction().equals(Action.SELL)) {
             Optional<StockDetail> stockDetail = stockDetailRepository.findById(stockTrade.getStockDetail().getId());
             AssetDetail assetDetail = stockDetail.get().getAssetDetail();
@@ -79,8 +86,10 @@ public class OrderController {
         return ResponseEntity.ok().body(stockTrade);
     }
 
-    @GetMapping("/stock/orders/users/{id}")
-    public ResponseEntity<Page<StockTrade>> getAllStockOrderByUser(@PathVariable("id") UUID userId, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+    @GetMapping("/stock/orders")
+    public ResponseEntity<Page<StockTrade>> getAllStockOrderByUser(HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Page<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
         return ResponseEntity.ok().body(stockTradeList);
     }
@@ -118,7 +127,12 @@ public class OrderController {
     }
 
     @PostMapping("/mutualfund/orders")
-    public ResponseEntity<MutualFundOrder> addToMutualFundOrder(@RequestBody MutualFundOrder mutualFundOrder) {
+    public ResponseEntity<MutualFundOrder> addToMutualFundOrder(HttpServletRequest httpServletRequest, @RequestBody MutualFundOrder mutualFundOrder) {
+        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
+        User user = new User();
+        user.setId(userId);
+        mutualFundOrder.setUser(user);
         mutualFundOrder.setStatus(Status.PENDING);
         mutualFundOrder.setSipStatus(SIPStatus.ACTIVE);
         mutualFundOrder.setTimestamp(new Date());

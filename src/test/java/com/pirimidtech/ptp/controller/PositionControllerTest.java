@@ -1,7 +1,9 @@
 package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.PtpApplication;
-import com.pirimidtech.ptp.utility.ObjectUtility;
+import com.pirimidtech.ptp.util.JwtTokenUtil;
+import com.pirimidtech.ptp.util.TestDataStore;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import javax.servlet.http.Cookie;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -26,9 +30,21 @@ class PositionControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    private TestDataStore testDataStore;
+
+    @BeforeEach
+    public void setUp() {
+        testDataStore = new TestDataStore();
+    }
+
+
     @Test
     void getStockPositionByUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/position/assets/stock/users/" + ObjectUtility.user.getId() + "?page=0&size=1")).
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
+        mockMvc.perform(MockMvcRequestBuilders.get("/stock/position?page=0&size=1").cookie(cookie)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andDo(print());
@@ -36,7 +52,8 @@ class PositionControllerTest {
 
     @Test
     void getMutualFundPositionByUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/position/assets/mutualFund/users/" + ObjectUtility.user.getId() + "?page=0&size=1")).
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
+        mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/position?page=0&size=1").cookie(cookie)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andDo(print());
@@ -44,7 +61,8 @@ class PositionControllerTest {
 
     @Test
     void searchInStockPosition() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/position/search/assets/stock/users/" + ObjectUtility.user.getId() + "?name=ptp&page=0&size=1")).
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
+        mockMvc.perform(MockMvcRequestBuilders.get("/stock/position/search?name=ptp&page=0&size=1").cookie(cookie)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andDo(print());
@@ -52,7 +70,8 @@ class PositionControllerTest {
 
     @Test
     void searchInMutualFundPosition() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/position/search/assets/mutualFund/users/" + ObjectUtility.user.getId() + "?name=ptp&page=0&size=1")).
+        Cookie cookie = new Cookie("token", jwtTokenUtil.generateToken(testDataStore.userList.get(0)));
+        mockMvc.perform(MockMvcRequestBuilders.get("/mutualfund/position/search?name=ptp&page=0&size=1").cookie(cookie)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(MediaType.APPLICATION_JSON)).
                 andDo(print());

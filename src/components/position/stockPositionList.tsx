@@ -10,6 +10,7 @@ export default function StockPositionList({
   searchString,
   page,
   handlePaginationChange,
+  dashboard
 }) {
   let positionList = [];
   let companyUuids = [];
@@ -48,6 +49,7 @@ export default function StockPositionList({
       uuid={companyUuids}
       positionList={positionList}
       pagination={pagination}
+      dashboard={dashboard}
     ></StockPosition>
   );
 }

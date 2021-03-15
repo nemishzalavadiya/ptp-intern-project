@@ -5,12 +5,11 @@ import TopNavBar from "src/components/TopNavBar";
 const Layout = (props) => {
 	return (
 		<div className="mainLayout">
-			<div className="barLayout">
-				<NavBar name={props.name} />
-			</div>
 			<div className="rightLayout">
-				<TopNavBar />
-				<div className="innerLayout">{props.children}</div>
+				<TopNavBar name={props.name} />
+				<div className="innerLayout">
+					{props.children}
+				</div>
 			</div>
 		</div>
 	);

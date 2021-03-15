@@ -4,14 +4,28 @@
   justify-content: center;
   min-width: 800px;
 }
-
-.row.ui.segment.grid-row {
+.ui.grid.dashboard-grid-container {
+  margin: 10px 0px;
+  justify-content: center;
+  min-width: 300px;
+}
+.dashboard-companyName {
+  font-size: small;
+  overflow: hidden;
+}
+.row.ui.segment.grid-row,
+.row.ui.segment.dashboard-grid-row {
   padding: 2vh;
-  background-color: $cardGrey;
   color: $white;
   cursor: pointer;
-  margin:2px 0px;
+  margin: 2px 0px;
   border-radius: 7px;
+}
+.row.ui.segment.grid-row {
+  background-color: $cardGrey;
+}
+.row.ui.segment.dashboard-grid-row {
+  background-color: $backgroundGrey;
 }
 .grid-header-item {
   font-size: 0.7rem;
@@ -24,11 +38,10 @@
   text-align: right;
 }
 
-.icon-content{
+.icon-content {
   transform: translateX(-25%);
 }
 
-.ui.small.inverted.pagination.menu
-{
-  margin-top:20px;
+.ui.small.inverted.pagination.menu {
+  margin-top: 20px;
 }

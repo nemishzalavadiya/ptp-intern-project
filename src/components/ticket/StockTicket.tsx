@@ -20,6 +20,7 @@ export default function StockTicket({ assetId, stockId }) {
   useEffect(() => {
     const webSocket = new SockJS(WebSocketUrl.url);
     const stompClient = Stomp.over(webSocket);
+    stompClient.debug = (f) => f;
     stompClient.connect({}, async function (frame) {
       stompClient.subscribe(
         "/topic/" + assetId,

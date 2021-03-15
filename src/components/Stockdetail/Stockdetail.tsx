@@ -20,6 +20,6 @@ export default function Stockdetail(props) {
   ) : response.error ? (
     <div>{response.error}</div>
   ) : (
-    <Loader active={!isComplete}></Loader>
+    <Loader active>Loading</Loader>
   );
 }

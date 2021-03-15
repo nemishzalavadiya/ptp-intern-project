@@ -14,6 +14,7 @@ import MutualFundTicket from "src/components/ticket/MutualFundTicket";
 import { getMfByAssetId } from "src/services/assets";
 import Moment from "moment";
 import { updateMutualFundOrder } from "src/services/mutualFundOrder";
+import {sipStatus} from "src/enums/sipStatus";
 
 export default function MutualFundOrder(props) {
   let [isDataFetchingCompleted, SetIsDataFetchingCompleted] = useState(false);
@@ -70,7 +71,7 @@ export default function MutualFundOrder(props) {
               <Icon
                 color="green"
                 onClick={() => updateStatus(item)}
-                name={item.sipStatus === "ACTIVE" ? "pause" : "play"}
+                name={item.sipStatus === sipStatus.ACTIVE ? "pause" : "play"}
               />
             </Button>
             <Button onClick={() => deleteSIP(item.id)}>
@@ -104,10 +105,10 @@ export default function MutualFundOrder(props) {
 
   const [isMFFetchingComplete, MFResponse] = getMfByAssetId(mutualFundId);
   const updateStatus = async (mutualFundOrder) => {
-    if (mutualFundOrder.sipStatus === "PAUSED") {
-      mutualFundOrder.sipStatus = "ACTIVE";
+    if (mutualFundOrder.sipStatus === sipStatus.PAUSED) {
+      mutualFundOrder.sipStatus = sipStatus.ACTIVE;
     } else {
-      mutualFundOrder.sipStatus = "PAUSED";
+      mutualFundOrder.sipStatus = sipStatus.PAUSED;
     }
     const updatedSipStatus = mutualFundOrder.sipStatus;
     let data = {

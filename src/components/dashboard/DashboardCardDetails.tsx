@@ -2,27 +2,32 @@ import { Icon, Image } from "semantic-ui-react";
 
 const CardHeader = [{
     title: "Popular Stocks",
+    type:'asset',
     link: "/stocks",
     linkTitle: "SEE ALL STOCKS",
     data: {
         id: "assetDetailId",
         sortBy: "peRatio",
         sign: <Icon size="small" name="percent"></Icon>,
-        secondaryData: "(P/E)"
+        secondaryData: "(P/E)",
+        objectField : 'dashboardStockDTOList'
     }
 }, {
     title: "Popular Funds",
+    type:'asset',
     link: "/mutualfunds",
     linkTitle: "SEE ALL MUTUAL FUNDS",
     data: {
         id: "assetDetailId",
         sortBy: "risk",
         sign: "",
-        secondaryData: ""
+        secondaryData: "",
+        objectField : 'dashboardMutualFundDTOList'
     }
 }, {
     title: "Handpicked Collections",
-    data: [
+    type:'filter',
+    iconList: [
         {
             icon: <img src="/risk/icons8-low-risk-48.png" alt="Low Risk" />,
             message: "Low Risk",

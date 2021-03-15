@@ -12,7 +12,6 @@ import {
 } from "semantic-ui-react";
 import { createMutualFundOrder } from "src/services/mutualFundOrder";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { InvestmentType } from "src/enums/InvestmentType";
 import { Frequency } from "src/enums/Frequency";
 import { UserId } from "src/components/Objects";

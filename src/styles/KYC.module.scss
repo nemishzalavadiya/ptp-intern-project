@@ -1,26 +1,25 @@
-.ui.input.kycinput > input,
-.ui.input.kycinput > input:focus {
+.ui.input.kycInput > input,
+.ui.input.kycInput > input:focus {
   border: 2px solid white;
   background: transparent;
   color: white;
-  text-align: center;
+  text-align: left;
 }
 
 .midSection {
   padding-top: 5%;
   min-height: 300px;
+  text-align: center;
+}
+.leftSide {
+  padding: 5%;
 }
 
-.leftSide
-{
-  padding:5%;  
-}
-
-.ui.button.kycbutton {
+.ui.button.kycButton {
   background-color: white;
 }
 
-.top.aligned.seven.wide.column.rightSide {
+.middle.aligned.seven.wide.column.rightSide {
   padding: 0px 5%;
   padding-top: 2%;
   height: 100%;
@@ -37,7 +36,7 @@
   margin-top: 10%;
 }
 
-.fileupload {
+.fileUpload {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -54,14 +53,15 @@ input[type="file"] {
   display: none;
 }
 
-.fileupload > .ui.icon.header {
+.fileUpload > .ui.icon.header {
   color: white;
 }
 
-.custom-file-upload {
+.customFileUpload {
   display: inline-block;
   width: 100px;
   padding: 8px 12px;
+  text-align: center;
   color: black;
   margin-left: auto;
   margin-right: auto;
@@ -71,32 +71,37 @@ input[type="file"] {
   background-color: greenyellow;
 }
 
-.backnext {
+.backNext {
   display: flex;
   justify-content: space-between;
 }
 
-.kycdiv {
+.kycDiv {
   background-color: #272727;
   margin-top: 2%;
   border-radius: 25px;
 }
 
 .kycProfile {
-  text-align: center;
   display: flex;
   justify-content: space-around;
+  text-align: center;
 }
-
-.ui.center.aligned.grid.profile {
+.personalInfo {
+  margin-left: 5%;
+}
+.ui.grid.profile {
   margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .ui.small.circular.image.profilePicture {
   width: 100px;
   height: 100px;
 }
-.cut-text {
+.cutText {
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 160px;
@@ -104,7 +109,10 @@ input[type="file"] {
   white-space: nowrap;
 }
 
-.ui.button.uploadnow {
-  margin-top: 15%;
+.ui.button.uploadNow {
   background-color: greenyellow;
+}
+.profileContainer {
+  margin: 2% 15% 0 22%;
+  text-align: left;
 }

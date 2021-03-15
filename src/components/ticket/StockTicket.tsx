@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Segment, Grid, Label } from "semantic-ui-react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { createStockOrder } from "src/services/stockOrder";

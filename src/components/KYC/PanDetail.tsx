@@ -2,21 +2,15 @@ import React from "react";
 import { Segment, Icon, Header, Input } from "semantic-ui-react";
 
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-export default function PanDetail({ panDetails, setPanDetails }) {
+export default function PanDetail({
+  panDetails,
+  setPanDetails,
+  validateFileType,
+}) {
   const onFileChange = (event) => {
-    if (
-      event.target.files[0].type === "image/jpeg" ||
-      event.target.files[0].type === "image/png"
-    ) {
+    if (validateFileType(event)) {
       setPanDetails({ ...panDetails, panFile: event.target.files[0] });
-    } else {
-      toast.error("Enter in PNG or JPEG Format", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-      });
     }
   };
 
@@ -28,14 +22,14 @@ export default function PanDetail({ panDetails, setPanDetails }) {
         onChange={(event) =>
           setPanDetails({ ...panDetails, panNumber: event.target.value })
         }
-        className="kycinput"
+        className="kycInput"
       />
-      <div className="fileupload">
+      <div className="fileUpload">
         <Header icon>
           <Icon name="images file outline" />
           {panDetails.panFile === null ? "Upload PAN" : panDetails.panFile.name}
         </Header>
-        <label className="custom-file-upload">
+        <label className="customFileUpload">
           <input type="file" onChange={onFileChange} />
           Upload
         </label>

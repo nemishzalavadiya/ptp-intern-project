@@ -13,16 +13,32 @@ import PanDetail from "src/components/KYC/PanDetail";
 import PersonalDetail from "src/components/KYC/PersonalDetail";
 import Signature from "src/components/KYC/Signature";
 import SuccessPage from "src/components/KYC/SuccessPage";
+import { KYCStep } from "src/enums/Step";
 
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 
 export default function KYC(props) {
   const router = useRouter();
   const [isContentFetchingCompleted, changeFetchStatus] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(KYCStep.PERSONAL_DETAIL);
+  const [isExecuting, setStatus] = useState(false);
 
+  const validateFileType = (event) => {
+    if (
+      event.target.files[0].type === "image/jpeg" ||
+      event.target.files[0].type === "image/png"
+    ) {
+      return true;
+    } else {
+      toast.error("Please select PNG or JPEG File", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
+      return false;
+    }
+  };
   useEffect(() => {
     isKycVerified().then((res) => {
       if (res) {
@@ -50,7 +66,6 @@ export default function KYC(props) {
     profile: null,
   });
 
-  
   const nextClick = () => {
     setPage(page + 1);
   };
@@ -123,9 +138,11 @@ export default function KYC(props) {
   };
 
   const upload = async () => {
+    setStatus(true);
     if (validatePersonalDetails() && validatePan() && validateLeagleInfo()) {
       await addKYCDetails(createFormData())
         .then(() => {
+          setStatus(false);
           toast.success("You are KYC Verified", {
             position: "bottom-right",
             autoClose: 2000,
@@ -134,27 +151,34 @@ export default function KYC(props) {
           nextClick();
         })
         .catch((err) => {
+          setStatus(false);
           toast.error(err.message, {
             position: "bottom-right",
             autoClose: 2000,
             hideProgressBar: true,
           });
         });
+    } else {
+      setStatus(false);
     }
   };
 
   function renderSwitch() {
     switch (page) {
-      case 0:
+      case KYCStep.PERSONAL_DETAIL:
         return (
           <PersonalDetail
             personalDetails={personalDetails}
             setPersonalDetails={setPersonalDetails}
           />
         );
-      case 1:
+      case KYCStep.PAN:
         return (
-          <PanDetail panDetails={panDetails} setPanDetails={setPanDetails} />
+          <PanDetail
+            panDetails={panDetails}
+            setPanDetails={setPanDetails}
+            validateFileType={validateFileType}
+          />
         );
       default:
         return (
@@ -163,6 +187,7 @@ export default function KYC(props) {
             setLeagleInfo={setLeagleInfo}
             upload={upload}
             nextClick={nextClick}
+            validateFileType={validateFileType}
           />
         );
     }
@@ -170,29 +195,38 @@ export default function KYC(props) {
 
   return isContentFetchingCompleted ? (
     page !== 3 ? (
-      <div className="kycdiv">
+      <div className="kycDiv">
         <ToastContainer />
-        <Grid textAlign="center">
+        <Loader inverted active={isExecuting}>
+          Verifying
+        </Loader>
+        <Grid>
           <Grid.Row>
             <Grid.Column width={7} className="leftSide">
               <Image src="/kyc.svg"></Image>
             </Grid.Column>
-            <Grid.Column width={7} verticalAlign="top" className="rightSide">
+            <Grid.Column width={7} verticalAlign="middle" className="rightSide">
               <div>
                 <Step.Group size="mini" fluid>
-                  <Step active={page == 0} onClick={() => setPage(0)}>
+                  <Step
+                    active={page == KYCStep.PERSONAL_DETAIL}
+                    onClick={() => setPage(0)}
+                  >
                     <Step.Content>
                       <Step.Title>Personal Details</Step.Title>
                     </Step.Content>
                   </Step>
 
-                  <Step active={page == 1} onClick={() => setPage(1)}>
+                  <Step active={page == KYCStep.PAN} onClick={() => setPage(1)}>
                     <Step.Content>
                       <Step.Title>Pan Detail</Step.Title>
                     </Step.Content>
                   </Step>
 
-                  <Step active={page == 2} onClick={() => setPage(2)}>
+                  <Step
+                    active={page == KYCStep.DOCUMENT}
+                    onClick={() => setPage(2)}
+                  >
                     <Step.Content>
                       <Step.Title>Documents</Step.Title>
                     </Step.Content>
@@ -200,27 +234,37 @@ export default function KYC(props) {
                 </Step.Group>
                 <Divider></Divider>
                 {renderSwitch()}
-                <div className="backnext">
+                <div className="backNext">
                   <Button
                     icon
                     labelPosition="left"
-                    className="kycbutton"
-                    disabled={page === 0}
+                    className="kycButton"
+                    disabled={page === KYCStep.PERSONAL_DETAIL}
                     onClick={prevClick}
                   >
                     Back
                     <Icon name="left arrow" />
                   </Button>
-                  <Button
-                    icon
-                    labelPosition="right"
-                    className="kycbutton"
-                    disabled={page === 2}
-                    onClick={nextClick}
-                  >
-                    Next
-                    <Icon name="right arrow" />
-                  </Button>
+                  {page !== KYCStep.DOCUMENT ? (
+                    <Button
+                      icon
+                      labelPosition="right"
+                      className="kycButton"
+                      onClick={nextClick}
+                    >
+                      Next
+                      <Icon name="right arrow" />
+                    </Button>
+                  ) : (
+                    <Button
+                      className="uploadNow"
+                      onClick={upload}
+                      disabled={isExecuting}
+                    >
+                      Submit
+                      <Icon name="right arrow" />
+                    </Button>
+                  )}
                 </div>
               </div>
             </Grid.Column>

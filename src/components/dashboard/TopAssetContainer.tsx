@@ -9,7 +9,7 @@ const TopAssetContainer = (props) => {
         return stringLiteral.charAt(0).toUpperCase() + stringLiteral.slice(1);
     }
     return <div className="dashboard-grid">
-        <Grid inverted>
+        <Grid inverted stackable>
             <Grid.Row className="dashboard-container">
                 <Grid.Column floated='left' width={5}>
                     <h3>{props.header.title}</h3>

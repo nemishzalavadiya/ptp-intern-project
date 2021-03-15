@@ -7,7 +7,7 @@ import CardHeader from "src/components/dashboard/DashboardCardDetails"
 const Dashboard = () => {
     const [isCompleted, response] = getTopStocksAndMutualFunds();
     return isCompleted ?
-        <Grid>
+        <Grid stackable>
             <Grid.Row>
                 <Grid.Column width="10" className="top-asset">
                     <div className="dashboard-left">

@@ -1,7 +1,9 @@
-@import "_variables";
+@import '_variables';
 
+.top-asset{
+  margin-left: -1%;
+}
 .ui.inverted.segment.dashboard-asset-container {
-  margin: 0 1%;
   margin-top: 2%;
   text-overflow: ellipsis;
   width: 160px;
@@ -68,9 +70,6 @@
 }
 .dashboard-grid {
   margin-top: 5%;
-}
-.ui.grey.segment {
-  margin: 0 2%;
 }
 .dashboard-company-name {
   position: absolute;

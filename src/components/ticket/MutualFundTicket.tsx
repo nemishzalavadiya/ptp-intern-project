@@ -71,7 +71,6 @@ export default function MutualFundTicket(props) {
       console.log(props.mfOrderId);
       await updateMutualFundOrder(props.mfOrderId, data);
       props.setIsUpdate(!props.isUpdateFlag)
-      //window.location.reload();
     } else {
       setOrderStatus(true);
       event.preventDefault();
@@ -158,8 +157,8 @@ export default function MutualFundTicket(props) {
                 disabled={investmentType === InvestmentType.ONE_TIME}
                 fluid
                 value={frequency}
-                onChange={(event) => {
-                  setFrequency(event.target.innerText);
+                onChange={(event,data) => {
+                  setFrequency(data.value);
                 }}
                 selection
                 color="Grey"

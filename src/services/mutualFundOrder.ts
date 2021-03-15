@@ -14,6 +14,7 @@ export async function createMutualFundOrder(order) {
   }
 }
 export async function updateMutualFundOrder(id,order) {
+  console.log(order);
   const response = await fetch("/api/mutualfund/" + id, {
     method: "PUT",
     headers: {

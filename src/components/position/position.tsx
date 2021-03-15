@@ -11,6 +11,7 @@ export default function Position(props) {
   const [assetClass, setAssetClass] = useState(AssetClass.STOCK);
   const [activeItem, setActiveItem] = useState(0);
   const [page, setPage] = useState(0);
+  const [totalSIPs,setTotalSIPs] = useState(0);
 
   function handlePaginationChange(pageNo) {
     setPage(pageNo);
@@ -53,7 +54,6 @@ export default function Position(props) {
           size="large"
           onClick={() => Router.push("/sipstatus")}
         >
-          My SIPs...
         </Button>
       ) : (
         ""

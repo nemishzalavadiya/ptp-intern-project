@@ -13,17 +13,20 @@ import styles from "src/styles/Layout.module.scss";
 import MutualFundTicket from "src/components/ticket/MutualFundTicket";
 import { getMfByAssetId } from "src/services/assets";
 import Moment from "moment";
+import { updateMutualFundOrder } from "src/services/mutualFundOrder";
 
 export default function MutualFundOrder(props) {
   let [isDataFetchingCompleted, SetIsDataFetchingCompleted] = useState(false);
-  var results = [];
+  const [results, setResults] = useState([]);
   const [open, setOpen] = useState(false);
   let [MFEdit, setMFEdit] = useState({});
+  var temp = [];
   let [mutualFundId, setMutualFundId] = useState("");
   let [mutualFundOrderId, setMutualFundOrderId] = useState("");
   let [ticketDetail, setTicketDetail] = useState({});
   let [dataResponse, setDataResponse] = useState([]);
-  let [isUpdate,setIsUpdate] = useState(false);
+  let [isUpdate, setIsUpdate] = useState(false);
+  let [statusPlayFlag, setStatusPlayFlag] = useState(false);
   const header = [
     { header: "Company Name", icon: "" },
     { header: "Amount", icon: <i className="rupee sign icon small"></i> },
@@ -38,12 +41,48 @@ export default function MutualFundOrder(props) {
     pages: 0,
   });
   useEffect(() => {
+    setResults([]);
     getMutualFundOrdersBySipStatus(UserId.userId, page.pages, 5).then((res) => {
-      console.log(res)
       setDataResponse(res);
+      res.content.map((item) => {
+        temp.push([
+          item.mutualFundDetail.assetDetail.name,
+          item.price,
+          item.timestamp.substr(0, 10),
+          item.investmentType,
+          item.sipdate.substring(0, 10),
+          item.sipStatus,
+          <Button.Group icon transparent>
+            <Button
+              onClick={() =>
+                editSIP(
+                  item.mutualFundDetail.assetDetail.id,
+                  item.id,
+                  item.investmentType,
+                  item.price,
+                  Moment(item.sipdate).format("yyyy-MM-DD")
+                )
+              }
+            >
+              <Icon name="pencil alternate" />
+            </Button>
+            <Button>
+              <Icon
+                color="green"
+                onClick={() => updateStatus(item)}
+                name={item.sipStatus === "ACTIVE" ? "pause" : "play"}
+              />
+            </Button>
+            <Button onClick={() => deleteSIP(item.id)}>
+              <Icon name="trash" color="red" />
+            </Button>
+          </Button.Group>,
+        ]);
+      });
+      setResults(temp);
       SetIsDataFetchingCompleted(true);
     });
-  }, [isUpdate,page]);
+  }, [isUpdate, statusPlayFlag, page]);
   function handlePaginationChange(pageNo) {
     setPage({ pages: pageNo, userId: UserId.userId });
   }
@@ -62,9 +101,32 @@ export default function MutualFundOrder(props) {
     deleteSIPStatus(mutualFundOrderId);
     setIsUpdate(!isUpdate);
   }
+
   const [isMFFetchingComplete, MFResponse] = getMfByAssetId(mutualFundId);
+  const updateStatus = async (mutualFundOrder) => {
+    if (mutualFundOrder.sipStatus === "PAUSED") {
+      mutualFundOrder.sipStatus = "ACTIVE";
+    } else {
+      mutualFundOrder.sipStatus = "PAUSED";
+    }
+    const updatedSipStatus = mutualFundOrder.sipStatus;
+    let data = {
+      sipdate: mutualFundOrder.sipdate,
+      sipStatus: updatedSipStatus,
+      investmentType: mutualFundOrder.investmentType,
+      price: mutualFundOrder.price,
+      user: {
+        id: UserId.userId,
+      },
+      mutualFundDetail: {
+        id: mutualFundOrder.mutualFundDetail.id,
+      },
+    };
+    await updateMutualFundOrder(mutualFundOrder.id, data);
+    setIsUpdate(!isUpdate);
+  };
   function editSIP(mfAssetId, mfOrderId, frequency, amount, date) {
-    setIsUpdate(!isUpdate)
+    setIsUpdate(!isUpdate);
     setMutualFundId(mfAssetId);
     setMutualFundOrderId(mfOrderId);
     setTicketDetail({
@@ -83,41 +145,7 @@ export default function MutualFundOrder(props) {
     });
   }, [MFResponse]);
   pagination.totalPages = dataResponse.totalPages;
-  if (isDataFetchingCompleted) {
-    console.log(dataResponse);
-    dataResponse.content.map((item) => {
-      results.push([
-        item.mutualFundDetail.assetDetail.name,
-        item.price,
-        item.timestamp.substr(0, 10),
-        item.investmentType,
-        item.sipdate.substring(0, 10),
-        item.sipStatus,
-        <Button.Group icon transparent>
-          <Button
-            onClick={() =>
-              editSIP(
-                item.mutualFundDetail.assetDetail.id,
-                item.id,
-                item.investmentType,
-                item.price,
-                Moment(item.sipdate).format("yyyy-MM-DD")
-              )
-            }
-          >
-            <Icon name="pencil alternate" />
-          </Button>
-          <Button>
-            <Icon name="play" color="green" />
-          </Button>
-          <Button onClick={() => deleteSIP(item.id)}>
-            <Icon name="trash" color="red" />
-          </Button>
-        </Button.Group>,
-      ]);
-    });
-  }
-  return (
+  return isDataFetchingCompleted ? (
     <div>
       <GridContainer content={header} data={results} pagination={pagination} />
       <Modal
@@ -125,7 +153,6 @@ export default function MutualFundOrder(props) {
         onOpen={() => setOpen(true)}
         open={open}
         basic
-        
         size="large"
       >
         <Modal.Content>
@@ -144,5 +171,7 @@ export default function MutualFundOrder(props) {
         </Modal.Content>
       </Modal>
     </div>
+  ) : (
+    <Loader active />
   );
 }

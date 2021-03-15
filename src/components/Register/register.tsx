@@ -87,6 +87,7 @@ export default function Register() {
                       <Input
                         transparent
                         inverted
+                        autoComplete="new-password"
                         onChange={(event) => setFirstName(event.target.value)}
                         placeholder="Firstname"
                         iconPosition="left"
@@ -117,6 +118,7 @@ export default function Register() {
                         transparent
                         inverted
                         value={email}
+                        autoComplete="new-password"
                         onChange={(event) => setEmail(event.target.value)}
                         autoComplete="new-password"
                         placeholder="Email"

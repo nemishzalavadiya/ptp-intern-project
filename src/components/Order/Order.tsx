@@ -90,7 +90,7 @@ export default function Order(props) {
                 onChange={handleEndDateChange}
                 type="date"
                 min = {startDate}
-                max = {endDate}
+                max = {Moment().format("YYYY-MM-DD")}
               />
             </Grid.Column>
           </Grid.Row>

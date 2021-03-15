@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { AssetClass } from "src/enums/assetClass";
 import Moment from "moment";
+import {
+  underscoreToCapitalize,
+  capitalize,
+} from "src/services/underscoreToCapitalize";
 
 function getOrdersByDate(
   userId,
@@ -31,17 +35,17 @@ function getOrdersByDate(
           item.orderType,
           item.productCode,
           item.status,
-        ]);
+        ]); 
       });
     } else {
       await content.forEach((item) => {
         dataFetched.push([
           item.mutualFundDetail.assetDetail.name,
-          item.mutualFundDetail.assetDetail.assetClass,
+          underscoreToCapitalize(item.mutualFundDetail.assetDetail.assetClass),
           item.price,
-          item.price/item.nav,
+          item.price / item.nav,
           item.timestamp.substr(0, 10),
-          item.investmentType,
+          underscoreToCapitalize(item.investmentType),
           item.sipStatus,
         ]);
       });

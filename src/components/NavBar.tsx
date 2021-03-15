@@ -12,7 +12,7 @@ const sidebar = [
   },
   {
     item: "MUTUAL_FUND",
-    imgLink: "/round_request_page_white_48dp.PNG",
+    imgLink: "/icons8-coin-in-hand-48.PNG",
     imgAlter: "Mutual Funds",
     content: "Mutual Funds",
     link: "/mutualfunds",

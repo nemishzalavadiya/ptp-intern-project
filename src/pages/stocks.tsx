@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { Loader } from "semantic-ui-react";
 import FilterGroup from "src/components/filter/FilterGroup";
 import Layout from "src/components/Layout";
 import { stockFilters } from "src/components/filter/filterDetails";
@@ -78,13 +79,17 @@ const stocks = () => {
 		requestFiltered(`/api/stocks/filters?page=${activePage}&sortingField=${sortingField}&orderBy=${orderBy}`, filterBody).then((page) => {
 			setResults(page.content);
 			setTotalPages(page.totalPages);
+			subscriptionDataMap.clear();
+			setSubscriptionIdList(
+				page.content === undefined ? [] : page.content.map((item) => item.stockDetail.assetDetail.id)
+			);
 		});
 	}, [selectedFilters, activePage, orderBy, sortingField]);
 
-	useEffect(() => {
-		subscriptionDataMap.clear();
-		setSubscriptionIdList(results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id));
-	}, [results]);
+	// useEffect(() => {
+	// 	subscriptionDataMap.clear();
+	// 	setSubscriptionIdList(results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id));
+	// }, [results]);
 
 	const [subscriptionIdList, setSubscriptionIdList] = useState(
 		results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id)
@@ -114,34 +119,36 @@ const stocks = () => {
 					pageReset={pageReset}
 					setSelectedState={setSelectedState}
 				/>
-				<div className="right-grid">
-        			<Sorting content={content} pattern={pattern} onclick={changeArrow} />
-					<GridContainer
-						content={content}
-						data={
-							results === undefined
-								? []
-								: results.map((item) => [
-										<Link href={`/details/${item.stockDetail.assetDetail.id}`}>
-											{item.stockDetail.assetDetail.name}
-										</Link>,
-										subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
-											? ""
-											: subscriptionDataMap.get(item.stockDetail.assetDetail.id).marketPrice,
-										subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
-											? ""
-											: subscriptionDataMap.get(item.stockDetail.assetDetail.id).close,
-										item.marketCap,
-								  ])
-						}
-						pagination={{
-							activePage,
-							totalPages,
-							handlePaginationChange: setActivePage,
-						}}
-						showHeaderGrid="disable"
-					/>
-				</div>
+				{isSubscriptionCompleted ? (
+					<div className="right-grid">
+						<GridContainer
+							content={content}
+							data={
+								results === undefined
+									? []
+									: results.map((item) => [
+											<Link href={`/details/${item.stockDetail.assetDetail.id}`}>
+												{item.stockDetail.assetDetail.name}
+											</Link>,
+											subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
+												? ""
+												: subscriptionDataMap.get(item.stockDetail.assetDetail.id).marketPrice,
+											subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
+												? ""
+												: subscriptionDataMap.get(item.stockDetail.assetDetail.id).close,
+											item.marketCap,
+									  ])
+							}
+							pagination={{
+								activePage,
+								totalPages,
+								handlePaginationChange: setActivePage,
+							}}
+						/>
+					</div>
+				) : (
+					<Loader active>Loading...</Loader>
+				)}
 			</div>
 		</Layout>
 	);

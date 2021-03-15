@@ -1,4 +1,4 @@
-package com.pirimidtech.ptp.util;
+package com.pirimidtech.ptp.service.dashboard;
 
 import com.pirimidtech.ptp.DTO.DashboardMutualFundDTO;
 import com.pirimidtech.ptp.DTO.DashboardStockDTO;
@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-public class DashboardUtil {
+@Service
+public class DashboardService implements DashboardServiceInterface {
 
     private static final String PE_RATION = "peRatio";
 

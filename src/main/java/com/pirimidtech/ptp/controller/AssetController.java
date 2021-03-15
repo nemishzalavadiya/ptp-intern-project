@@ -8,9 +8,9 @@ import com.pirimidtech.ptp.entity.MutualFundStatistic;
 import com.pirimidtech.ptp.entity.StockStatistic;
 import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.service.asset.AssetService;
+import com.pirimidtech.ptp.service.dashboard.DashboardService;
 import com.pirimidtech.ptp.service.mutualfund.MutualFundService;
 import com.pirimidtech.ptp.service.stock.StockService;
-import com.pirimidtech.ptp.util.DashboardUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,7 +38,7 @@ public class AssetController {
     private MutualFundService mutualFundService;
 
     @Autowired
-    private DashboardUtil dashboardUtil;
+    private DashboardService dashboardService;
 
     @GetMapping(value = "/assets/{id}")
     public Optional<AssetDetail> getAssetDetail(@PathVariable UUID id) {
@@ -85,11 +85,12 @@ public class AssetController {
             throw new NotFoundException();
         return mutualFundStatistic;
     }
+
     @GetMapping(value = "/dashboard/assets")
-    public DashboardDTO getAllAssetsForDashboard(){
+    public DashboardDTO getAllAssetsForDashboard() {
         DashboardDTO dashboardDTO = new DashboardDTO();
-        List<DashboardStockDTO> dashboardStockDTOList = dashboardUtil.getTopStocksByPeRatio();
-        List<DashboardMutualFundDTO> dashboardMutualFundDTOList = dashboardUtil.getTopMutualFundsByRisk();
+        List<DashboardStockDTO> dashboardStockDTOList = dashboardService.getTopStocksByPeRatio();
+        List<DashboardMutualFundDTO> dashboardMutualFundDTOList = dashboardService.getTopMutualFundsByRisk();
         dashboardDTO.setDashboardStockDTOList(dashboardStockDTOList);
         dashboardDTO.setDashboardMutualFundDTOList(dashboardMutualFundDTOList);
         return dashboardDTO;

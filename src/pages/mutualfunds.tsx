@@ -43,22 +43,24 @@ const mutualfunds = () => {
 	}
 
 	//adding dashboard filters
-	for (let filters in router.query) {
-		let filtersData = JSON.parse(router.query[filters].toString());
-		for (let field in filtersData) {
-			let index = getIndexFromMutualFundFilterByField(field.toString());
-			if (index != null) {
-				if (mutualFundFilters[index].type === filterType.CHECKBOX) {
-					initialState.selectedFilters[index].push(filtersData[field])
-				} else if (mutualFundFilters[index].type === filterType.RANGE) {
-					for (let key in filtersData[field]) {
-						initialState.selectedFilters[index][key] = filtersData[field][key];
+	if (Object.keys(router.query).length !== 0) {
+		for (let filters in router.query) {
+			let filtersData = JSON.parse(router.query[filters].toString());
+			for (let field in filtersData) {
+				let index = getIndexFromMutualFundFilterByField(field.toString());
+				if (index != null) {
+					if (mutualFundFilters[index].type === filterType.CHECKBOX) {
+						initialState.selectedFilters[index].push(filtersData[field])
+					} else if (mutualFundFilters[index].type === filterType.RANGE) {
+						for (let key in filtersData[field]) {
+							initialState.selectedFilters[index][key] = filtersData[field][key];
+						}
 					}
 				}
 			}
 		}
+		router.replace("/mutualfunds", undefined, { shallow: true });
 	}
-
 	async function requestFiltered(url = "", data = {}) {
 		const response = await fetch(url, {
 			method: "POST",
@@ -71,7 +73,6 @@ const mutualfunds = () => {
 	}
 
 	useEffect(() => {
-		router.replace("/mutualfunds", undefined, { shallow: true });
 		let filterBody = {};
 		selectedFilters.forEach((filter, index) => {
 			filterBody[mutualFundFilters[index].field] = filter;

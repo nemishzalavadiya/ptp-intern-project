@@ -25,14 +25,14 @@ const mutualfunds = () => {
   const [orderBy, setOrderBy] = useState("");
   const [sortingField, setSortingField] = useState("");
   function changeArrow(index, fieldName) {
-    let d = [];
+    let midPattern = [];
     let size = content.length;
     for (let i = 0; i < size; i++) {
-      d.push(0);
+      midPattern.push(0);
     }
-    d[index] = 1 - pattern[index];
-    setPattern(d);
-    if (d[index] == 1) {
+    midPattern[index] = 1 - pattern[index];
+    setPattern(midPattern);
+    if (midPattern[index] == 1) {
       setOrderBy("DESC");
     } else {
       setOrderBy("ASC");

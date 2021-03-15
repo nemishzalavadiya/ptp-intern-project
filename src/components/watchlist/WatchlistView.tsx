@@ -14,7 +14,6 @@ import { useState } from "react";
 import Link from "next/link";
 import useWebSocket from "src/hooks/useWebSocket";
 import Sorting from "src/components/Sorting/Sorting";
-import { WatchlistSortingfield } from "src/components/Sorting/fields";
 export default function WatchlistView(props) {
   const [companyUuids, setCompanyUuids] = useState([]);
   let data = new Map();
@@ -65,14 +64,14 @@ export default function WatchlistView(props) {
   const [orderBy, setOrderBy] = useState("");
   const [sortingField, setSortingField] = useState("");
   function changeArrow(index, fieldName) {
-    let d = [];
+    let midPattern = [];
     let size = props.content.length;
     for (let i = 0; i < size; i++) {
-      d.push(0);
+      midPattern.push(0);
     }
-    d[index] = 1 - pattern[index];
-    setPattern(d);
-    if (d[index] == 1) {
+    midPattern[index] = 1 - pattern[index];
+    setPattern(midPattern);
+    if (midPattern[index] == 1) {
       setOrderBy("DESC");
     } else {
       setOrderBy("ASC");

@@ -8,7 +8,6 @@ import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import useWebSocket from "src/hooks/useWebSocket";
 import Sorting from "src/components/Sorting/Sorting";
-import {StockSortingfield} from "src/components/Sorting/fields";
 const stocks = () => {
 	const content = [
 		{ header: "Company", icon: "" },
@@ -18,21 +17,21 @@ const stocks = () => {
 	];
 
   let initailPattern=[];
-  for(let i=0;i<StockSortingfield.length;i++){
+  for(let i=0;i<content.length;i++){
     initailPattern.push(0);
   }
   const [pattern, setPattern] = useState(initailPattern);
   const [orderBy, setOrderBy] = useState("");
   const [sortingField, setSortingField] = useState("");
   function changeArrow(index, fieldName) {
-    let d = [];
-    let size = StockSortingfield.length;
+    let midPattern = [];
+    let size = content.length;
     for (let i = 0; i < size; i++) {
-      d.push(0);
+		midPattern.push(0);
     }
-    d[index] = 1 - pattern[index];
-    setPattern(d);
-    if (d[index] == 1) {
+    midPattern[index] = 1 - pattern[index];
+    setPattern(midPattern);
+    if (midPattern[index] == 1) {
       setOrderBy("DESC");
     } else {
       setOrderBy("ASC");

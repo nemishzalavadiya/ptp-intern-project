@@ -30,7 +30,9 @@ export default function details() {
       </Layout>
     )
   ) : (
-    <Loader active={!isComplete}>Loading</Loader>
+    <Layout>
+      <Loader active>Loading</Loader>
+    </Layout>
   );
 }
 export async function getServerSideProps(context) {

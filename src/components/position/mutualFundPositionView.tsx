@@ -4,41 +4,48 @@ import GridContainer from "src/components/grid/GridContainer";
 import { Loader } from "semantic-ui-react";
 import { getMutualFundPosition } from "src/hooks/mutualFundPosition";
 import Sorting from "src/components/Sorting/Sorting";
-
 const mutualFundHeaders = [
   {
-    header: "CompanyName",
+    header: "Company",
     icon: "",
+    sortable: false
   },
   {
     header: "Quantity",
     icon: "",
+    sortable: false
   },
   {
     header: "Total Amount",
     icon: <i className="rupee sign icon small"> </i>,
+    sortable: false
   },
   {
     header: "Average NAV",
     icon: <i className="rupee sign icon small"> </i>,
+    sortable: false
   },
   {
     header: "Current NAV",
     icon: <i className="rupee sign icon small"> </i>,
+    sortable: false
   },
   {
     header: "Current Value",
     icon: <i className="rupee sign icon small"> </i>,
+    sortable: false
   },
   {
-    header: "Profit & Loss",
+    header: "Profit/Loss",
     icon: <i className="rupee icon small"> </i>,
     showColor: true,
+    sortable: false
   },
   {
-    header: "Profit & Loss(%)",
+    header: "Profit/Loss(%)",
     icon: <i className="percent icon small"> </i>,
     showColor: true,
+    sortable: false
   },
 ];
 const dashboardPosition = [mutualFundHeaders[0],mutualFundHeaders[4],mutualFundHeaders[5]]

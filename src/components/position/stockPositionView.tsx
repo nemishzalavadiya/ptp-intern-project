@@ -41,7 +41,7 @@ const stockHeaders = [
 ];
 let dashboardHeader = [stockHeaders[0], stockHeaders[4], stockHeaders[5]];
 let dashboardPositionList = [];
-export default function StockPosition({ uuid, positionList, pagination, dashboard,showHeaderGrid }) {
+export default function StockPosition({ uuid, positionList, pagination,dashboard, showHeaderGrid, stockHeaders }) {
   const [isSubscriptionCompleted, myMap] = useWebSocket(uuid);
 
   if (isSubscriptionCompleted) {

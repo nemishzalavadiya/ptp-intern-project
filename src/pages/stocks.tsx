@@ -11,10 +11,10 @@ import Sorting from "src/components/Sorting/Sorting";
 import {StockSortingfield} from "src/components/Sorting/fields";
 const stocks = () => {
 	const content = [
-		{ header: "Company_Id", icon: "" },
-		{ header: "Market Price", icon: <i className="rupee sign icon small"></i> },
-		{ header: "Close Price", icon: <i className="rupee sign icon small"></i> },
-		{ header: "Market Cap (Cr)", icon: <i className="rupee sign icon small"></i> },
+		{ header: "Company", icon: "" },
+		{ header: "Market Price", icon: <i className="rupee sign icon small"></i>, sortable: false },
+		{ header: "Close Price", icon: <i className="rupee sign icon small"></i>, sortable: false },
+		{ header: "Market Cap", icon: <i className="rupee sign icon small"></i> },
 	];
 
   let initailPattern=[];
@@ -38,7 +38,6 @@ const stocks = () => {
       setOrderBy("ASC");
     }
     setSortingField(fieldName);
-    console.log(fieldName);
   }
 	const initialState = {
 		results: [],
@@ -117,7 +116,7 @@ const stocks = () => {
 					setSelectedState={setSelectedState}
 				/>
 				<div className="right-grid">
-        			<Sorting content={StockSortingfield} pattern={pattern} onclick={changeArrow} />
+        			<Sorting content={content} pattern={pattern} onclick={changeArrow} />
 					<GridContainer
 						content={content}
 						data={

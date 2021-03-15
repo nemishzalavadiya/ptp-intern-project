@@ -6,35 +6,45 @@ export default function GridHeader(props) {
         {props.content.map((item, index) => {
           return index == 0 ? (
             <Grid.Column width="6">
-              <div
-                className={
-                  props.pattern[index] == 0 ? "dropdown" : "triangle up"
-                }
-                onClick={() => props.onclick(index, item.title)}
-              >
-                {item.title}
-                <Icon
+              {item.sortable !== false ? (
+                <div
                   className={
                     props.pattern[index] == 0 ? "dropdown" : "triangle up"
                   }
-                ></Icon>
-              </div>
+                  onClick={() => props.onclick(index, item.header)}
+                >
+                  {item.header}
+                  <Icon
+                    className={
+                      props.pattern[index] == 0 ? "dropdown" : "triangle up"
+                    }
+                  ></Icon>
+                </div>
+              ) : (
+                <div>{item.header}</div>
+              )}
             </Grid.Column>
           ) : (
             <Grid.Column>
-              <div
-                className={`grid-header-item-sorting ${
-                  props.pattern[index] == 0 ? "dropdown" : "triangle up"
-                }`}
-                onClick={() => props.onclick(index, item.title)}
-              >
-                {item.title}
-                <Icon
-                  className={
+              {item.sortable !== false ? (
+                <div
+                  className={`grid-header-item-sorting ${
                     props.pattern[index] == 0 ? "dropdown" : "triangle up"
-                  }
-                ></Icon>
-              </div>
+                  }`}
+                  onClick={() => props.onclick(index, item.header)}
+                >
+                  {item.header}
+                  {item.sortable === false ? null : (
+                    <Icon
+                      className={
+                        props.pattern[index] == 0 ? "dropdown" : "triangle up"
+                      }
+                    ></Icon>
+                  )}
+                </div>
+              ) : (
+                <div className="grid-header-item-sorting">{item.header}</div>
+              )}
             </Grid.Column>
           );
         })}

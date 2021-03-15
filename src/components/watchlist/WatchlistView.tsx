@@ -58,7 +58,7 @@ export default function WatchlistView(props) {
   }
 
   let intialPatternState = [];
-  for (let i = 0; i < WatchlistSortingfield.length; i++) {
+  for (let i = 0; i < props.content.length; i++) {
     intialPatternState.push(0);
   }
   const [pattern, setPattern] = useState(intialPatternState);
@@ -66,7 +66,7 @@ export default function WatchlistView(props) {
   const [sortingField, setSortingField] = useState("");
   function changeArrow(index, fieldName) {
     let d = [];
-    let size = WatchlistSortingfield.length;
+    let size = props.content.length;
     for (let i = 0; i < size; i++) {
       d.push(0);
     }
@@ -85,7 +85,7 @@ export default function WatchlistView(props) {
         <>
           {props.content.length !== 0 ? (
             <Sorting
-              content={WatchlistSortingfield}
+              content={props.content}
               pattern={pattern}
               onclick={changeArrow}
             />

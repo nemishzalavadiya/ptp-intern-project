@@ -8,25 +8,24 @@ import "semantic-ui-css/semantic.min.css";
 import styles from "src/styles/Layout.module.scss";
 import { AssetClass } from "src/enums/assetClass";
 import Sorting from "src/components/Sorting/Sorting";
-import { stockOrders, mfOrders } from "src/components/Sorting/fields"; 
 export default function AssetOrder(props) {
   const stockHeader = [
-    { header: "Company Name", icon: "" },
-    { header: "Asset Class", icon: "" },
-    { header: "Price", icon: <i className="rupee sign icon small"></i> },
-    { header: "Date", icon: "" },
-    { header: "Time", icon: "" },
-    { header: "Order Type", icon: "" },
-    { header: "Price Type", icon: "" },
-    { header: "Status", icon: "" },
+    { header: "Company", icon: "", sortable: false },
+    { header: "Asset Class", icon: "", sortable: false },
+    { header: "Price", icon: <i className="rupee sign icon small"></i>, sortable: false },
+    { header: "Date", icon: "", sortable: false },
+    { header: "Time", icon: "", sortable: false },
+    { header: "Order Type", icon: "", sortable: false },
+    { header: "Price Type", icon: "", sortable: false },
+    { header: "Status", icon: "", sortable: false },
   ];
   const mutualFundHeader = [
-    { header: "Company Name", icon: "" },
-    { header: "Asset Class", icon: "" },
-    { header: "Amount", icon: <i className="rupee sign icon small"></i> },
-    { header: "Start Date", icon: "" },
-    { header: "Frequency", icon: "" },
-    { header: "SIP Status", icon: "" },
+    { header: "Company", icon: "", sortable: false },
+    { header: "Asset Class", icon: "", sortable: false },
+    { header: "Amount", icon: <i className="rupee sign icon small"></i>, sortable: false },
+    { header: "Start Date", icon: "", sortable: false },
+    { header: "Frequency", icon: "", sortable: false },
+    { header: "SIP Status", icon: "", sortable: false },
   ];
   let [isContentFetchingCompleted, totalPage, response] = [false, 0];
   const [page, setPage] = useState({
@@ -58,8 +57,8 @@ export default function AssetOrder(props) {
     setActiveItem(index);
   }
   let initailPatternStock=[];
-  let totalLength1 = assetClass === AssetClass.STOCK ? stockOrders.length : mfOrders.length;
-  for(let i=0;i<totalLength1;i++){
+  let stockHeaderLength = assetClass === AssetClass.STOCK ? stockHeader.length : mutualFundHeader.length;
+  for(let i=0;i<stockHeaderLength;i++){
     initailPatternStock.push(0);
   }
   const [patternStock, setPatternStock] = useState(initailPatternStock);
@@ -67,7 +66,7 @@ export default function AssetOrder(props) {
   const [sortingFieldStock, setSortingFieldStock] = useState("");
   function changeArrowStock(index, fieldName) {
     let d = [];
-    let size = totalLength1;
+    let size = stockHeaderLength;
     for (let i = 0; i < size; i++) {
       d.push(0);
     }
@@ -82,8 +81,8 @@ export default function AssetOrder(props) {
   }
 
   let initailPatternMf=[];
-  let totalLength2 = assetClass === AssetClass.STOCK ? stockOrders.length : mfOrders.length;
-  for(let i=0;i<totalLength2;i++){
+  let mutualFundHeaderLength = assetClass === AssetClass.STOCK ? stockHeader.length : mutualFundHeader.length;
+  for(let i=0;i<mutualFundHeaderLength;i++){
     initailPatternMf.push(0);
   }
   const [patternMf, setPatternMf] = useState(initailPatternMf);
@@ -91,7 +90,7 @@ export default function AssetOrder(props) {
   const [sortingFieldMf, setSortingFieldMf] = useState("");
   function changeArrowMf(index, fieldName) {
     let d = [];
-    let size = totalLength2;
+    let size = mutualFundHeaderLength;
     for (let i = 0; i < size; i++) {
       d.push(0);
     }
@@ -109,7 +108,7 @@ export default function AssetOrder(props) {
     <div>
       {isContentFetchingCompleted ? (
         <>
-        {response.length !== 0 ? <Sorting content={assetClass === AssetClass.STOCK ? stockOrders : mfOrders} pattern={assetClass === AssetClass.STOCK ? patternStock : patternMf} onclick={assetClass === AssetClass.STOCK ? changeArrowStock :changeArrowMf} /> : null}
+        {response.length !== 0 ? <Sorting content={assetClass === AssetClass.STOCK ? stockHeader : mutualFundHeader} pattern={assetClass === AssetClass.STOCK ? patternStock : patternMf} onclick={assetClass === AssetClass.STOCK ? changeArrowStock :changeArrowMf} /> : null}
         <GridContainer
           content={
             response.length === 0

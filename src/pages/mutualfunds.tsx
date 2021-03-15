@@ -8,18 +8,17 @@ import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import { useRouter } from "next/router";
 import Sorting from "src/components/Sorting/Sorting";
-import { MutualfundSortingfield } from "src/components/Sorting/fields";
 
 const mutualfunds = () => {
   const router = useRouter();
   const content = [
-    { header: "Company_Id", icon: "" },
+    { header: "Company", icon: "" },
     { header: "Risk", icon: "" },
-    { header: "Min Sip", icon: <i className="rupee sign icon small"></i> },
+    { header: "Minimum SIP", icon: <i className="rupee sign icon small"></i> },
     { header: "Fund Size", icon: <i className="rupee sign icon small"></i> },
   ];
   let initailPattern=[];
-  for(let i=0;i<MutualfundSortingfield.length;i++){
+  for(let i=0;i<content.length;i++){
     initailPattern.push(0);
   }
   const [pattern, setPattern] = useState(initailPattern);
@@ -39,7 +38,6 @@ const mutualfunds = () => {
       setOrderBy("ASC");
     }
     setSortingField(fieldName);
-    console.log(fieldName);
   }
   const initialState = {
     results: [],
@@ -109,7 +107,6 @@ const mutualfunds = () => {
       },
       body: JSON.stringify(data),
     });
-    console.log(data, url);
 
     return response.json();
   }
@@ -123,12 +120,9 @@ const mutualfunds = () => {
       `/api/mutualfunds/filters?page=${activePage}&sortingField=${sortingField}&orderBy=${orderBy}`,
       filterBody
     ).then((page) => {
-      console.log("Called this one");
       setResults(page.content);
-      console.log(page.content);
       setTotalPages(page.totalPages);
     });
-    console.log("clicked ", orderBy);
   }, [orderBy, activePage, selectedFilters, sortingField]);
 
   const pageReset = () => {

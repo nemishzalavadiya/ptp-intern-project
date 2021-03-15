@@ -12,6 +12,8 @@ import java.util.UUID;
 public interface MutualFundServiceInterface {
     Page<MutualFundDetail> getAllMutualFundsDetails(Pageable paging);
 
+    Page<MutualFundStatistic> getAllMutualFundsStatistics(Pageable paging);
+
     Optional<MutualFundDetail> getMutualFundDetailsById(UUID id);
 
     Optional<MutualFundStatistic> getMutualFundStatsById(UUID id);

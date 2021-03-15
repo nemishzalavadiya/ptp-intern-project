@@ -12,6 +12,8 @@ import java.util.UUID;
 public interface StockServiceInterface {
     Page<StockDetail> getAllStockDetails(Pageable paging);
 
+    Page<StockStatistic> getAllStockStatistics(Pageable paging);
+
     void addStock(StockDetail stockDetail);
 
     Optional<StockDetail> getStockDetailById(UUID id);

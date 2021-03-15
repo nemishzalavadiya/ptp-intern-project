@@ -13,8 +13,8 @@ const TopAssetContainer = (props) => {
         }
         return firstLowerCharacter;
     }
-    String.prototype.capitalize = function () {
-        return this.charAt(0).toUpperCase() + this.slice(1);
+    let capitalize = function (stringLiteral) {
+        return stringLiteral.charAt(0).toUpperCase() + stringLiteral.slice(1);
     }
     return <div className="dashboard-grid">
         <Grid inverted>
@@ -43,7 +43,7 @@ const TopAssetContainer = (props) => {
                                         </div>
                                         <div className="dashboard dashboard-description">
                                             <span>
-                                                <Popup content={props.header.data.sortBy.capitalize()}
+                                                <Popup content={capitalize(props.header.data.sortBy)}
                                                     trigger={<span>{item[props.header.data.sortBy]}</span>}
                                                     position="bottom center"
                                                     size="tiny"

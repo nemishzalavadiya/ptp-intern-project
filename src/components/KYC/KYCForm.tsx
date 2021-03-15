@@ -50,18 +50,7 @@ export default function KYC(props) {
     profile: null,
   });
 
-  const headers = [
-    {
-      header: "Enter Your Personal Details",
-    },
-    {
-      header: "Enter Your PAN Details",
-    },
-    {
-      header: "Upload Your Signature and Profile",
-    },
-  ];
-
+  
   const nextClick = () => {
     setPage(page + 1);
   };
@@ -89,7 +78,7 @@ export default function KYC(props) {
       toast.error("Enter Valid PAN Number", {
         position: "bottom-right",
         autoClose: 2000,
-        hideProgressBar: false,
+        hideProgressBar: true,
       });
       return false;
     }
@@ -97,7 +86,7 @@ export default function KYC(props) {
       toast.error("PAN Card is Required", {
         position: "bottom-right",
         autoClose: 2000,
-        hideProgressBar: false,
+        hideProgressBar: true,
       });
       return false;
     }
@@ -114,7 +103,7 @@ export default function KYC(props) {
       toast.error("Enter Valid Personal Details", {
         position: "bottom-right",
         autoClose: 2000,
-        hideProgressBar: false,
+        hideProgressBar: true,
       });
       return false;
     }
@@ -126,7 +115,7 @@ export default function KYC(props) {
       toast.error("Signature and Profile are required", {
         position: "bottom-right",
         autoClose: 2000,
-        hideProgressBar: false,
+        hideProgressBar: true,
       });
       return false;
     }
@@ -137,10 +126,10 @@ export default function KYC(props) {
     if (validatePersonalDetails() && validatePan() && validateLeagleInfo()) {
       await addKYCDetails(createFormData())
         .then(() => {
-          toast.success("Verification Done", {
+          toast.success("You are KYC Verified", {
             position: "bottom-right",
             autoClose: 2000,
-            hideProgressBar: false,
+            hideProgressBar: true,
           });
           nextClick();
         })
@@ -148,7 +137,7 @@ export default function KYC(props) {
           toast.error(err.message, {
             position: "bottom-right",
             autoClose: 2000,
-            hideProgressBar: false,
+            hideProgressBar: true,
           });
         });
     }
@@ -186,7 +175,7 @@ export default function KYC(props) {
         <Grid textAlign="center">
           <Grid.Row>
             <Grid.Column width={7} className="leftSide">
-              <Image src="/kyc.png"></Image>
+              <Image src="/kyc.svg"></Image>
             </Grid.Column>
             <Grid.Column width={7} verticalAlign="top" className="rightSide">
               <div>
@@ -209,7 +198,6 @@ export default function KYC(props) {
                     </Step.Content>
                   </Step>
                 </Step.Group>
-                <h3>{headers[page].header}</h3>
                 <Divider></Divider>
                 {renderSwitch()}
                 <div className="backnext">

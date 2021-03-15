@@ -52,10 +52,10 @@ export default function StockTicket({ assetId, stockId }) {
     createStockOrder(data)
       .then((res) => {
         setOrderStatus(false);
-        toast("Order Executed Successfully!", {
+        toast.dark("Order Executed Successfully!", {
           position: "bottom-right",
           autoClose: 2000,
-          hideProgressBar: false,
+          hideProgressBar: true,
         });
       })
       .catch((err) => {

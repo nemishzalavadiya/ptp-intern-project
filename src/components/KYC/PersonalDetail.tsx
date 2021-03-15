@@ -7,12 +7,13 @@ export default function PersonalDetail({
 }) {
   return (
     <div className="midSection">
+      <div>
       <Grid>
         <Grid.Row>
           <Grid.Column width={5}>
             <label>Occupation</label>
           </Grid.Column>
-          <Grid.Column width={11}>
+          <Grid.Column width={9}>
             <Input
               placeholder="Enter Occupation"
               value={personalDetails.occupation}
@@ -30,7 +31,7 @@ export default function PersonalDetail({
           <Grid.Column width={5}>
             <label>Annual Income</label>
           </Grid.Column>
-          <Grid.Column width={11}>
+          <Grid.Column width={9}>
             <Input
               placeholder="Enter Youe Annual Income"
               type="number"
@@ -49,7 +50,7 @@ export default function PersonalDetail({
           <Grid.Column width={5}>
             <label>Mother Name</label>
           </Grid.Column>
-          <Grid.Column width={11}>
+          <Grid.Column width={9}>
             <Input
               placeholder="Enter Your Mother's Name"
               value={personalDetails.motherName}
@@ -67,7 +68,7 @@ export default function PersonalDetail({
           <Grid.Column width={5}>
             <label>Father Name</label>
           </Grid.Column>
-          <Grid.Column width={11}>
+          <Grid.Column width={9}>
             <Input
               placeholder="Enter Your Father's Name"
               value={personalDetails.fatherName}
@@ -82,6 +83,7 @@ export default function PersonalDetail({
           </Grid.Column>
         </Grid.Row>
       </Grid>
+      </div>
     </div>
   );
 }

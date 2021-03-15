@@ -30,7 +30,7 @@ export default function SuccessPage({
     <div className="kycdiv">
       <Grid className="kycProfile">
         <Grid.Row>
-          <Grid.Column width={4} verticalAlign="middle" className="leftSide">
+          <Grid.Column width={4} verticalAlign="middle">
             <h1>Congratulations!</h1>
             <h1>Your Setup complete</h1>
             <h3>

@@ -17,8 +17,8 @@ import { updateMutualFundOrder } from "src/services/mutualFundOrder";
 
 export default function MutualFundOrder(props) {
   let [isDataFetchingCompleted, SetIsDataFetchingCompleted] = useState(false);
-  const [results, setResults] = useState([]);
-  const [open, setOpen] = useState(false);
+  let [results, setResults] = useState([]);
+  let [open, setOpen] = useState(false);
   let [MFEdit, setMFEdit] = useState({});
   var temp = [];
   let [mutualFundId, setMutualFundId] = useState("");

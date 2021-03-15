@@ -31,16 +31,38 @@ const mutualfunds = () => {
 
 	const [activePage, setActivePage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
+
+	//method to get index by field from mutualFundFilter
+	function getIndexFromMutualFundFilterByField(field) {
+		let check = {
+			available: false,
+			index: -1
+		}
+		mutualFundFilters.forEach((filter, index) => {
+			if (filter.field === field) {
+				check.available = true;
+				check.index = index;
+				return check;
+			}
+		});
+		return check;
+	}
+
 	//adding dashboard filters
 	let routeKeys = Object.keys(router.query);
 	if (routeKeys.length !== 0) {
-		routeKeys.forEach((item) => {
-			if (item === "risk") {
-				initialState.selectedFilters[0].push(router.query[item]);
-			} else if (item === "sip") {
-				initialState.selectedFilters[1].push("true");
-			} else if (item === "fundSizeRange") {
-				initialState.selectedFilters[2].minimum = router.query[item];
+		routeKeys.forEach((field) => {
+			let check = getIndexFromMutualFundFilterByField(field);
+			if (check.available) {
+				if (mutualFundFilters[check.index].type === filterType.CHECKBOX) {
+					initialState.selectedFilters[check.index].push(router.query[field])
+				} else if (mutualFundFilters[check.index].type === filterType.RANGE) {
+					let range = {
+						minimum: "minimum", maximum: 'maximum'
+					}
+					initialState.selectedFilters[check.index][range.minimum] = router.query[range.minimum];
+					initialState.selectedFilters[check.index][range.maximum] = router.query[range.maximum];
+				}
 			}
 		})
 		router.replace("/mutualfunds", undefined, { shallow: true });

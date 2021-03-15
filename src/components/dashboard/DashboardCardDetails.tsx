@@ -36,11 +36,11 @@ const CardHeader = [{
         {
             icon: <img src="/sip/icons8-sip-48.png" alt="SIP" />,
             message: "SIP Only",
-            link: "/mutualfunds?sip=true"
+            link: "/mutualfunds?sipAllowed=true"
         }, {
             icon: <img src="/mf/icons8-mf-48.png" alt="Top MutualFunds" />,
             message: "Top Funds",
-            link: "/mutualfunds?fundSizeRange=100"
+            link: "/mutualfunds?fundSizeRange=true&minimum=100&maximum=100000"
         }, {
             icon: <img src="/risk/icons8-high-risk-48.png" alt="High Risk" />,
             message: "High Risk",

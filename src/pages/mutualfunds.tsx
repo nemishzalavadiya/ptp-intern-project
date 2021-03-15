@@ -34,33 +34,31 @@ const mutualfunds = () => {
 
 	//method to get index by field from mutualFundFilter
 	function getIndexFromMutualFundFilterByField(field) {
-		mutualFundFilters.forEach((filter, index) => {
+		for (let [index, filter] of mutualFundFilters.entries()) {
 			if (filter.field === field) {
 				return index;
 			}
-		});
+		}
 		return null;
 	}
 
 	//adding dashboard filters
-	let routeKeys = Object.keys(router.query);
-	if (routeKeys.length !== 0) {
-		routeKeys.forEach((field) => {
-			let index = getIndexFromMutualFundFilterByField(field);
-			if (index) {
+	for (let filters in router.query) {
+		let filtersData = JSON.parse(router.query[filters].toString());
+		for (let field in filtersData) {
+			let index = getIndexFromMutualFundFilterByField(field.toString());
+			if (index != null) {
 				if (mutualFundFilters[index].type === filterType.CHECKBOX) {
-					initialState.selectedFilters[index].push(router.query[field])
+					initialState.selectedFilters[index].push(filtersData[field])
 				} else if (mutualFundFilters[index].type === filterType.RANGE) {
-					let range = {
-						minimum: "minimum", maximum: 'maximum'
+					for (let key in filtersData[field]) {
+						initialState.selectedFilters[index][key] = filtersData[field][key];
 					}
-					initialState.selectedFilters[index][range.minimum] = router.query[range.minimum];
-					initialState.selectedFilters[index][range.maximum] = router.query[range.maximum];
 				}
 			}
-		})
-		router.replace("/mutualfunds", undefined, { shallow: true });
+		}
 	}
+
 	async function requestFiltered(url = "", data = {}) {
 		const response = await fetch(url, {
 			method: "POST",
@@ -73,6 +71,7 @@ const mutualfunds = () => {
 	}
 
 	useEffect(() => {
+		router.replace("/mutualfunds", undefined, { shallow: true });
 		let filterBody = {};
 		selectedFilters.forEach((filter, index) => {
 			filterBody[mutualFundFilters[index].field] = filter;

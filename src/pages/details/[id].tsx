@@ -35,8 +35,3 @@ export default function details() {
     </Layout>
   );
 }
-export async function getServerSideProps(context) {
-  return {
-    props: {},
-  };
-}

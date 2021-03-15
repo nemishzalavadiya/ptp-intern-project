@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class DashboardUtil {
@@ -32,10 +33,7 @@ public class DashboardUtil {
         Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, PE_RATION));
         List<DashboardStockDTO> dashboardStockDTOList = new ArrayList<>();
         List<StockStatistic> stockStatisticList = stockService.getAllStockStatistics(pageable).toList();
-        stockStatisticList.forEach((item) -> {
-            DashboardStockDTO dashboardStockDTO = createDashboardStockDTOFromStockStatistic(item);
-            dashboardStockDTOList.add(dashboardStockDTO);
-        });
+        dashboardStockDTOList = stockStatisticList.stream().map(this::createDashboardStockDTOFromStockStatistic).collect(Collectors.toList());
         return dashboardStockDTOList;
     }
 
@@ -43,10 +41,7 @@ public class DashboardUtil {
         Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, RISK));
         List<DashboardMutualFundDTO> dashboardMutualFundDTOList = new ArrayList<>();
         List<MutualFundStatistic> mutualFundStatisticList = mutualFundService.getAllMutualFundsStatistics(pageable).toList();
-        mutualFundStatisticList.forEach((item) -> {
-            DashboardMutualFundDTO dashboardMutualFundDTO = createDashboardMutualFundDTOFromMutualFundStatistic(item);
-            dashboardMutualFundDTOList.add(dashboardMutualFundDTO);
-        });
+        dashboardMutualFundDTOList = mutualFundStatisticList.stream().map(this::createDashboardMutualFundDTOFromMutualFundStatistic).collect(Collectors.toList());
         return dashboardMutualFundDTOList;
     }
 

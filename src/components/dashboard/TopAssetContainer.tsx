@@ -36,7 +36,7 @@ const TopAssetContainer = (props) => {
                                 !props.filter && <Link href={`/details/${item[props.header.data.id]}`}>
                                     <Segment key={index} inverted className="dashboard-asset-container">
                                         <div className="dashboard dashboard-company-icon">
-                                            <Image width="30px" height="30px" src={`/company/${imageProvider(item.name[0].toLowerCase())}.png`} />
+                                            <Image size="mini" src={`/company/${imageProvider(item.name[0].toLowerCase())}.png`} />
                                         </div>
                                         <div className="dashboard dashboard-company-name">
                                             {item.name}

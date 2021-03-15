@@ -23,6 +23,10 @@ public class DashboardUtil {
 
     private static final String RISK = "risk";
 
+    private static final int PAGE = 0;
+
+    private static final int SIZE = 4;
+
     @Autowired
     private StockService stockService;
 
@@ -30,7 +34,7 @@ public class DashboardUtil {
     private MutualFundService mutualFundService;
 
     public List<DashboardStockDTO> getTopStocksByPeRatio() {
-        Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, PE_RATION));
+        Pageable pageable = PageRequest.of(PAGE, SIZE, Sort.by(Sort.Direction.DESC, PE_RATION));
         List<DashboardStockDTO> dashboardStockDTOList = new ArrayList<>();
         List<StockStatistic> stockStatisticList = stockService.getAllStockStatistics(pageable).toList();
         dashboardStockDTOList = stockStatisticList.stream().map(this::createDashboardStockDTOFromStockStatistic).collect(Collectors.toList());
@@ -38,7 +42,7 @@ public class DashboardUtil {
     }
 
     public List<DashboardMutualFundDTO> getTopMutualFundsByRisk() {
-        Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, RISK));
+        Pageable pageable = PageRequest.of(PAGE, SIZE, Sort.by(Sort.Direction.DESC, RISK));
         List<DashboardMutualFundDTO> dashboardMutualFundDTOList = new ArrayList<>();
         List<MutualFundStatistic> mutualFundStatisticList = mutualFundService.getAllMutualFundsStatistics(pageable).toList();
         dashboardMutualFundDTOList = mutualFundStatisticList.stream().map(this::createDashboardMutualFundDTOFromMutualFundStatistic).collect(Collectors.toList());

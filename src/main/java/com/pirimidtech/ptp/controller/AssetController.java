@@ -85,7 +85,7 @@ public class AssetController {
             throw new NotFoundException();
         return mutualFundStatistic;
     }
-    @GetMapping(value = "/assets/dashboard")
+    @GetMapping(value = "/dashboard/assets")
     public DashboardDTO getAllAssetsForDashboard(){
         DashboardDTO dashboardDTO = new DashboardDTO();
         List<DashboardStockDTO> dashboardStockDTOList = dashboardUtil.getTopStocksByPeRatio();

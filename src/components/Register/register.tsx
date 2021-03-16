@@ -19,10 +19,17 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setError] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-
+  const iconPasswordClickHandler = () => {
+    setShowPassword(!showPassword);
+  };
+  const iconconfirmPasswordClickHandler = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   const checkPassword = () => {
     const re = new RegExp(
       "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
@@ -45,7 +52,7 @@ export default function Register() {
       };
       userRegistration(data)
         .then(() => {
-          toast("Registration successful", {
+          toast.dark("Registration successful", {
             position: "bottom-right",
             autoClose: 1000,
             hideProgressBar: false,
@@ -57,7 +64,7 @@ export default function Register() {
           Router.push("/login");
         })
         .catch((err) => {
-          toast(err.message, {
+          toast.error(err.message, {
             position: "bottom-right",
             autoClose: 1500,
             hideProgressBar: false,
@@ -68,7 +75,7 @@ export default function Register() {
           });
         });
     } else if (password != confirmPassword) {
-      toast("Passwords don't match", {
+      toast.error("Passwords don't match", {
         position: "bottom-right",
         autoClose: 1500,
         closeOnClick: true,
@@ -78,7 +85,7 @@ export default function Register() {
       });
     }
     else if(password.length>=8 && !checkPassword(password)){
-      toast("Please add strong password", {
+      toast.error("Please add strong password", {
         position: "bottom-right",
         autoClose: 1500,
         closeOnClick: true,
@@ -88,7 +95,7 @@ export default function Register() {
       });          
     }
      else {
-      toast("Please fill out all fields", {
+      toast.error("Please fill out all fields", {
         position: "bottom-right",
         autoClose: 1500,
         closeOnClick: true,
@@ -122,6 +129,7 @@ export default function Register() {
                         iconPosition="left"
                         icon="user"
                         className="textcolor"
+                        autoComplete="new-password"
                       />
                     </Grid.Column>
                   </Grid.Row>
@@ -130,6 +138,7 @@ export default function Register() {
                       <Input
                         transparent
                         inverted
+                        autoComplete="new-password"
                         onChange={(event) => setLastName(event.target.value)}
                         placeholder="Lastname"
                         iconPosition="left"
@@ -146,6 +155,7 @@ export default function Register() {
                         inverted
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
+                        autoComplete="new-password"
                         placeholder="Email"
                         iconPosition="left"
                         icon="mail"
@@ -160,14 +170,20 @@ export default function Register() {
                       <Input
                         inverted
                         transparent
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         iconPosition="left"
-                        placeholder="******"
+                        placeholder="123456"
                         value={password}
                         onChange={(event) => {
                           setPassword(event.target.value);
                         }}
-                        icon="lock"
+                        icon={
+                          <Icon
+                            name={showPassword ? "lock open" : "lock"}
+                            link
+                            onClick={iconPasswordClickHandler}
+                          />
+                        }
                         className="textcolor"
                       />
                     </Grid.Column>
@@ -177,14 +193,20 @@ export default function Register() {
                       <Input
                         inverted
                         transparent
-                        type="password"
+                        type={showConfirmPassword ? "text" : "password"}
                         iconPosition="left"
-                        placeholder="******"
+                        placeholder="12345"
                         value={confirmPassword}
                         onChange={(event) =>
                           setConfirmPassword(event.target.value)
                         }
-                        icon="lock"
+                        icon={
+                          <Icon
+                            name={showConfirmPassword ? "lock open" : "lock"}
+                            link
+                            onClick={iconconfirmPasswordClickHandler}
+                          />
+                        }
                         className="textcolor"
                       />
                       {errors && (

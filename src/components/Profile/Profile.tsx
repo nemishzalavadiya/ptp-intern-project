@@ -11,6 +11,8 @@ import {
   Icon,
   Dropdown,
   Loader,
+  Modal,
+  Popup,
 } from "semantic-ui-react";
 import { updateUserDetails, getUser } from "src/services/userUpdate";
 import { ToastContainer, toast } from "react-toastify";
@@ -19,10 +21,17 @@ import { useRouter } from "next/router";
 
 export default function Profile() {
   const router = useRouter();
-  const [bankName, setBankName] = useState("Axis");
-  const [accountNumber, setAccountNumber] = useState("10111245XXX");
-  const [availableCash, setAvailableCash] = useState("40000");
+  const [availableCash, setAvailableCash] = useState(0);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [fund, setFund] = useState(0);
+  const [bank, setBank] = useState(null);
+  const [isAddFund, setIsAddFund] = useState(true);
+  const bankDetail = [
+    { name: "Axis", accountNumber: "XXXXXXX10121" },
+    { name: "State Bank of India", accountNumber: "XXXXXXX20212" },
+    { name: "Bank of Baroda", accountNumber: "XXXXXXX30323" },
+  ];
   const genderOption = [
     { key: "MALE", value: "MALE", text: "MALE" },
     { key: "FEMALE", value: "FEMALE", text: "FEMALE" },
@@ -50,15 +59,74 @@ export default function Profile() {
   const revertChanges = () => {
     setIsUpdate(false);
   };
+
+  const modal = () => {
+    return (
+      <Modal inverted size="mini" open={open}>
+        <Modal.Content>
+          <Input
+            required
+            fluid
+            type="number"
+            icon="money"
+            placeholder="Add amount"
+            onChange={(event) => setFund(parseInt(event.target.value))}
+          />
+          {
+          (!isAddFund)?
+          <Dropdown
+            selection
+            onChange={(event,data)=>setBank(data.value)}
+            placeholder="Select your bank"
+            options={bankDetail.map((item=>{return {key:item.name,value:item.name,text:item.name}}))}
+          ></Dropdown>:''
+    }
+        </Modal.Content>
+        <Modal.Actions>
+          <Button
+            disabled={fund <= 0 || ((!isAddFund && fund > availableCash) || (!isAddFund && bank==null)) }
+            color="green"
+            inverted
+            onClick={() => (isAddFund ? addFund() : withdrawFund())}
+          >
+            {isAddFund ? "Add Fund" : "Withdraw"}
+          </Button>
+          <Button color="red" inverted onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    );
+  };
+
+  const addFund = () => {
+    setAvailableCash(parseInt(availableCash) + parseInt(fund));
+    setOpen(false);
+  };
+
+  const withdrawFund = () => {
+    const cashValue = parseInt(availableCash);
+    const newValue = parseInt(fund);
+    setAvailableCash(cashValue - newValue);
+    setOpen(false);
+  };
+
   const saveChanges = () => {
     if (isUpdate == false) {
       setIsUpdate(true);
       return;
     }
+    if (user.mobileNo.length != 10) {
+      toast.error("Please enter valid phone number", {
+        position: "bottom-right",
+        autoClose: 1500,
+      });
+      return;
+    }
     updateUserDetails(user)
       .then((res) => {
         setIsUpdate(false);
-        toast("Profile updated successfully", {
+        toast.dark("Profile updated successfully", {
           position: "bottom-right",
           autoClose: 1500,
         });
@@ -78,10 +146,13 @@ export default function Profile() {
         <Segment className="profile">
           <Grid divided columns={2}>
             <Divider vertical></Divider>
-            <Grid.Row verticalAlign="middle">
+            <Grid.Row>
               <Grid.Column width={8}>
                 <Form inverted>
                   <Grid>
+                    <Grid.Row>
+                      <Grid.Column></Grid.Column>
+                    </Grid.Row>
                     <Grid.Row>
                       <Grid.Column width={8}>
                         {user.dpURL ? (
@@ -97,7 +168,7 @@ export default function Profile() {
 
                       <Grid.Column width={8}>
                         <Input
-                          readOnly={true}
+                          readOnly={isUpdate}
                           transparent
                           required
                           inverted
@@ -107,11 +178,15 @@ export default function Profile() {
                         />
                       </Grid.Column>
                     </Grid.Row>
-
+                    <Grid.Row>
+                      <Grid.Column>
+                        <h3>Account</h3>
+                      </Grid.Column>
+                    </Grid.Row>
                     <Grid.Row>
                       <Grid.Column width={8}>
                         <Input
-                          readOnly={!isUpdate}
+                          readOnly={true}
                           inverted
                           transparent
                           iconPosition="left"
@@ -123,7 +198,6 @@ export default function Profile() {
                       <Grid.Column width={8}>
                         <Input
                           readOnly={true}
-                          required
                           inverted
                           transparent
                           value={user.dpId}
@@ -177,11 +251,16 @@ export default function Profile() {
                           inverted
                           transparent
                           value={user.email}
+                          className=
+                          {`textcolor ${
+                            (isUpdate ? "textborder": "")
+                          }`}
                           onChange={(event) =>
                             setUser({ ...user, email: event.target.value })
                           }
+                          icon={isUpdate ? "pencil" : ""}
                           placeholder="abc@gmail.com"
-                          className="textcolor"
+                          
                         />
                       </Grid.Column>
                     </Grid.Row>
@@ -202,7 +281,9 @@ export default function Profile() {
                         <Dropdown
                           value={user.gender}
                           disabled={!isUpdate}
-                          className="profiledropdown"
+                          className={`profiledropdown ${
+                            (isUpdate ? "textborder": "")
+                          }`}
                           placeholder="Select your gender"
                           options={genderOption}
                           onChange={(event) => {
@@ -233,6 +314,7 @@ export default function Profile() {
                           inverted
                           type="date"
                           transparent
+                          id="userdob"
                           value={user.dateOfBirth}
                           placeholder="DOB"
                           onChange={(event) =>
@@ -243,7 +325,10 @@ export default function Profile() {
                               ),
                             })
                           }
-                          className="textcolor"
+                          className=
+                          {`textcolor ${
+                            (isUpdate ? "textborder": "")
+                          }`}
                         />
                       </Grid.Column>
                     </Grid.Row>
@@ -267,11 +352,15 @@ export default function Profile() {
                           inverted
                           transparent
                           value={user.mobileNo}
-                          placeholder="+91 7016..."
+                          placeholder="Add 70165XXXXX"
                           onChange={(event) =>
                             setUser({ ...user, mobileNo: event.target.value })
                           }
-                          className="textcolor"
+                          className=
+                          {`textcolor ${
+                            (isUpdate ? "textborder": "")
+                          }`}
+                          icon={isUpdate ? "pencil" : ""}
                         />
                       </Grid.Column>
                     </Grid.Row>
@@ -289,13 +378,15 @@ export default function Profile() {
                         />
                       </Grid.Column>
                       <Grid.Column width={8}>
-                        {user.kycVerified ? (
-                          <>
+                        {!user.kycVerified ? (
+                          <Label color="green">
                             You are KYC verified
                             <Icon name="check circle"></Icon>
-                          </>
+                          </Label>
                         ) : (
+
                           <Button
+                          color="red"
                             onClick={() => {
                               router.push("/kyc");
                             }}
@@ -311,74 +402,57 @@ export default function Profile() {
 
               <Grid.Column width={8}>
                 {isUpdate == true ? (
-                  <div className="editbutton">
-                    <Label onClick={saveChanges}>
+                  <Button.Group className="save-button">
+                    <Button onClick={saveChanges} inverted color="green">
                       <Icon name="edit" />
                       Save
-                    </Label>
-                    <Label onClick={revertChanges}>
+                    </Button>
+                    <Button onClick={revertChanges} inverted color="red">
                       <Icon name="cancel" />
                       Cancel
-                    </Label>
-                  </div>
+                    </Button>
+                  </Button.Group>
                 ) : (
-                  <Label className="editbutton" onClick={saveChanges}>
+                  <Button
+                    className="editbutton"
+                    inverted
+                    color="green"
+                    onClick={saveChanges}
+                  >
                     <Icon name="edit" />
                     Edit
-                  </Label>
+                  </Button>
                 )}
                 <Form inverted>
                   <Grid>
-                    <Grid.Row>
-                      <Grid.Column width={8}>
-                        <Input
-                          readOnly={true}
-                          inverted
-                          transparent
-                          iconPosition="left"
-                          placeholder="Bank Name"
-                          icon="home"
-                          className="textcolor"
-                        />
-                      </Grid.Column>
-                      <Grid.Column width={8}>
-                        <Input
-                          readOnly={true}
-                          transparent
-                          inverted
-                          placeholder="Bank Name"
-                          value={bankName}
-                          className="textcolor"
-                        />
-                      </Grid.Column>
-                    </Grid.Row>
+                    <h3>Bank accounts</h3>
+                    {bankDetail.map((item) => {
+                      return (
+                        <Grid.Row>
+                          <Grid.Column width={4}>
+                            <Input
+                              readOnly={true}
+                              required
+                              inverted
+                              transparent
+                              value={"*" + item.accountNumber.slice(-4)}
+                              className="textcolor"
+                            />
+                          </Grid.Column>
+                          <Grid.Column width={12}>
+                            <Input
+                              readOnly={true}
+                              transparent
+                              inverted
+                              value={item.name}
+                              className="textcolor"
+                            />
+                          </Grid.Column>
+                        </Grid.Row>
+                      );
+                    })}
 
-                    <Grid.Row>
-                      <Grid.Column width={8}>
-                        <Input
-                          readOnly={true}
-                          inverted
-                          transparent
-                          iconPosition="left"
-                          placeholder="Account ID"
-                          icon="lock"
-                          className="textcolor"
-                        />
-                      </Grid.Column>
-
-                      <Grid.Column width={8}>
-                        <Input
-                          readOnly={true}
-                          required
-                          inverted
-                          transparent
-                          placeholder="Account number"
-                          value={accountNumber}
-                          className="textcolor"
-                        />
-                      </Grid.Column>
-                    </Grid.Row>
-
+                    <h3>Funds</h3>
                     <Grid.Row>
                       <Grid.Column width={8}>
                         <Input
@@ -405,13 +479,31 @@ export default function Profile() {
                     </Grid.Row>
                     <Grid.Row>
                       <Grid.Column width={8}>
-                        <Button type="submit" id="submit" fluid color="grey">
+                        <Button
+                          onClick={() => {
+                            setOpen(true);
+                            setIsAddFund(true);
+                            setFund(0);
+                          }}
+                          inverted
+                          fluid
+                          color="green"
+                        >
                           Add Fund
                         </Button>
                       </Grid.Column>
 
                       <Grid.Column width={8}>
-                        <Button type="submit" id="submit" fluid color="grey">
+                        <Button
+                          onClick={() => {
+                            setOpen(true);
+                            setIsAddFund(false);
+                            setFund(0);
+                          }}
+                          inverted
+                          fluid
+                          color="blue"
+                        >
                           Withdraw
                         </Button>
                       </Grid.Column>
@@ -421,6 +513,7 @@ export default function Profile() {
               </Grid.Column>
             </Grid.Row>
           </Grid>
+          {modal()}
         </Segment>
       ) : (
         <Loader active />

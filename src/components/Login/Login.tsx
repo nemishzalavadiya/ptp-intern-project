@@ -42,9 +42,8 @@ export default function Login() {
           <Divider vertical></Divider>
           <Grid.Row verticalAlign="middle">
             <Grid.Column width={8}>
-              <Image src="/PTP.png" size="medium" />
+              <Image src="/PTP.png" className="ptpimage" />
             </Grid.Column>
-
             <Grid.Column width={8}>
               <Form inverted onSubmit={submitHandler}>
                 <Grid>
@@ -56,13 +55,13 @@ export default function Login() {
                         inverted
                         name="email"
                         placeholder="Email"
+                        autoComplete="off"
                         iconPosition="left"
                         icon="mail"
                         className="textcolor"
                       />
                     </Grid.Column>
                   </Grid.Row>
-
                   <Grid.Row>
                     <Grid.Column width={11}>
                       <Input
@@ -97,7 +96,6 @@ export default function Login() {
                     <Grid.Column width={10} >
                       <Link href="/register">                     Not Registered?   Create Account
                       </Link>
-
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>

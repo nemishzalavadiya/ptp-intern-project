@@ -29,17 +29,17 @@ export default function MutualFundTicket(props) {
   const frequencyOptions = [
     {
       key: "WEEKY_SIP",
-      text: "WEEKLY_SIP",
+      text: "Weekly",
       value: "WEEKLY_SIP",
     },
     {
       key: "MONTHLY_SIP",
-      text: "MONTHLY_SIP",
+      text: "Monthly",
       value: "MONTHLY_SIP",
     },
     {
       key: "YEARLY_SIP",
-      text: "YEARLY_SIP ",
+      text: "Yearly",
       value: "YEARLY_SIP",
     },
   ];
@@ -131,8 +131,8 @@ export default function MutualFundTicket(props) {
                 disabled={investmentType === InvestmentType.ONE_TIME}
                 placeholder="Frequency"
                 fluid
-                onChange={(event) => {
-                  setFrequency(event.target.innerText);
+                onChange={(event,data) => {
+                  setFrequency(data.value);
                 }}
                 selection
                 color="Grey"
@@ -147,7 +147,7 @@ export default function MutualFundTicket(props) {
             </Grid.Column>
             <Grid.Column width={11}>
               <Form.Input
-                type="float"
+                type="number"
                 onChange={(event) => setAmount(event.target.value)}
                 placeholder="amount"
                 iconPosition="left"

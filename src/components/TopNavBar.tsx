@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import NavBar from "src/components/NavBar";
 import { Image, Popup, Grid, Icon, Divider } from "semantic-ui-react";
 import Link from "next/link";
 import useAuth from "src/components/contexts/useAuth";
@@ -21,28 +20,22 @@ const TopNavBar = (props) => {
     router.push({ pathname: "/login", query: { path: router.asPath } });
   }
   return (
-    <div className="top-nav-container">
-      <div className="headerTopNavBar">
-        <div>
-          <Link href="/">
-            <img className="logo" src="/LOGO.png" alt="PTP LOGO" />
-          </Link>
-        </div>
-        <div id="navigation" className="top-nav-bar-component">
-          <NavBar name={props.name} />
-        </div>
-        <div>
-          <Popup
-            position="bottom right"
-            trigger={
-              <div>
-                {dpUrl ? (
-                  <Image src="/user.jpg" className="usericon" circular />
-                ) : (
-                  <Icon name="user" size="big"></Icon>
-                )}
-              </div>
-            }
+    <div className="headerTopNavBar">
+      <Link href="/">
+        <img className="logo" src="/LOGO.png" alt="PTP LOGO" />
+      </Link>
+
+      <Popup
+        position="bottom right"
+        trigger={
+          <div>
+            {dpUrl ? (
+              <Image src="/user.jpg" className="usericon" circular />
+            ) : (
+              <Icon name="user" className="usericon" size="big"></Icon>
+            )}
+          </div>
+        }
             content={
               <>
                 {dpUrl ? (
@@ -86,8 +79,7 @@ const TopNavBar = (props) => {
             hideOnScroll
           />
         </div>
-      </div>
-    </div>
+
   );
 };
 

@@ -194,7 +194,7 @@ export default function KYC(props) {
   }
 
   return isContentFetchingCompleted ? (
-    page !== 3 ? (
+    page !== KYCStep.PROFILE ? (
       <div className="kycDiv">
         <ToastContainer />
         <Loader inverted active={isExecuting}>
@@ -210,14 +210,14 @@ export default function KYC(props) {
                 <Step.Group size="mini" fluid>
                   <Step
                     active={page == KYCStep.PERSONAL_DETAIL}
-                    onClick={() => setPage(0)}
+                    onClick={() => setPage(KYCStep.PERSONAL_DETAIL)}
                   >
                     <Step.Content>
                       <Step.Title>Personal Details</Step.Title>
                     </Step.Content>
                   </Step>
 
-                  <Step active={page == KYCStep.PAN} onClick={() => setPage(1)}>
+                  <Step active={page == KYCStep.PAN} onClick={() => setPage(KYCStep.PAN)}>
                     <Step.Content>
                       <Step.Title>Pan Detail</Step.Title>
                     </Step.Content>
@@ -225,7 +225,7 @@ export default function KYC(props) {
 
                   <Step
                     active={page == KYCStep.DOCUMENT}
-                    onClick={() => setPage(2)}
+                    onClick={() => setPage(KYCStep.DOCUMENT)}
                   >
                     <Step.Content>
                       <Step.Title>Documents</Step.Title>

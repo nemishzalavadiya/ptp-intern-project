@@ -12,9 +12,11 @@ import {
   Segment,
 } from "semantic-ui-react";
 import Link from "next/link";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Router from "next/router";
 import { userRegistration } from "../../services/userRegistration";
+import showToast from "src/components/showToast";
+
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,38 +54,18 @@ export default function Register() {
       };
       userRegistration(data)
         .then(() => {
-          toast.dark("Registration successful", {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: true,
-          });
+          showToast("Registration successful");
           Router.push("/login");
         })
         .catch((err) => {
-          toast.error(err.message, {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: true,
-          });
+          showToast(err.message,true)
         });
     } else if (password != confirmPassword) {
-      toast.error("Passwords don't match", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-      });
+      showToast("Passwords don't match",true)
     } else if (password.length >= 8 && !checkPassword(password)) {
-      toast.error("Please add strong password", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-      });
+      showToast("Please add strong password",true)
     } else {
-      toast.error("Please fill out all fields", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-      });
+      showToast("Please fill out all fields",true)
     }
   };
 
@@ -222,7 +204,7 @@ export default function Register() {
           </Grid.Row>
         </Grid>
       </Segment>
-      <ToastContainer></ToastContainer>
+      <ToastContainer/>
     </>
   );
 }

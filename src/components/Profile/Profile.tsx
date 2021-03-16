@@ -15,9 +15,10 @@ import {
   Popup,
 } from "semantic-ui-react";
 import { updateUserDetails, getUser } from "src/services/userUpdate";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Moment from "moment";
 import { useRouter } from "next/router";
+import showToast from "src/components/showToast";
 
 export default function Profile() {
   const router = useRouter();
@@ -122,29 +123,17 @@ export default function Profile() {
       return;
     }
     if (user.mobileNo != null && user.mobileNo.length != 10) {
-      toast.error("Please enter valid phone number", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-      });
+      showToast("Please enter valid phone number",true)
       return;
     }
     updateUserDetails(user)
       .then((res) => {
         setIsUpdate(false);
-        toast.dark("Profile updated successfully", {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-        });
+        showToast("Profile updated successfully");
       })
       .catch((err) => {
         setIsUpdate(false);
-        toast.error(err.message, {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-        });
+        showToast(err.message, true);
       });
   };
 
@@ -525,7 +514,7 @@ export default function Profile() {
       ) : (
         <Loader active />
       )}
-      <ToastContainer></ToastContainer>
+      <ToastContainer/>
     </>
   );
 }

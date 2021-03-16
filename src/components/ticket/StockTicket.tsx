@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Segment, Grid, Label } from "semantic-ui-react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import showToast from "src/components/showToast";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { createStockOrder } from "src/services/stockOrder";
@@ -51,19 +52,11 @@ export default function StockTicket({ assetId, stockId }) {
     createStockOrder(data)
       .then((res) => {
         setOrderStatus(false);
-        toast.dark("Order Executed Successfully!", {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-        });
+        showToast("Order Executed Successfully!")
       })
       .catch((err) => {
         setOrderStatus(false);
-        toast.error(err.message, {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-        });
+        showToast(err.message,true)
       });
   };
   return (

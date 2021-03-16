@@ -8,7 +8,7 @@ export default function HomePage() {
         <title>Pirimid Trading Platform</title> 
         <link rel="icon" href="/favicon.svg" />
       </Head>
-      <div className="registerBox">
+      <div className="register-div">
         <Register/>
       </div>
     </div>

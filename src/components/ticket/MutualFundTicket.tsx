@@ -11,10 +11,11 @@ import {
   Select,
 } from "semantic-ui-react";
 import { createMutualFundOrder } from "src/services/mutualFundOrder";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { InvestmentType } from "src/enums/InvestmentType";
 import { Frequency } from "src/enums/Frequency";
 import { UserId } from "src/components/Objects";
+import showToast from "src/components/showToast";
 
 export default function MutualFundTicket(props) {
   const [investmentType, setInvestmentType] = useState(InvestmentType.SIP);
@@ -64,19 +65,11 @@ export default function MutualFundTicket(props) {
     createMutualFundOrder(data)
       .then(() => {
         setOrderStatus(false);
-        toast.dark("Order executed successfully", {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-        });
+        showToast("Order executed successfully")
       })
       .catch((err) => {
         setOrderStatus(false);
-        toast.error("Something went wrong please try", {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-        });
+        showToast("Something went wrong please try",true)
       });
   };
 

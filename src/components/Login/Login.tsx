@@ -105,7 +105,7 @@ export default function Login() {
           </Grid.Row>
         </Grid>
       </Segment>
-      <ToastContainer></ToastContainer>
+      <ToastContainer/>
     </>
   );
 }

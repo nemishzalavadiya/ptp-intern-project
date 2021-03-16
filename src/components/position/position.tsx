@@ -6,12 +6,16 @@ import Search from "src/components/Search";
 import MutualFundPosition from "src/components/position/mutualFundPositionView";
 import StockPositionList from "src/components/position/stockPositionList";
 import { AssetClass } from "src/enums/assetClass";
-export default function Position(props) {
+import { getMutualFundOrdersCountBySipStatus } from "src/services/sipstatus";
+import { UserId } from "src/components/Objects";
+
+export default function Position() {
   const [searchString, setSearchString] = useState("");
   const [assetClass, setAssetClass] = useState(AssetClass.STOCK);
   const [activeItem, setActiveItem] = useState(0);
   const [page, setPage] = useState(0);
   const [totalSIPs,setTotalSIPs] = useState(0);
+  const totalPages = 500;
 
   function handlePaginationChange(pageNo) {
     setPage(pageNo);
@@ -36,6 +40,9 @@ export default function Position(props) {
     setSearchString(data.value);
     setPage(0);
   }
+  getMutualFundOrdersCountBySipStatus(UserId.userId, 0, totalPages).then((res) => {
+    setTotalSIPs(res);
+  })
   return (
     <div>
       <Tab
@@ -49,11 +56,13 @@ export default function Position(props) {
       />
       {assetClass === AssetClass.MUTUAL_FUND ? (
         <Button
+          disabled = {!totalSIPs?true:false}
           inverted
           color="green"
           size="large"
           onClick={() => Router.push("/sipstatus")}
         >
+          Active SIPs : {totalSIPs}
         </Button>
       ) : (
         ""

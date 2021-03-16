@@ -14,7 +14,7 @@ import MutualFundTicket from "src/components/ticket/MutualFundTicket";
 import { getMfByAssetId } from "src/services/assets";
 import Moment from "moment";
 import { updateMutualFundOrder } from "src/services/mutualFundOrder";
-import {sipStatus} from "src/enums/sipStatus";
+import { sipStatus } from "src/enums/sipStatus";
 
 export default function MutualFundOrder(props) {
   let [isDataFetchingCompleted, SetIsDataFetchingCompleted] = useState(false);
@@ -35,7 +35,7 @@ export default function MutualFundOrder(props) {
     { header: "Frequency", icon: "" },
     { header: "Scheduled On", icon: "" },
     { header: "SIP Status", icon: "" },
-    { header: "Action", icon: "" },
+    { header: "", icon: "" },
   ];
 
   const [page, setPage] = useState({
@@ -53,7 +53,7 @@ export default function MutualFundOrder(props) {
           item.investmentType,
           item.sipdate.substring(0, 10),
           item.sipStatus,
-          <Button.Group icon transparent>
+          <Button.Group color="grey" icon>
             <Button
               onClick={() =>
                 editSIP(
@@ -69,13 +69,12 @@ export default function MutualFundOrder(props) {
             </Button>
             <Button>
               <Icon
-                color="green"
                 onClick={() => updateStatus(item)}
                 name={item.sipStatus === sipStatus.ACTIVE ? "pause" : "play"}
               />
             </Button>
             <Button onClick={() => deleteSIP(item.id)}>
-              <Icon name="trash" color="red" />
+              <Icon name="trash" />
             </Button>
           </Button.Group>,
         ]);
@@ -173,6 +172,6 @@ export default function MutualFundOrder(props) {
       </Modal>
     </div>
   ) : (
-    <Loader active />
+    <Loader active>Loading</Loader>
   );
 }

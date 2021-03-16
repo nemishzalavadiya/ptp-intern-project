@@ -7,6 +7,13 @@ async function getMutualFundOrdersBySipStatus(userId,page,size) {
   return body;
 } 
 
+async function getMutualFundOrdersCountBySipStatus(userId) {
+   const response = await fetch("/api/mutualfun/sip-status-records/users?userId="+userId
+  )
+  const body = await response.json();
+  return body;
+} 
+
 async function deleteSIPStatus(mutualFundOrderId){
     const response = await fetch(`/api/mutualfund/delete-sip-status/users?mutualFundOrderId=${mutualFundOrderId}`, {
     method: "DELETE",
@@ -26,4 +33,4 @@ async function deleteSIPStatus(mutualFundOrderId){
   }
 }
 
-export {getMutualFundOrdersBySipStatus,deleteSIPStatus,editMutualFundTicket};
+export {getMutualFundOrdersBySipStatus,deleteSIPStatus,editMutualFundTicket,getMutualFundOrdersCountBySipStatus};

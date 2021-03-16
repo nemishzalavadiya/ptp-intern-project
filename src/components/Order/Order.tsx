@@ -74,16 +74,16 @@ export default function Order(props) {
       <Form>
         <Grid>
           <Grid.Row>
-            <Grid.Column width={3}>
-              <label>Start Date</label>
+            <Grid.Column width={3} className="date-picker">
+              <label className="date-picker-label">Start Date</label>
               <Form.Input
                 value={startDate}
                 onChange={handleStartDateChange}
                 type="date"
               />
             </Grid.Column>
-            <Grid.Column width={3}>
-              <label>End Date</label>
+            <Grid.Column width={3} className="date-picker">
+              <label className="date-picker-label">End Date</label>
               <Form.Input
                 value={endDate}
                 onChange={handleEndDateChange}

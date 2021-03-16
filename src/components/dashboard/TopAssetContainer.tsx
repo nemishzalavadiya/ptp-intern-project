@@ -11,7 +11,7 @@ const TopAssetContainer = (props) => {
     return <div className="dashboard-grid">
         <Grid inverted stackable>
             <Grid.Row className="dashboard-container">
-                <Grid.Column floated='left' width={5}>
+                <Grid.Column className="dashboard-container-title" floated='left' width={5}>
                     <h3>{props.header.title}</h3>
                 </Grid.Column>
                 {

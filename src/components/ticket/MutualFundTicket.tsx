@@ -12,7 +12,6 @@ import {
 } from "semantic-ui-react";
 import { createMutualFundOrder } from "src/services/mutualFundOrder";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { InvestmentType } from "src/enums/InvestmentType";
 import { Frequency } from "src/enums/Frequency";
 import { UserId } from "src/components/Objects";
@@ -99,7 +98,7 @@ export default function MutualFundTicket(props) {
               <label>Investment Type</label>
             </Grid.Column>
             <Grid.Column width={11}>
-              <Button.Group name="orderType">
+              <Button.Group name="orderType" widths="2" fluid>
                 <Button
                   color="grey"
                   positive={investmentType === InvestmentType.SIP}
@@ -118,7 +117,7 @@ export default function MutualFundTicket(props) {
                     setAmountTag("Lumpsum Ammount");
                   }}
                 >
-                  LUMPSUM
+                  Lumpsum
                 </Button>
               </Button.Group>
             </Grid.Column>
@@ -171,6 +170,7 @@ export default function MutualFundTicket(props) {
             </Grid.Column>
           </Grid.Row>
           <Button
+            className="invest"
             type="submit"
             onClick={createOrder}
             fluid

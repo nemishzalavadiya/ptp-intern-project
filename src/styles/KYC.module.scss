@@ -1,0 +1,118 @@
+.ui.input.kycInput > input,
+.ui.input.kycInput > input:focus {
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  text-align: left;
+}
+
+.midSection {
+  padding-top: 5%;
+  min-height: 300px;
+  text-align: center;
+}
+.leftSide {
+  padding: 5%;
+}
+
+.ui.button.kycButton {
+  background-color: white;
+}
+
+.middle.aligned.seven.wide.column.rightSide {
+  padding: 0px 5%;
+  padding-top: 2%;
+  height: 100%;
+}
+
+.ui.button.getStart {
+  background-color: greenyellow;
+  width: 50%;
+  height: 5%;
+  margin-top: 10%;
+  border-radius: 10px;
+}
+.buttonGrid {
+  margin-top: 10%;
+}
+
+.fileUpload {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 5%;
+}
+
+.signature {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.fileUpload > .ui.icon.header {
+  color: white;
+}
+
+.customFileUpload {
+  display: inline-block;
+  width: 100px;
+  padding: 8px 12px;
+  text-align: center;
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: greenyellow;
+}
+
+.backNext {
+  display: flex;
+  justify-content: space-between;
+}
+
+.kycDiv {
+  background-color: #272727;
+  margin-top: 5%;
+  border-radius: 25px;
+}
+
+.kycProfile {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.personalInfo {
+  margin-left: 5%;
+}
+.ui.grid.profile {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ui.small.circular.image.profilePicture {
+  width: 100px;
+  height: 100px;
+}
+.cutText {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 160px;
+  height: 1.2em;
+  white-space: nowrap;
+}
+
+.ui.button.uploadNow {
+  background-color: greenyellow;
+}
+.profileContainer {
+  margin: 2% 15% 0 22%;
+  text-align: left;
+}

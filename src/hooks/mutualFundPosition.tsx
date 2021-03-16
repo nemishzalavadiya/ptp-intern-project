@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-function getMutualFundPosition(userId, searchText, page, size, dashboard) {
+function getMutualFundPosition(searchText, page, size,dashboard) {
   const [isContentFetchingCompleted, setStatus] = useState(false);
   const [position, setPosition] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
@@ -12,36 +12,37 @@ function getMutualFundPosition(userId, searchText, page, size, dashboard) {
     const data = await response.json();
     const content = await data.content;
     setTotalPage(data.totalPages);
-    //processing
     content.forEach((element) => {
       const {
-        position: {
-          volume,
-          price,
-          assetDetail: { id, name },
-        },
-        nav,
-        netValue,
-        profit,
+          assetName,
+          assetId,
+          quantity,
+          totalAmount,
+          nav,
+          netValue,
+          profitPercentage,
+          avgNav,
+          profit
       } = element;
       if (dashboard) {
         positionList.push([
-          <Link href={`/details/${id}`}>{name}</Link>,
+          <Link href={`/details/${assetId}`}>{assetName}</Link>,
           nav,
           netValue
         ]);
-      } else {
-        positionList.push([
-          <Link href={`/details/${id}`}>{name}</Link>,
-          volume,
-          price,
-          price / volume,
-          nav,
-          netValue,
-          (profit * price) / 100,
-          profit,
-        ]);
-      }
+      } 
+      else{
+      positionList.push([
+        <Link href={`/details/${assetId}`}>{assetName}</Link>,
+        quantity.toFixed(2),
+        totalAmount,
+        avgNav.toFixed(2),
+        nav,
+        netValue.toFixed(2),
+        profit.toFixed(2),
+        profitPercentage.toFixed(2),
+      ]);
+    }
     });
     if (dashboard) {
       positionList.sort((positionA, positionB) => positionB[1] - positionA[1])
@@ -52,9 +53,9 @@ function getMutualFundPosition(userId, searchText, page, size, dashboard) {
   useEffect(() => {
     setStatus(false);
     fetchUrl(
-      `/api/mutualfund/position/search/users/${userId}?name=${searchText}&page=${page}&size=${size}`
+      `/api/mutualfund/position/search/?name=${searchText}&page=${page}&size=${size}`
     );
-  }, [userId, searchText, page, size]);
+  }, [searchText, page, size]);
 
   return [isContentFetchingCompleted, totalPage, position];
 }

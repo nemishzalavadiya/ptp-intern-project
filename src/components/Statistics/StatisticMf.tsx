@@ -9,7 +9,7 @@ const headers = [
 ];
 
 export default function StatisticMf(props) {
-  const {
+  let {
     risk,
     minSIP,
     expenseRatio,
@@ -21,6 +21,7 @@ export default function StatisticMf(props) {
       assetDetail: { name, logoUrl, assetClass, about },
     },
   } = props.mfDetail;
+  fundStarted = fundStarted.substring(0,10);
   const values = [minSIP, risk, expenseRatio, nav, fundStarted, fundSize];
   return (
     <div className="stats-main">

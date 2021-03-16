@@ -7,15 +7,37 @@ import { stockFilters } from "src/components/filter/filterDetails";
 import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import useWebSocket from "src/hooks/useWebSocket";
-
+import Sorting from "src/components/Sorting/Sorting";
 const stocks = () => {
 	const content = [
-		{ header: "Company_Id", icon: "" },
-		{ header: "Market Price", icon: <i className="rupee sign icon small"></i> },
-		{ header: "Close Price", icon: <i className="rupee sign icon small"></i> },
-		{ header: "Market Cap (Cr)", icon: <i className="rupee sign icon small"></i> },
+		{ header: "Company", icon: "" },
+		{ header: "Market Price", icon: <i className="rupee sign icon small"></i>, sortable: false },
+		{ header: "Close Price", icon: <i className="rupee sign icon small"></i>, sortable: false },
+		{ header: "Market Cap", icon: <i className="rupee sign icon small"></i> },
 	];
 
+  let initailPattern=[];
+  for(let i=0;i<content.length;i++){
+    initailPattern.push(0);
+  }
+  const [pattern, setPattern] = useState(initailPattern);
+  const [orderBy, setOrderBy] = useState("");
+  const [sortingField, setSortingField] = useState("");
+  function changeArrow(index, fieldName) {
+    let midPattern = [];
+    let size = content.length;
+    for (let i = 0; i < size; i++) {
+		midPattern.push(0);
+    }
+    midPattern[index] = 1 - pattern[index];
+    setPattern(midPattern);
+    if (midPattern[index] == 1) {
+      setOrderBy("DESC");
+    } else {
+      setOrderBy("ASC");
+    }
+    setSortingField(fieldName);
+  }
 	const initialState = {
 		results: [],
 		selectedFilters: Array(
@@ -53,11 +75,11 @@ const stocks = () => {
 			}
 		});
 
-		requestFiltered(`/api/stocks/filters?page=${activePage}`, filterBody).then((page) => {
+		requestFiltered(`/api/stocks/filters?page=${activePage}&sortingField=${sortingField}&orderBy=${orderBy}`, filterBody).then((page) => {
 			setResults(page.content);
 			setTotalPages(page.totalPages);
 		});
-	}, [selectedFilters, activePage]);
+	}, [selectedFilters, activePage, orderBy, sortingField]);
 
 	useEffect(() => {
 		subscriptionDataMap.clear();
@@ -93,6 +115,7 @@ const stocks = () => {
 					setSelectedState={setSelectedState}
 				/>
 				<div className="right-grid">
+        			<Sorting content={content} pattern={pattern} onclick={changeArrow} />
 					<GridContainer
 						content={content}
 						data={
@@ -116,6 +139,7 @@ const stocks = () => {
 							totalPages,
 							handlePaginationChange: setActivePage,
 						}}
+						showHeaderGrid="disable"
 					/>
 				</div>
 			</div>

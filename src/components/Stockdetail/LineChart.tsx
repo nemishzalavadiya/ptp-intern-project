@@ -7,7 +7,6 @@ import options from "src/components/Stockdetail/StockLineChartOptions";
 let mockOptions = options;
 const transformChartData = (options, array) => {
   const dataLength = array.length;
-  console.log(dataLength);
   for (let i = 0; i < dataLength; i++) {
     array[i].x = new Date(array[i].x).getTime();
     options.series[0].data.push(array[i]);

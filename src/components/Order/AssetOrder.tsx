@@ -7,26 +7,9 @@ import GridContainer from "src/components/grid/GridContainer";
 import "semantic-ui-css/semantic.min.css";
 import styles from "src/styles/Layout.module.scss";
 import { AssetClass } from "src/enums/assetClass";
-
+import Sorting from "src/components/Sorting/Sorting";
 export default function AssetOrder(props) {
-  const stockHeader = [
-    { header: "Company Name", icon: "" },
-    { header: "Asset Class", icon: "" },
-    { header: "Price", icon: <i className="rupee sign icon small"></i> },
-    { header: "Date", icon: "" },
-    { header: "Time", icon: "" },
-    { header: "Order Type", icon: "" },
-    { header: "Price Type", icon: "" },
-    { header: "Status", icon: "" },
-  ];
-  const mutualFundHeader = [
-    { header: "Company Name", icon: "" },
-    { header: "Asset Class", icon: "" },
-    { header: "Amount", icon: <i className="rupee sign icon small"></i> },
-    { header: "Start Date", icon: "" },
-    { header: "Frequency", icon: "" },
-    { header: "SIP Status", icon: "" },
-  ];
+  
   let [isContentFetchingCompleted, totalPage, response] = [false, 0];
   const [page, setPage] = useState({
     pages: 0,
@@ -60,17 +43,21 @@ export default function AssetOrder(props) {
   return (
     <div>
       {isContentFetchingCompleted ? (
+        <>
+        {response.length !== 0 ? <Sorting content={assetClass === AssetClass.STOCK ? props.stockHeader : props.mutualFundHeader} pattern={props.pattern} onclick={props.onclick} /> : null}
         <GridContainer
           content={
             response.length === 0
               ? null
               : response[0][1] === AssetClass.STOCK
-              ? stockHeader
-              : mutualFundHeader
+              ? props.stockHeader
+              : props.mutualFundHeader
           }
           data={response}
           pagination={pagination}
+          showHeaderGrid="disable"
         />
+        </>
       ) : (
         <Loader active />
       )}

@@ -1,50 +1,63 @@
+import { useState, useEffect } from "react";
 import React from "react";
 import GridContainer from "src/components/grid/GridContainer";
 import { Loader } from "semantic-ui-react";
 import { getMutualFundPosition } from "src/hooks/mutualFundPosition";
-
+import Sorting from "src/components/Sorting/Sorting";
 const mutualFundHeaders = [
   {
-    header: "CompanyName",
+    header: "Company",
     icon: "",
+    sortable: false,
   },
   {
     header: "Quantity",
     icon: "",
+    sortable: false,
   },
   {
     header: "Total Amount",
     icon: <i className="rupee sign icon small"> </i>,
+    sortable: false,
   },
   {
     header: "Average NAV",
     icon: <i className="rupee sign icon small"> </i>,
+    sortable: false,
   },
   {
     header: "Current NAV",
     icon: <i className="rupee sign icon small"> </i>,
+    sortable: false,
   },
   {
     header: "Current Value",
     icon: <i className="rupee sign icon small"> </i>,
+    sortable: false,
   },
   {
-    header: "Profit & Loss",
+    header: "Profit/Loss",
     icon: <i className="rupee icon small"> </i>,
     showColor: true,
+    sortable: false,
   },
   {
-    header: "Profit & Loss(%)",
+    header: "Profit/Loss(%)",
     icon: <i className="percent icon small"> </i>,
     showColor: true,
+    sortable: false,
   },
 ];
-const dashboardPosition = [mutualFundHeaders[0],mutualFundHeaders[4],mutualFundHeaders[5]]
+const dashboardPosition = [
+  mutualFundHeaders[0],
+  mutualFundHeaders[4],
+  mutualFundHeaders[5],
+];
 export default function MutualFundPosition({
   searchString,
   page,
   handlePaginationChange,
-  dashboard
+  dashboard,
 }) {
   let [isContentFetchingCompleted, totalPage, response] = [false, 0];
   [isContentFetchingCompleted, totalPage, response] = getMutualFundPosition(
@@ -53,6 +66,29 @@ export default function MutualFundPosition({
     5,
     dashboard
   );
+  let intialPatternState = [];
+  for (let i = 0; i < mutualFundHeaders.length; i++) {
+    intialPatternState.push(0);
+  }
+  const [pattern, setPattern] = useState(intialPatternState);
+  const [orderBy, setOrderBy] = useState("");
+  const [sortingField, setSortingField] = useState("");
+  function changeArrow(index, fieldName) {
+    let midPattern = [];
+    let size = mutualFundHeaders.length;
+    for (let i = 0; i < size; i++) {
+      midPattern.push(0);
+    }
+    midPattern[index] = 1 - pattern[index];
+    setPattern(midPattern);
+    if (midPattern[index] == 1) {
+      setOrderBy("DESC");
+    } else {
+      setOrderBy("ASC");
+    }
+    setSortingField(fieldName);
+  }
+
   const pagination = {
     activePage: page,
     totalPages: totalPage,
@@ -62,11 +98,31 @@ export default function MutualFundPosition({
   return !isContentFetchingCompleted ? (
     <Loader active />
   ) : (
-    <GridContainer
-      dashboard={dashboard}
-      content={dashboard? dashboardPosition : mutualFundHeaders}
-      pagination={pagination}
-      data={response}
-    ></GridContainer>
+    <>
+      {response.length !== 0 && dashboard !== true ? (
+        <>
+          <Sorting
+            content={mutualFundHeaders}
+            pattern={pattern}
+            onclick={changeArrow}
+            dashboard={dashboard}
+          />
+          <GridContainer
+            dashboard={dashboard}
+            content={dashboard ? dashboardPosition : mutualFundHeaders}
+            pagination={pagination}
+            data={response}
+            showHeaderGrid="disable"
+          ></GridContainer>
+        </>
+      ) : (
+        <GridContainer
+          dashboard={dashboard}
+          content={dashboard ? dashboardPosition : mutualFundHeaders}
+          pagination={pagination}
+          data={response}
+        ></GridContainer>
+      )}
+    </>
   );
 }

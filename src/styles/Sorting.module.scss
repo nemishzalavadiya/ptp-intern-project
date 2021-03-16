@@ -1,0 +1,31 @@
+@import "src/styles/_variables.scss";
+i.icon.triangle.up {
+  color: green;
+  cursor: pointer;
+}
+i.icon.dropdown {
+  color: honeydew;
+  cursor: pointer;
+}
+div.dropdown {
+  color: honeydew;
+  cursor: pointer;
+}
+div.triangle.up {
+  color: green;
+  cursor: pointer;
+}
+.grid-header-item-sorting {
+  font-size: 0.8rem;
+  min-width: 90px;
+  text-align: right;
+}
+.row.ui.segment.grid-row-sorting-header {
+  padding: 2vh;
+  background-color: black;
+  color: $white;
+  cursor: pointer;
+  margin:2px 0px;
+  border-radius: 7px;
+  padding-bottom: 0%;
+}

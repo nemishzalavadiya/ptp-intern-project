@@ -13,6 +13,7 @@ import { Loader } from "semantic-ui-react";
 import { useState } from "react";
 import Link from "next/link";
 import useWebSocket from "src/hooks/useWebSocket";
+import Sorting from "src/components/Sorting/Sorting";
 export default function WatchlistView(props) {
   const [companyUuids, setCompanyUuids] = useState([]);
   let data = new Map();
@@ -58,12 +59,22 @@ export default function WatchlistView(props) {
   return isSubscriptionCompleted && data.size === companyUuids.length ? (
     <>
       {
-        <GridContainer
-          content={props.content}
-          pagination={props.pagination}
-          data={Array.from(data.values())}
-          tabId={props.tabId}
-        />
+        <>
+          {props.content.length !== 0 ? (
+            <Sorting
+              content={props.content}
+              pattern={props.pattern}
+              onclick={props.onclick}
+            />
+          ) : null}
+          <GridContainer
+            content={props.content}
+            pagination={props.pagination}
+            data={Array.from(data.values())}
+            tabId={props.tabId}
+            showHeaderGrid="disable"
+          />
+        </>
       }
     </>
   ) : (

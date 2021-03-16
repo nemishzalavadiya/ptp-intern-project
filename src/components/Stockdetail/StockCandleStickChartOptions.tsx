@@ -1,7 +1,6 @@
 const options = {
   chart: {
     backgroundColor: "#272727",
-    borderRadius: "15px",
     type: "candlestick",
     style: {
       color: "#fffdfd",
@@ -10,7 +9,7 @@ const options = {
       duration: 1500,
     },
     zoomType: "x",
-    height: (9 / 16) * 100 + "%",
+    height: 400,
     events: { load: function () {} },
   },
   credits: {

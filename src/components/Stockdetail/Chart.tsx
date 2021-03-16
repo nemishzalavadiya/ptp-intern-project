@@ -5,11 +5,11 @@ import { Menu } from "semantic-ui-react";
 const tabs = [
   {
     name: "candlestick",
-    imgSrc: "/icons8-candlestick-chart-20.png"
+    imgSrc: "/candlestick.svg"
   },
   {
     name: "line",
-    imgSrc: "/icons8-line-chart-201.png"
+    imgSrc: "/line.svg"
   },
 ];
 export default function StockChart(props) {

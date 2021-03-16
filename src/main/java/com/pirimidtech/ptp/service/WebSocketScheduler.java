@@ -23,5 +23,8 @@ public class WebSocketScheduler {
         dataGenerator.getGeneratedStockList().forEach((companyData) -> {
             this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.getCompanyId(), companyData);
         });
+        dataGenerator.getGeneratedMutualFundList().forEach((companyData) -> {
+            this.simpMessagingTemplate.convertAndSend("/topic/" + companyData.getCompanyId(), companyData);
+        });
     }
 }

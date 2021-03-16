@@ -42,7 +42,7 @@ public class DataGenerator {
         mutualFundList = new ArrayList<>();
         Page<AssetDetail> assetServiceList = assetService.getAllAssetDetail(PageRequest.of(0, Integer.MAX_VALUE));
         assetServiceList.forEach(item -> {
-            if (item.getAssetClass().compareTo(AssetClass.STOCK) == 0) {
+            if (AssetClass.STOCK.equals(item.getAssetClass())) {
                 companyIdList.add(item.getId());
                 companyNameList.add(item.getName());
             } else {

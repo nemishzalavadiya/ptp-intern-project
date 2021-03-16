@@ -36,6 +36,7 @@ public class DataGenerator {
 
     @PostConstruct
     public void init() {
+        DECIMAL_FORMAT.setRoundingMode(RoundingMode.DOWN);
         companyIdList = new ArrayList<>();
         companyNameList = new ArrayList<>();
         stockList = new ArrayList<>();
@@ -62,7 +63,6 @@ public class DataGenerator {
     }
 
     private Stock generateStockDataFromCompany(int position) {
-        DECIMAL_FORMAT.setRoundingMode(RoundingMode.DOWN);
         Stock stock = new Stock();
         stock.setCompanyId(companyIdList.get(position));
         stock.setCompanyName(companyNameList.get(position));
@@ -83,7 +83,6 @@ public class DataGenerator {
     }
 
     private void updateStockDetailsForStock(int index) {
-        DECIMAL_FORMAT.setRoundingMode(RoundingMode.DOWN);
         float previousMarketPrice = stockList.get(index).getMarketPrice();
         stockList.get(index).setMarketPrice(Float.parseFloat(DECIMAL_FORMAT.format(MIN + (Math.random() * ((MAX - MIN) + 1)))));
         float currentMarketPrice = stockList.get(index).getMarketPrice();

@@ -1,104 +1,104 @@
 /** asset Data **/
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b181',
         'Adani Green Energy Limited is an India-based renewable energy company. The Company develops, builds, owns, operates and maintains utility-scale grid connected solar power, wind power, hybrid projects and solar parks. It owns a project portfolio of approximately 13,990 megawatts (MW).',
-        'STOCK', 'logo_url', 'Gautam adani', 'Adani green Energy', 'org1');
+        'STOCK', 'logo_url', 'Gautam adani', 'Adani green Energy', 'org1','AGRN');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b182',
         'The Royal Dutch Shell plc is a company based in the Netherlands that explores for crude oil and natural gas around the world, both in conventional fields and from sources, such as tight rock, shale and coal formations. Its segments include Integrated Gas, Upstream, Downstream and Corporate.',
-        'STOCK', 'logo_url', 'Ben van Beurden', 'Royal Dutch Shell PLC (RDS. A)', 'org2');
+        'STOCK', 'logo_url', 'Ben van Beurden', 'Royal Dutch Shell PLC (RDS. A)', 'org2','RDSP');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b183',
         'Bharat Sanchar Nigam Limited d/b/a BSNL is an Indian government owned telecommunications company, headquartered in New Delhi, Delhi, India. It was incorporated by Department of Telecommunications, Ministry of Communications, Government of India on 1 October 2000.',
-        'STOCK', 'logo_url', 'Pravin Kumar Purwar', 'Bharat Sanchar Nigam Limited', 'org3');
+        'STOCK', 'logo_url', 'Pravin Kumar Purwar', 'Bharat Sanchar Nigam Limited', 'org3','BSNL');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b184',
         'Berkshire is manufacturing is largest source of earnings before taxes. Berkshire Hathaway Inc. (BRK. A; BRK.B) is a diversified holding company whose subsidiaries engage in insurance, freight rail transportation, energy generation and distribution, manufacturing, and retailing.',
-        'STOCK', 'logo_url', 'Warren Buffett', 'Berkshire Hathaway Inc. (BRK.A)', 'org4');
+        'STOCK', 'logo_url', 'Warren Buffett', 'Berkshire Hathaway Inc. (BRK.A)', 'org4','BHTWY');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b185',
         'TOYOTA MOTOR CORPORATION is a Japan-based company engaged in the automobile business, finance business and other businesses. The Automobile segment is engaged in the design, manufacture and sale of sedans, minivans, 2box, sports utility vehicles, trucks and related vehicles, as well as related parts and products.',
-        'MUTUAL_FUND', 'logo_url', 'Akio Toyoda ', 'Toyota Motor Corp. (TM)', 'org5');
+        'MUTUAL_FUND', 'logo_url', 'Akio Toyoda ', 'Toyota Motor Corp. (TM)', 'org5','TMTR');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b186',
         'Oil and Natural Gas Corporation is an Indian public sector multinational crude oil and gas company. Its registered office is in New Delhi. It is owned by the Government of India, under the administrative control of the Ministry of Petroleum and Natural Gas.',
-        'MUTUAL_FUND', 'logo_url', 'Shashi Shanker', 'Oil and Natural Gas Corporation', 'org6');
+        'MUTUAL_FUND', 'logo_url', 'Shashi Shanker', 'Oil and Natural Gas Corporation', 'org6','ONGC');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b187',
         'CVS Health is an American healthcare company that owns CVS Pharmacy, a retail pharmacy chain; CVS Caremark, a pharmacy benefits manager; Aetna, a health insurance provider, among many other brands. The company headquarters is in Woonsocket, Rhode Island',
-        'MUTUAL_FUND', 'logo_url', 'Karen S. Lynch', 'CVS Health Corp. (CVS)', 'org7');
+        'MUTUAL_FUND', 'logo_url', 'Karen S. Lynch', 'CVS Health Corp. (CVS)', 'org7','CHLC');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b188',
         'Bonn group of Industries is food company based in Ludhiana Punjab, India. Founded in 1985, it produces a variety of food products including breads, biscuits, cakes and cookies. These products are sold in both Indian and International markets.',
-        'MUTUAL_FUND', 'logo_url', 'Manjit Singh', 'Bonn Group of Industries', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Manjit Singh', 'Bonn Group of Industries', 'org8','BGRP');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b189',
         'Cathay Pacific Airways is Hong Kongs flag carrier, offering passenger and cargo services to around 200 cities in Asia, Europe, North America, Africa and Australia. It has a workforce of around 23,000. The company was established in 1946 by Roy Farrell, an American, and Sydney de Kantzow, an Australian.',
-        'MUTUAL_FUND', 'logo_url', 'Augustus Tang Kin Wing', 'Cathay Pacific Airways Ltd. (CPA)', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Augustus Tang Kin Wing', 'Cathay Pacific Airways Ltd. (CPA)', 'org8','CPAL');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b190',
         'Axis Bluechip Fund is an open-ended equity scheme, which predominantly invests in large-cap stocks. Investors who are looking for capital appreciation over time and portfolio diversification with equity and equity-related instruments of large-cap firms can choose this fund.',
-        'MUTUAL_FUND', 'logo_url', 'Chandresh Kumar Nigam', 'Axis Bluechip', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Chandresh Kumar Nigam', 'Axis Bluechip', 'org8','AXBC');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b191',
         'British Airways is the flag carrier airline of the United Kingdom. It is headquartered in London, England, near its main hub at Heathrow Airport. The airline is the second largest UK based carrier, based on fleet size and passengers carried, behind easyJet.',
-        'MUTUAL_FUND', 'logo_url', 'Sean Doyle', 'British Airways', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Sean Doyle', 'British Airways', 'org8','BRTA');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b192',
         'A Private Limited Company offers Limited Liability or Legal Protection for its Shareholders. A Private Limited Company lies between a partnership and widely owned public company. A Private Limited Company is identified by the company name, number of members, formation, directors, meetings, shares, etc.',
-        'MUTUAL_FUND', 'logo_url', 'Schauna Chauhan', 'Indian Private Corporation', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Schauna Chauhan', 'Indian Private Corporation', 'org8','IPRC');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b193',
         'Bharat Oil & Waste Management Ltd (BOWML) provides Complete Solutions in Waste Testing, Tracking and Management via its products and services since 1978. BOWML is committed to protecting mother-nature by providing safest Hazardous Waste Management Service, Electrical & Electronic Waste Management Service, Recycling/Re-refining Used Lube Oil, Laboratory Testing, Waste Management & Tracking Enterprise Software (WTS ®) and Technology Solutions.',
-        'MUTUAL_FUND', 'logo_url', 'K Padmakar', 'Bharat Oil Fund Risers', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'K Padmakar', 'Bharat Oil Fund Risers', 'org8','BOFR');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b194',
         'The Tata group has consistently contributed to nation building by creating enterprises that laid the foundation of India growth. ... Driven by this pioneering spirit, the Tata group has set up Tata Digital to build digital businesses that will address the needs of Indian consumers as well as businesses.',
-        'MUTUAL_FUND', 'logo_url', 'Sailesh jain', 'Tata Digital India Fund', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Sailesh jain', 'Tata Digital India Fund', 'org8','TDIF');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b195',
         'Pirimid Fintech provides cutting edge software development services with highest quality, robust software systems and workflows. We have expertise in capital markets across various asset classes building execution',
-        'MUTUAL_FUND', 'logo_url', 'Jon snow', 'Pirimid Software TechGiant', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Jon snow', 'Pirimid Software TechGiant', 'org8','PRST');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b196',
         'Motilal Oswal Financial Services Limited is an Indian diversified financial services firm offering a range of financial products and services. The company was founded by Motilal Oswal and Raamdeo Agarwal in 1987.',
-        'MUTUAL_FUND', 'logo_url', 'Ashish Agarwal', 'Motilal Oswal Nasdaq ', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Ashish Agarwal', 'Motilal Oswal Nasdaq ', 'org8','MTON');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b197',
         'Franklin U.S. Opportunities Fund aims to invest in leading growth companies across industries and market-capitalizations,This fund gives Indian investors an opportunity to invest in US companies through Franklin U.S. Opportunities Fund',
-        'MUTUAL_FUND', 'logo_url', 'Pyari Menon', 'Franklin India Feeder', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Pyari Menon', 'Franklin India Feeder', 'org8','FRNK');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b198',
         'The investment objective of the scheme is to seek long term capital appreciation by investing at least 80% of its net assets in equity/equity related instruments of companies in the Information Technology (IT) sector in Indiaviz: Software.',
-        'MUTUAL_FUND', 'logo_url', 'Pratik Pal', 'Tata digital india', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Pratik Pal', 'Tata digital india', 'org8','TTDI');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b199',
         'The scheme seeks to generate capital appreciation by investing predominantly in units of Mirae Asset China Sector Leader Equity Fund and/or units of other mutual fund schemes, units of exchange traded schemes that focus on investing in.',
-        'MUTUAL_FUND', 'logo_url', 'Ragnar Lothbrok', 'Mirae asset China Advantage', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Ragnar Lothbrok', 'Mirae asset China Advantage', 'org8','MCHNA');
 
-insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization)
+insert into public.asset_detail(id, about, asset_class, logo_url, managing_director, name, organization, ticker_symbol)
 VALUES ('51381618-1bc9-4c19-aab9-44994433b200',
         'Baroda Large & Mid Cap Fund Direct Growth is a Equity mutual fund scheme launched by. Baroda Large & Mid Cap Fund Direct Growth is rated very high risk. Min sip investmetn is set to 500',
-        'MUTUAL_FUND', 'logo_url', 'Sanjay Chawla', 'Baroda Large & Mid Cap Fund Direct Growth', 'org8');
+        'MUTUAL_FUND', 'logo_url', 'Sanjay Chawla', 'Baroda Large & Mid Cap Fund Direct Growth', 'org8','BLMC');
 
 /** Stock Data **/
 

@@ -37,7 +37,7 @@ public class StockDetailServiceTest {
     StockService stockService;
 
     public StockDetail createStock(UUID id, String name) {
-        return new StockDetail(id, LocalDateTime.now(), name, new AssetDetail(UUID.randomUUID(), "ptp1", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
+        return new StockDetail(id, LocalDateTime.now(), name, new AssetDetail(UUID.randomUUID(), "ptp1", "logo_url", AssetClass.STOCK, "about", "devesh", "org","HNGL"));
     }
 
     @Test

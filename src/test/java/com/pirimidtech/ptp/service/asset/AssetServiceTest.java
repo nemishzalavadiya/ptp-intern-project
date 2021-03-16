@@ -30,15 +30,15 @@ public class AssetServiceTest {
     AssetService assetService;
 
     public AssetDetail createAssetDetail() {
-        return new AssetDetail(UUID.randomUUID(), "name", "logo_url", AssetClass.STOCK, "about", "devesh", "org");
+        return new AssetDetail(UUID.randomUUID(), "name", "logo_url", AssetClass.STOCK, "about", "devesh", "org","HNGL");
     }
 
     public AssetDetail createAssetDetail(String name) {
-        return new AssetDetail(UUID.randomUUID(), name, "logo_url", AssetClass.STOCK, "about", "devesh", "org");
+        return new AssetDetail(UUID.randomUUID(), name, "logo_url", AssetClass.STOCK, "about", "devesh", "org","HNGL");
     }
 
     public AssetDetail createAssetDetail(UUID id) {
-        return new AssetDetail(id, "name", "logo_url", AssetClass.STOCK, "about", "devesh", "org");
+        return new AssetDetail(id, "name", "logo_url", AssetClass.STOCK, "about", "devesh", "org","HNGL");
     }
 
 

@@ -19,7 +19,7 @@ import { sipStatus } from "src/enums/sipStatus";
 export default function SIP(props) {
   let [isDataFetchingCompleted, SetIsDataFetchingCompleted] = useState(false);
   let [results, setResults] = useState([]);
-  let [open, setOpen] = useState(false);
+  let [modalOpen, setModalOpen] = useState(false);
   let [mfEdit, setMfEdit] = useState({});
   let [mutualFundId, setMutualFundId] = useState("");
   let [mutualFundOrderId, setMutualFundOrderId] = useState("");
@@ -144,7 +144,7 @@ export default function SIP(props) {
       amount: amount,
       date: date,
     });
-    setOpen(true);
+    setModalOpen(true);
   };
 
   pagination.totalPages = dataResponse.totalPages;
@@ -152,9 +152,9 @@ export default function SIP(props) {
     <div>
       <GridContainer content={header} data={results} pagination={pagination} />
       <Modal
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        open={open}
+        onClose={() => setModalOpen(false)}
+        onOpen={() => setModalOpen(true)}
+        open={modalOpen}
         basic
         size="large"
       >

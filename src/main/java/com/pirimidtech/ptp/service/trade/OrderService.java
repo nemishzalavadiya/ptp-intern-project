@@ -122,6 +122,6 @@ public class OrderService implements OrderServiceInterface {
     }
 
     public int getTotalSips(UUID userId) {
-        return mutualFundOrderRepository.countByUserId(userId);
+        return mutualFundOrderRepository.countByUserIdAndInvestmentType(userId, InvestmentType.ONE_TIME);
     }
 }

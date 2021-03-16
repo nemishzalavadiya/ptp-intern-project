@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -32,5 +33,5 @@ public interface MutualFundOrderRepository extends JpaRepository<MutualFundOrder
 
     Page<MutualFundOrder> findAllBySipStatusNotAndInvestmentTypeNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc(SIPStatus deleted, InvestmentType oneTime, InvestmentType none, UUID userId, Pageable pageable);
 
-    int countByUserId(UUID userId);
+    int countByUserIdAndInvestmentType(UUID userId,InvestmentType investmentType);
 }

@@ -96,11 +96,11 @@ public class WatchlistController {
         return ResponseEntity.ok().body(watchlist);
     }
 
-    @PostMapping("/watchlistentry")
+    @PostMapping("/add-watchlistentry")
     public ResponseEntity<WatchlistEntry> addWatchlistEntry(@RequestBody WatchlistEntry watchlistEntry,
                                                             HttpServletRequest httpServletRequest) {
         String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
-        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
+        UUID userId = UUID.fromString("00000000-0000-0000-0000-000000000000");
         Optional<User> user = userService.getUserById(userId);
         log.info("UserId {} requested all watchlist ids, page {} size {}", userId.toString());
         if (user.isPresent()){
@@ -118,14 +118,13 @@ public class WatchlistController {
             }
                 watchlistEntry.setWatchlist(watchlist);
                 watchlistEntryService.add(watchlistEntry);
-                watchlistEntry.setWatchlist(watchlist);
-
             return ResponseEntity.ok().body(watchlistEntry);
         }
         else{
             throw new NotFoundException();
         }
     }
+
 
     @GetMapping("/searchWatchlist")
     public ResponseEntity<Page<WatchlistEntry>> searchInWatchlist(@RequestParam UUID watchlistID,

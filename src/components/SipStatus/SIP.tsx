@@ -16,18 +16,20 @@ import Moment from "moment";
 import { updateMutualFundOrder } from "src/services/mutualFundOrder";
 import { sipStatus } from "src/enums/sipStatus";
 
-export default function MutualFundOrder(props) {
+export default function SIP(props) {
   let [isDataFetchingCompleted, SetIsDataFetchingCompleted] = useState(false);
   let [results, setResults] = useState([]);
   let [open, setOpen] = useState(false);
-  let [MFEdit, setMFEdit] = useState({});
-  var temp = [];
+  let [mfEdit, setMfEdit] = useState({});
   let [mutualFundId, setMutualFundId] = useState("");
   let [mutualFundOrderId, setMutualFundOrderId] = useState("");
   let [ticketDetail, setTicketDetail] = useState({});
   let [dataResponse, setDataResponse] = useState([]);
   let [isUpdate, setIsUpdate] = useState(false);
   let [statusPlayFlag, setStatusPlayFlag] = useState(false);
+  const [page, setPage] = useState({
+    pages: 0,
+  });
   const header = [
     { header: "Company Name", icon: "" },
     { header: "Amount", icon: <i className="rupee sign icon small"></i> },
@@ -37,11 +39,10 @@ export default function MutualFundOrder(props) {
     { header: "SIP Status", icon: "" },
     { header: "", icon: "" },
   ];
+  const [isMFFetchingComplete, MFResponse] = getMfByAssetId(mutualFundId);
 
-  const [page, setPage] = useState({
-    pages: 0,
-  });
   useEffect(() => {
+    let temp = [];
     setResults([]);
     getMutualFundOrdersBySipStatus(UserId.userId, page.pages, 5).then((res) => {
       setDataResponse(res);
@@ -83,9 +84,18 @@ export default function MutualFundOrder(props) {
       SetIsDataFetchingCompleted(true);
     });
   }, [isUpdate, statusPlayFlag, page]);
-  function handlePaginationChange(pageNo) {
+
+  useEffect(() => {
+    setMfEdit({
+      mutualFundDetail: {
+        id: MFResponse.id,
+      },
+      minSIP: MFResponse?.minSIP,
+    });
+  }, [MFResponse]);
+  const handlePaginationChange = (pageNo) => {
     setPage({ pages: pageNo, userId: UserId.userId });
-  }
+  };
 
   const pagination = {
     activePage: page.pages,
@@ -93,16 +103,15 @@ export default function MutualFundOrder(props) {
     handlePaginationChange: handlePaginationChange,
   };
 
-  function handleItemClick(index) {
+  const handleItemClick = (index) => {
     setActiveItem(index);
-  }
+  };
 
-  function deleteSIP(mutualFundOrderId) {
+  const deleteSIP = (mutualFundOrderId) => {
     deleteSIPStatus(mutualFundOrderId);
     setIsUpdate(!isUpdate);
-  }
+  };
 
-  const [isMFFetchingComplete, MFResponse] = getMfByAssetId(mutualFundId);
   const updateStatus = async (mutualFundOrder) => {
     if (mutualFundOrder.sipStatus === sipStatus.PAUSED) {
       mutualFundOrder.sipStatus = sipStatus.ACTIVE;
@@ -122,10 +131,11 @@ export default function MutualFundOrder(props) {
         id: mutualFundOrder.mutualFundDetail.id,
       },
     };
-    await updateMutualFundOrder(mutualFundOrder.id, data);
-    setIsUpdate(!isUpdate);
+    updateMutualFundOrder(mutualFundOrder.id, data).then(() => {
+      setIsUpdate(!isUpdate);
+    });
   };
-  function editSIP(mfAssetId, mfOrderId, frequency, amount, date) {
+  const editSIP = (mfAssetId, mfOrderId, frequency, amount, date) => {
     setIsUpdate(!isUpdate);
     setMutualFundId(mfAssetId);
     setMutualFundOrderId(mfOrderId);
@@ -135,15 +145,8 @@ export default function MutualFundOrder(props) {
       date: date,
     });
     setOpen(true);
-  }
-  useEffect(() => {
-    setMFEdit({
-      mutualFundDetail: {
-        id: MFResponse.id,
-      },
-      minSIP: MFResponse?.minSIP,
-    });
-  }, [MFResponse]);
+  };
+
   pagination.totalPages = dataResponse.totalPages;
   return isDataFetchingCompleted ? (
     <div>
@@ -164,7 +167,7 @@ export default function MutualFundOrder(props) {
                 isUpdate={true}
                 isUpdateFlag={isUpdate}
                 setIsUpdate={setIsUpdate}
-                mfDetail={MFEdit}
+                mfDetail={mfEdit}
               />
             </div>
           }

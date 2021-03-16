@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Layout from "src/components/Layout";
-import SipStatus from "src/components/SipStatus/SipStatus";
+import SIP from "src/components/SipStatus/SIP";
 export default function Home() {
   return (
     <Layout name="POSITION">
@@ -9,7 +9,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.svg" />
       </Head>
 
-      <SipStatus />
+      <SIP />
     </Layout>
   );
 }

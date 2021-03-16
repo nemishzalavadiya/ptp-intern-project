@@ -25,7 +25,6 @@ export default function MutualFundTicket(props) {
   const [amount, setAmount] = useState(
     props.isUpdate ? props.ticketDetail.amount : 0
   );
-  const [amountTag, setAmountTag] = useState("Amount");
   const [date, setDate] = useState(
     props.isUpdate ? props.ticketDetail.date : ""
   );
@@ -69,7 +68,7 @@ export default function MutualFundTicket(props) {
         },
       };
       await updateMutualFundOrder(props.mfOrderId, data);
-      props.setIsUpdate(!props.isUpdateFlag)
+      props.setIsUpdate(!props.isUpdateFlag);
     } else {
       setOrderStatus(true);
       event.preventDefault();
@@ -119,33 +118,35 @@ export default function MutualFundTicket(props) {
     <Segment className="mutualFundTicket">
       <Form inverted>
         <Grid>
-          <Grid.Row>
-            <Grid.Column width={5}>
-              <label>Investment Type</label>
-            </Grid.Column>
-            <Grid.Column width={11}>
-              <Button.Group name="orderType" widths="2" fluid>
-                <Button
-                  color="grey"
-                  positive={investmentType === InvestmentType.SIP}
-                  onClick={() => {
-                    setInvestmentType(InvestmentType.SIP);
-                  }}
-                >
-                  SIP
-                </Button>
-                <Button
-                  color="grey"
-                  positive={investmentType === InvestmentType.ONE_TIME}
-                  onClick={() => {
-                    setInvestmentType(InvestmentType.ONE_TIME);
-                  }}
-                >
-                  Lumpsum
-                </Button>
-              </Button.Group>
-            </Grid.Column>
-          </Grid.Row>
+          {!props.isUpdate && (
+            <Grid.Row>
+              <Grid.Column width={5}>
+                <label>Investment Type</label>
+              </Grid.Column>
+              <Grid.Column width={11}>
+                <Button.Group name="orderType" widths="2" fluid>
+                  <Button
+                    color="grey"
+                    positive={investmentType === InvestmentType.SIP}
+                    onClick={() => {
+                      setInvestmentType(InvestmentType.SIP);
+                    }}
+                  >
+                    SIP
+                  </Button>
+                  <Button
+                    color="grey"
+                    positive={investmentType === InvestmentType.ONE_TIME}
+                    onClick={() => {
+                      setInvestmentType(InvestmentType.ONE_TIME);
+                    }}
+                  >
+                    Lumpsum
+                  </Button>
+                </Button.Group>
+              </Grid.Column>
+            </Grid.Row>
+          )}
           <Grid.Row>
             <Grid.Column width={5}>
               <label> Frequency </label>
@@ -155,7 +156,7 @@ export default function MutualFundTicket(props) {
                 disabled={investmentType === InvestmentType.ONE_TIME}
                 fluid
                 value={frequency}
-                onChange={(event,data) => {
+                onChange={(event, data) => {
                   setFrequency(data.value);
                 }}
                 selection

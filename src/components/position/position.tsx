@@ -14,7 +14,7 @@ export default function Position(props) {
   const [assetClass, setAssetClass] = useState(AssetClass.STOCK);
   const [activeItem, setActiveItem] = useState(0);
   const [page, setPage] = useState(0);
-  const [totalSIPs,setTotalSIPs] = useState(0);
+  const [totalSIPs, setTotalSIPs] = useState(0);
   const totalPages = 500;
 
   function handlePaginationChange(pageNo) {
@@ -40,9 +40,11 @@ export default function Position(props) {
     setSearchString(data.value);
     setPage(0);
   }
-  getMutualFundOrdersCountBySipStatus(UserId.userId, 0, totalPages).then((res) => {
-    setTotalSIPs(res);
-  })
+  getMutualFundOrdersCountBySipStatus(UserId.userId, 0, totalPages).then(
+    (res) => {
+      setTotalSIPs(res);
+    }
+  );
   return (
     <div>
       <Tab
@@ -54,9 +56,9 @@ export default function Position(props) {
         handleSearchChange={handleSearchChange}
         placeholder={`Search In ${tabs[activeItem].name} Position...`}
       />
-      {assetClass === AssetClass.MUTUAL_FUND ? (
+      {assetClass === AssetClass.MUTUAL_FUND && (
         <Button
-          disabled = {!totalSIPs?true:false}
+          disabled={!totalSIPs ? true : false}
           inverted
           color="green"
           size="large"
@@ -64,8 +66,6 @@ export default function Position(props) {
         >
           Active SIPs : {totalSIPs}
         </Button>
-      ) : (
-        ""
       )}
       {activeItem === 0 ? (
         <StockPositionList

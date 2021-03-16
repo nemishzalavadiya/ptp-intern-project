@@ -72,7 +72,7 @@ export default function Profile() {
             placeholder="Add amount"
             onChange={(event) => setFund(parseInt(event.target.value))}
           />
-          {!isAddFund ? (
+          {!isAddFund && (
             <Dropdown
               selection
               onChange={(event, data) => setBank(data.value)}
@@ -81,8 +81,6 @@ export default function Profile() {
                 return { key: item.name, value: item.name, text: item.name };
               })}
             ></Dropdown>
-          ) : (
-            ""
           )}
         </Modal.Content>
         <Modal.Actions>

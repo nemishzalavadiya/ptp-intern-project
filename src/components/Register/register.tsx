@@ -153,7 +153,7 @@ export default function Register() {
                         transparent
                         type={showPassword ? "text" : "password"}
                         iconPosition="left"
-                        placeholder="123456"
+                        placeholder="********"
                         value={password}
                         onChange={(event) => {
                           setPassword(event.target.value);
@@ -176,7 +176,7 @@ export default function Register() {
                         transparent
                         type={showConfirmPassword ? "text" : "password"}
                         iconPosition="left"
-                        placeholder="12345"
+                        placeholder="********"
                         value={confirmPassword}
                         onChange={(event) =>
                           setConfirmPassword(event.target.value)

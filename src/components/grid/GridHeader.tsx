@@ -1,6 +1,6 @@
 import { Grid, Icon } from "semantic-ui-react";
 export default function GridHeader(props) {
-  return (
+  return props.dashboard !== true ? (
     <Grid columns="equal" className="grid-container">
       <Grid.Row className="ui segment grid-row-sorting-header">
         {props.content.map((item, index) => {
@@ -50,5 +50,5 @@ export default function GridHeader(props) {
         })}
       </Grid.Row>
     </Grid>
-  );
+  ) : null;
 }

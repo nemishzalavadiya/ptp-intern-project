@@ -85,13 +85,6 @@ export default function MutualFundPosition({
     setSortingField(fieldName);
   }
   
-  let [isContentFetchingCompleted, totalPage, response] = [false, 0];
-  [isContentFetchingCompleted, totalPage, response] = getMutualFundPosition(
-    UserId.userId,
-    searchString,
-    page,
-    5
-  );
 
   const pagination = {
     activePage: page,
@@ -114,10 +107,12 @@ export default function MutualFundPosition({
           content={mutualFundHeaders}
           pattern={pattern}
           onclick={changeArrow}
+          dashboard={dashboard}
         />
       ) : null}
       <GridContainer
-        content={mutualFundHeaders}
+        dashboard={dashboard}
+        content={dashboard? dashboardPosition : mutualFundHeaders}
         pagination={pagination}
         data={response}
         showHeaderGrid="disable"

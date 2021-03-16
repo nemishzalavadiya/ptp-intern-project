@@ -7,6 +7,7 @@ export default function Sorting(props) {
       onclick={props.onclick}
       pattern={props.pattern}
       showHeaderGrid={props.showHeaderGrid}
+      dashboard={props.dashboard}
     ></GridHeader>
   );
 }

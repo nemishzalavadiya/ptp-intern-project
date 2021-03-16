@@ -116,6 +116,7 @@ export default function StockPositionList({
           content={stockHeaders}
           pattern={pattern}
           onclick={changeArrow}
+          dashboard={dashboard}
         />
       ) : null}
     <StockPosition
@@ -124,7 +125,7 @@ export default function StockPositionList({
       positionList={positionList}
       pagination={pagination}
       dashboard={dashboard}
-      showHeaderGrid="disallow"
+      showHeaderGrid="disable"
     ></StockPosition>
     </>
   );

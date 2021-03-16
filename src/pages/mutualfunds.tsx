@@ -169,6 +169,7 @@ const mutualfunds = () => {
               totalPages,
               handlePaginationChange: setActivePage,
             }}
+            showHeaderGrid="disable"
           />
         </div>
       </div>

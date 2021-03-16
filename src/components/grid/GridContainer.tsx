@@ -19,7 +19,7 @@ export default function GridContainer(props) {
             {row.map((item, innerIndex) =>
               innerIndex != 0 ? (
                 <Grid.Column key={`${outerIndex} ${innerIndex}`}>
-                  {props.showHeaderGrid !== "disable" ? (
+                  {props.showHeaderGrid !== "disable" || props.dashboard ===true? (
                     <div className="grid-header-item">
                       {props.content[innerIndex].header}
                     </div>

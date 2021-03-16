@@ -9,7 +9,7 @@ export default function MutualFundDetail(props) {
   return isComplete ? (
     <div>
       <Header className="stats">
-        <div>{response.mutualFundDetail.assetDetail.name}</div>
+        <div>{response.mutualFundDetail?.assetDetail?.name}</div>
         <div className="ticker">
           <div>
             <a className="ui grey label">{response.mutualFundDetail?.assetDetail?.tickerSymbol}</a>

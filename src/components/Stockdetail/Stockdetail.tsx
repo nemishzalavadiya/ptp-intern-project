@@ -32,7 +32,7 @@ export default function Stockdetail(props) {
   return isComplete ? (
     <div>
       <Header className="stats">
-        <div>{response.stockDetail.assetDetail.name}</div>
+        <div>{response.stockDetail?.assetDetail?.name}</div>
         <div className="ticker">
           <div>
             <a className="ui grey label">{response.stockDetail?.assetDetail?.tickerSymbol}</a>

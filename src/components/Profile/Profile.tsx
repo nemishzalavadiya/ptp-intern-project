@@ -142,7 +142,7 @@ export default function Profile() {
       {isComp ? (
         <Segment className="profile">
           <Grid divided columns={2}>
-            <Divider vertical></Divider>
+            <Divider className="divider" vertical></Divider>
             <Grid.Row>
               <Grid.Column width={8}>
                 <Form inverted>
@@ -398,19 +398,19 @@ export default function Profile() {
 
               <Grid.Column width={8}>
                 {isUpdate == true ? (
-                  <Button.Group className="save-button">
-                    <Button onClick={saveChanges} inverted color="green">
+                  <div className="save-button-container">          
+                    <Button onClick={saveChanges} className="save-button" inverted color="green">
                       <Icon name="edit" />
                       Save
                     </Button>
-                    <Button onClick={revertChanges} inverted color="red">
+                    <Button onClick={revertChanges} className="cancel-button" inverted color="red">
                       <Icon name="cancel" />
                       Cancel
                     </Button>
-                  </Button.Group>
+                 </div>
                 ) : (
-                  <Button
-                    className="editbutton"
+                  <Button 
+                    className="edit-button"
                     inverted
                     color="green"
                     onClick={saveChanges}

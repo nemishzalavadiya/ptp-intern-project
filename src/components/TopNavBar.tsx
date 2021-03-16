@@ -46,7 +46,7 @@ const TopNavBar = (props) => {
             content={
               <>
                 {dpUrl ? (
-                  <div className="profilebox">
+                  <div className="profile-box">
                     <Image
                       src="/user.jpg"
                       className="popupusericon"
@@ -55,7 +55,7 @@ const TopNavBar = (props) => {
                     />
                   </div>
                 ) : (
-                  <div className="profilebox">
+                  <div className="profile-box">
                     <Image
                       src="/userwhite.jpg"
                       className="popupusericon"

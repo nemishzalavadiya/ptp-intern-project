@@ -37,7 +37,7 @@ export default function Login() {
   };
   return (
     <>
-      <Segment className="userlogin">
+      <Segment className="user-login">
         <Grid textAlign="center">
           <Divider vertical></Divider>
           <Grid.Row verticalAlign="middle">

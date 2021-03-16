@@ -14,10 +14,13 @@
 
 .ui.inverted.transparent.icon.input.textcolor > input {
   color: white;
+  border-bottom: 3px solid #272727;
 }
 
 .ui.inverted.transparent.input.textcolor > input {
   color: white;
+  border-bottom: 3px solid #272727;
+
 }
 
 .ui.inverted.transparent.input.textborder {
@@ -40,15 +43,25 @@
   height: 100px;
 }
 
-.ui.buttons.save-button{
-  display: block;
+.save-button-container{
   cursor: pointer;
-  margin-left: 60%;
+  margin-left: 50%;
+  transform: translateX(25%);
 }
-.ui.button.editbutton{
+
+.ui.button.save-button{
+  padding:auto 40px;
+}
+
+.ui.button.cancel-button{
+  padding:auto 10px;
+}
+
+.ui.button.edit-button{
   display: block;
   cursor: pointer;
   margin-left: auto;
+  margin-right: 0px;
 }
 
 .icon{
@@ -71,4 +84,9 @@
 
 .ui.grid > .row > .wide.column {
   margin: 0;
+}
+
+.ui.divider.profile-divider::before{
+  border:2px solid red;
+  margin-right:100px
 }

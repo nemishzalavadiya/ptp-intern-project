@@ -71,7 +71,7 @@ export default function Register() {
 
   return (
     <>
-      <Segment className="usersignup">
+      <Segment className="user-signup">
         <Grid textAlign="center">
           <Divider vertical></Divider>
           <Grid.Row verticalAlign="middle">

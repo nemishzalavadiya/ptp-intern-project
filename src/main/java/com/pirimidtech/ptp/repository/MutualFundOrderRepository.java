@@ -32,4 +32,5 @@ public interface MutualFundOrderRepository extends JpaRepository<MutualFundOrder
 
     Page<MutualFundOrder> findAllBySipStatusNotAndInvestmentTypeNotAndInvestmentTypeNotAndAndUserIdOrderBySIPDateDesc(SIPStatus deleted, InvestmentType oneTime, InvestmentType none, UUID userId, Pageable pageable);
 
+    int countByUserId(UUID userId);
 }

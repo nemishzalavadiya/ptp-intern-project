@@ -158,6 +158,12 @@ public class OrderController {
         return ResponseEntity.ok().body(mutualFundOrderList);
     }
 
+    @GetMapping("/mutualfun/sip-status-records/users")
+    public int getTotalSipResponses(@RequestParam UUID userId){
+        int totalSips = orderService.getTotalSips(userId);
+        return totalSips;
+    }
+
     @DeleteMapping("/mutualfund/delete-sip-status/users")
     public ResponseEntity<UUID> deleteMutualFundSipStatusByUser(@RequestParam UUID mutualFundOrderId) {
         orderService.deleteMutualFundBySipStatus(mutualFundOrderId);

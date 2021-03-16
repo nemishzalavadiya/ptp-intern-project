@@ -27,5 +27,6 @@ public interface OrderServiceInterface {
 
     Page<MutualFundOrder> getMutualFundOrderFilteredOnDate(UUID userId, String startDate, String endDate, Pageable pageable) throws ParseException;
 
+    int getTotalSips(UUID userId);
 
 }

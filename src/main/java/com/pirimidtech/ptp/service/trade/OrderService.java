@@ -120,4 +120,8 @@ public class OrderService implements OrderServiceInterface {
     public void deleteMutualFundBySipStatus(UUID mutualFundOrderId) {
         mutualFundOrderRepository.deleteById(mutualFundOrderId);
     }
+
+    public int getTotalSips(UUID userId) {
+        return mutualFundOrderRepository.countByUserId(userId);
+    }
 }

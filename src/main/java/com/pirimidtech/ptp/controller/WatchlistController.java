@@ -2,10 +2,13 @@ package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.AssetDetail;
+import com.pirimidtech.ptp.entity.User;
 import com.pirimidtech.ptp.entity.Watchlist;
 import com.pirimidtech.ptp.entity.WatchlistEntry;
+import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.repository.AssetDetailRepository;
 import com.pirimidtech.ptp.service.asset.AssetService;
+import com.pirimidtech.ptp.service.user.UserService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistEntryService;
 import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import com.pirimidtech.ptp.util.RequestUtil;
@@ -28,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -45,6 +49,8 @@ public class WatchlistController {
     private AssetService assetService;
     @Autowired
     private RequestUtil requestUtil;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/{watchlistId}")
     public ResponseEntity<Page<WatchlistEntry>> getAllWatchlistEntry(@PathVariable UUID watchlistId,
@@ -91,15 +97,34 @@ public class WatchlistController {
     }
 
     @PostMapping("/watchlistentry")
-    public ResponseEntity<WatchlistEntry> addWatchlistEntry(@RequestBody WatchlistEntry watchlistEntry) {
-        watchlistEntry.setId(null);
-        if (watchlistEntry.getWatchlist() == null || watchlistEntry.getAssetDetail() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(watchlistEntry);
+    public ResponseEntity<WatchlistEntry> addWatchlistEntry(@RequestBody WatchlistEntry watchlistEntry,
+                                                            HttpServletRequest httpServletRequest) {
+        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
+        Optional<User> user = userService.getUserById(userId);
+        log.info("UserId {} requested all watchlist ids, page {} size {}", userId.toString());
+        if (user.isPresent()){
+            watchlistEntry.setId(null);
+            ArrayList<Watchlist> watchlistList = new ArrayList<>(watchlistService.findByUserId(userId));
+            Watchlist watchlist = new Watchlist();
+            Optional<AssetDetail> assetDetail = assetService.getAssetDetail(watchlistEntry.getAssetDetail().getId());
+            if(assetDetail.get().getAssetClass().equals(AssetClass.STOCK)){
+                    watchlist.setUser(user.get());
+                    watchlist.setId(watchlistList.get(0).getId());
+            }
+            else{
+                watchlist.setUser(user.get());
+                watchlist.setId(watchlistList.get(1).getId());
+            }
+                watchlistEntry.setWatchlist(watchlist);
+                watchlistEntryService.add(watchlistEntry);
+                watchlistEntry.setWatchlist(watchlist);
+
+            return ResponseEntity.ok().body(watchlistEntry);
         }
-        if (watchlistService.findById(watchlistEntry.getWatchlist().getId()).isPresent()) {
-            watchlistEntryService.add(watchlistEntry);
+        else{
+            throw new NotFoundException();
         }
-        return ResponseEntity.ok().body(watchlistEntry);
     }
 
     @GetMapping("/searchWatchlist")

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,5 +27,9 @@ public class WatchlistService implements WatchlistServiceInterface {
 
     public Optional<Watchlist> findById(UUID watchlistId) {
         return watchListRepository.findById(watchlistId);
+    }
+
+    public List<Watchlist> findByUserId(UUID userId) {
+        return watchListRepository.findByUserId(userId);
     }
 }

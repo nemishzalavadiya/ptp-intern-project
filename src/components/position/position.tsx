@@ -9,7 +9,7 @@ import { AssetClass } from "src/enums/assetClass";
 import { getMutualFundOrdersCountBySipStatus } from "src/services/sipstatus";
 import { UserId } from "src/components/Objects";
 
-export default function Position() {
+export default function Position(props) {
   const [searchString, setSearchString] = useState("");
   const [assetClass, setAssetClass] = useState(AssetClass.STOCK);
   const [activeItem, setActiveItem] = useState(0);

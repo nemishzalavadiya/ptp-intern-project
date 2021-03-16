@@ -4,14 +4,27 @@ import { Image, Popup, Grid, Icon, Divider } from "semantic-ui-react";
 import Link from "next/link";
 import useAuth from "src/components/contexts/useAuth";
 import { getUser } from "src/services/userUpdate";
+import { ToastContainer, toast } from "react-toastify";
+
 const TopNavBar = (props) => {
   const [userName, setUserName] = useState("");
   const [dpUrl, setDpUrl] = useState("");
+
   let { logout } = useAuth();
   const router = useRouter();
 
   useEffect(async () => {
-    const user = await getUser();
+    const user = await getUser().catch((err) => {
+      toast("Something went wrong please try", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
+    });;
     setUserName(user.firstName);
     setDpUrl(null);
   }, []);

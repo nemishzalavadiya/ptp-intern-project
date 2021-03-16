@@ -72,7 +72,6 @@ export default function MutualFundTicket(props) {
           closeOnClick: true,
           pauseOnHover: false,
           draggable: false,
-          progress: undefined,
         });
       })
       .catch((err) => {

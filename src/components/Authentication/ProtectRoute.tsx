@@ -1,17 +1,16 @@
 import useAuth from "src/components/contexts/useAuth";
 import { Loader } from "semantic-ui-react"
+import { useRouter } from "next/router"
 
 const ProtectRoute = ({ children }) => {
+  const router = useRouter();
   const { isAuthenticated, isLoading } = useAuth();
-  if (
-    isLoading ||
-    (!isAuthenticated && window.location.pathname === "/register")
-  ) {
-      return children;
+  if (!isAuthenticated && router.pathname === "/register"){
+    return children;
   }
   if (
     isLoading ||
-    (!isAuthenticated && window.location.pathname !== "/login")
+    (!isAuthenticated && router.pathname !== "/login")
   ) {
     return (
       <div className="site-background">
@@ -19,6 +18,7 @@ const ProtectRoute = ({ children }) => {
       </div>
     );
   }
+  
   return children;
 };
 export default ProtectRoute;

@@ -14,7 +14,7 @@ import PersonalDetail from "src/components/KYC/PersonalDetail";
 import Signature from "src/components/KYC/Signature";
 import SuccessPage from "src/components/KYC/SuccessPage";
 import { KYCStep } from "src/enums/Step";
-
+import showToast from "src/components/showToast";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
 
@@ -31,11 +31,7 @@ export default function KYC(props) {
     ) {
       return true;
     } else {
-      toast.error("Please select PNG or JPEG File", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-      });
+      showToast("Please select PNG or JPEG File",true);
       return false;
     }
   };
@@ -90,19 +86,11 @@ export default function KYC(props) {
   const validatePan = () => {
     var patt = new RegExp("[A-Z]{5}[0-9]{4}[A-Z]{1}");
     if (!patt.test(panDetails.panNumber)) {
-      toast.error("Enter Valid PAN Number", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-      });
+      showToast("Enter Valid PAN Number",true)
       return false;
     }
     if (panDetails.panFile === null) {
-      toast.error("PAN Card is Required", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-      });
+      showToast("PAN Card is Required",true);
       return false;
     }
     return true;
@@ -115,11 +103,7 @@ export default function KYC(props) {
       personalDetails.motherName === "" ||
       personalDetails.fatherName === ""
     ) {
-      toast.error("Enter Valid Personal Details", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-      });
+      showToast("Enter Valid Personal Details",true)
       return false;
     }
     return true;
@@ -127,11 +111,7 @@ export default function KYC(props) {
 
   const validateLeagleInfo = () => {
     if (leagleInfo.profile === null || leagleInfo.sign === null) {
-      toast.error("Signature and Profile are required", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-      });
+      showToast("Signature and Profile are required",true);
       return false;
     }
     return true;
@@ -143,20 +123,12 @@ export default function KYC(props) {
       await addKYCDetails(createFormData())
         .then(() => {
           setStatus(false);
-          toast.success("You are KYC Verified", {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: true,
-          });
+          showToast("You are KYC Verified", true);
           nextClick();
         })
         .catch((err) => {
           setStatus(false);
-          toast.error(err.message, {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: true,
-          });
+          showToast(err.message,true);
         });
     } else {
       setStatus(false);
@@ -217,7 +189,10 @@ export default function KYC(props) {
                     </Step.Content>
                   </Step>
 
-                  <Step active={page == KYCStep.PAN} onClick={() => setPage(KYCStep.PAN)}>
+                  <Step
+                    active={page == KYCStep.PAN}
+                    onClick={() => setPage(KYCStep.PAN)}
+                  >
                     <Step.Content>
                       <Step.Title>Pan Detail</Step.Title>
                     </Step.Content>

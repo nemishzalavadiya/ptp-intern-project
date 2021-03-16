@@ -11,15 +11,15 @@ import {
   Select,
 } from "semantic-ui-react";
 import { createMutualFundOrder } from "src/services/mutualFundOrder";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { InvestmentType } from "src/enums/InvestmentType";
 import { Frequency } from "src/enums/Frequency";
 import { UserId } from "src/components/Objects";
+import showToast from "src/components/showToast";
 
 export default function MutualFundTicket(props) {
   const [investmentType, setInvestmentType] = useState(InvestmentType.SIP);
   const [amount, setAmount] = useState(0);
-  const [amountTag, setAmountTag] = useState("Amount");
   const [date, setDate] = useState("");
   const [frequency, setFrequency] = useState(Frequency.MONTHLY_SIP);
   const [isOrderExecuting, setOrderStatus] = useState(false);
@@ -29,17 +29,17 @@ export default function MutualFundTicket(props) {
   const frequencyOptions = [
     {
       key: "WEEKY_SIP",
-      text: "WEEKLY_SIP",
+      text: "Weekly",
       value: "WEEKLY_SIP",
     },
     {
       key: "MONTHLY_SIP",
-      text: "MONTHLY_SIP",
+      text: "Monthly",
       value: "MONTHLY_SIP",
     },
     {
       key: "YEARLY_SIP",
-      text: "YEARLY_SIP ",
+      text: "Yearly",
       value: "YEARLY_SIP",
     },
   ];
@@ -65,27 +65,11 @@ export default function MutualFundTicket(props) {
     createMutualFundOrder(data)
       .then(() => {
         setOrderStatus(false);
-        toast("Order executed successfully", {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: false,
-          progress: undefined,
-        });
+        showToast("Order executed successfully")
       })
       .catch((err) => {
         setOrderStatus(false);
-        toast("Something went wrong please try", {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: false,
-          progress: undefined,
-        });
+        showToast("Something went wrong please try",true)
       });
   };
 
@@ -104,7 +88,6 @@ export default function MutualFundTicket(props) {
                   positive={investmentType === InvestmentType.SIP}
                   onClick={() => {
                     setInvestmentType(InvestmentType.SIP);
-                    setAmountTag("Amount");
                   }}
                 >
                   SIP
@@ -114,7 +97,6 @@ export default function MutualFundTicket(props) {
                   positive={investmentType === InvestmentType.ONE_TIME}
                   onClick={() => {
                     setInvestmentType(InvestmentType.ONE_TIME);
-                    setAmountTag("Lumpsum Ammount");
                   }}
                 >
                   Lumpsum
@@ -131,8 +113,8 @@ export default function MutualFundTicket(props) {
                 disabled={investmentType === InvestmentType.ONE_TIME}
                 placeholder="Frequency"
                 fluid
-                onChange={(event) => {
-                  setFrequency(event.target.innerText);
+                onChange={(event, data) => {
+                  setFrequency(data.value);
                 }}
                 selection
                 color="Grey"
@@ -143,11 +125,11 @@ export default function MutualFundTicket(props) {
 
           <Grid.Row>
             <Grid.Column width={5}>
-              <label> {amountTag} </label>
+              <label> {investmentType === InvestmentType.ONE_TIME ? "Lumpsum Amount" : "Amount"} </label>
             </Grid.Column>
             <Grid.Column width={11}>
               <Form.Input
-                type="float"
+                type="number"
                 onChange={(event) => setAmount(event.target.value)}
                 placeholder="amount"
                 iconPosition="left"

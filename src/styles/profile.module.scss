@@ -1,23 +1,31 @@
 .ui.segment.profile {
   padding: 30px;
   background-color: #272727;
-  margin-left: 18%;
-  width: 60%;
-  min-width: 60%;
+  margin: 0% 10% 0% 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.ui.inverted.transparent.left.icon.input.textcolor > input {
-  color: white;
+.ui.inverted.transparent.input.textcolor.textborder {
+  width: 90%;
+  border-bottom: 3px solid #818181;
 }
 
 .ui.inverted.transparent.icon.input.textcolor > input {
   color: white;
+  border-bottom: 3px solid #272727;
 }
 
 .ui.inverted.transparent.input.textcolor > input {
   color: white;
+  border-bottom: 3px solid #272727;
 }
 
+.ui.inverted.transparent.input.textcolor {
+  width: 90%;
+  border-bottom: 3px solid #272727;
+}
 .ui.inverted.transparent.input.username > input {
   color: white;
   margin-top: 15%;
@@ -31,26 +39,54 @@
   height: 100px;
 }
 
-
-.editbutton{
-  position: relative;
-  top:-110px;
-  right:-60%;
-}
-.ui.label.editbutton{
-  position: relative;
-  top:-110px;
-  right:-80%;
+.save-button-container{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 0px;
 }
 
-::-webkit-calendar-picker-indicator {
+.ui.button.cancel-button{
+  margin-right: 0px;
+}
+
+
+.ui.button.edit-button{
+  display: block;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 0px;
+}
+
+.icon{
+  cursor:pointer
+}
+#userdob::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
 
 .ui.disabled.dropdown.profiledropdown{
   opacity: 1;
 }
-
+.ui.dropdown.profiledropdown.textborder{
+  width: 90%;
+  border-bottom: 3px solid #818181;
+}
 .ui.disabled.dropdown.profiledropdown>.dropdown.icon{
   opacity: 0;
+}
+
+.ui.grid > .row > .wide.column {
+  margin: 0;
+}
+
+.row>.eight.wide.column.profile-right-grid{
+  padding-left:30px
+}
+
+.ui.modal>.content.profile-modal, .ui.modal>.actions.profile-modal{
+  background: #272727;
+}
+
+.ui.selection.dropdown.profile-modal-action{
+  margin-top: 10%;
 }

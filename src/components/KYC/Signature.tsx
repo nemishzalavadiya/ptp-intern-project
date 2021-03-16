@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Segment, Icon, Button, Header, Loader } from "semantic-ui-react";
 
-import { ToastContainer, toast } from "react-toastify";
-
 export default function Signature({
   leagleInfo,
   setLeagleInfo,

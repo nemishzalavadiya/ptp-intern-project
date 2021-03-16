@@ -1,8 +1,6 @@
 import React from "react";
 import { Segment, Icon, Header, Input } from "semantic-ui-react";
 
-import { toast } from "react-toastify";
-
 export default function PanDetail({
   panDetails,
   setPanDetails,

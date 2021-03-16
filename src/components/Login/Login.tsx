@@ -14,7 +14,7 @@ import useAuth from "src/components/contexts/useAuth";
 import { useState } from "react";
 import { useRouter } from "next/router";
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);  
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
   const submitHandler = async (event) => {
@@ -37,14 +37,13 @@ export default function Login() {
   };
   return (
     <>
-      <Segment className="userlogin">
+      <Segment className="user-login">
         <Grid textAlign="center">
           <Divider vertical></Divider>
           <Grid.Row verticalAlign="middle">
             <Grid.Column width={8}>
-              <Image src="/PTP.png" size="medium" />
+              <Image src="/PTP.png" className="ptpimage" />
             </Grid.Column>
-
             <Grid.Column width={8}>
               <Form inverted onSubmit={submitHandler}>
                 <Grid>
@@ -56,13 +55,13 @@ export default function Login() {
                         inverted
                         name="email"
                         placeholder="Email"
+                        autoComplete="off"
                         iconPosition="left"
                         icon="mail"
                         className="textcolor"
                       />
                     </Grid.Column>
                   </Grid.Row>
-
                   <Grid.Row>
                     <Grid.Column width={11}>
                       <Input
@@ -94,10 +93,10 @@ export default function Login() {
                   </Grid.Row>
                   <Grid.Row>
                     <Grid.Column width={3}></Grid.Column>
-                    <Grid.Column width={10} >
-                      <Link href="/register">                     Not Registered?   Create Account
+                    <Grid.Column width={10}>
+                      <Link href="/register">
+                        Not Registered? Create Account
                       </Link>
-
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
@@ -106,7 +105,7 @@ export default function Login() {
           </Grid.Row>
         </Grid>
       </Segment>
-      <ToastContainer></ToastContainer>
+      <ToastContainer/>
     </>
   );
 }

@@ -19,7 +19,7 @@ const TopNavBar = (props) => {
   const userLogout = async () => {
     await logout();
     router.push({ pathname: "/login", query: { path: router.asPath } });
-  }
+  };
   return (
     <div className="top-nav-container">
       <div className="headerTopNavBar">
@@ -39,14 +39,14 @@ const TopNavBar = (props) => {
                 {dpUrl ? (
                   <Image src="/user.jpg" className="usericon" circular />
                 ) : (
-                  <Icon name="user" size="big"></Icon>
+                  <Image src="/userwhite.jpg" className="usericon" circular />
                 )}
               </div>
             }
             content={
               <>
                 {dpUrl ? (
-                  <div className="profilebox">
+                  <div className="profile-box">
                     <Image
                       src="/user.jpg"
                       className="popupusericon"
@@ -55,14 +55,13 @@ const TopNavBar = (props) => {
                     />
                   </div>
                 ) : (
-                  <div className="emptyprofilebox">
-                    <Icon
-                      name="user"
-                      className="popusericon"
-                      size={"big"}
-                      color="black"
+                  <div className="profile-box">
+                    <Image
+                      src="/userwhite.jpg"
+                      className="popupusericon"
                       circular
-                    ></Icon>
+                      bordered
+                    />
                   </div>
                 )}
 
@@ -73,12 +72,13 @@ const TopNavBar = (props) => {
                     onClick={() => {
                       router.push("/profile");
                     }}
-                  >
+                  ><Icon name="id badge"></Icon>
                     Profile
-              </Grid.Row>
+                  </Grid.Row>
                   <Grid.Row className="cardbutton" onClick={userLogout}>
+                    <Icon name="sign-out"></Icon>
                     Logout
-              </Grid.Row>
+                  </Grid.Row>
                 </Grid>
               </>
             }

@@ -25,6 +25,8 @@ public class DataGenerator {
     private List<UUID> companyIdList;
     private List<String> companyNameList;
     private List<MutualFund> mutualFundList;
+    private static final float Min = 20, Max = 10000;
+    private static final DecimalFormat df = new DecimalFormat("##.##");
 
     @Autowired
     private AssetService assetService;
@@ -50,17 +52,17 @@ public class DataGenerator {
     }
 
     public void setData() {
-
-        stockList.clear();
-        for (int i = 0; i < companyNameList.size(); i++) {
-            stockList.add(generateStockDataFromCompany(i));
+        for (int index = 0; index < companyNameList.size(); index++) {
+            if (stockList.size() < companyNameList.size()) {
+                stockList.add(generateStockDataFromCompany(index));
+            } else {
+                updateStockDetailsForStock(index);
+            }
         }
     }
 
     private Stock generateStockDataFromCompany(int position) {
-        DecimalFormat df = new DecimalFormat("##.##");
         df.setRoundingMode(RoundingMode.DOWN);
-        float Min = 20, Max = 10000;
         Stock stock = new Stock();
         stock.setCompanyId(companyIdList.get(position));
         stock.setCompanyName(companyNameList.get(position));
@@ -71,12 +73,28 @@ public class DataGenerator {
         stock.setHigh(Float.parseFloat(df.format(Min + (Math.random() * ((Max - Min) + 1)))));
         stock.setLow(Float.parseFloat(df.format(Min + (Math.random() * ((Max - Min) + 1)))));
         stock.setPercentageChange(Float.parseFloat(df.format((Math.random() * 5))));
+        //exchange value of high is lower then low
+        if (stock.getHigh() < stock.getLow()) {
+            float high = stock.getHigh();
+            stock.setHigh(stock.getLow());
+            stock.setLow(high);
+        }
         return stock;
+    }
+
+    private void updateStockDetailsForStock(int index) {
+        df.setRoundingMode(RoundingMode.DOWN);
+        float previousMarketPrice = stockList.get(index).getMarketPrice();
+        stockList.get(index).setMarketPrice(Float.parseFloat(df.format(Min + (Math.random() * ((Max - Min) + 1)))));
+        float currentMarketPrice = stockList.get(index).getMarketPrice();
+        float currentPercentageChange = (currentMarketPrice - previousMarketPrice) / previousMarketPrice;
+        stockList.get(index).setPercentageChange(Float.parseFloat(df.format(currentPercentageChange)));
     }
 
     public List<Stock> getGeneratedStockList() {
         return stockList;
     }
+
     public List<MutualFund> getGeneratedMutualFundList() {
         return mutualFundList;
     }

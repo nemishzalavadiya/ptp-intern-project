@@ -72,10 +72,11 @@ const TopNavBar = (props) => {
                     onClick={() => {
                       router.push("/profile");
                     }}
-                  >
+                  ><Icon name="id badge"></Icon>
                     Profile
                   </Grid.Row>
                   <Grid.Row className="cardbutton" onClick={userLogout}>
+                    <Icon name="sign-out"></Icon>
                     Logout
                   </Grid.Row>
                 </Grid>

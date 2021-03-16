@@ -64,18 +64,19 @@ export default function Profile() {
   const modal = () => {
     return (
       <Modal inverted size="mini" open={open}>
-        <Modal.Content>
+        <Modal.Content className="profile-modal">
           <Input
             required
             fluid
             type="number"
             icon="money"
-            placeholder="Add amount"
+            placeholder={isAddFund?"Add amount":"Withdraw amount"}
             onChange={(event) => setFund(parseInt(event.target.value))}
           />
           {!isAddFund && (
             <Dropdown
               selection
+              className="profile-modal-action"
               onChange={(event, data) => setBank(data.value)}
               placeholder="Select your bank"
               options={bankDetail.map((item) => {
@@ -84,7 +85,7 @@ export default function Profile() {
             ></Dropdown>
           )}
         </Modal.Content>
-        <Modal.Actions>
+        <Modal.Actions className="profile-modal">
           <Button
             disabled={
               fund <= 0 ||
@@ -396,10 +397,10 @@ export default function Profile() {
                 </Form>
               </Grid.Column>
 
-              <Grid.Column width={8}>
+              <Grid.Column width={8} className="profile-right-grid">
                 {isUpdate == true ? (
-                  <div className="save-button-container">          
-                    <Button onClick={saveChanges} className="save-button" inverted color="green">
+                  <div className="save-button-container">   
+                    <Button onClick={saveChanges}  inverted color="green">
                       <Icon name="edit" />
                       Save
                     </Button>
@@ -407,6 +408,7 @@ export default function Profile() {
                       <Icon name="cancel" />
                       Cancel
                     </Button>
+
                  </div>
                 ) : (
                   <Button 

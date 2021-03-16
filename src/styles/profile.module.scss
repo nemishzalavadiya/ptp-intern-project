@@ -7,8 +7,8 @@
   align-items: center;
 }
 
-.ui.inverted.transparent.left.icon.input.textcolor > input {
-  color: white;
+.ui.inverted.transparent.input.textcolor.textborder {
+  width: 90%;
   border-bottom: 3px solid #818181;
 }
 
@@ -20,15 +20,11 @@
 .ui.inverted.transparent.input.textcolor > input {
   color: white;
   border-bottom: 3px solid #272727;
-
 }
 
-.ui.inverted.transparent.input.textborder {
-  width: 90%;
-  border-bottom: 3px solid #818181;
-}
 .ui.inverted.transparent.input.textcolor {
   width: 90%;
+  border-bottom: 3px solid #272727;
 }
 .ui.inverted.transparent.input.username > input {
   color: white;
@@ -44,18 +40,15 @@
 }
 
 .save-button-container{
-  cursor: pointer;
-  margin-left: 50%;
-  transform: translateX(25%);
-}
-
-.ui.button.save-button{
-  padding:auto 40px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 0px;
 }
 
 .ui.button.cancel-button{
-  padding:auto 10px;
+  margin-right: 0px;
 }
+
 
 .ui.button.edit-button{
   display: block;
@@ -86,7 +79,14 @@
   margin: 0;
 }
 
-.ui.divider.profile-divider::before{
-  border:2px solid red;
-  margin-right:100px
+.row>.eight.wide.column.profile-right-grid{
+  padding-left:30px
+}
+
+.ui.modal>.content.profile-modal, .ui.modal>.actions.profile-modal{
+  background: #272727;
+}
+
+.ui.selection.dropdown.profile-modal-action{
+  margin-top: 10%;
 }

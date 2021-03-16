@@ -14,7 +14,7 @@ import useAuth from "src/components/contexts/useAuth";
 import { useState } from "react";
 import { useRouter } from "next/router";
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);  
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
   const submitHandler = async (event) => {
@@ -93,8 +93,9 @@ export default function Login() {
                   </Grid.Row>
                   <Grid.Row>
                     <Grid.Column width={3}></Grid.Column>
-                    <Grid.Column width={10} >
-                      <Link href="/register">                     Not Registered?   Create Account
+                    <Grid.Column width={10}>
+                      <Link href="/register">
+                        Not Registered? Create Account
                       </Link>
                     </Grid.Column>
                   </Grid.Row>

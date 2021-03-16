@@ -72,19 +72,26 @@ export default function Profile() {
             placeholder="Add amount"
             onChange={(event) => setFund(parseInt(event.target.value))}
           />
-          {
-          (!isAddFund)?
-          <Dropdown
-            selection
-            onChange={(event,data)=>setBank(data.value)}
-            placeholder="Select your bank"
-            options={bankDetail.map((item=>{return {key:item.name,value:item.name,text:item.name}}))}
-          ></Dropdown>:''
-    }
+          {!isAddFund ? (
+            <Dropdown
+              selection
+              onChange={(event, data) => setBank(data.value)}
+              placeholder="Select your bank"
+              options={bankDetail.map((item) => {
+                return { key: item.name, value: item.name, text: item.name };
+              })}
+            ></Dropdown>
+          ) : (
+            ""
+          )}
         </Modal.Content>
         <Modal.Actions>
           <Button
-            disabled={fund <= 0 || ((!isAddFund && fund > availableCash) || (!isAddFund && bank==null)) }
+            disabled={
+              fund <= 0 ||
+              (!isAddFund && fund > availableCash) ||
+              (!isAddFund && bank == null)
+            }
             color="green"
             inverted
             onClick={() => (isAddFund ? addFund() : withdrawFund())}
@@ -116,10 +123,11 @@ export default function Profile() {
       setIsUpdate(true);
       return;
     }
-    if (user.mobileNo.length != 10) {
+    if (user.mobileNo != null && user.mobileNo.length != 10) {
       toast.error("Please enter valid phone number", {
         position: "bottom-right",
-        autoClose: 1500,
+        autoClose: 2000,
+        hideProgressBar: true,
       });
       return;
     }
@@ -128,14 +136,16 @@ export default function Profile() {
         setIsUpdate(false);
         toast.dark("Profile updated successfully", {
           position: "bottom-right",
-          autoClose: 1500,
+          autoClose: 2000,
+          hideProgressBar: true,
         });
       })
       .catch((err) => {
         setIsUpdate(false);
         toast.error(err.message, {
           position: "bottom-right",
-          autoClose: 1500,
+          autoClose: 2000,
+          hideProgressBar: true,
         });
       });
   };
@@ -162,7 +172,11 @@ export default function Profile() {
                             circular
                           />
                         ) : (
-                          <Icon name="user" size={"huge"} circular></Icon>
+                          <Image
+                            className="profileicon"
+                            src="/userwhite.jpg"
+                            circular
+                          />
                         )}
                       </Grid.Column>
 
@@ -251,16 +265,14 @@ export default function Profile() {
                           inverted
                           transparent
                           value={user.email}
-                          className=
-                          {`textcolor ${
-                            (isUpdate ? "textborder": "")
+                          className={`textcolor ${
+                            isUpdate ? "textborder" : ""
                           }`}
                           onChange={(event) =>
                             setUser({ ...user, email: event.target.value })
                           }
                           icon={isUpdate ? "pencil" : ""}
                           placeholder="abc@gmail.com"
-                          
                         />
                       </Grid.Column>
                     </Grid.Row>
@@ -282,7 +294,7 @@ export default function Profile() {
                           value={user.gender}
                           disabled={!isUpdate}
                           className={`profiledropdown ${
-                            (isUpdate ? "textborder": "")
+                            isUpdate ? "textborder" : ""
                           }`}
                           placeholder="Select your gender"
                           options={genderOption}
@@ -325,9 +337,8 @@ export default function Profile() {
                               ),
                             })
                           }
-                          className=
-                          {`textcolor ${
-                            (isUpdate ? "textborder": "")
+                          className={`textcolor ${
+                            isUpdate ? "textborder" : ""
                           }`}
                         />
                       </Grid.Column>
@@ -356,9 +367,8 @@ export default function Profile() {
                           onChange={(event) =>
                             setUser({ ...user, mobileNo: event.target.value })
                           }
-                          className=
-                          {`textcolor ${
-                            (isUpdate ? "textborder": "")
+                          className={`textcolor ${
+                            isUpdate ? "textborder" : ""
                           }`}
                           icon={isUpdate ? "pencil" : ""}
                         />
@@ -378,15 +388,14 @@ export default function Profile() {
                         />
                       </Grid.Column>
                       <Grid.Column width={8}>
-                        {!user.kycVerified ? (
+                        {user.kycVerified ? (
                           <Label color="green">
-                            You are KYC verified
+                            {"verified "}
                             <Icon name="check circle"></Icon>
                           </Label>
                         ) : (
-
                           <Button
-                          color="red"
+                            color="red"
                             onClick={() => {
                               router.push("/kyc");
                             }}

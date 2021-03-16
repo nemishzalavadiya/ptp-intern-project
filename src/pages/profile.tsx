@@ -9,7 +9,7 @@ export default function HomePage() {
         <title>Pirimid Trading Platform</title>
         <link rel="icon" href="/favicon.svg" />
       </Head>
-      <div>
+      <div className ="profile-div">
         <Profile/>
       </div>
     </Layout>

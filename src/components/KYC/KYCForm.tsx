@@ -34,7 +34,7 @@ export default function KYC(props) {
       toast.error("Please select PNG or JPEG File", {
         position: "bottom-right",
         autoClose: 2000,
-        hideProgressBar: false,
+        hideProgressBar: true,
       });
       return false;
     }
@@ -217,7 +217,10 @@ export default function KYC(props) {
                     </Step.Content>
                   </Step>
 
-                  <Step active={page == KYCStep.PAN} onClick={() => setPage(KYCStep.PAN)}>
+                  <Step
+                    active={page == KYCStep.PAN}
+                    onClick={() => setPage(KYCStep.PAN)}
+                  >
                     <Step.Content>
                       <Step.Title>Pan Detail</Step.Title>
                     </Step.Content>

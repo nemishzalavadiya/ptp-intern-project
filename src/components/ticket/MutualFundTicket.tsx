@@ -19,7 +19,6 @@ import { UserId } from "src/components/Objects";
 export default function MutualFundTicket(props) {
   const [investmentType, setInvestmentType] = useState(InvestmentType.SIP);
   const [amount, setAmount] = useState(0);
-  const [amountTag, setAmountTag] = useState("Amount");
   const [date, setDate] = useState("");
   const [frequency, setFrequency] = useState(Frequency.MONTHLY_SIP);
   const [isOrderExecuting, setOrderStatus] = useState(false);
@@ -65,25 +64,18 @@ export default function MutualFundTicket(props) {
     createMutualFundOrder(data)
       .then(() => {
         setOrderStatus(false);
-        toast("Order executed successfully", {
+        toast.dark("Order executed successfully", {
           position: "bottom-right",
           autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: false,
+          hideProgressBar: true,
         });
       })
       .catch((err) => {
         setOrderStatus(false);
-        toast("Something went wrong please try", {
+        toast.error("Something went wrong please try", {
           position: "bottom-right",
           autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: false,
-          progress: undefined,
+          hideProgressBar: true,
         });
       });
   };
@@ -103,7 +95,6 @@ export default function MutualFundTicket(props) {
                   positive={investmentType === InvestmentType.SIP}
                   onClick={() => {
                     setInvestmentType(InvestmentType.SIP);
-                    setAmountTag("Amount");
                   }}
                 >
                   SIP
@@ -113,7 +104,6 @@ export default function MutualFundTicket(props) {
                   positive={investmentType === InvestmentType.ONE_TIME}
                   onClick={() => {
                     setInvestmentType(InvestmentType.ONE_TIME);
-                    setAmountTag("Lumpsum Ammount");
                   }}
                 >
                   Lumpsum
@@ -130,7 +120,7 @@ export default function MutualFundTicket(props) {
                 disabled={investmentType === InvestmentType.ONE_TIME}
                 placeholder="Frequency"
                 fluid
-                onChange={(event,data) => {
+                onChange={(event, data) => {
                   setFrequency(data.value);
                 }}
                 selection
@@ -142,7 +132,7 @@ export default function MutualFundTicket(props) {
 
           <Grid.Row>
             <Grid.Column width={5}>
-              <label> {amountTag} </label>
+              <label> {investmentType === InvestmentType.ONE_TIME ? "Lumpsum Amount" : "Amount"} </label>
             </Grid.Column>
             <Grid.Column width={11}>
               <Form.Input

@@ -7,7 +7,7 @@ import { createStockOrder } from "src/services/stockOrder";
 import { ProductCode } from "src/enums/productCode";
 import { OrderType } from "src/enums/orderType";
 import { Action } from "src/enums/action";
-import { WebSocketUrl} from "src/components/Objects";
+import { WebSocketUrl } from "src/components/Objects";
 export default function StockTicket({ assetId, stockId }) {
   const [action, setAction] = useState(Action.BUY);
   const [productCode, setProductCode] = useState(ProductCode.CNC);
@@ -25,7 +25,7 @@ export default function StockTicket({ assetId, stockId }) {
         "/topic/" + assetId,
         function (data) {
           let contentBody = JSON.parse(data.body);
-          setCurrentPrice((contentBody.marketPrice).toFixed(2));
+          setCurrentPrice(contentBody.marketPrice.toFixed(2));
         },
         { id: assetId }
       );
@@ -62,7 +62,7 @@ export default function StockTicket({ assetId, stockId }) {
         toast.error(err.message, {
           position: "bottom-right",
           autoClose: 2000,
-          hideProgressBar: false,
+          hideProgressBar: true,
         });
       });
   };
@@ -175,7 +175,12 @@ export default function StockTicket({ assetId, stockId }) {
               <label>Total Amount</label>
             </Grid.Column>
             <Grid.Column width={10}>
-              <label>{(orderType === OrderType.MARKET?volume*currentPrice:volume*price).toFixed(2)}</label>
+              <label>
+                {(orderType === OrderType.MARKET
+                  ? volume * currentPrice
+                  : volume * price
+                ).toFixed(2)}
+              </label>
             </Grid.Column>
           </Grid.Row>
           <Button
@@ -189,7 +194,7 @@ export default function StockTicket({ assetId, stockId }) {
               isOrderExecuting
             }
           >
-            {action==Action.BUY?`Invest Now`:`Sell`}
+            {action == Action.BUY ? `Invest Now` : `Sell`}
           </Button>
           <ToastContainer />
         </Grid>

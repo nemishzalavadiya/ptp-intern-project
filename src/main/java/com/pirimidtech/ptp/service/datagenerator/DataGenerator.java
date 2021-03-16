@@ -67,11 +67,11 @@ public class DataGenerator {
         stock.setCompanyId(companyIdList.get(position));
         stock.setCompanyName(companyNameList.get(position));
         stock.setTimestamp(new Date());
-        stock.setOpen(Float.parseFloat(DECIMAL_FORMAT.format(MIN + (Math.random() * ((MAX - MIN) + 1)))));
-        stock.setClose(Float.parseFloat(DECIMAL_FORMAT.format(MIN + (Math.random() * ((MAX - MIN) + 1)))));
-        stock.setMarketPrice(Float.parseFloat(DECIMAL_FORMAT.format(MIN + (Math.random() * ((MAX - MIN) + 1)))));
-        stock.setHigh(Float.parseFloat(DECIMAL_FORMAT.format(MIN + (Math.random() * ((MAX - MIN) + 1)))));
-        stock.setLow(Float.parseFloat(DECIMAL_FORMAT.format(MIN + (Math.random() * ((MAX - MIN) + 1)))));
+        stock.setOpen(getFormattedRandomNumber());
+        stock.setClose(getFormattedRandomNumber());
+        stock.setMarketPrice(getFormattedRandomNumber());
+        stock.setHigh(getFormattedRandomNumber());
+        stock.setLow(getFormattedRandomNumber());
         stock.setPercentageChange(Float.parseFloat(DECIMAL_FORMAT.format((Math.random() * 5))));
         //exchange value of high is lower then low
         if (stock.getHigh() < stock.getLow()) {
@@ -82,9 +82,13 @@ public class DataGenerator {
         return stock;
     }
 
+    private float getFormattedRandomNumber() {
+        return Float.parseFloat(DECIMAL_FORMAT.format(MIN + (Math.random() * ((MAX - MIN) + 1))));
+    }
+
     private void updateStockDetailsForStock(int index) {
         float previousMarketPrice = stockList.get(index).getMarketPrice();
-        stockList.get(index).setMarketPrice(Float.parseFloat(DECIMAL_FORMAT.format(MIN + (Math.random() * ((MAX - MIN) + 1)))));
+        stockList.get(index).setMarketPrice(getFormattedRandomNumber());
         float currentMarketPrice = stockList.get(index).getMarketPrice();
         float currentPercentageChange = (currentMarketPrice - previousMarketPrice) / previousMarketPrice;
         stockList.get(index).setPercentageChange(Float.parseFloat(DECIMAL_FORMAT.format(currentPercentageChange)));

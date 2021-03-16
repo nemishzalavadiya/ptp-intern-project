@@ -52,6 +52,8 @@ export default function WatchlistContent(props) {
           companyUuids={companyUuids}
           pagination={pagination}
           tabId={props.watchlistId}
+          onclick={props.onclick}
+          pattern={props.pattern}
         />
       ) : (
           <Loader active>

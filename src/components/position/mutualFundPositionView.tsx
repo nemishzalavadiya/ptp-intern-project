@@ -8,52 +8,56 @@ const mutualFundHeaders = [
   {
     header: "Company",
     icon: "",
-    sortable: false
+    sortable: false,
   },
   {
     header: "Quantity",
     icon: "",
-    sortable: false
+    sortable: false,
   },
   {
     header: "Total Amount",
     icon: <i className="rupee sign icon small"> </i>,
-    sortable: false
+    sortable: false,
   },
   {
     header: "Average NAV",
     icon: <i className="rupee sign icon small"> </i>,
-    sortable: false
+    sortable: false,
   },
   {
     header: "Current NAV",
     icon: <i className="rupee sign icon small"> </i>,
-    sortable: false
+    sortable: false,
   },
   {
     header: "Current Value",
     icon: <i className="rupee sign icon small"> </i>,
-    sortable: false
+    sortable: false,
   },
   {
     header: "Profit/Loss",
     icon: <i className="rupee icon small"> </i>,
     showColor: true,
-    sortable: false
+    sortable: false,
   },
   {
     header: "Profit/Loss(%)",
     icon: <i className="percent icon small"> </i>,
     showColor: true,
-    sortable: false
+    sortable: false,
   },
 ];
-const dashboardPosition = [mutualFundHeaders[0],mutualFundHeaders[4],mutualFundHeaders[5]]
+const dashboardPosition = [
+  mutualFundHeaders[0],
+  mutualFundHeaders[4],
+  mutualFundHeaders[5],
+];
 export default function MutualFundPosition({
   searchString,
   page,
   handlePaginationChange,
-  dashboard
+  dashboard,
 }) {
   let [isContentFetchingCompleted, totalPage, response] = [false, 0];
   [isContentFetchingCompleted, totalPage, response] = getMutualFundPosition(
@@ -63,7 +67,7 @@ export default function MutualFundPosition({
     dashboard
   );
   let intialPatternState = [];
-  for(let i=0;i<mutualFundHeaders.length;i++){
+  for (let i = 0; i < mutualFundHeaders.length; i++) {
     intialPatternState.push(0);
   }
   const [pattern, setPattern] = useState(intialPatternState);
@@ -84,7 +88,6 @@ export default function MutualFundPosition({
     }
     setSortingField(fieldName);
   }
-  
 
   const pagination = {
     activePage: page,
@@ -95,28 +98,31 @@ export default function MutualFundPosition({
   return !isContentFetchingCompleted ? (
     <Loader active />
   ) : (
-    // <GridContainer
-    //   dashboard={dashboard}
-    //   content={dashboard? dashboardPosition : mutualFundHeaders}
-    //   pagination={pagination}
-    //   data={response}
-    // ></GridContainer>
     <>
-      {response.length !== 0 ? (
-        <Sorting
-          content={mutualFundHeaders}
-          pattern={pattern}
-          onclick={changeArrow}
+      {response.length !== 0 && dashboard !== true ? (
+        <>
+          <Sorting
+            content={mutualFundHeaders}
+            pattern={pattern}
+            onclick={changeArrow}
+            dashboard={dashboard}
+          />
+          <GridContainer
+            dashboard={dashboard}
+            content={dashboard ? dashboardPosition : mutualFundHeaders}
+            pagination={pagination}
+            data={response}
+            showHeaderGrid="disable"
+          ></GridContainer>
+        </>
+      ) : (
+        <GridContainer
           dashboard={dashboard}
-        />
-      ) : null}
-      <GridContainer
-        dashboard={dashboard}
-        content={dashboard? dashboardPosition : mutualFundHeaders}
-        pagination={pagination}
-        data={response}
-        showHeaderGrid="disable"
-      ></GridContainer>
+          content={dashboard ? dashboardPosition : mutualFundHeaders}
+          pagination={pagination}
+          data={response}
+        ></GridContainer>
+      )}
     </>
   );
 }

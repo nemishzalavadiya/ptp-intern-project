@@ -10,51 +10,51 @@ const stockHeaders = [
   {
     header: "Company",
     icon: "",
-    sortable: false
+    sortable: false,
   },
   {
     header: "Quantity",
     icon: "",
-    sortable: false
+    sortable: false,
   },
   {
     header: "Average Price",
     icon: <i className="rupee sign icon small"> </i>,
-    sortable: false
+    sortable: false,
   },
   {
     header: "Cost",
     icon: <i className="rupee sign icon small"> </i>,
-    sortable: false
+    sortable: false,
   },
   {
     header: "Current Price",
     icon: <i className="rupee sign icon small"> </i>,
-    sortable: false
+    sortable: false,
   },
   {
     header: "Current Value",
     icon: <i className="rupee sign icon small"> </i>,
-    sortable: false
+    sortable: false,
   },
   {
     header: "Profit/Loss",
     icon: <i className="rupee icon small"> </i>,
     showColor: true,
-    sortable: false
+    sortable: false,
   },
   {
     header: "Profit/Loss(%)",
     icon: <i className="percent icon small"> </i>,
     showColor: true,
-    sortable: false
+    sortable: false,
   },
 ];
 export default function StockPositionList({
   searchString,
   page,
   handlePaginationChange,
-  dashboard
+  dashboard,
 }) {
   let intialPatternState = [];
   for (let i = 0; i < stockHeaders.length; i++) {
@@ -111,22 +111,33 @@ export default function StockPositionList({
     <Loader active />
   ) : (
     <>
-    {positionList.length !== 0 ? (
-        <Sorting
-          content={stockHeaders}
-          pattern={pattern}
-          onclick={changeArrow}
+      {positionList.length !== 0 && dashboard !== true ? (
+        <>
+          <Sorting
+            content={stockHeaders}
+            pattern={pattern}
+            onclick={changeArrow}
+            dashboard={dashboard}
+          />
+
+          <StockPosition
+            stockHeaders={stockHeaders}
+            uuid={companyUuids}
+            positionList={positionList}
+            pagination={pagination}
+            dashboard={dashboard}
+            showHeaderGrid="disable"
+          ></StockPosition>
+        </>
+      ) : (
+        <StockPosition
+          stockHeaders={stockHeaders}
+          uuid={companyUuids}
+          positionList={positionList}
+          pagination={pagination}
           dashboard={dashboard}
-        />
-      ) : null}
-    <StockPosition
-      stockHeaders={stockHeaders}
-      uuid={companyUuids}
-      positionList={positionList}
-      pagination={pagination}
-      dashboard={dashboard}
-      showHeaderGrid="disable"
-    ></StockPosition>
+        ></StockPosition>
+      )}
     </>
   );
 }

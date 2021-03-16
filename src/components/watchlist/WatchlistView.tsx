@@ -56,28 +56,6 @@ export default function WatchlistView(props) {
     subscriptionDataMap.clear();
   }
 
-  let intialPatternState = [];
-  for (let i = 0; i < props.content.length; i++) {
-    intialPatternState.push(0);
-  }
-  const [pattern, setPattern] = useState(intialPatternState);
-  const [orderBy, setOrderBy] = useState("");
-  const [sortingField, setSortingField] = useState("");
-  function changeArrow(index, fieldName) {
-    let midPattern = [];
-    let size = props.content.length;
-    for (let i = 0; i < size; i++) {
-      midPattern.push(0);
-    }
-    midPattern[index] = 1 - pattern[index];
-    setPattern(midPattern);
-    if (midPattern[index] == 1) {
-      setOrderBy("DESC");
-    } else {
-      setOrderBy("ASC");
-    }
-    setSortingField(fieldName);
-  }
   return isSubscriptionCompleted && data.size === companyUuids.length ? (
     <>
       {
@@ -85,8 +63,8 @@ export default function WatchlistView(props) {
           {props.content.length !== 0 ? (
             <Sorting
               content={props.content}
-              pattern={pattern}
-              onclick={changeArrow}
+              pattern={props.pattern}
+              onclick={props.onclick}
             />
           ) : null}
           <GridContainer

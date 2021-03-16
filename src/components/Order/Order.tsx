@@ -7,22 +7,22 @@ import Moment from "moment";
 
 export default function Order(props) {
   const stockHeader = [
-    { header: "Company", icon: "" },
-    { header: "Asset Class", icon: "" },
-    { header: "Price", icon: <i className="rupee sign icon small"></i> },
-    { header: "Date", icon: "" },
-    { header: "Time", icon: "" },
-    { header: "Order Type", icon: "" },
-    { header: "Price Type", icon: "" },
-    { header: "Status", icon: "" },
+    { header: "Company", icon: "", sortable: false },
+    { header: "Asset Class", icon: "", sortable: false  },
+    { header: "Price", icon: <i className="rupee sign icon small"></i>, sortable: false  },
+    { header: "Date", icon: "", sortable: false  },
+    { header: "Time", icon: "", sortable: false  },
+    { header: "Order Type", icon: "", sortable: false  },
+    { header: "Price Type", icon: "", sortable: false  },
+    { header: "Status", icon: "", sortable: false  },
   ];
   const mutualFundHeader = [
-    { header: "Company", icon: "" },
-    { header: "Asset Class", icon: "" },
-    { header: "Amount", icon: <i className="rupee sign icon small"></i> },
-    { header: "Start Date", icon: "" },
-    { header: "Frequency", icon: "" },
-    { header: "SIP Status", icon: "" },
+    { header: "Company", icon: "", sortable: false  },
+    { header: "Asset Class", icon: "", sortable: false  },
+    { header: "Amount", icon: <i className="rupee sign icon small"></i>, sortable: false  },
+    { header: "Start Date", icon: "" , sortable: false },
+    { header: "Frequency", icon: "", sortable: false  },
+    { header: "SIP Status", icon: "" , sortable: false },
   ];
   const [activeItem, setActiveItem] = useState(0);
   const [startDate, setStartDate] = useState(Moment().format("YYYY-MM-DD"));

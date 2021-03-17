@@ -38,4 +38,6 @@ public class AssetDetail {
     private String managingDirector;
 
     private String organization;
+
+    private String tickerSymbol;
 }

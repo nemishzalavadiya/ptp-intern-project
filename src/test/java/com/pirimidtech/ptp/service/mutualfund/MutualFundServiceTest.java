@@ -38,7 +38,7 @@ public class MutualFundServiceTest {
     MutualFundService mutualFundService;
 
     public MutualFundDetail createMutualDetail(UUID id, String name) {
-        return new MutualFundDetail(id, new Date(), name, new AssetDetail(UUID.randomUUID(), "ptp1", "logo_url", AssetClass.STOCK, "about", "devesh", "org"));
+        return new MutualFundDetail(id, new Date(), name, new AssetDetail(UUID.randomUUID(), "ptp1", "logo_url", AssetClass.STOCK, "about", "devesh", "org","GSNL"));
     }
 
     @Test

@@ -1,41 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, Segment, Grid, Label } from "semantic-ui-react";
-import { ToastContainer } from "react-toastify";
+import React, { useState } from "react";
+import { Form, Button, Segment, Grid } from "semantic-ui-react";
+import { ToastContainer, toast } from "react-toastify";
 import showToast from "src/components/showToast";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
 import { createStockOrder } from "src/services/stockOrder";
 import { ProductCode } from "src/enums/productCode";
 import { OrderType } from "src/enums/orderType";
 import { Action } from "src/enums/action";
-import { WebSocketUrl } from "src/components/Objects";
-export default function StockTicket({ assetId, stockId }) {
+export default function StockTicket({ assetId, stockId,currentPrice }) {
   const [action, setAction] = useState(Action.BUY);
   const [productCode, setProductCode] = useState(ProductCode.CNC);
   const [orderType, setOrderType] = useState(OrderType.LIMIT);
   const [price, setPrice] = useState(0);
-  const [currentPrice, setCurrentPrice] = useState(0);
   const [volume, setVolume] = useState(0);
   const [isOrderExecuting, setOrderStatus] = useState(false);
-  useEffect(() => {
-    const webSocket = new SockJS(WebSocketUrl.url);
-    const stompClient = Stomp.over(webSocket);
-    stompClient.debug = (f) => f;
-    stompClient.connect({}, async function (frame) {
-      stompClient.subscribe(
-        "/topic/" + assetId,
-        function (data) {
-          let contentBody = JSON.parse(data.body);
-          setCurrentPrice(contentBody.marketPrice.toFixed(2));
-        },
-        { id: assetId }
-      );
-    });
-    return () => {
-      stompClient.unsubscribe(assetId);
-      stompClient.disconnect();
-    };
-  }, []);
   const createOrder = async (event) => {
     setOrderStatus(true);
     event.preventDefault();

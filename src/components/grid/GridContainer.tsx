@@ -25,7 +25,7 @@ export default function GridContainer(props) {
                     </div>
                   ) : null}
                   <div
-                    className={`grid-item ${props.content[innerIndex].showColor &&
+                    className={`grid-item ${props.content[innerIndex] && props.content[innerIndex].showColor &&
                       (item >= 0 ? "profit" : "loss")
                       }`}
                   >

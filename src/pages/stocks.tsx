@@ -9,26 +9,41 @@ import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import useWebSocket from "src/hooks/useWebSocket";
 import Sorting from "src/components/Sorting/Sorting";
+import {
+  addToWatchlist,
+  removeFromWatchlist,
+} from "src/services/watchlistService";
 const stocks = () => {
-	const content = [
-		{ header: "Company", icon: "" },
-		{ header: "Market Price", icon: <i className="rupee sign icon small"></i>, sortable: false },
-		{ header: "Close Price", icon: <i className="rupee sign icon small"></i>, sortable: false },
-		{ header: "Market Cap", icon: <i className="rupee sign icon small"></i> },
-	];
+  const content = [
+    { header: "Company", icon: "" },
+    {
+      header: "Market Price",
+      icon: <i className="rupee sign icon small"></i>,
+      sortable: false,
+    },
+    {
+      header: "Close Price",
+      icon: <i className="rupee sign icon small"></i>,
+      sortable: false,
+    },
+    { header: "Market Cap", icon: <i className="rupee sign icon small"></i> },
+    { header: "", icon: "", sortable: false },
+  ];
 
-  let initailPattern=[];
-  for(let i=0;i<content.length;i++){
+  let initailPattern = [];
+  for (let i = 0; i < content.length; i++) {
     initailPattern.push(0);
   }
   const [pattern, setPattern] = useState(initailPattern);
   const [orderBy, setOrderBy] = useState("");
   const [sortingField, setSortingField] = useState("");
+  const [isDataFetchingCompleted, setIsDataFetchingCompleted] = useState(false);
+
   function changeArrow(index, fieldName) {
     let midPattern = [];
     let size = content.length;
     for (let i = 0; i < size; i++) {
-		midPattern.push(0);
+      midPattern.push(0);
     }
     midPattern[index] = 1 - pattern[index];
     setPattern(midPattern);
@@ -39,14 +54,16 @@ const stocks = () => {
     }
     setSortingField(fieldName);
   }
-	const initialState = {
-		results: [],
-		selectedFilters: Array(
-			...stockFilters.map((filter) =>
-				filter.type == filterType.RANGE ? { minimum: filter.minimum, maximum: filter.maximum } : []
-			)
-		),
-	};
+  const initialState = {
+    results: [],
+    selectedFilters: Array(
+      ...stockFilters.map((filter) =>
+        filter.type == filterType.RANGE
+          ? { minimum: filter.minimum, maximum: filter.maximum }
+          : []
+      )
+    ),
+  };
 
   const [results, setResults] = useState(initialState.results);
   const [selectedFilters, setSelectedFilters] = useState(
@@ -78,20 +95,28 @@ const stocks = () => {
       }
     });
 
-		requestFiltered(`/api/stocks/filters?page=${activePage}&sortingField=${sortingField}&orderBy=${orderBy}`, filterBody).then((page) => {
-			setResults(page.content);
-			setTotalPages(page.totalPages);
-			subscriptionDataMap.clear();
-			setSubscriptionIdList(
-				page.content === undefined ? [] : page.content.map((item) => item.stockDetail.assetDetail.id)
-			);
-		});
-	}, [selectedFilters, activePage, orderBy, sortingField]);
+    requestFiltered(
+      `/api/stocks/filters?page=${activePage}&sortingField=${sortingField}&orderBy=${orderBy}`,
+      filterBody
+    ).then((page) => {
+      setIsDataFetchingCompleted(true);
+      setResults(page.content);
+      setTotalPages(page.totalPages);
+      subscriptionDataMap.clear();
+      setSubscriptionIdList(
+        page.content === undefined
+          ? []
+          : page.content.map(
+              (item) => item.stockStatistic.stockDetail.assetDetail.id
+            )
+      );
+    });
+  }, [selectedFilters, activePage, orderBy, sortingField]);
 
   const [subscriptionIdList, setSubscriptionIdList] = useState(
     results === undefined
       ? []
-      : results.map((item) => item.stockDetail.assetDetail.id)
+      : results.map((item) => item.stockStatistic.stockDetail.id)
   );
 
   [isSubscriptionCompleted, subscriptionDataMap] = useWebSocket(
@@ -105,65 +130,104 @@ const stocks = () => {
   const setSelectedState = (selectedGroupState) => {
     setSelectedFilters([...selectedGroupState]);
   };
-
+  const changeWatchlistStatus = (watchlistEntry) => {
+    const index = results.indexOf(watchlistEntry);
+    if (watchlistEntry.inWatchList) {
+      removeFromWatchlist(
+        watchlistEntry.stockStatistic.stockDetail.assetDetail.id
+      ).then((res) => {
+        setResults([
+          ...results.slice(0, index),
+          { ...watchlistEntry, inWatchList: false },
+          ...results.slice(index + 1),
+        ]);
+      });
+    } else {
+      const data = {
+        assetDetail: {
+          id: watchlistEntry.stockStatistic.stockDetail.assetDetail.id,
+        },
+      };
+      addToWatchlist(data).then((res) => {
+        setResults([
+          ...results.slice(0, index),
+          { ...watchlistEntry, inWatchList: true },
+          ...results.slice(index + 1),
+        ]);
+      });
+    }
+  };
   return (
     <Layout name="STOCK">
       <Head>
         <title>Pirimid Trading Platform</title>
         <link rel="icon" href="/favicon.svg" />
       </Head>
+      {isDataFetchingCompleted ? (
+        <div className="filter-grid">
+          <FilterGroup
+            details={stockFilters}
+            selectedFilters={selectedFilters}
+            pageReset={pageReset}
+            setSelectedState={setSelectedState}
+          />
 
-      <div className="filter-grid">
-        <FilterGroup
-          details={stockFilters}
-          selectedFilters={selectedFilters}
-          pageReset={pageReset}
-          setSelectedState={setSelectedState}
-        />
-        {isSubscriptionCompleted ? (
-          <div className="right-grid">
-            <GridContainer
-              content={content}
-              data={
-                results === undefined
-                  ? []
-                  : results.map((item) => [
-                      <Link
-                        href={`/details/${item.stockDetail.assetDetail.id}`}
-                      >
-                        {item.stockDetail.assetDetail.name}
-                      </Link>,
-                      subscriptionDataMap.get(
-                        item.stockDetail.assetDetail.id
-                      ) === undefined
-                        ? ""
-                        : subscriptionDataMap.get(
-                            item.stockDetail.assetDetail.id
-                          ).marketPrice,
-                      subscriptionDataMap.get(
-                        item.stockDetail.assetDetail.id
-                      ) === undefined
-                        ? ""
-                        : subscriptionDataMap.get(
-                            item.stockDetail.assetDetail.id
-                          ).close,
-                      item.marketCap,
-                      <Button>
-                       <i class="heart icon"></i> Add
-                      </Button>,
-                    ])
-              }
-              pagination={{
-                activePage,
-                totalPages,
-                handlePaginationChange: setActivePage,
-              }}
-            />
-          </div>
-        ) : (
-          <Loader active>Loading...</Loader>
-        )}
-      </div>
+          {isSubscriptionCompleted ? (
+            <div className="right-grid">
+              <Sorting
+                content={content}
+                pattern={pattern}
+                onclick={changeArrow}
+              />
+              <GridContainer
+                content={content}
+                data={
+                  results === undefined
+                    ? []
+                    : results.map((item) => [
+                        <Link
+                          href={`/details/${item.stockStatistic.stockDetail.assetDetail.id}`}
+                        >
+                          {item.stockStatistic.stockDetail.assetDetail.name}
+                        </Link>,
+                        subscriptionDataMap.get(
+                          item.stockStatistic.stockDetail.assetDetail.id
+                        ) === undefined
+                          ? ""
+                          : subscriptionDataMap.get(
+                              item.stockStatistic.stockDetail.assetDetail.id
+                            ).marketPrice,
+                        subscriptionDataMap.get(
+                          item.stockStatistic.stockDetail.assetDetail.id
+                        ) === undefined
+                          ? ""
+                          : subscriptionDataMap.get(
+                              item.stockStatistic.stockDetail.assetDetail.id
+                            ).close,
+                        item.stockStatistic.marketCap,
+                        <Icon
+                          onClick={() => changeWatchlistStatus(item)}
+                          name={
+                            item.inWatchList ? `minus circle` : `plus circle`
+                          }
+                        />,
+                      ])
+                }
+                pagination={{
+                  activePage,
+                  totalPages,
+                  handlePaginationChange: setActivePage,
+                }}
+                showHeaderGrid="disable"
+              />
+            </div>
+          ) : (
+            <Loader active>Loading...</Loader>
+          )}
+        </div>
+      ) : (
+        <Loader active>Loading...</Loader>
+      )}
     </Layout>
   );
 };

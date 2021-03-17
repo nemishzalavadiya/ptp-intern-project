@@ -8,6 +8,11 @@ import { filterType } from "src/components/filter/filterType.tsx";
 import GridContainer from "src/components/grid/GridContainer";
 import { useRouter } from "next/router";
 import Sorting from "src/components/Sorting/Sorting";
+import { Loader, Button, Icon } from "semantic-ui-react";
+import {
+  addToWatchlist,
+  removeFromWatchlist,
+} from "src/services/watchlistService";
 
 const mutualfunds = () => {
   const router = useRouter();
@@ -16,13 +21,15 @@ const mutualfunds = () => {
     { header: "Risk", icon: "" },
     { header: "Minimum SIP", icon: <i className="rupee sign icon small"></i> },
     { header: "Fund Size", icon: <i className="rupee sign icon small"></i> },
+    { header: "", icon: "", sortable: false },
   ];
-  let initailPattern=[];
-  for(let i=0;i<content.length;i++){
+  let initailPattern = [];
+  for (let i = 0; i < content.length; i++) {
     initailPattern.push(0);
   }
   const [pattern, setPattern] = useState(initailPattern);
   const [orderBy, setOrderBy] = useState("");
+  const [isDataFetchingCompleted, setIsDataFetchingCompleted] = useState(false);
   const [sortingField, setSortingField] = useState("");
   function changeArrow(index, fieldName) {
     let midPattern = [];
@@ -120,8 +127,10 @@ const mutualfunds = () => {
       `/api/mutualfunds/filters?page=${activePage}&sortingField=${sortingField}&orderBy=${orderBy}`,
       filterBody
     ).then((page) => {
+      setIsDataFetchingCompleted(true);
       setResults(page.content);
       setTotalPages(page.totalPages);
+      console.log(page.totalPages);
     });
   }, [orderBy, activePage, selectedFilters, sortingField]);
 
@@ -133,46 +142,89 @@ const mutualfunds = () => {
     setSelectedFilters(selectedGroupState);
   };
 
+  const changeWatchlistStatus = (watchlistEntry) => {
+    const index = results.indexOf(watchlistEntry);
+    if (watchlistEntry.inWatchList) {
+      removeFromWatchlist(
+        watchlistEntry.mutualFundStatistic.mutualFundDetail.assetDetail.id
+      ).then((res) => {
+        setResults([
+          ...results.slice(0, index),
+          { ...watchlistEntry, inWatchList: false },
+          ...results.slice(index + 1),
+        ]);
+      });
+    } else {
+      const data = {
+        assetDetail: {
+          id:
+            watchlistEntry.mutualFundStatistic.mutualFundDetail.assetDetail.id,
+        },
+      };
+      addToWatchlist(data).then((res) => {
+        setResults([
+          ...results.slice(0, index),
+          { ...watchlistEntry, inWatchList: true },
+          ...results.slice(index + 1),
+        ]);
+      });
+    }
+  };
   return (
     <Layout name="MUTUAL_FUND">
       <Head>
         <title>Pirimid Trading Platform</title>
         <link rel="icon" href="/favicon.svg" />
       </Head>
-      <div className="filter-grid">
-        <FilterGroup
-          details={mutualFundFilters}
-          pageReset={pageReset}
-          selectedFilters={selectedFilters}
-          setSelectedState={setSelectedState}
-        />
-        <div className="right-grid">
-          <Sorting content={content} pattern={pattern} onclick={changeArrow} />
-          <GridContainer
-            content={content}
-            data={
-              results === undefined
-                ? []
-                : results.map((item) => [
-                    <Link
-                      href={`/details/${item.mutualFundDetail.assetDetail.id}`}
-                    >
-                      {item.mutualFundDetail.assetDetail.name}
-                    </Link>,
-                    item.risk,
-                    item.minSIP,
-                    item.fundSize,
-                  ])
-            }
-            pagination={{
-              activePage,
-              totalPages,
-              handlePaginationChange: setActivePage,
-            }}
-            showHeaderGrid="disable"
+      {isDataFetchingCompleted ? (
+        <div className="filter-grid">
+          <FilterGroup
+            details={mutualFundFilters}
+            pageReset={pageReset}
+            selectedFilters={selectedFilters}
+            setSelectedState={setSelectedState}
           />
+          <div className="right-grid">
+            <Sorting
+              content={content}
+              pattern={pattern}
+              onclick={changeArrow}
+            />
+            <GridContainer
+              content={content}
+              data={
+                results === undefined
+                  ? []
+                  : results.map((item) => [
+                      <Link
+                        href={`/details/${item.mutualFundStatistic.mutualFundDetail.assetDetail.id}`}
+                      >
+                        {
+                          item.mutualFundStatistic.mutualFundDetail.assetDetail
+                            .name
+                        }
+                      </Link>,
+                      item.mutualFundStatistic.risk,
+                      item.mutualFundStatistic.minSIP,
+                      item.mutualFundStatistic.fundSize,
+                      <Icon
+                        onClick={() => changeWatchlistStatus(item)}
+                        name={item.inWatchList ? `minus circle` : `plus circle`}
+                      />,
+                    ])
+              }
+              pagination={{
+                activePage,
+                totalPages,
+                handlePaginationChange: setActivePage,
+              }}
+              showHeaderGrid="disable"
+            />
+          </div>
         </div>
-      </div>
+      ) : (
+        <Loader active>Loading...</Loader>
+      )}
     </Layout>
   );
 };

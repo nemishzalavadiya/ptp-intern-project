@@ -1,3 +1,4 @@
+
 /*
   Component: WatchlistView
   props:  content*: [ {header*: string,icon:<i></i>} ],
@@ -9,11 +10,12 @@
           tabId: watchlistId
 */
 import GridContainer from "src/components/grid/GridContainer";
-import { Loader } from "semantic-ui-react";
+import { Loader, Icon } from "semantic-ui-react";
 import { useState } from "react";
 import Link from "next/link";
 import useWebSocket from "src/hooks/useWebSocket";
 import Sorting from "src/components/Sorting/Sorting";
+import { removeFromWatchlist } from "src/services/watchlistService";
 export default function WatchlistView(props) {
   const [companyUuids, setCompanyUuids] = useState([]);
   let data = new Map();
@@ -38,12 +40,18 @@ export default function WatchlistView(props) {
       let companyData = Object.values(row);
       companyData.shift(); //remove time stamp
       let key = companyData.shift(); // geting companyId
-      companyData[0] = (
+      companyData.push(
+        <Icon
+          onClick={()=>props.removeFromWatchlist(row.companyId)}
+          name={"minus circle"}
+        />
+      );
+      (companyData[0] = (
         <Link className="nav-link" href={`/details/${key}`}>
           {companyData[0]}
         </Link>
-      );
-      data.set(key, companyData);
+      )),
+        data.set(key, companyData);
     });
   }
 
@@ -67,7 +75,7 @@ export default function WatchlistView(props) {
               onclick={props.onclick}
             />
           ) : null}
-          <GridContainer
+          <GridContainer 
             content={props.content}
             pagination={props.pagination}
             data={Array.from(data.values())}

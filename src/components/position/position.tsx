@@ -52,10 +52,13 @@ export default function Position(props) {
         handleItemClick={handleItemClick}
         activeItem={activeItem}
       ></Tab>
-      <Search
-        handleSearchChange={handleSearchChange}
-        placeholder={`Search In ${tabs[activeItem].name} Position...`}
-      />
+      {!props.dashboard && (
+        <Search
+          handleSearchChange={handleSearchChange}
+          placeholder={`Search In ${tabs[activeItem].name} Position...`}
+        />
+      )}
+
       {assetClass === AssetClass.MUTUAL_FUND && (
         <Button
           disabled={!totalSIPs ? true : false}

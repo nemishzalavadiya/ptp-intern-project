@@ -14,7 +14,7 @@ const TopNavBar = (props) => {
   useEffect(async () => {
     const user = await getUser();
     setUserName(user.firstName);
-    setDpUrl(null);
+    setDpUrl(user.dpURL);
   }, []);
   const userLogout = async () => {
     await logout();
@@ -72,7 +72,8 @@ const TopNavBar = (props) => {
                     onClick={() => {
                       router.push("/profile");
                     }}
-                  ><Icon name="id badge"></Icon>
+                  >
+                    <Icon name="id badge"></Icon>
                     Profile
                   </Grid.Row>
                   <Grid.Row className="cardbutton" onClick={userLogout}>

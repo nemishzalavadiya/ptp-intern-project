@@ -47,4 +47,12 @@
 }
 .row.ui.segment.grid-row:hover {
   background-color: $cardHoverGrey;
+  i.icon.minus.circle,
+  i.icon.plus.circle {
+    display: contents;
+  }
+}
+i.icon.minus.circle,
+i.icon.plus.circle {
+  display: none;
 }

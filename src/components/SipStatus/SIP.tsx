@@ -39,6 +39,11 @@ export default function SIP(props) {
     { header: "SIP Status", icon: "" },
     { header: "", icon: "" },
   ];
+  const pagination = {
+    activePage: page.pages,
+    totalPages: 2,
+    handlePaginationChange: handlePaginationChange,
+  };
   const [isMFFetchingComplete, MFResponse] = getMfByAssetId(mutualFundId);
 
   useEffect(() => {
@@ -95,12 +100,6 @@ export default function SIP(props) {
   }, [MFResponse]);
   const handlePaginationChange = (pageNo) => {
     setPage({ pages: pageNo, userId: UserId.userId });
-  };
-
-  const pagination = {
-    activePage: page.pages,
-    totalPages: 2,
-    handlePaginationChange: handlePaginationChange,
   };
 
   const handleItemClick = (index) => {

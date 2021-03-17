@@ -21,7 +21,7 @@ public class RequestUtil {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    public String getTokenFromCookies(HttpServletRequest httpServletRequest) {
+    public String getUserIdFromCookies(HttpServletRequest httpServletRequest) {
         String jwtToken = null;
         final Cookie[] cookies = httpServletRequest.getCookies();
         if (cookies != null) {

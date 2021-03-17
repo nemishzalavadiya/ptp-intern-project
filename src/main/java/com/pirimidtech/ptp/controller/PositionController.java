@@ -36,7 +36,7 @@ public class PositionController {
 
     @GetMapping("/stock/position")
     public ResponseEntity<Page<Position>> getStockPositionByUser(HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Page<Position> positionList = positionService.getPositionByAssetClass(userId, AssetClass.STOCK, page, size);
         return ResponseEntity.ok().body(positionList);
@@ -44,7 +44,7 @@ public class PositionController {
 
     @GetMapping("/mutualfund/position")
     public ResponseEntity<Page<MutualFundPositionDTO>> getMutualFundPositionByUser(HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         List<MutualFundPositionDTO> mutualFundPositionDTOList = new ArrayList<>();
         Page<Position> positionList = positionService.getPositionByAssetClass(userId, AssetClass.MUTUAL_FUND, page, size);
@@ -66,7 +66,7 @@ public class PositionController {
 
     @GetMapping("/stock/position/search")
     public ResponseEntity<Page<Position>> searchInStockPosition(HttpServletRequest httpServletRequest, @RequestParam("name") String name, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Page<Position> search = positionService.searchByAssetClassAndAssetDetailName(userId, name, AssetClass.STOCK, page, size);
         return ResponseEntity.ok().body(search);
@@ -74,7 +74,7 @@ public class PositionController {
 
     @GetMapping("/mutualfund/position/search")
     public ResponseEntity<Page<MutualFundPositionDTO>> searchInMutualFundPosition(HttpServletRequest httpServletRequest, @RequestParam("name") String name, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
 
         List<MutualFundPositionDTO> mutualFundPositionDTOList = new ArrayList<>();

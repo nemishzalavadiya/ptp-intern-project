@@ -37,7 +37,7 @@ public class AuthenticationController {
 
     @GetMapping("/user")
     public ResponseEntity<UserSessionDTO> getUser(HttpServletRequest httpServletRequest) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Optional<User> userDetail = userService.getUserById(userId);
         UserSessionDTO userSessionDTO = new UserSessionDTO();

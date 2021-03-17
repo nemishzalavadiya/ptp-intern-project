@@ -32,7 +32,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         if (jwtToken != null && userId != null) {
             Optional<User> user = userService.getUserById(userId);
@@ -46,7 +46,8 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        String path = request.getRequestURI();
-        return "/login".equals(path) || "/signup".equals(path) || "/register".equals(path);
+        //String path = request.getRequestURI();
+        //return "/login".equals(path) || "/signup".equals(path) || "/register".equals(path);
+        return true;
     }
 }

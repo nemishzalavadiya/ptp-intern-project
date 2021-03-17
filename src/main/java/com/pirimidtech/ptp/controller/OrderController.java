@@ -19,6 +19,7 @@ import com.pirimidtech.ptp.repository.StockDetailRepository;
 import com.pirimidtech.ptp.service.position.PositionService;
 import com.pirimidtech.ptp.service.trade.OrderService;
 import com.pirimidtech.ptp.service.tradeHistory.StockTradeHistoryService;
+import com.pirimidtech.ptp.service.user.UserService;
 import com.pirimidtech.ptp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,6 +45,9 @@ import java.util.UUID;
 public class OrderController {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private OrderService orderService;
 
     @Autowired
@@ -66,7 +70,7 @@ public class OrderController {
 
     @PostMapping("/stock/orders")
     public ResponseEntity<StockTrade> addToStockOrder(HttpServletRequest httpServletRequest, @RequestBody StockTrade stockTrade) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         User user = new User();
         user.setId(userId);
@@ -88,7 +92,7 @@ public class OrderController {
 
     @GetMapping("/stock/orders")
     public ResponseEntity<Page<StockTrade>> getAllStockOrderByUser(HttpServletRequest httpServletRequest, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Page<StockTrade> stockTradeList = orderService.getAllStockOrder(userId, page, size);
         return ResponseEntity.ok().body(stockTradeList);
@@ -105,22 +109,26 @@ public class OrderController {
     }
 
     @GetMapping("/stock/orders/filter-by-date")
-    public ResponseEntity<Page<StockTrade>> getStockOrderBasedOnDate(@RequestParam UUID userId,
+    public ResponseEntity<Page<StockTrade>> getStockOrderBasedOnDate(HttpServletRequest httpServletRequest,
                                                                      @RequestParam String startDate,
                                                                      @RequestParam String endDate,
                                                                      @RequestParam(defaultValue = "0") int page,
                                                                      @RequestParam(defaultValue = "10") int size) throws Exception {
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Pageable pageable = PageRequest.of(page, size);
         Page<StockTrade> stockTradeBasedOnDate = orderService.getStockOrderFilteredOnDate(userId, startDate, endDate, pageable);
         return ResponseEntity.ok().body(stockTradeBasedOnDate);
     }
 
     @GetMapping("/mutualfund/orders/filter-by-date")
-    public ResponseEntity<Page<MutualFundOrder>> getMutualFundOrderBasedOnDate(@RequestParam UUID userId,
+    public ResponseEntity<Page<MutualFundOrder>> getMutualFundOrderBasedOnDate(HttpServletRequest httpServletRequest,
                                                                                @RequestParam String startDate,
                                                                                @RequestParam String endDate,
                                                                                @RequestParam(defaultValue = "0") int page,
                                                                                @RequestParam(defaultValue = "10") int size) throws Exception {
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Pageable pageable = PageRequest.of(page, size);
         Page<MutualFundOrder> MutualFundTradeBasedOnDate = orderService.getMutualFundOrderFilteredOnDate(userId, startDate, endDate, pageable);
         return ResponseEntity.ok().body(MutualFundTradeBasedOnDate);
@@ -128,7 +136,7 @@ public class OrderController {
 
     @PostMapping("/mutualfund/orders")
     public ResponseEntity<MutualFundOrder> addToMutualFundOrder(HttpServletRequest httpServletRequest, @RequestBody MutualFundOrder mutualFundOrder) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         User user = new User();
         user.setId(userId);
@@ -143,19 +151,34 @@ public class OrderController {
     }
 
     @PutMapping("/mutualfund/{id}")
-    public ResponseEntity<MutualFundOrder> updateMutualFundOrder(@PathVariable UUID id,
+    public ResponseEntity<MutualFundOrder> updateMutualFundOrder(HttpServletRequest httpServletRequest,
+                                                                 @PathVariable UUID id,
                                                                  @RequestBody MutualFundOrder newMutualFundOrder) {
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
+        Optional<User> user = userService.getUserById(userId);
+        newMutualFundOrder.setUser(user.get());
         MutualFundOrder mutualFundOrder = orderService.updateMutualFundOrder(id, newMutualFundOrder);
         return ResponseEntity.ok().body(mutualFundOrder);
     }
 
     @GetMapping("/mutualfund/sip-status/users")
-    public ResponseEntity<Page<MutualFundOrder>> getAllMutualFundSipStatusByUser(@RequestParam UUID userId,
+    public ResponseEntity<Page<MutualFundOrder>> getAllMutualFundSipStatusByUser(HttpServletRequest httpServletRequest,
                                                                                  @RequestParam(defaultValue = "0") int page,
                                                                                  @RequestParam(defaultValue = "10") int size) {
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Pageable pageable = PageRequest.of(page, size);
         Page<MutualFundOrder> mutualFundOrderList = orderService.getAllMutualFundBySipStatus(userId, pageable);
         return ResponseEntity.ok().body(mutualFundOrderList);
+    }
+
+    @GetMapping("/mutualfund/sip-status-records/users")
+    public int getTotalSipResponses(HttpServletRequest httpServletRequest) {
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
+        int totalSips = orderService.getTotalSips(userId);
+        return totalSips;
     }
 
     @DeleteMapping("/mutualfund/delete-sip-status/users")

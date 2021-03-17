@@ -20,5 +20,5 @@ public interface MutualFundServiceInterface {
 
     Optional<MutualFundStatistic> getMutualFundStatisticByAssetId(UUID id);
 
-    Page<MutualFundStatistic> getMutualFundsFilterResults(SelectedMutualFundFilter selectedMutualFundFilter, Pageable paging,String sortingField, String orderBy);
+    Page<MutualFundStatistic> getMutualFundsFilterResults(SelectedMutualFundFilter selectedMutualFundFilter, Pageable paging, String sortingField, String orderBy);
 }

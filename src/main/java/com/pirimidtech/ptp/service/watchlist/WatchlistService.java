@@ -21,9 +21,11 @@ public class WatchlistService implements WatchlistServiceInterface {
     public Page<Watchlist> getWatchlistDetailByUserId(UUID userId, Pageable pageable) {
         return watchListRepository.findByUserId(userId, pageable);
     }
+
     public Watchlist getWatchlistDetailByUserId(UUID userId, AssetClass assetClass) {
-        return watchListRepository.findByUserIdAndName(userId,assetClass.toString());
+        return watchListRepository.findByUserIdAndName(userId, assetClass.toString());
     }
+
     public void add(Watchlist watchlist) {
         watchListRepository.save(watchlist);
     }

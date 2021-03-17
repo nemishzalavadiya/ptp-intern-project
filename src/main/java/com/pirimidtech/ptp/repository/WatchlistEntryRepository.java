@@ -13,7 +13,7 @@ public interface WatchlistEntryRepository extends JpaRepository<WatchlistEntry, 
 
     Page<WatchlistEntry> findByWatchlistIdAndAssetDetailNameContainingIgnoreCase(UUID watchlistId, String AssetName, Pageable pageable);
 
-    Optional<WatchlistEntry> findByAssetDetailIdAndAndWatchlistId(UUID assetId,UUID watchlistId);
+    Optional<WatchlistEntry> findByAssetDetailIdAndAndWatchlistId(UUID assetId, UUID watchlistId);
 
     void deleteByAssetDetailId(UUID assetUuidDetailId);
 }

@@ -103,24 +103,24 @@ public class WatchlistController {
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Optional<User> user = userService.getUserById(userId);
         log.info("UserId {} requested all watchlist ids", userId.toString());
-        if (user.isPresent()){
+        if (user.isPresent()) {
             watchlistEntry.setId(null);
-            ArrayList<Watchlist> watchlistList = new ArrayList<>(watchlistService.findByUserId(userId));
+            List<Watchlist> watchlistList = watchlistService.findByUserId(userId);
             Watchlist watchlist = new Watchlist();
             Optional<AssetDetail> assetDetail = assetService.getAssetDetail(watchlistEntry.getAssetDetail().getId());
-            if(assetDetail.get().getAssetClass().equals(AssetClass.STOCK)){
+            if (assetDetail.isPresent()) {
+                if (assetDetail.get().getAssetClass().equals(AssetClass.STOCK)) {
                     watchlist.setUser(user.get());
-                    watchlist.setId(watchlistList.get(0).getId());
-            }
-            else{
-                watchlist.setUser(user.get());
-                watchlist.setId(watchlistList.get(1).getId());
-            }
+                    watchlist.setId(watchlistList.stream().filter(watchlistElement -> watchlistElement.getName().equals("STOCK")).findFirst().get().getId());
+                } else {
+                    watchlist.setUser(user.get());
+                    watchlist.setId(watchlistList.stream().filter(watchlistElement -> watchlistElement.getName().equals("MUTUAL_FUND")).findFirst().get().getId());
+                }
                 watchlistEntry.setWatchlist(watchlist);
                 watchlistEntryService.add(watchlistEntry);
+            }
             return ResponseEntity.ok().body(watchlistEntry);
-        }
-        else{
+        } else {
             throw new NotFoundException();
         }
     }

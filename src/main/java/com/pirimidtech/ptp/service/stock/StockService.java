@@ -17,7 +17,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,10 +37,12 @@ public class StockService implements StockServiceInterface {
     public Page<StockDetail> getAllStockDetails(Pageable paging) {
         return stockDetailRepository.findAll(paging);
     }
+
     @Override
     public Page<StockStatistic> getAllStockStatistics(Pageable paging) {
         return stockStatisticRepository.findAll(paging);
     }
+
     @Override
     public void addStock(StockDetail stockDetail) {
         stockDetailRepository.save(stockDetail);

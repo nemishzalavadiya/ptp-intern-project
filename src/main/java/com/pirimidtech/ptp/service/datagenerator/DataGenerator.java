@@ -21,13 +21,12 @@ import java.util.UUID;
 
 @Service
 public class DataGenerator {
+    private static final float MIN = 20, MAX = 10000;
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("##.##");
     private List<Stock> stockList;
     private List<UUID> companyIdList;
     private List<String> companyNameList;
     private List<MutualFund> mutualFundList;
-    private static final float MIN = 20, MAX = 10000;
-    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("##.##");
-
     @Autowired
     private AssetService assetService;
 

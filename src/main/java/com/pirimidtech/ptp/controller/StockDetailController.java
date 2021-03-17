@@ -82,17 +82,17 @@ public class StockDetailController {
         String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Pageable paging = PageRequest.of(page, size);
-        Page<StockStatistic> stockStatistics=stockService.getStockFilterResults(selectedStocksFilter, paging, sortingField, orderBy);
-        List<StockStatistic> stockStatisticsList=stockStatistics.toList();
-        Watchlist watchlist =watchlistService.getWatchlistDetailByUserId(userId, AssetClass.STOCK);
-        List<StockStatisticDTO> stockStatisticDTOList=new ArrayList<>();
-        stockStatisticsList.forEach(element->{
-            Optional<WatchlistEntry> watchlistEntry=watchlistEntryRepository.findByAssetDetailIdAndAndWatchlistId(element.getStockDetail().getAssetDetail().getId(),watchlist.getId());
-            StockStatisticDTO StockStatisticDTO=new StockStatisticDTO(element,watchlistEntry.isPresent());
+        Page<StockStatistic> stockStatistics = stockService.getStockFilterResults(selectedStocksFilter, paging, sortingField, orderBy);
+        List<StockStatistic> stockStatisticsList = stockStatistics.toList();
+        Watchlist watchlist = watchlistService.getWatchlistDetailByUserId(userId, AssetClass.STOCK);
+        List<StockStatisticDTO> stockStatisticDTOList = new ArrayList<>();
+        stockStatisticsList.forEach(element -> {
+            Optional<WatchlistEntry> watchlistEntry = watchlistEntryRepository.findByAssetDetailIdAndAndWatchlistId(element.getStockDetail().getAssetDetail().getId(), watchlist.getId());
+            StockStatisticDTO StockStatisticDTO = new StockStatisticDTO(element, watchlistEntry.isPresent());
             stockStatisticDTOList.add(StockStatisticDTO);
         });
         int contentSize = stockStatisticDTOList.size();
         long total = paging.getOffset() + contentSize + (contentSize == size ? size : 0);
-        return new PageImpl<StockStatisticDTO>(stockStatisticDTOList, paging,total);
+        return new PageImpl<StockStatisticDTO>(stockStatisticDTOList, paging, total);
     }
 }

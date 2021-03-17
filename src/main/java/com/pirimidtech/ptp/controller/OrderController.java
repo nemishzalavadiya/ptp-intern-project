@@ -174,7 +174,7 @@ public class OrderController {
     }
 
     @GetMapping("/mutualfund/sip-status-records/users")
-    public int getTotalSipResponses(HttpServletRequest httpServletRequest){
+    public int getTotalSipResponses(HttpServletRequest httpServletRequest) {
         String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         int totalSips = orderService.getTotalSips(userId);

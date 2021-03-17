@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -23,8 +24,9 @@ public class WatchlistEntryService implements WatchlistEntryServiceInterface {
         return watchlistEntryRepository.findByWatchlistIdAndAssetDetailNameContainingIgnoreCase(watchlistId, assetName, pageable);
     }
 
-    public void remove(UUID watchlistEntryId) {
-        watchlistEntryRepository.deleteById(watchlistEntryId);
+    @Transactional
+    public void remove(UUID assetDetailId) {
+        watchlistEntryRepository.deleteByAssetDetailId(assetDetailId);
     }
 
     public void add(WatchlistEntry watchlistEntry) {

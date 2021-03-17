@@ -100,7 +100,7 @@ public class WatchlistController {
     public ResponseEntity<WatchlistEntry> addWatchlistEntry(@RequestBody WatchlistEntry watchlistEntry,
                                                             HttpServletRequest httpServletRequest) {
         String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
-        UUID userId = UUID.fromString("00000000-0000-0000-0000-000000000000");
+        UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Optional<User> user = userService.getUserById(userId);
         log.info("UserId {} requested all watchlist ids, page {} size {}", userId.toString());
         if (user.isPresent()){
@@ -138,9 +138,8 @@ public class WatchlistController {
     }
 
     @DeleteMapping("/watchlistentry")
-    public ResponseEntity<UUID> removeWatchlistEntry(@RequestParam UUID watchlistEntryId) {
-        watchlistEntryService.remove(watchlistEntryId);
-        return ResponseEntity.ok().body(watchlistEntryId);
+    public ResponseEntity<UUID> removeWatchlistEntry(@RequestParam UUID assetDetailId) {
+        watchlistEntryService.remove(assetDetailId);
+        return ResponseEntity.ok().body(assetDetailId);
     }
-
 }

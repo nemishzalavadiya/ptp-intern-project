@@ -1,5 +1,6 @@
 package com.pirimidtech.ptp.service.watchlist;
 
+import com.pirimidtech.ptp.entity.AssetClass;
 import com.pirimidtech.ptp.entity.Watchlist;
 import com.pirimidtech.ptp.repository.WatchlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ public class WatchlistService implements WatchlistServiceInterface {
     public Page<Watchlist> getWatchlistDetailByUserId(UUID userId, Pageable pageable) {
         return watchListRepository.findByUserId(userId, pageable);
     }
-
+    public Watchlist getWatchlistDetailByUserId(UUID userId, AssetClass assetClass) {
+        return watchListRepository.findByUserIdAndAndName(userId,assetClass.toString());
+    }
     public void add(Watchlist watchlist) {
         watchListRepository.save(watchlist);
     }

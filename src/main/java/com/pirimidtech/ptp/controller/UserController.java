@@ -1,9 +1,11 @@
 package com.pirimidtech.ptp.controller;
 
 import com.pirimidtech.ptp.entity.User;
+import com.pirimidtech.ptp.entity.Watchlist;
 import com.pirimidtech.ptp.exception.NotFoundException;
 import com.pirimidtech.ptp.exception.UserAlreadyExistException;
 import com.pirimidtech.ptp.service.user.UserService;
+import com.pirimidtech.ptp.service.watchlist.WatchlistService;
 import com.pirimidtech.ptp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private WatchlistService watchlistService;
+
+    @Autowired
     private RequestUtil requestUtil;
 
     @PostMapping(value = "/signup")
@@ -43,6 +48,10 @@ public class UserController {
         String userPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword((userPassword));
         userService.addUser(user);
+        Watchlist stockWatchlist = new Watchlist(null, user, "STOCK","stock watchlist");
+        Watchlist mutualFundWatchlist = new Watchlist(null, user, "MUTUAL_FUND","mutualfund watchlist");
+        watchlistService.add(stockWatchlist);
+        watchlistService.add(mutualFundWatchlist);
         return ResponseEntity.ok().body(user);
     }
 

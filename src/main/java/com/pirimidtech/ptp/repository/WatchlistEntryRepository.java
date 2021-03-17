@@ -5,10 +5,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface WatchlistEntryRepository extends JpaRepository<WatchlistEntry, UUID> {
     Page<WatchlistEntry> findByWatchlistId(UUID watchlistId, Pageable pageable);
 
     Page<WatchlistEntry> findByWatchlistIdAndAssetDetailNameContainingIgnoreCase(UUID watchlistId, String AssetName, Pageable pageable);
+
+    Optional<WatchlistEntry> findByAssetDetailIdAndAndWatchlistId(UUID assetId,UUID watchlistId);
+
+    void deleteByAssetDetailId(UUID assetUuidDetailId);
 }

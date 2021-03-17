@@ -48,8 +48,8 @@ public class UserController {
         String userPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword((userPassword));
         userService.addUser(user);
-        Watchlist stockWatchlist = new Watchlist(null, user, "STOCK","stock watchlist");
-        Watchlist mutualFundWatchlist = new Watchlist(null, user, "MUTUAL_FUND","mutualfund watchlist");
+        Watchlist stockWatchlist = new Watchlist(null, user, "STOCK", "stock watchlist");
+        Watchlist mutualFundWatchlist = new Watchlist(null, user, "MUTUAL_FUND", "mutualfund watchlist");
         watchlistService.add(stockWatchlist);
         watchlistService.add(mutualFundWatchlist);
         return ResponseEntity.ok().body(user);
@@ -67,7 +67,7 @@ public class UserController {
 
     @GetMapping("/users/profile")
     public ResponseEntity<User> getUser(HttpServletRequest httpServletRequest) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Optional<User> user = userService.getUserById(userId);
         if (user.isPresent())

@@ -22,7 +22,7 @@ public class WatchlistService implements WatchlistServiceInterface {
         return watchListRepository.findByUserId(userId, pageable);
     }
     public Watchlist getWatchlistDetailByUserId(UUID userId, AssetClass assetClass) {
-        return watchListRepository.findByUserIdAndAndName(userId,assetClass.toString());
+        return watchListRepository.findByUserIdAndName(userId,assetClass.toString());
     }
     public void add(Watchlist watchlist) {
         watchListRepository.save(watchlist);

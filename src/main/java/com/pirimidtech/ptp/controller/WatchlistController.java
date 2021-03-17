@@ -65,9 +65,9 @@ public class WatchlistController {
     @GetMapping("/user")
     public ResponseEntity<Page<Watchlist>> getAllWatchlistId(HttpServletRequest httpServletRequest, @RequestParam(defaultValue = "0") int page,
                                                              @RequestParam(defaultValue = "10") int size) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
-        log.info("UserId {} requested all watchlist ids, page {} size {}", userId.toString(), page, size);
+        log.info("UserId {} requested all watchlist ids", userId.toString(), page, size);
         Pageable pageable = PageRequest.of(page, size);
         Page<Watchlist> watchlistPage = watchlistService.getWatchlistDetailByUserId(userId, pageable);
         return ResponseEntity.ok().body(watchlistPage);
@@ -99,10 +99,10 @@ public class WatchlistController {
     @PostMapping("/add-watchlistentry")
     public ResponseEntity<WatchlistEntry> addWatchlistEntry(@RequestBody WatchlistEntry watchlistEntry,
                                                             HttpServletRequest httpServletRequest) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Optional<User> user = userService.getUserById(userId);
-        log.info("UserId {} requested all watchlist ids, page {} size {}", userId.toString());
+        log.info("UserId {} requested all watchlist ids", userId.toString());
         if (user.isPresent()){
             watchlistEntry.setId(null);
             ArrayList<Watchlist> watchlistList = new ArrayList<>(watchlistService.findByUserId(userId));

@@ -79,7 +79,7 @@ public class StockDetailController {
 
     @PostMapping("/stocks/filters")
     public PageImpl<StockStatisticDTO> fundsFilter(HttpServletRequest httpServletRequest, @RequestBody SelectedStocksFilter selectedStocksFilter, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "") String sortingField, @RequestParam(defaultValue = "") String orderBy) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Pageable paging = PageRequest.of(page, size);
         Page<StockStatistic> stockStatistics=stockService.getStockFilterResults(selectedStocksFilter, paging, sortingField, orderBy);

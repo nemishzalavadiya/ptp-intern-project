@@ -67,16 +67,16 @@ public class MutualFundDetailController {
 
     @PostMapping("/mutualfunds/filters")
     public Page<MutualFundStatisticDTO> fundsFilter(HttpServletRequest httpServletRequest, @RequestBody SelectedMutualFundFilter selectedMutualFundFilter, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "") String sortingField, @RequestParam(defaultValue = "") String orderBy) {
-        String jwtToken = requestUtil.getTokenFromCookies(httpServletRequest);
+        String jwtToken = requestUtil.getUserIdFromCookies(httpServletRequest);
         UUID userId = requestUtil.getUserIdFromToken(jwtToken);
         Pageable paging = PageRequest.of(page, size);
-        Page<MutualFundStatistic> mutualFundStatistics=mutualFundService.getMutualFundsFilterResults(selectedMutualFundFilter, paging, sortingField, orderBy);
-        List<MutualFundStatistic> mutualFundStatisticList=mutualFundStatistics.toList();
-        Watchlist watchlist =watchlistService.getWatchlistDetailByUserId(userId, AssetClass.MUTUAL_FUND);
-        List<MutualFundStatisticDTO> mutualFundStatisticDTOList=new ArrayList<>();
-        mutualFundStatisticList.forEach(element->{
-            Optional<WatchlistEntry> watchlistEntry=watchlistEntryRepository.findByAssetDetailIdAndAndWatchlistId(element.getMutualFundDetail().getAssetDetail().getId(),watchlist.getId());
-            MutualFundStatisticDTO mutualFundStatisticDTO=new MutualFundStatisticDTO(element,watchlistEntry.isPresent());
+        Page<MutualFundStatistic> mutualFundStatistics = mutualFundService.getMutualFundsFilterResults(selectedMutualFundFilter, paging, sortingField, orderBy);
+        List<MutualFundStatistic> mutualFundStatisticList = mutualFundStatistics.toList();
+        Watchlist watchlist = watchlistService.getWatchlistDetailByUserId(userId, AssetClass.MUTUAL_FUND);
+        List<MutualFundStatisticDTO> mutualFundStatisticDTOList = new ArrayList<>();
+        mutualFundStatisticList.forEach(element -> {
+            Optional<WatchlistEntry> watchlistEntry = watchlistEntryRepository.findByAssetDetailIdAndAndWatchlistId(element.getMutualFundDetail().getAssetDetail().getId(), watchlist.getId());
+            MutualFundStatisticDTO mutualFundStatisticDTO = new MutualFundStatisticDTO(element, watchlistEntry.isPresent());
             mutualFundStatisticDTOList.add(mutualFundStatisticDTO);
         });
         int contentSize = mutualFundStatisticDTOList.size();

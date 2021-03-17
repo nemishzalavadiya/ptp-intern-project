@@ -10,8 +10,11 @@ import {
   Dropdown,
   Select,
 } from "semantic-ui-react";
-import { createMutualFundOrder } from "src/services/mutualFundOrder";
-import { ToastContainer } from "react-toastify";
+import {
+  createMutualFundOrder,
+  updateMutualFundOrder,
+} from "src/services/mutualFundOrder";
+import { ToastContainer, toast } from "react-toastify";
 import { InvestmentType } from "src/enums/InvestmentType";
 import { Frequency } from "src/enums/Frequency";
 import { UserId } from "src/components/Objects";
@@ -19,9 +22,15 @@ import showToast from "src/components/showToast";
 
 export default function MutualFundTicket(props) {
   const [investmentType, setInvestmentType] = useState(InvestmentType.SIP);
-  const [amount, setAmount] = useState(0);
-  const [date, setDate] = useState("");
-  const [frequency, setFrequency] = useState(Frequency.MONTHLY_SIP);
+  const [amount, setAmount] = useState(
+    props.isUpdate ? props.ticketDetail.amount : 0
+  );
+  const [date, setDate] = useState(
+    props.isUpdate ? props.ticketDetail.date : ""
+  );
+  const [frequency, setFrequency] = useState(
+    props.isUpdate ? props.ticketDetail.frequency : Frequency.MONTHLY_SIP
+  );
   const [isOrderExecuting, setOrderStatus] = useState(false);
 
   const mfId = props.mfDetail.mutualFundDetail.id;
@@ -45,65 +54,99 @@ export default function MutualFundTicket(props) {
   ];
 
   const createOrder = async (event) => {
-    setOrderStatus(true);
-    event.preventDefault();
-    let data = {
-      sipdate: date,
-      investmentType: frequency,
-      price: amount,
-      user: {
-        id: UserId.userId,
-      },
-      mutualFundDetail: {
-        id: mfId,
-      },
-    };
-    if (investmentType == InvestmentType.ONE_TIME) {
-      data.sipdate = "";
-      data.investmentType = InvestmentType.ONE_TIME;
+    if (props.isUpdate) {
+      let data = {
+        sipdate: date,
+        sipStatus: "ACTIVE",
+        investmentType: frequency,
+        price: amount,
+        user: {
+          id: UserId.userId,
+        },
+        mutualFundDetail: {
+          id: mfId,
+        },
+      };
+      await updateMutualFundOrder(props.mfOrderId, data);
+      props.setIsUpdate(!props.isUpdateFlag);
+    } else {
+      setOrderStatus(true);
+      event.preventDefault();
+      let data = {
+        sipdate: date,
+        investmentType: frequency,
+        price: amount,
+        user: {
+          id: UserId.userId,
+        },
+        mutualFundDetail: {
+          id: mfId,
+        },
+      };
+      if (investmentType == InvestmentType.ONE_TIME) {
+        data.sipdate = "";
+        data.investmentType = InvestmentType.ONE_TIME;
+      }
+      createMutualFundOrder(data)
+        .then(() => {
+          setOrderStatus(false);
+          toast("Order executed successfully", {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+          });
+        })
+        .catch((err) => {
+          setOrderStatus(false);
+          toast("Something went wrong please try", {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+          });
+        });
     }
-    createMutualFundOrder(data)
-      .then(() => {
-        setOrderStatus(false);
-        showToast("Order executed successfully")
-      })
-      .catch((err) => {
-        setOrderStatus(false);
-        showToast("Something went wrong please try",true)
-      });
   };
-
   return (
     <Segment className="mutualFundTicket">
       <Form inverted>
         <Grid>
-          <Grid.Row>
-            <Grid.Column width={5}>
-              <label>Investment Type</label>
-            </Grid.Column>
-            <Grid.Column width={11}>
-              <Button.Group name="orderType" widths="2" fluid>
-                <Button
-                  color="grey"
-                  positive={investmentType === InvestmentType.SIP}
-                  onClick={() => {
-                    setInvestmentType(InvestmentType.SIP);
-                  }}
-                >
-                  SIP
-                </Button>
-                <Button
-                  color="grey"
-                  positive={investmentType === InvestmentType.ONE_TIME}
-                  onClick={() => {
-                    setInvestmentType(InvestmentType.ONE_TIME);
-                  }}
-                >
-                  Lumpsum
-                </Button>
-              </Button.Group>
-            </Grid.Column>
-          </Grid.Row>
+          {!props.isUpdate && (
+            <Grid.Row>
+              <Grid.Column width={5}>
+                <label>Investment Type</label>
+              </Grid.Column>
+              <Grid.Column width={11}>
+                <Button.Group name="orderType" widths="2" fluid>
+                  <Button
+                    color="grey"
+                    positive={investmentType === InvestmentType.SIP}
+                    onClick={() => {
+                      setInvestmentType(InvestmentType.SIP);
+                    }}
+                  >
+                    SIP
+                  </Button>
+                  <Button
+                    color="grey"
+                    positive={investmentType === InvestmentType.ONE_TIME}
+                    onClick={() => {
+                      setInvestmentType(InvestmentType.ONE_TIME);
+                    }}
+                  >
+                    Lumpsum
+                  </Button>
+                </Button.Group>
+              </Grid.Column>
+            </Grid.Row>
+          )}
           <Grid.Row>
             <Grid.Column width={5}>
               <label> Frequency </label>
@@ -111,8 +154,8 @@ export default function MutualFundTicket(props) {
             <Grid.Column width={11}>
               <Select
                 disabled={investmentType === InvestmentType.ONE_TIME}
-                placeholder="Frequency"
                 fluid
+                value={frequency}
                 onChange={(event, data) => {
                   setFrequency(data.value);
                 }}
@@ -129,9 +172,9 @@ export default function MutualFundTicket(props) {
             </Grid.Column>
             <Grid.Column width={11}>
               <Form.Input
-                type="number"
+                type="float"
+                value={amount}
                 onChange={(event) => setAmount(event.target.value)}
-                placeholder="amount"
                 iconPosition="left"
                 icon="rupee"
               />
@@ -145,8 +188,8 @@ export default function MutualFundTicket(props) {
               <Form.Input
                 disabled={investmentType == InvestmentType.ONE_TIME}
                 type="date"
-                placeholder="Date"
                 required
+                value={date}
                 onChange={(event) => setDate(event.target.value)}
               />
             </Grid.Column>
@@ -158,7 +201,7 @@ export default function MutualFundTicket(props) {
             fluid
             disabled={amount < minSIP || isOrderExecuting}
           >
-            Invest Now
+            {props.isUpdate ? "Edit" : "Invest Now"}
           </Button>
           <ToastContainer />
         </Grid>

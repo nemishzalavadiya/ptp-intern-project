@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { Loader, Button, Icon } from "semantic-ui-react";
 import FilterGroup from "src/components/filter/FilterGroup";
 import Layout from "src/components/Layout";
 import { stockFilters } from "src/components/filter/filterDetails";
@@ -47,104 +48,124 @@ const stocks = () => {
 		),
 	};
 
-	const [results, setResults] = useState(initialState.results);
-	const [selectedFilters, setSelectedFilters] = useState(initialState.selectedFilters);
+  const [results, setResults] = useState(initialState.results);
+  const [selectedFilters, setSelectedFilters] = useState(
+    initialState.selectedFilters
+  );
 
-	const [activePage, setActivePage] = useState(0);
-	const [totalPages, setTotalPages] = useState(0);
+  const [activePage, setActivePage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
-	let isSubscriptionCompleted = false;
-	let subscriptionDataMap = new Map();
+  let isSubscriptionCompleted = false;
+  let subscriptionDataMap = new Map();
 
-	async function requestFiltered(url = "", data = {}) {
-		const response = await fetch(url, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		});
-		return response.json();
-	}
+  async function requestFiltered(url = "", data = {}) {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  }
 
-	useEffect(() => {
-		let filterBody = {};
-		selectedFilters.forEach((filter, index) => {
-			if (stockFilters[index].type == filterType.RANGE) {
-				filterBody[stockFilters[index].field] = filter;
-			}
-		});
+  useEffect(() => {
+    let filterBody = {};
+    selectedFilters.forEach((filter, index) => {
+      if (stockFilters[index].type == filterType.RANGE) {
+        filterBody[stockFilters[index].field] = filter;
+      }
+    });
 
 		requestFiltered(`/api/stocks/filters?page=${activePage}&sortingField=${sortingField}&orderBy=${orderBy}`, filterBody).then((page) => {
 			setResults(page.content);
 			setTotalPages(page.totalPages);
+			subscriptionDataMap.clear();
+			setSubscriptionIdList(
+				page.content === undefined ? [] : page.content.map((item) => item.stockDetail.assetDetail.id)
+			);
 		});
 	}, [selectedFilters, activePage, orderBy, sortingField]);
 
-	useEffect(() => {
-		subscriptionDataMap.clear();
-		setSubscriptionIdList(results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id));
-	}, [results]);
+  const [subscriptionIdList, setSubscriptionIdList] = useState(
+    results === undefined
+      ? []
+      : results.map((item) => item.stockDetail.assetDetail.id)
+  );
 
-	const [subscriptionIdList, setSubscriptionIdList] = useState(
-		results === undefined ? [] : results.map((item) => item.stockDetail.assetDetail.id)
-	);
+  [isSubscriptionCompleted, subscriptionDataMap] = useWebSocket(
+    subscriptionIdList
+  );
 
-	[isSubscriptionCompleted, subscriptionDataMap] = useWebSocket(subscriptionIdList);
+  const pageReset = () => {
+    setActivePage(0);
+  };
 
-	const pageReset = () => {
-		setActivePage(0);
-	};
+  const setSelectedState = (selectedGroupState) => {
+    setSelectedFilters([...selectedGroupState]);
+  };
 
-	const setSelectedState = (selectedGroupState) => {
-		setSelectedFilters([...selectedGroupState]);
-	};
+  return (
+    <Layout name="STOCK">
+      <Head>
+        <title>Pirimid Trading Platform</title>
+        <link rel="icon" href="/favicon.svg" />
+      </Head>
 
-	return (
-		<Layout name="STOCK">
-			<Head>
-				<title>Pirimid Trading Platform</title>
-				<link rel="icon" href="/favicon.svg" />
-			</Head>
-
-			<div className="filter-grid">
-				<FilterGroup
-					details={stockFilters}
-					selectedFilters={selectedFilters}
-					pageReset={pageReset}
-					setSelectedState={setSelectedState}
-				/>
-				<div className="right-grid">
-        			<Sorting content={content} pattern={pattern} onclick={changeArrow} />
-					<GridContainer
-						content={content}
-						data={
-							results === undefined
-								? []
-								: results.map((item) => [
-										<Link href={`/details/${item.stockDetail.assetDetail.id}`}>
-											{item.stockDetail.assetDetail.name}
-										</Link>,
-										subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
-											? ""
-											: subscriptionDataMap.get(item.stockDetail.assetDetail.id).marketPrice,
-										subscriptionDataMap.get(item.stockDetail.assetDetail.id) === undefined
-											? ""
-											: subscriptionDataMap.get(item.stockDetail.assetDetail.id).close,
-										item.marketCap,
-								  ])
-						}
-						pagination={{
-							activePage,
-							totalPages,
-							handlePaginationChange: setActivePage,
-						}}
-						showHeaderGrid="disable"
-					/>
-				</div>
-			</div>
-		</Layout>
-	);
+      <div className="filter-grid">
+        <FilterGroup
+          details={stockFilters}
+          selectedFilters={selectedFilters}
+          pageReset={pageReset}
+          setSelectedState={setSelectedState}
+        />
+        {isSubscriptionCompleted ? (
+          <div className="right-grid">
+            <GridContainer
+              content={content}
+              data={
+                results === undefined
+                  ? []
+                  : results.map((item) => [
+                      <Link
+                        href={`/details/${item.stockDetail.assetDetail.id}`}
+                      >
+                        {item.stockDetail.assetDetail.name}
+                      </Link>,
+                      subscriptionDataMap.get(
+                        item.stockDetail.assetDetail.id
+                      ) === undefined
+                        ? ""
+                        : subscriptionDataMap.get(
+                            item.stockDetail.assetDetail.id
+                          ).marketPrice,
+                      subscriptionDataMap.get(
+                        item.stockDetail.assetDetail.id
+                      ) === undefined
+                        ? ""
+                        : subscriptionDataMap.get(
+                            item.stockDetail.assetDetail.id
+                          ).close,
+                      item.marketCap,
+                      <Button>
+                       <i class="heart icon"></i> Add
+                      </Button>,
+                    ])
+              }
+              pagination={{
+                activePage,
+                totalPages,
+                handlePaginationChange: setActivePage,
+              }}
+            />
+          </div>
+        ) : (
+          <Loader active>Loading...</Loader>
+        )}
+      </div>
+    </Layout>
+  );
 };
 
 export default stocks;

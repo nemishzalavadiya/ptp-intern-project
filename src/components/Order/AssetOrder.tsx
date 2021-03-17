@@ -15,7 +15,7 @@ export default function AssetOrder(props) {
     pages: 0,
   });
 
-  const assetClass =
+  const assetClass = 
     props.activeItem == 0 ? AssetClass.STOCK : AssetClass.MUTUAL_FUND;
 
   [isContentFetchingCompleted, totalPage, response] = getOrdersByDate(
@@ -39,7 +39,6 @@ export default function AssetOrder(props) {
   function handleItemClick(index) {
     setActiveItem(index);
   }
-
   return (
     <div>
       {isContentFetchingCompleted ? (

@@ -54,6 +54,7 @@ export default function Login() {
                         required
                         inverted
                         name="email"
+                        autoComplete="new-password"
                         placeholder="Email"
                         autoComplete="off"
                         iconPosition="left"

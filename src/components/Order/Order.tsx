@@ -80,6 +80,7 @@ export default function Order(props) {
                 value={startDate}
                 onChange={handleStartDateChange}
                 type="date"
+                max = {endDate}
               />
             </Grid.Column>
             <Grid.Column width={3} className="date-picker">
@@ -88,6 +89,8 @@ export default function Order(props) {
                 value={endDate}
                 onChange={handleEndDateChange}
                 type="date"
+                min = {startDate}
+                max = {Moment().format("YYYY-MM-DD")}
               />
             </Grid.Column>
           </Grid.Row>

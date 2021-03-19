@@ -1,6 +1,6 @@
 @import "src/styles/_variables.scss";
 i.icon.triangle.up {
-  color: green;
+  color: rgb(102, 235, 69);
   cursor: pointer;
 }
 i.icon.dropdown {
@@ -12,13 +12,12 @@ div.dropdown {
   cursor: pointer;
 }
 div.triangle.up {
-  color: green;
+  color: rgb(102, 235, 69);
   cursor: pointer;
 }
 .grid-header-item-sorting {
-  font-size: 0.8rem;
   min-width: 90px;
-  text-align: right;
+  text-align: left;
 }
 .row.ui.segment.grid-row-sorting-header {
   padding: 2vh;
@@ -28,4 +27,10 @@ div.triangle.up {
   margin:2px 0px;
   border-radius: 7px;
   padding-bottom: 0%;
+  
 }
+
+
+
+
+

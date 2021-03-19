@@ -1,5 +1,4 @@
 @import '_variables';
-
 .top-asset{
   margin-left: -1%;
 }
@@ -26,6 +25,7 @@
 .dashboard-assetlist-link .dashboard-populer-assets-link {
   color: #4183c4;
   text-decoration: none;
+  text-align: right;
 }
 .ui.grid .dashboard-position-link-title:hover,
 .dashboard-assetlist-link .dashboard-populer-assets-link:hover {
@@ -41,16 +41,16 @@
   cursor: pointer;
 }
 .dashboard-right {
-  margin-bottom: 100px;
+  margin-bottom: 3vh;
 }
 .ui.inverted.segment.dashboard-asset-container,
 .ui.segment.dashboard-position {
   background-color: $cardGrey;
+  margin-right:0px;
 }
 .ui.segment.dashboard-position {
   min-height: 550px;
 }
-
 .dashboard-right {
   min-height: 550px;
 }
@@ -58,6 +58,7 @@
   position: absolute;
   right: 0;
   text-align: right;
+  margin-right: 20px;
 }
 .dashboard-secondary-data {
   color: rgba($color: white, $alpha: 0.6);
@@ -73,7 +74,8 @@
   margin-top: 2%;
 }
 .dashboard-grid {
-  margin-top: 5%;
+  margin-top: 2%;
+  margin-bottom: 4%;
 }
 .dashboard-company-name {
   position: absolute;
@@ -85,17 +87,18 @@
   bottom: 5%;
 }
 .dashboard-filter-container {
-  margin-top: 80px;
+  margin-top: 10px;
 }
 .dashboard-company-card .dashboard-filter-container:hover .dashboard-filter-icon{
   padding-bottom: 2px;
   border-bottom: 2px solid white;
 }
 .dashboard-filter-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,50%);
+  width: 160px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 } 
 .dashboard-filter-description {
   font-size: small;

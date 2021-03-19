@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Router from "next/router";
 import Tab from "src/components/Tab";
 import { Button } from "semantic-ui-react";
@@ -40,11 +40,13 @@ export default function Position(props) {
     setSearchString(data.value);
     setPage(0);
   }
-  getMutualFundOrdersCountBySipStatus(UserId.userId, 0, totalPages).then(
-    (res) => {
-      setTotalSIPs(res);
-    }
-  );
+  useEffect(() => {
+    getMutualFundOrdersCountBySipStatus(UserId.userId, 0, totalPages).then(
+      (res) => {
+        setTotalSIPs(res);
+      }
+    );
+  }, [])
   return (
     <div>
       <Tab

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "es5",
     "lib": [
       "dom",
@@ -9,7 +10,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -22,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/services/watchlistService.js", "src/services/userUpdate.js", "src/services/userRegistration.js", "src/services/underscoreToCapitalize.js", "src/services/stockOrder.js", "src/services/sipstatus.js", "src/services/sessionService.js", "src/services/orderService.js", "src/services/position.js", "src/services/mutualFundOrder.js", "src/services/debounce.js", "src/services/dashboard.js", "src/services/KYCService.js", "src/services/assets.js", "src/pages/details/[id].jsx", "src/pages/watchlist.jsx", "src/pages/stocks.jsx", "src/pages/sipstatus.jsx", "src/pages/register.jsx", "src/pages/profile.jsx", "src/pages/position.jsx", "src/pages/Order.jsx", "src/pages/mutualfunds.jsx", "src/pages/login.jsx", "src/pages/kyc.jsx", "src/pages/index.jsx", "src/pages/_app.jsx", "src/hooks/useWebSocket.js", "src/hooks/useGetWatchlistEntryByWatchlistId.jsx", "src/hooks/useFetch.js", "src/hooks/mutualFundPosition.jsx", "src/components/TopNavBar.jsx", "src/components/Tab.jsx", "src/components/showToast.jsx", "src/components/Search.jsx", "src/components/Objects.jsx", "src/components/NavBar.jsx", "src/components/MainSearch.jsx", "src/components/Layout.jsx", "src/components/watchlist/WatchlistView.jsx", "src/components/watchlist/WatchlistContent.jsx", "src/components/watchlist/Watchlist.jsx", "src/components/watchlist/mutualFundWatchList.jsx", "src/components/ticket/StockTicket.jsx", "src/components/ticket/MutualFundTicket.jsx", "src/components/Stockdetail/StockLineChartOptions.jsx", "src/components/Stockdetail/StockLineChartData.jsx", "src/components/Stockdetail/Stockdetail.jsx", "src/components/Stockdetail/StockCandleStickData.jsx", "src/components/Stockdetail/StockCandleStickChartOptions.jsx", "src/components/Stockdetail/LineChart.jsx", "src/components/Stockdetail/Chart.jsx", "src/components/Stockdetail/CandlestickChart.jsx", "src/components/Statistics/StatisticStock.jsx", "src/components/Statistics/StatisticStock.jsx", "src/components/Statistics/StatisticMf.jsx", "src/components/Sorting/Sorting.jsx", "src/components/SipStatus/SIP.jsx", "src/components/Register/register.jsx", "src/components/Profile/Profile.jsx", "src/components/position/stockPositionView.jsx", "src/components/position/stockPositionList.jsx", "src/components/position/position.jsx", "src/components/position/mutualFundPositionView.jsx", "src/components/Order/Order.jsx", "src/components/Order/AssetOrder.jsx", "src/components/Mutualfund/MutualfundDetail.jsx", "src/components/Mutualfund/MutualfundData.jsx", "src/components/Mutualfund/MutualFundChartOptions.jsx", "src/components/Mutualfund/Chart.jsx", "src/components/Login/Login.jsx", "src/components/KYC/SuccessPage.jsx", "src/components/KYC/Signature.jsx", "src/components/KYC/PersonalDetail.jsx", "src/components/KYC/PanDetail.jsx", "src/components/KYC/KYCForm.jsx", "src/components/grid/PaginationContainer.jsx", "src/components/grid/GridHeader.jsx", "src/components/grid/GridContainer.jsx", "src/components/filter/filterType.jsx", "src/components/dashboard/TopAssetContainer.jsx", "src/components/dashboard/imagePathProviderFromName.jsx", "src/components/dashboard/DashboardCardDetails.jsx", "src/components/dashboard/Dashboard.jsx", "src/components/contexts/useAuth.jsx", "src/components/contexts/AuthContext.jsx", "src/components/Authentication/ProtectRoute.jsx", "src/components/Authentication/AuthProvider.jsx"  ],
   "exclude": [
     "node_modules"
   ]

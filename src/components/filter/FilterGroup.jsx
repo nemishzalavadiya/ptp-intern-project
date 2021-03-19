@@ -1,7 +1,7 @@
 import { Button, List, Header } from "semantic-ui-react";
 import CheckboxFilter from "src/components/filter/CheckboxFilter";
 import RangeFilter from "src/components/filter/RangeFilter";
-import { filterType } from "src/components/filter/filterType.tsx";
+import { filterType } from "src/components/filter/filterType";
 import { useEffect, useState } from "react";
 
 const Filter = (props) => {

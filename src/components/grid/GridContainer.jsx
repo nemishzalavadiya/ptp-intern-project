@@ -29,7 +29,7 @@ export default function GridContainer(props) {
                       (item >= 0 ? "profit" : "loss")
                       }`}
                   >
-                    {props.content[innerIndex].icon
+                    {props.content[innerIndex]&&props.content[innerIndex].icon
                       ? props.content[innerIndex].icon
                       : null}
                     {isFinite(item) ? item.toLocaleString() : item}

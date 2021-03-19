@@ -36,7 +36,7 @@ const CardHeader = [{
         id: "assetDetailId",
         sortBy: "risk",
         sign: "",
-        secondaryData: "",
+        secondaryData: "(Risk)",
         objectField: 'dashboardMutualFundDTOList'
     }
 }, {

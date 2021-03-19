@@ -4,7 +4,7 @@ import Link from "next/link";
 import FilterGroup from "src/components/filter/FilterGroup";
 import Layout from "src/components/Layout";
 import { mutualFundFilters } from "src/components/filter/filterDetails";
-import { filterType } from "src/components/filter/filterType.tsx";
+import { filterType } from "src/components/filter/filterType";
 import GridContainer from "src/components/grid/GridContainer";
 import { useRouter } from "next/router";
 import Sorting from "src/components/Sorting/Sorting";
@@ -91,16 +91,6 @@ const mutualfunds = () => {
       }
     }
     router.replace("/mutualfunds", undefined, { shallow: true });
-  }
-  async function requestFiltered(url = "", data = {}) {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    return response.json();
   }
 
   const [activePage, setActivePage] = useState(0);

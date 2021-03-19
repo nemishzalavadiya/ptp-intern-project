@@ -6,10 +6,14 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useState, useEffect } from "react";
 import { WebSocketUrl } from "src/components/Objects";
-export default function useWebSocket(uuidList) {
+export default function useWebSocket(latestUuidList) {
   const [myMap, setMyMap] = useState(new Map());
   const [isCompleted, setCompleted] = useState(false);
-
+  const [uuidList,setUuidList] = useState([]);
+  if(JSON.stringify(uuidList)!==JSON.stringify(latestUuidList)){
+    setMyMap(new Map())
+    setUuidList(latestUuidList)
+  }
   function setUpSubscription(stompClient) {
     stompClient.debug = (f) => f;
     stompClient.connect({}, function (frame) {
@@ -27,13 +31,10 @@ export default function useWebSocket(uuidList) {
       setCompleted(true);
     });
   }
-
   useEffect(() => {
     const webSocket = new SockJS(WebSocketUrl.url);
     const stompClient = Stomp.over(webSocket);
-
     setUpSubscription(stompClient);
-
     return () => {
       function cleanUp(uuidList, stompClient) {
         if (stompClient.connected) {

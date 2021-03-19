@@ -30,7 +30,7 @@ function getOrdersByDate(
           item.stockDetail.assetDetail.name,
           item.stockDetail.assetDetail.assetClass,
           item.price,
-          item.timestamp.substr(0, 10),
+          Moment(item.timestamp.substr(0, 10)).format("DD-MM-YYYY"),
           item.timestamp.substr(11, 12).substr(0, 5),
           item.orderType,
           item.productCode,

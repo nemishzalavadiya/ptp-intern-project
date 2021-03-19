@@ -7,6 +7,7 @@ import React from "react";
 import { Loader } from "semantic-ui-react";
 import { getAllWatchlistByUserId } from "src/services/watchlistService";
 import WatchlistContent from "src/components/watchlist/WatchlistContent";
+import MutualFundWatchlistContent from "src/components/watchlist/mutualFundWatchList";
 import { useState, useEffect } from "react";
 import Tab from "src/components/Tab";
 import {
@@ -106,24 +107,38 @@ export default function Watchlist() {
     setSortingField(fieldName);
     setPattern(midPattern);
   }
+  const tabs = [
+    {
+      name: "Stock",
+    },
+    {
+      name: "MutualFund",
+    },
+  ];
 
   return isWatchlistIdFetchingCompleted && !error ? (
     <>
       <Tab
-        content={response.content}
+        content={tabs}s
         handleItemClick={handleItemClick}
         activeItem={activeItem}
       />
-      <WatchlistContent
-        content={content[activeItem]}
-        watchlistId={response.content[activeItem].id}
+      {activeItem==0?<WatchlistContent
+        content={content[0]}
+        watchlistId={response.content[0].id}
         onclick={changeArrow}
         pattern={pattern}
-      />
+      />:<MutualFundWatchlistContent
+      content={content[1]}
+      watchlistId={response.content[1].id}
+      onclick={changeArrow}
+      pattern={pattern}
+    />
+  }
     </>
   ) : (
     <Loader active>
-      Loading
+      Loading...
       {!!error && (
         <>
           <br />

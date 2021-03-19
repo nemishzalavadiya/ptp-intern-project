@@ -4,6 +4,7 @@
   background: transparent;
   color: white;
   text-align: left;
+  width:30vh;
 }
 
 .midSection {
@@ -20,8 +21,9 @@
 }
 
 .middle.aligned.seven.wide.column.rightSide {
-  padding: 0px 5%;
+  padding: 0px 6%;
   padding-top: 2%;
+  margin-left: 20vh;
 }
 
 .ui.button.getStart {
@@ -78,7 +80,6 @@ input[type="file"] {
 .kycDiv {
   background-color: #272727;
   margin-top: 5%;
-  border-radius: 25px;
 }
 
 .kycProfile {

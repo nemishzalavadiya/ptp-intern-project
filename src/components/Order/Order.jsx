@@ -20,6 +20,7 @@ export default function Order(props) {
     { header: "Company", icon: "", sortable: false  },
     { header: "Asset Class", icon: "", sortable: false  },
     { header: "Amount", icon: <i className="rupee sign icon small"></i>, sortable: false  },
+    { header: "Unit(s)", icon: "" , sortable: false },
     { header: "Start Date", icon: "" , sortable: false },
     { header: "Frequency", icon: "", sortable: false  },
     { header: "SIP Status", icon: "" , sortable: false },

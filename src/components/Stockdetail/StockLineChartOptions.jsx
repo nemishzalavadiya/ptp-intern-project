@@ -54,7 +54,7 @@ const options = {
     series: [
       {
         type: "line",
-        name: "nav",
+        name: "Price",
         data: [],
       },
     ],

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Router from "next/router";
 import { UserId } from "src/components/Objects";
 import GridContainer from "src/components/grid/GridContainer";
+import {underscoreToCapitalize,capitalize} from "src/services/underscoreToCapitalize";
 import {
   getMutualFundOrdersBySipStatus,
   deleteSIPStatus,
@@ -56,7 +57,7 @@ export default function SIP(props) {
           item.mutualFundDetail.assetDetail.name,
           item.price,
           item.timestamp.substr(0, 10),
-          item.investmentType,
+          underscoreToCapitalize(item.investmentType),
           item.sipdate.substring(0, 10),
           item.sipStatus,
           <Button.Group color="grey" icon>

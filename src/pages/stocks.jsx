@@ -5,7 +5,7 @@ import { Loader, Button, Icon } from "semantic-ui-react";
 import FilterGroup from "src/components/filter/FilterGroup";
 import Layout from "src/components/Layout";
 import { stockFilters } from "src/components/filter/filterDetails";
-import { filterType } from "src/components/filter/filterType.tsx";
+import { filterType } from "src/components/filter/filterType";
 import GridContainer from "src/components/grid/GridContainer";
 import useWebSocket from "src/hooks/useWebSocket";
 import Sorting from "src/components/Sorting/Sorting";

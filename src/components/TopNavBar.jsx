@@ -25,7 +25,7 @@ const TopNavBar = (props) => {
       <div className="headerTopNavBar">
         <div>
           <Link href="/">
-            <img className="logo" src="/LOGO.png" alt="PTP LOGO" />
+            <img className="logo" src="/logo.png" alt="PTP LOGO" />
           </Link>
         </div>
         <div id="navigation" className="top-nav-bar-component">

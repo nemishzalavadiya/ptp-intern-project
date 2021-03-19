@@ -1,14 +1,14 @@
 import { useFetch } from "src/hooks/useFetch";
 
 async function getMutualFundOrdersBySipStatus(userId,page,size) {
-   const response = await fetch("/api/mutualfund/sip-status/users?userId="+userId+"&page="+page+"&size="+size
+   const response = await fetch("/api/mutualfund/sip-status/users?page="+page+"&size="+size
   )
   const body = await response.json();
   return body;
 } 
 
 async function getMutualFundOrdersCountBySipStatus(userId) {
-   const response = await fetch("/api/mutualfun/sip-status-records/users?userId="+userId
+   const response = await fetch("/api/mutualfund/sip-status-records/users"
   )
   const body = await response.json();
   return body;

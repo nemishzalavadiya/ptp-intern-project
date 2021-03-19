@@ -19,6 +19,7 @@ import { InvestmentType } from "src/enums/InvestmentType";
 import { Frequency } from "src/enums/Frequency";
 import { UserId } from "src/components/Objects";
 import showToast from "src/components/showToast";
+import Moment from "moment";
 
 export default function MutualFundTicket(props) {
   const [investmentType, setInvestmentType] = useState(InvestmentType.SIP);
@@ -87,30 +88,21 @@ export default function MutualFundTicket(props) {
         data.sipdate = "";
         data.investmentType = InvestmentType.ONE_TIME;
       }
+      else{
+        if(!data.sipdate){
+          showToast("Select Valid Date");
+          setOrderStatus(false);
+          return;
+        }
+      }
       createMutualFundOrder(data)
         .then(() => {
           setOrderStatus(false);
-          toast("Order executed successfully", {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: false,
-            progress: undefined,
-          });
+          showToast("Order executed successfully");
         })
         .catch((err) => {
           setOrderStatus(false);
-          toast("Something went wrong please try", {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: false,
-            progress: undefined,
-          });
+          showToast("Something went wrong please try",true);
         });
     }
   };
@@ -119,7 +111,7 @@ export default function MutualFundTicket(props) {
       <Form inverted>
         <Grid>
           {!props.isUpdate && (
-            <Grid.Row>
+            <Grid.Row className={!props.isUpdate&&`row-ticket`}>
               <Grid.Column width={5}>
                 <label>Investment Type</label>
               </Grid.Column>
@@ -147,7 +139,7 @@ export default function MutualFundTicket(props) {
               </Grid.Column>
             </Grid.Row>
           )}
-          <Grid.Row>
+          <Grid.Row className={!props.isUpdate&&`row-ticket`}>
             <Grid.Column width={5}>
               <label> Frequency </label>
             </Grid.Column>
@@ -166,7 +158,7 @@ export default function MutualFundTicket(props) {
             </Grid.Column>
           </Grid.Row>
 
-          <Grid.Row>
+          <Grid.Row className={!props.isUpdate&&`row-ticket`}>
             <Grid.Column width={5}>
               <label> {investmentType === InvestmentType.ONE_TIME ? "Lumpsum Amount" : "Amount"} </label>
             </Grid.Column>
@@ -180,7 +172,7 @@ export default function MutualFundTicket(props) {
               />
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row className={!props.isUpdate&&`row-ticket`}>
             <Grid.Column width={5}>
               <label>Date</label>
             </Grid.Column>
@@ -195,7 +187,7 @@ export default function MutualFundTicket(props) {
             </Grid.Column>
           </Grid.Row>
           <Button
-            className="invest"
+            className={`invest-mutualfund`}
             type="submit"
             onClick={createOrder}
             fluid

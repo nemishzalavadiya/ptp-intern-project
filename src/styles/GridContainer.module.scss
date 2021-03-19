@@ -30,18 +30,16 @@
 .grid-header-item {
   font-size: 0.7rem;
   min-width: 90px;
-  text-align: right;
+  text-align: left;
 }
 .grid-item {
   font-size: 0.9rem;
   min-width: 90px;
-  text-align: right;
+  text-align: left;
 }
-
 .icon-content {
   transform: translateX(-25%);
 }
-
 .ui.small.inverted.pagination.menu {
   margin-top: 20px;
 }
@@ -56,3 +54,8 @@ i.icon.minus.circle,
 i.icon.plus.circle {
   display: none;
 }
+
+
+
+
+

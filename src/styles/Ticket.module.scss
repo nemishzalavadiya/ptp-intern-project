@@ -3,7 +3,6 @@
   display: flex;
   justify-content: space-between;
 }
-
 .ui.segment.stockTicket {
   width: 30%;
   padding: 3%;
@@ -13,11 +12,9 @@
   border-radius: 15px;
   margin-top: 0%;
 }
-
 .ui.buttons > .ui.grey.positive {
   background: yellowgreen;
 }
-
 .ui.fluid.button.invest{
   margin-top: 5%;
   background-color: yellowgreen;
@@ -26,7 +23,6 @@
 {
   margin:auto;
 }
-
 .ui.segment.mutualFundTicket {
   width: 30%;
   padding: 3%;
@@ -34,4 +30,16 @@
   margin-right: 7%;
   border-radius: 15px;
   margin-top: 0%;
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+.ui.grid>.row.row-ticket{
+  height: 80px;
+}
+.ui.fluid.button.invest-mutualfund{
+  margin-top: 10%;
+  background-color: yellowgreen;
+}
+.ui.fluid.dropdown>.dropdown.icon{
+  color: black;
 }

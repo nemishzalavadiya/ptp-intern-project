@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 
 const Filter = (props) => {
 	const initialState = {
-		selectedFilters: Array(
-			...props.details.map((filter) =>
-				filter.type == filterType.RANGE ? { minimum: filter.minimum, maximum: filter.maximum } : []
-			)
-		),
+		selectedFilters: props.selectedFilters
 	};
-
+	const emptyState=Array(
+		...props.details.map((filter) =>
+			filter.type == filterType.RANGE ? { minimum: filter.minimum, maximum: filter.maximum } : []
+		)
+	);
 	const [selectedGroupState, setSelectedGroupState] = useState(props.selectedFilters);
 
 	useEffect(() => {
@@ -53,7 +53,7 @@ const Filter = (props) => {
 
 	const clearFilters = () => {
 		props.pageReset();
-		setSelectedGroupState(initialState.selectedFilters);
+		setSelectedGroupState(emptyState);
 	};
 
 	return (

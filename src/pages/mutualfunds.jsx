@@ -90,7 +90,7 @@ const mutualfunds = () => {
         }
       }
     }
-    router.replace("/mutualfunds", undefined, { shallow: true });
+    // router.replace("/mutualfunds", undefined, { shallow: true });
   }
 
   const [activePage, setActivePage] = useState(0);

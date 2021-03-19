@@ -59,7 +59,7 @@ export default function SIP(props) {
           item.timestamp.substr(0, 10),
           underscoreToCapitalize(item.investmentType),
           item.sipdate.substring(0, 10),
-          item.sipStatus,
+          capitalize(item.sipStatus),
           <Button.Group color="grey" icon>
             <Button
               onClick={() =>
